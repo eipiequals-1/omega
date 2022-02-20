@@ -23,6 +23,7 @@ class Texture {
 	void Unbind() const;
 	int GetWidth() const { return width; }
 	int GetHeight() const { return height; }
+	void SaveToFile(const std::string& filepath);
 
 	void FlipVertical();
 

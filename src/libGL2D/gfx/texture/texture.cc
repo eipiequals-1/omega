@@ -46,6 +46,11 @@ void Texture::Unbind() const {
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
+void Texture::SaveToFile(const std::string& filepath) {
+	SDL_SaveBMP(surf, filepath.c_str());
+	// std::cout << SDL_SaveBMP_RW(surf, SDL_RWFromFile(filepath.c_str(), "wb"), 1) << std::endl;
+}
+
 void Texture::FlipVertical() {
 	GLuint* pixels = (GLuint*)surf->pixels;
 	for (int row = 0; row < height / 2; row++) {
