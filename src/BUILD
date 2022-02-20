@@ -8,11 +8,11 @@ load(
 package(default_visibility= ["//visibility:public"])
 
 cc_binary(
-    name = "billiards",
+    name = "game",
     srcs = ["main.cc"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
-        "//src/game:billiards"
+        "//src/billiards:billiards"
     ]
 )

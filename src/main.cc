@@ -1,4 +1,4 @@
-#include "game/billiards.h"
+#include "billiards/billiards.h"
 
 int main() {
 	Billiards billiards;
