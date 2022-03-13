@@ -31,9 +31,5 @@ out vec4 color;
 
 void main() {
     int idx = int(v_TexIdx);
-    if (idx < 0) {
-        color = v_Color;
-    } else {
-        color = texture(u_Textures[idx], v_TexCoords) * v_Color;
-    }
+    color = texture(u_Textures[idx], v_TexCoords) * v_Color;
 }

@@ -18,7 +18,6 @@ GCC_FLAGS = [
     "-std=c++17",
     # Get easier to decode stack traces.
     "-fno-omit-frame-pointer ",
-    "-Isrc/"
 ]
 
 DEFAULT_COPTS = select({
