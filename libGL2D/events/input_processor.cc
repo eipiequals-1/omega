@@ -9,6 +9,10 @@ void InputProcessor::PrepareForUpdate() {
 	key_processor_.PrepareForUpdate();
 }
 
+bool InputProcessor::PollEvents(Event &event) {
+	return SDL_PollEvent(&event);
+}
+
 void InputProcessor::Update() {
 	key_processor_.Update();
 	int x, y;
@@ -17,4 +21,4 @@ void InputProcessor::Update() {
 	mouse_pos_.y = y;
 }
 
-} 
+}  // namespace libGL2D

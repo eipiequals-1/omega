@@ -8,10 +8,18 @@
 
 namespace libGL2D {
 
+using Event = SDL_Event;
+
+enum class EventType {
+	kQuit = SDL_QUIT,
+	kWindowEvent = SDL_WINDOWEVENT
+};
+
 class InputProcessor {
    public:
 	InputProcessor();
 	void PrepareForUpdate();
+	bool PollEvents(Event &event);
 	void Update();
 
 	KeyProcessor &GetKeyProcessor() { return key_processor_; }
