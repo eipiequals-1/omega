@@ -15,8 +15,8 @@ namespace libGL2D {
 
 class Texture {
    public:
-	explicit Texture(const std::string& filepath, GLenum minFilter = GL_LINEAR, GLenum magFilter = GL_LINEAR);
-	explicit Texture(SDL_Surface* surf, GLenum minFilter = GL_LINEAR, GLenum magFilter = GL_LINEAR);
+	explicit Texture(const std::string& filepath, GLenum minFilter = GL_NEAREST, GLenum magFilter = GL_NEAREST);
+	explicit Texture(SDL_Surface* surf, GLenum minFilter = GL_NEAREST, GLenum magFilter = GL_NEAREST);
 	~Texture();
 
 	void Bind(uint32_t slot = 0) const;
@@ -28,7 +28,7 @@ class Texture {
 	void FlipVertical();
 
    private:
-	void Load(bool flipVertical = true, GLenum minFilter = GL_LINEAR, GLenum magFilter = GL_LINEAR);
+	void Load(bool flipVertical = true, GLenum minFilter = GL_NEAREST, GLenum magFilter = GL_NEAREST);
 	GLuint id;
 	std::string filepath;
 
@@ -40,8 +40,8 @@ class Texture {
 
 class TextureManager {
    public:
-	void Load(const std::string& textureName, const std::string& filepath, GLenum minFilter = GL_LINEAR, GLenum magFilter = GL_LINEAR);
-	void Load(const std::string& textureName, SDL_Surface* surface, GLenum minFilter = GL_LINEAR, GLenum magFilter = GL_LINEAR);
+	void Load(const std::string& textureName, const std::string& filepath, GLenum minFilter = GL_NEAREST, GLenum magFilter = GL_NEAREST);
+	void Load(const std::string& textureName, SDL_Surface* surface, GLenum minFilter = GL_NEAREST, GLenum magFilter = GL_NEAREST);
 
 	Sptr<Texture> Get(const std::string& textureName);
 	bool Contains(const std::string& textureName);

@@ -16,7 +16,7 @@ Texture::Texture(const std::string& filepath, GLenum minFilter, GLenum magFilter
 	}
 	width = surf->w;
 	height = surf->h;
-	Load(minFilter, magFilter);
+	Load(true, minFilter, magFilter);
 }
 
 Texture::Texture(SDL_Surface* surf, GLenum minFilter, GLenum magFilter) : id(0), surf(surf), width(0), height(0) {
@@ -28,7 +28,7 @@ Texture::Texture(SDL_Surface* surf, GLenum minFilter, GLenum magFilter) : id(0),
 	std::cout << "width: " << width << ", height: " << height << "\n";
 	std::cout << "bpp: " << (int)surf->format->BytesPerPixel << "\n";
 	std::cout << ": " << (surf->format->Rmask == 255) << "\n";
-	Load(minFilter, magFilter);
+	Load(true, minFilter, magFilter);
 }
 
 Texture::~Texture() {

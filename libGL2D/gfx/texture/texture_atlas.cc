@@ -46,7 +46,10 @@ TextureAtlas::TextureAtlas(const std::string &atlas_file_path) : tex_(nullptr) {
 		Split(line, words, " ");
 		// must be line 1 -> contains image
 		if (i == 0) {
-			tex_ = std::make_shared<Texture>(words[1]);
+			// get full path to image file
+			std::string path = atlas_file_path.substr(0, atlas_file_path.size() - 5);
+			path += "png";
+			tex_ = std::make_shared<Texture>(path);
 			continue;
 		}
 		size_t num_words = words.size();
