@@ -23,3 +23,19 @@ cc_library(
         "-ltinyxml2"
     ],
 )
+
+cc_library(
+    name = "tiled",
+    srcs = ["tiled.cc"],
+    hdrs = ["tiled.h"],
+    copts = DEFAULT_COPTS,
+    linkopts = DEFAULT_LINKOPTS,
+    deps = [
+        "@GL//:GL",
+        "@SDL2//:SDL2",
+        "//libGL2D/core:using",
+        "//libGL2D/gfx:sprite_batch",
+        "//libGL2D/physics:math",
+        ":tmxparser",
+    ]
+)
