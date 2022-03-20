@@ -7,16 +7,58 @@
 #include <cstdint>
 #include <string>
 
+#include "libGL2D/core/using.h"
 #include "libGL2D/physics/math.h"
 
 namespace libGL2D {
 
-struct WinBuilder {
-	uint32_t width;
-	uint32_t height;
-	const std::string &window_title;
-	uint32_t win_flags;
-	uint32_t init_flags;
+/**
+ * Setup Config for Window
+ */
+class WinBuilder {
+   public:
+	WinBuilder() {
+		width_ = 800;
+		height_ = 450;
+		window_title_ = "libGL2D - Window";
+		win_flags_ = WindowFlags::kOpenGL;
+		init_flags_ = InitFlags::kEverything;
+	}
+
+	uint32_t get_width() const { return width_; }
+	uint32_t get_height() const { return height_; }
+	const std::string &get_window_title() const { return window_title_; }
+	WindowFlags get_win_flags() const { return win_flags_; }
+	InitFlags get_init_flags() const { return init_flags_; }
+
+	// config methods
+	WinBuilder &width(uint32_t width) {
+		width_ = width;
+		return *this;
+	}
+	WinBuilder &height(uint32_t height) {
+		height_ = height;
+		return *this;
+	}
+	WinBuilder &window_title(const std::string &window_title) {
+		window_title_ = window_title;
+		return *this;
+	}
+	WinBuilder &win_flags(WindowFlags win_flags) {
+		win_flags_ = win_flags;
+		return *this;
+	}
+	WinBuilder &init_flags(InitFlags init_flags) {
+		init_flags_ = init_flags;
+		return *this;
+	}
+
+   private:
+	uint32_t width_;
+	uint32_t height_;
+	std::string window_title_;
+	WindowFlags win_flags_;
+	InitFlags init_flags_;
 };
 
 class Window {

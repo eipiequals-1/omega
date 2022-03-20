@@ -23,7 +23,6 @@ class Application {
 	Uptr<Window> window_;
 	float fps_;
 	uint32_t last_time_;
-	bool delete_me;
 };
 }  // namespace libGL2D
 

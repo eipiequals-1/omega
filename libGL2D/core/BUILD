@@ -14,6 +14,7 @@ cc_library(
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
+        "@SDL2//:SDL2",
     ]
 )
 
@@ -25,6 +26,7 @@ cc_library(
     linkopts = DEFAULT_LINKOPTS,
     deps = [
         "@SDL2//:SDL2",
+        "//libGL2D/core:using",
         "//libGL2D/physics:math"
     ]
 )
@@ -38,5 +40,16 @@ cc_library(
     deps = [
         "//libGL2D/core:window",
         "//libGL2D/core:using",
+    ]
+)
+
+cc_library(
+    name = "ortho_camera",
+    srcs = ["ortho_camera.cc"],
+    hdrs = ["ortho_camera.h"],
+    copts = DEFAULT_COPTS,
+    linkopts = DEFAULT_LINKOPTS,
+    deps = [
+        "//libGL2D/physics:math"
     ]
 )
