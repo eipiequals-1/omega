@@ -86,6 +86,7 @@ class SpriteBatch {
 
 	static constexpr uint32_t kMaxTextures = 32;
 	std::vector<int> texture_binds_;
+	std::vector<const Texture *> textures_to_render_;
 
 	uint32_t quads_rendered_;
 	uint32_t tex_bind_slot_;

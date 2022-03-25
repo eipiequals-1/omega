@@ -2,6 +2,7 @@
 
 #include <GL/gl.h>
 
+#include <algorithm>
 #include <iostream>
 #include <memory>
 
@@ -81,7 +82,28 @@ void SpriteBatch::RenderTexture(const Texture *texture, glm::rect src, const glm
 		BeginRender();
 	}
 	float tex_id = tex_bind_slot_;
-
+	bool already_bound = false;
+	for (size_t i = 0; i < textures_to_render_.size(); ++i) {
+		const Texture *tex_to_render = textures_to_render_[i];
+		if (tex_to_render == texture) {
+			// must have already bound texture
+			already_bound = true;
+			tex_id = i;
+			break;
+		}
+	}
+	// if this texture is not already bound, bind
+	if (!already_bound) {
+		// add the texture to the to render vector and bind
+		// check if vector is not already too big
+		if (tex_bind_slot_ == textures_to_render_.size()) {
+			textures_to_render_.push_back(texture);
+		} else {
+			textures_to_render_[tex_bind_slot_] = texture;
+		}
+		texture->Bind(tex_bind_slot_);
+		tex_bind_slot_++;
+	}
 	// normalize src rect
 	src.x = src.x / texture->GetWidth();
 	src.y = src.y / texture->GetHeight();
@@ -99,9 +121,6 @@ void SpriteBatch::RenderTexture(const Texture *texture, glm::rect src, const glm
 
 	Quad q = {v0, v1, v2, v3};
 	auto quad = q.data();
-
-	texture->Bind(tex_bind_slot_);
-	tex_bind_slot_++;
 
 	vbo_->Bind();
 	vbo_->SubData(sizeof(Quad) * quads_rendered_, sizeof(Quad), quad);
@@ -136,6 +155,8 @@ void SpriteBatch::EndRender() {
 	vao_->Unbind();
 	ibo_->Unbind();
 	sprite_shader_->Unbind();
+
+	textures_to_render_.clear();
 }
 
 }  // namespace libGL2D
