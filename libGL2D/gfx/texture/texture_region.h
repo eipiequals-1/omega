@@ -16,6 +16,11 @@ class TextureRegion {
 	uint32_t get_w() const { return w_; }
 	uint32_t get_h() const { return h_; }
 	glm::rect get_rect() const { return glm::rect(x_, y_, w_, h_); }
+	/**
+	 * Returns the source rectangle used for rendering on a y-up axis
+	 * @return source rectangle
+	 */
+	glm::rect get_gl_rect() const { return glm::rect(x_, texture_->GetHeight() - y_ - h_, w_, h_); }
 
    private:
 	Texture *texture_;
