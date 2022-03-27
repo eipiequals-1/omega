@@ -1,5 +1,0 @@
-bazel-*
-.vscode
-*.xcf
-*.o
-*.so

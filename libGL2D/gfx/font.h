@@ -10,7 +10,7 @@
 #include "libGL2D/core/using.h"
 #include "libGL2D/physics/math.h"
 
-namespace libGL2D {
+namespace libgl {
 
 class Font {
    public:
@@ -35,6 +35,6 @@ class FontManager {
 	std::unordered_map<std::string, Sptr<Font>> fonts_;
 };
 
-}  // namespace libGL2D
+}  // namespace libgl
 
 #endif  // _LIBGL2D_GFX_FONT_H_

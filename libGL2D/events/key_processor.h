@@ -3,7 +3,7 @@
 
 #include <SDL2/SDL.h>
 
-namespace libGL2D {
+namespace libgl {
 
 enum class Key {
 	kEscape = SDL_SCANCODE_ESCAPE,
@@ -80,6 +80,6 @@ class KeyProcessor {
 	const uint8_t *keys_current_frame_;
 };
 
-}  // namespace libGL2D
+}  // namespace libgl
 
 #endif  // _LIBGL2D_EVENT_KEYPROCESSOR_H_

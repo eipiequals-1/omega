@@ -12,7 +12,7 @@
 #include "libGL2D/physics/math.h"
 #include "libGL2D/vendor/map/tmxparser.h"
 
-namespace libGL2D {
+namespace libgl {
 namespace tiled {
 
 class Map : private TmxMap {
@@ -65,6 +65,6 @@ class Map : private TmxMap {
 	Uptr<TextureManager> tex_manager_;
 };
 }  // namespace tiled
-}  // namespace libGL2D
+}  // namespace libgl
 
 #endif  // _LIBTMX_PARSER_TILED_H_

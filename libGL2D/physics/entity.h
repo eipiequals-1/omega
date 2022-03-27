@@ -6,7 +6,7 @@
 #include "libGL2D/gfx/texture/texture.h"
 #include "libGL2D/physics/math.h"
 
-namespace libGL2D {
+namespace libgl {
 
 class Entity {
    public:
@@ -23,13 +23,15 @@ class Entity {
 	virtual const glm::vec2 &get_vel() const { return vel_; }
 	virtual void set_vel(const glm::vec2 &vel) { vel_ = vel; }
 
-   private:
+   protected:
 	glm::vec2 vel_;
 };
 
 class CircleComponent {
    public:
 	CircleComponent(float x, float y, float radius);
+	const glm::vec2 &get_center() const { return center_; }
+	float get_radius() const { return radius_; }
 
    protected:
 	glm::vec2 center_;
@@ -39,6 +41,7 @@ class CircleComponent {
 class RectComponent {
    public:
 	RectComponent(float x, float y, float w, float h);
+	const glm::rect &get_rect() const { return rect_; }
 
    protected:
 	glm::rect rect_;
@@ -52,6 +55,6 @@ class SpriteComponent {
 	Texture *texture_;
 };
 
-}  // namespace libGL2D
+}  // namespace libgl
 
 #endif  // _LIBGL2D_PHYSICS_ENTITY_H_

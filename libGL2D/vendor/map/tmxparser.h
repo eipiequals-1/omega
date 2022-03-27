@@ -45,7 +45,7 @@ struct Map {
 
 #include <vector>
 
-namespace libGL2D {
+namespace libgl {
 namespace tiled {
 
 enum TmxReturn {
@@ -252,6 +252,6 @@ TmxReturn parseFromMemory(void* data, size_t length, TmxMap* outMap, const std::
 TmxReturn calculateTileCoordinatesUV(const Tileset& tileset, unsigned int tileFlatIndex, float pixelCorrection, bool flipY, Rect& outRect);
 
 }  // namespace tiled
-}  // namespace libGL2D
+}  // namespace libgl
 
 #endif /* _LIB_TMX_PARSER_H_ */

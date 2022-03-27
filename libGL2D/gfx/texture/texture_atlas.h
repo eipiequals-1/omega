@@ -8,7 +8,7 @@
 #include "libGL2D/gfx/texture/texture.h"
 #include "libGL2D/gfx/texture/texture_region.h"
 
-namespace libGL2D {
+namespace libgl {
 
 class TextureAtlas {
    public:
@@ -21,6 +21,6 @@ class TextureAtlas {
 	std::unordered_map<std::string, Sptr<TextureRegion>> tex_regions_;
 	Sptr<Texture> tex_;
 };
-}  // namespace libGL2D
+}  // namespace libgl
 
 #endif  // _LIBGL2D_GFX_TEXTURE_TEXTUREATLAS_H_

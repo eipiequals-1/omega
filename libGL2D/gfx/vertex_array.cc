@@ -2,7 +2,7 @@
 
 #include <GL/gl.h>
 
-namespace libGL2D {
+namespace libgl {
 
 VertexArray::VertexArray() {
 	glGenVertexArrays(1, &id_);
@@ -36,4 +36,4 @@ void VertexArray::Unbind() const {
 	glBindVertexArray(0);
 }
 
-}  // namespace libGL2D
+}  // namespace libgl

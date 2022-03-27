@@ -1,6 +1,6 @@
 #include "ortho_camera.h"
 
-namespace libGL2D {
+namespace libgl {
 
 OrthoCamera::OrthoCamera(float width, float height) : width_(width), height_(height) {
 	position_.x = width_ / 2.0f;
@@ -16,4 +16,4 @@ void OrthoCamera::Update() {
 	view_proj_ = glm::ortho(left, right, bottom, top);
 }
 
-}  // namespace libGL2D
+}  // namespace libgl

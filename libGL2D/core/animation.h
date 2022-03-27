@@ -6,7 +6,7 @@
 #include "libGL2D/gfx/texture/texture.h"
 #include "libGL2D/gfx/texture/texture_region.h"
 
-namespace libGL2D {
+namespace libgl {
 
 template <class T>
 class Animation {
@@ -29,6 +29,6 @@ class Animation {
 	float ms_per_frame_;
 };
 
-}  // namespace libGL2D
+}  // namespace libgl
 
 #endif  // _LIBGL2D_CORE_ANIMATION_H_

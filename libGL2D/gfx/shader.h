@@ -10,7 +10,7 @@
 #include "libGL2D/core/using.h"
 #include "libGL2D/physics/math.h"
 
-namespace libGL2D {
+namespace libgl {
 
 struct ShaderProgramSource {
 	std::string vertex_source;
@@ -61,6 +61,6 @@ class ShaderManager {
 	std::unordered_map<std::string, Sptr<Shader>> shaders;
 };
 
-}  // namespace libGL2D
+}  // namespace libgl
 
 #endif  // _LIBGL2D_GFX_SHADER_H_

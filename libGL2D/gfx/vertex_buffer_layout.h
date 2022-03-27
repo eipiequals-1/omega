@@ -5,7 +5,7 @@
 
 #include <vector>
 
-namespace libGL2D {
+namespace libgl {
 
 /**
  * A Vertex Buffer Attrib holds basic data about a single vertex attribute.
@@ -56,6 +56,6 @@ class VertexBufferLayout {
 	uint32_t stride_;  // space between this vertex and next vertex
 };
 
-}  // namespace libGL2D
+}  // namespace libgl
 
 #endif  // _LIBGL2D_GFX_VERTEXBUFFERLAYOUT_H_

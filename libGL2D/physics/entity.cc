@@ -1,6 +1,6 @@
 #include "entity.h"
 
-namespace libGL2D {
+namespace libgl {
 
 Entity::Entity() : vel_(0.0f, 0.0f) {
 }

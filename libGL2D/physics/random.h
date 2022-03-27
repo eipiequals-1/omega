@@ -3,7 +3,7 @@
 
 #include <vector>
 
-namespace libGL2D {
+namespace libgl {
 namespace randlib {
 /**
  * @param min inclusive min value
@@ -24,6 +24,6 @@ T &RandChoice(const std::vector<T> &vec) {
 	return vec[RandInt(0, vec.size())];
 }
 }  // namespace randlib
-}  // namespace libGL2D
+}  // namespace libgl
 
 #endif  // _LIBGL2D_PHYSICS_RANDOM_H_

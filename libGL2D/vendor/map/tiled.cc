@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-namespace libGL2D {
+namespace libgl {
 namespace tiled {
 
 Map::Map(const std::string &file_path, const std::string &tileset_path) {
@@ -14,7 +14,8 @@ Map::Map(const std::string &file_path, const std::string &tileset_path) {
 	tex_manager_ = std::make_unique<TextureManager>();
 	for (const auto &tileset : tilesetCollection) {
 		path = tileset.image.source;
-		tex_manager_->Load(tileset.name, path, GL_NEAREST, GL_NEAREST);
+		std::cout << tileset_path << "/" << path << std::endl;
+		tex_manager_->Load(tileset.name, tileset_path + "/" + path, GL_NEAREST, GL_NEAREST);
 	}
 }
 
@@ -22,6 +23,7 @@ Map::~Map() {
 }
 
 void Map::Render(SpriteBatch &batch) {
+	// (void)batch;
 	for (const auto &layer : layerCollection) {
 		if (layer.visible) {
 			RenderTileLayer(batch, layer);
@@ -30,9 +32,7 @@ void Map::Render(SpriteBatch &batch) {
 }
 
 void Map::RenderTileLayer(SpriteBatch &batch, const Layer &layer) {
-	auto img = tex_manager_->Get("tileset").get();
 	glm::rect src, dest;
-	batch.RenderTexture(img, src, dest);
 	for (size_t tile_idx = 0; tile_idx < layer.tiles.size(); ++tile_idx) {
 		const auto &tile = layer.tiles[tile_idx];
 		if (tile.gid == 0) {
@@ -50,7 +50,7 @@ void Map::RenderTileLayer(SpriteBatch &batch, const Layer &layer) {
 		dest.y = (height - 1 - tile_idx / width) * tileHeight;
 		dest.w = tileWidth;
 		dest.h = tileHeight;
-
+		auto img = tex_manager_->Get(tileset.name).get();
 		batch.RenderTexture(img, src, dest, glm::vec4(1.0f, 1.0f, 0.0f, 1.0f));
 	}
 }
@@ -86,4 +86,4 @@ void Map::GetTilesWithProperty(const std::string &property, std::vector<Tile *> 
 }
 
 }  // namespace tiled
-}  // namespace libGL2D
+}  // namespace libgl

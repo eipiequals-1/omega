@@ -8,7 +8,7 @@
 
 #include "libGL2D/gfx/errors.h"
 
-namespace libGL2D {
+namespace libgl {
 
 Shader::Shader(const std::string& filepath) : filepath_(filepath) {
 	ShaderProgramSource source = ParseShader();
@@ -173,4 +173,4 @@ Sptr<Shader> ShaderManager::operator[](const std::string& shader_name) {
 	return Get(shader_name);
 }
 
-}  // namespace libGL2D
+}  // namespace libgl

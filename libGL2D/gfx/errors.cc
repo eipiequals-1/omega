@@ -5,7 +5,7 @@
 
 #include <iostream>
 
-namespace libGL2D {
+namespace libgl {
 
 bool GLCheckError() {
 	int count = 0;
@@ -18,4 +18,4 @@ bool GLCheckError() {
 	return count > 0;
 }
 
-}  // namespace libGL2D
+}  // namespace libgl

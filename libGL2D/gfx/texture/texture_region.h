@@ -6,7 +6,7 @@
 #include "libGL2D/gfx/texture/texture.h"
 #include "libGL2D/physics/math.h"
 
-namespace libGL2D {
+namespace libgl {
 
 class TextureRegion {
    public:
@@ -30,6 +30,6 @@ class TextureRegion {
 	uint32_t h_;
 	std::string region_name_;
 };
-}  // namespace libGL2D
+}  // namespace libgl
 
 #endif  // _LIBGL2D_GFX_TEXTURE_TEXTUREREGION_H_

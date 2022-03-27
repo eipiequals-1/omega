@@ -1,6 +1,6 @@
 #include "input_processor.h"
 
-namespace libGL2D {
+namespace libgl {
 
 InputProcessor::InputProcessor() {
 }
@@ -21,4 +21,4 @@ void InputProcessor::Update() {
 	mouse_pos_.y = y;
 }
 
-}  // namespace libGL2D
+}  // namespace libgl

@@ -1,7 +1,7 @@
 #include "application.h"
 
 #include "libGL2D/physics/math.h"
-namespace libGL2D {
+namespace libgl {
 Application::Application(const WinBuilder& builder) : running_(true), fps_(60) {
 	window_ = std::make_unique<Window>();
 	running_ = window_->Init(builder);

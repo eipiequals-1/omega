@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-namespace libGL2D {
+namespace libgl {
 
 Font::Font(const std::string& path, uint32_t size) : size_(size), font_(nullptr) {
 	font_ = TTF_OpenFont(path.c_str(), size);
@@ -29,4 +29,4 @@ void FontManager::Load(const std::string& font_name, const std::string& filepath
 	fonts_[font_name] = std::make_shared<Font>(filepath, ptsize);
 }
 
-}  // namespace libGL2D
+}  // namespace libgl

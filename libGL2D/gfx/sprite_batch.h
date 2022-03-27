@@ -16,7 +16,7 @@
 #include "libGL2D/gfx/vertex_buffer_layout.h"
 #include "libGL2D/physics/math.h"
 
-namespace libGL2D {
+namespace libgl {
 
 struct Vertex {
 	float position[3];
@@ -72,26 +72,26 @@ class SpriteBatch {
 	// RenderTexture parts of a texture
 	virtual void RenderTexture(const Texture *texture, const glm::rect &src, const glm::rect &dest, const glm::vec4 &color = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
 
-   private:
+   protected:
 	Uptr<Shader> sprite_shader_;
 	Uptr<VertexBuffer> vbo_;
 	Uptr<VertexArray> vao_;
 	Uptr<IndexBuffer> ibo_;
 
 	static constexpr uint32_t kQuadCapacity = 1000;
-	static constexpr uint32_t kIndexBufferCapacity = 1000 * 6;
-	static constexpr uint32_t kVertexBufferCapacity = 1000 * 4;
+	static constexpr uint32_t kIndexBufferCapacity = kQuadCapacity * 6;
+	static constexpr uint32_t kVertexBufferCapacity = kQuadCapacity * 4;
 	static constexpr uint32_t kVertexCount = 10;
 	static constexpr uint32_t kIndexCount = 6;
 
 	static constexpr uint32_t kMaxTextures = 32;
-	std::vector<int> texture_binds_;
-	std::vector<const Texture *> textures_to_render_;
+	std::array<int, kMaxTextures> texture_binds_;
+	std::array<const Texture *, kMaxTextures> textures_to_render_;
 
 	uint32_t quads_rendered_;
 	uint32_t tex_bind_slot_;
 };
 
-}  // namespace libGL2D
+}  // namespace libgl
 
 #endif  // _LIBGL2D_GFX_SPRITEBATCH_H_

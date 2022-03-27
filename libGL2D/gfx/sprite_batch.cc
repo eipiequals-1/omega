@@ -6,7 +6,7 @@
 #include <iostream>
 #include <memory>
 
-namespace libGL2D {
+namespace libgl {
 
 Quad CreateQuad(float x, float y, float w, float h, float texId, const glm::vec4 &color) {
 	Vertex v0 = {{x, y, 0.0f}, {color.r, color.g, color.b, color.a}, {0.0f, 0.0f}, texId};          // bottom left
@@ -44,7 +44,6 @@ SpriteBatch::SpriteBatch() : quads_rendered_(0), tex_bind_slot_(0) {
 	layout.Push(GL_FLOAT, 1);
 	vao_->AddBuffer(*vbo_, layout);
 
-	texture_binds_.reserve(kMaxTextures);
 	for (uint32_t i = 0; i < kMaxTextures; ++i) {
 		texture_binds_[i] = i;
 	}
@@ -82,27 +81,26 @@ void SpriteBatch::RenderTexture(const Texture *texture, glm::rect src, const glm
 		BeginRender();
 	}
 	float tex_id = tex_bind_slot_;
+	// check if texture has been used in this batch
 	bool already_bound = false;
+	std::cout << tex_bind_slot_ << "\n";
 	for (size_t i = 0; i < textures_to_render_.size(); ++i) {
 		const Texture *tex_to_render = textures_to_render_[i];
 		if (tex_to_render == texture) {
 			// must have already bound texture
 			already_bound = true;
-			tex_id = i;
+			tex_id = i;  // update tex slot
+			// std::cout << "already_bound\n";
 			break;
 		}
 	}
 	// if this texture is not already bound, bind
 	if (!already_bound) {
 		// add the texture to the to render vector and bind
-		// check if vector is not already too big
-		if (tex_bind_slot_ == textures_to_render_.size()) {
-			textures_to_render_.push_back(texture);
-		} else {
-			textures_to_render_[tex_bind_slot_] = texture;
-		}
+		textures_to_render_[tex_bind_slot_] = texture;
 		texture->Bind(tex_bind_slot_);
 		tex_bind_slot_++;
+		// std::cout << "not already_bound\n";
 	}
 	// normalize src rect
 	src.x = src.x / texture->GetWidth();
@@ -155,8 +153,6 @@ void SpriteBatch::EndRender() {
 	vao_->Unbind();
 	ibo_->Unbind();
 	sprite_shader_->Unbind();
-
-	textures_to_render_.clear();
 }
 
-}  // namespace libGL2D
+}  // namespace libgl

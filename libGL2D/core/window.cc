@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-namespace libGL2D {
+namespace libgl {
 Window::Window() : width_(0), height_(0), window_(nullptr) {
 }
 
@@ -50,4 +50,4 @@ void Window::Clear(GLbitfield mask) {
 void Window::SwapBuffers() {
 	SDL_GL_SwapWindow(window_);
 }
-}  // namespace libGL2D
+}  // namespace libgl

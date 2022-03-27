@@ -98,7 +98,7 @@ THE SOFTWARE.
 	fprintf(stderr, "\n");
 #endif
 
-namespace libGL2D {
+namespace libgl {
 namespace tiled {
 
 #define CHECK_AND_RETRIEVE_OPT_ATTRIBUTE_STRING(XMLELEMENT, ATTRIBNAME, LHS) \
@@ -793,4 +793,4 @@ tiled::TmxReturn _parseImageLayerNode(tinyxml2::XMLElement* element, ImageLayer*
 }
 
 }  // namespace tiled
-}  // namespace libGL2D
+}  // namespace libgl

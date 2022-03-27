@@ -3,7 +3,7 @@
 
 #include <GL/gl.h>
 
-namespace libGL2D {
+namespace libgl {
 
 class IndexBuffer {
    public:
@@ -30,6 +30,6 @@ class IndexBuffer {
 	GLuint count_;
 };
 
-}  // namespace libGL2D
+}  // namespace libgl
 
 #endif  // _LIBGL2D_GFX_INDEXBUFFER_H_

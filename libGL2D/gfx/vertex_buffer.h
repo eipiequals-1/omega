@@ -3,7 +3,7 @@
 
 #include <GL/gl.h>
 
-namespace libGL2D {
+namespace libgl {
 
 /**
  * A Vertex Buffer provides methods for adding / storing vertex data such as position, normal, vector, color, etc to the GPU.
@@ -30,6 +30,6 @@ class VertexBuffer {
    private:
 	uint32_t id_;
 };
-}  // namespace libGL2D
+}  // namespace libgl
 
 #endif  // _LIBGL2D_GFX_VERTEXBUFFER_H_

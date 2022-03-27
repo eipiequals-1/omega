@@ -2,7 +2,7 @@
 
 #include <GL/gl.h>
 
-namespace libGL2D {
+namespace libgl {
 
 IndexBuffer::IndexBuffer(const uint32_t* data, uint32_t count) : count_(count) {
 	glGenBuffers(1, &id_);
@@ -33,4 +33,4 @@ void IndexBuffer::SubData(GLintptr offset, GLsizeiptr size, const GLvoid* data) 
 	glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, offset, size, data);
 }
 
-}  // namespace libGL2D
+}  // namespace libgl

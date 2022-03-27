@@ -10,7 +10,7 @@
 #include "libGL2D/core/using.h"
 #include "libGL2D/physics/math.h"
 
-namespace libGL2D {
+namespace libgl {
 
 /**
  * Setup Config for Window
@@ -80,6 +80,6 @@ class Window {
 	SDL_Window *window_;
 };
 
-}  // namespace libGL2D
+}  // namespace libgl
 
 #endif  // _LIBGL2D_CORE_WINDOW_H_

@@ -4,7 +4,7 @@
 #include "libGL2D/core/using.h"
 #include "libGL2D/core/window.h"
 
-namespace libGL2D {
+namespace libgl {
 
 class Application {
    public:
@@ -24,6 +24,6 @@ class Application {
 	float fps_;
 	uint32_t last_time_;
 };
-}  // namespace libGL2D
+}  // namespace libgl
 
 #endif  // _LIBGL2D_CORE_APPLICATION_H_

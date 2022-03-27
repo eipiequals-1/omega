@@ -3,7 +3,7 @@
 
 #include "libGL2D/physics/math.h"
 
-namespace libGL2D {
+namespace libgl {
 
 class OrthoCamera {
    public:
@@ -16,6 +16,8 @@ class OrthoCamera {
 	const glm::vec2& get_position() const { return position_; }
 	float get_x() const { return position_.x; }
 	float get_y() const { return position_.y; }
+	float get_width() const { return width_; }
+	float get_height() const { return height_; }
 
 	void Update();
 	const glm::mat4& GetViewProjectionMatrix() const { return view_proj_; }
@@ -25,6 +27,6 @@ class OrthoCamera {
 	glm::mat4 view_proj_;
 	glm::vec2 position_;
 };
-}  // namespace libGL2D
+}  // namespace libgl
 
 #endif  // _LIBGL2D_CORE_ORTHOCAMERA_H_

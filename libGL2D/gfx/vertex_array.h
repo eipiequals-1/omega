@@ -6,7 +6,7 @@
 #include "libGL2D/gfx/vertex_buffer.h"
 #include "libGL2D/gfx/vertex_buffer_layout.h"
 
-namespace libGL2D {
+namespace libgl {
 
 /**
  * A Vertex Array stores all of the data to supply a vertex. This implementation holds Vertex Buffers as a wrapper for the vertex attributes
@@ -30,6 +30,6 @@ class VertexArray {
 	uint32_t id_;
 };
 
-}  // namespace libGL2D
+}  // namespace libgl
 
 #endif  // _LIBGL2D_GFX_VERTEXARRAY_H_

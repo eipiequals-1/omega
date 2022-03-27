@@ -5,7 +5,7 @@
 
 #include <memory>
 
-namespace libGL2D {
+namespace libgl {
 
 template <typename T>
 using Uptr = std::unique_ptr<T>;
@@ -30,6 +30,6 @@ enum class InitFlags {
 	kEverything = SDL_INIT_EVERYTHING
 };
 
-}  // namespace libGL2D
+}  // namespace libgl
 
 #endif  // _LIBGL2D_CORE_USING_H_

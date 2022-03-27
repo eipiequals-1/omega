@@ -6,7 +6,7 @@
 #include "libGL2D/events/key_processor.h"
 #include "libGL2D/physics/math.h"
 
-namespace libGL2D {
+namespace libgl {
 
 using Event = SDL_Event;
 
@@ -34,6 +34,6 @@ class InputProcessor {
 	uint32_t buttons_;
 };
 
-}  // namespace libGL2D
+}  // namespace libgl
 
 #endif  // _LIBGL2D_EVENTS_INPUTPROCESSOR_H_

@@ -6,7 +6,7 @@
 
 #include <iostream>
 
-namespace libGL2D {
+namespace libgl {
 
 Texture::Texture(const std::string& filepath, GLenum minFilter, GLenum magFilter) : id(0), filepath(filepath), surf(nullptr), width(0), height(0) {
 	surf = IMG_Load(filepath.c_str());
@@ -127,4 +127,4 @@ Sptr<Texture> TextureManager::operator[](const std::string& textureName) {
 	return Get(textureName);
 }
 
-}  // namespace libGL2D
+}  // namespace libgl

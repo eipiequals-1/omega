@@ -2,7 +2,7 @@
 
 #include <GL/gl.h>
 
-namespace libGL2D {
+namespace libgl {
 
 VertexBuffer::VertexBuffer(const void *data, uint32_t size) {
 	glGenBuffers(1, &id_);
@@ -33,4 +33,4 @@ void VertexBuffer::SubData(GLintptr offset, GLsizeiptr size, const GLvoid *data)
 	glBufferSubData(GL_ARRAY_BUFFER, offset, size, data);
 }
 
-}  // namespace libGL2D
+}  // namespace libgl

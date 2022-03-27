@@ -4,7 +4,7 @@
 
 #include <iostream>
 
-namespace libGL2D {
+namespace libgl {
 
 KeyProcessor::KeyProcessor() : keys_current_frame_(nullptr) {
 	keys_current_frame_ = SDL_GetKeyboardState(nullptr);
@@ -45,4 +45,4 @@ bool KeyProcessor::KeyPressed(Key keycode) const {
 	return keys_current_frame_[(int)keycode];
 }
 
-}  // namespace libGL2D
+}  // namespace libgl

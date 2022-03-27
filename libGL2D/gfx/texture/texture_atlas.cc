@@ -16,7 +16,7 @@ static void Split(std::string str, std::vector<std::string> &ret_vec, const std:
 	}
 }
 
-namespace libGL2D {
+namespace libgl {
 
 TextureAtlas::TextureAtlas(const std::string &atlas_file_path) : tex_(nullptr) {
 	// open file
@@ -77,4 +77,4 @@ Sptr<TextureRegion> TextureAtlas::Get(const std::string &texture_name) {
 	return tex_regions_[texture_name];
 }
 
-}  // namespace libGL2D
+}  // namespace libgl

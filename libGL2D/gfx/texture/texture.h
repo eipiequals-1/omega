@@ -11,7 +11,7 @@
 #include "libGL2D/core/using.h"
 #include "libGL2D/gfx/errors.h"
 
-namespace libGL2D {
+namespace libgl {
 
 class Texture {
    public:
@@ -52,6 +52,6 @@ class TextureManager {
 	std::unordered_map<std::string, Sptr<Texture>> textures;
 };
 
-}  // namespace libGL2D
+}  // namespace libgl
 
 #endif  // _LIBGL2D_GFX_TEXTURE_TEXTURE_H_
