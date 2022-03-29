@@ -8,7 +8,7 @@
 
 namespace libgl {
 
-Texture::Texture(const std::string& filepath, GLenum minFilter, GLenum magFilter) : id(0), filepath(filepath), surf(nullptr), width(0), height(0) {
+Texture::Texture(const std::string& filepath, GLenum minFilter, GLenum magFilter) : id(0), filepath(filepath), surf(nullptr), flipped_pixels_(nullptr), width(0), height(0) {
 	surf = IMG_Load(filepath.c_str());
 	if (surf == nullptr) {
 		std::cout << "IMG error: Error loading '" + filepath + "': " + IMG_GetError() << "\n";
@@ -16,25 +16,24 @@ Texture::Texture(const std::string& filepath, GLenum minFilter, GLenum magFilter
 	}
 	width = surf->w;
 	height = surf->h;
-	Load(true, minFilter, magFilter);
+	Load(minFilter, magFilter);
 }
 
-Texture::Texture(SDL_Surface* surf, GLenum minFilter, GLenum magFilter) : id(0), surf(surf), width(0), height(0) {
+Texture::Texture(SDL_Surface* surf, GLenum minFilter, GLenum magFilter) : id(0), surf(surf), flipped_pixels_(nullptr), width(0), height(0) {
 	if (surf == nullptr) {
 		std::cout << "SDL_Surface error: Invalid Surface (surf = nullptr)\n";
 	}
 	width = surf->w;
 	height = surf->h;
-	std::cout << "width: " << width << ", height: " << height << "\n";
-	std::cout << "bpp: " << (int)surf->format->BytesPerPixel << "\n";
-	std::cout << ": " << (surf->format->Rmask == 255) << "\n";
-	Load(true, minFilter, magFilter);
+	Load(minFilter, magFilter);
 }
 
 Texture::~Texture() {
 	glDeleteTextures(1, &id);
 	if (surf != nullptr) SDL_FreeSurface(surf);
 	surf = nullptr;
+	delete[] flipped_pixels_;
+	flipped_pixels_ = nullptr;
 }
 
 void Texture::Bind(GLuint slot) const {
@@ -53,25 +52,26 @@ void Texture::SaveToFile(const std::string& filepath) {
 }
 
 void Texture::FlipVertical() {
-	GLuint* pixels = (GLuint*)surf->pixels;
-	for (int row = 0; row < height / 2; row++) {
+	// if texture is already flipped
+	if (flipped_pixels_ != nullptr) {
+		return;
+	}
+	flipped_pixels_ = new uint32_t[width * height];
+	GLuint* sdl_pixels = (GLuint*)surf->pixels;
+	for (int row = 0; row < height; row++) {
 		for (int col = 0; col < width; col++) {
-			int originalPixIdx = row * width + col;
-			GLuint* originalPix = &pixels[originalPixIdx];
+			GLuint original_pix = sdl_pixels[row * width + col];  // get data in sdl_image
 
-			int reflectPixIdx = (height - 1 - row) * width + col;
-			GLuint* reflectPix = &pixels[reflectPixIdx];
-			// swap
-			GLuint copyReflect = *reflectPix;  // copy of data
-			*reflectPix = *originalPix;
-			*originalPix = copyReflect;
-			// GLubyte* colors = (GLubyte*)originalPix;
-			// printf("%u, %u, %u, %u\n", colors[0], colors[1], colors[2], colors[3]);
+			// evaluate flipped pix idx and pointer
+			uint32_t flipped_pix_idx = (height - 1 - row) * width + col;
+			GLuint* flipped_pix = &flipped_pixels_[flipped_pix_idx];
+			// set flipped pixel to original pix data
+			*flipped_pix = original_pix;
 		}
 	}
 }
 
-void Texture::Load(bool flipVertical, GLenum minFilter, GLenum magFilter) {
+void Texture::Load(GLenum minFilter, GLenum magFilter) {
 	glGenTextures(1, &id);
 	Bind();
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, minFilter);     // if rendered smaller, use linear
@@ -99,11 +99,9 @@ void Texture::Load(bool flipVertical, GLenum minFilter, GLenum magFilter) {
 		std::cout << message << '\n';
 		return;
 	}
-	if (flipVertical) {
-		FlipVertical();  // flip pixels to match OpenGL system
-	}
+	FlipVertical();  // flip pixels to match OpenGL system
 
-	glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, surf->pixels);
+	glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, flipped_pixels_);
 	Unbind();
 }
 

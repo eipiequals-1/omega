@@ -21,18 +21,25 @@ class Texture {
 
 	void Bind(uint32_t slot = 0) const;
 	void Unbind() const;
-	int GetWidth() const { return width; }
-	int GetHeight() const { return height; }
+	int get_width() const { return width; }
+	int get_height() const { return height; }
 	void SaveToFile(const std::string& filepath);
 
 	void FlipVertical();
+	uint32_t* get_sdl_pixels() const {
+		return (uint32_t*)surf->pixels;
+	}
+	uint32_t* get_opengl_pixels() const {
+		return flipped_pixels_;
+	}
 
    private:
-	void Load(bool flipVertical = true, GLenum minFilter = GL_NEAREST, GLenum magFilter = GL_NEAREST);
+	void Load(GLenum minFilter = GL_NEAREST, GLenum magFilter = GL_NEAREST);
 	GLuint id;
 	std::string filepath;
 
 	SDL_Surface* surf;
+	uint32_t* flipped_pixels_;  // store the pixels in OpenGL coords
 
 	GLsizei width, height;
 	uint8_t bpp;  // bytes per pixel

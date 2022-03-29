@@ -20,7 +20,7 @@ class TextureRegion {
 	 * Returns the source rectangle used for rendering on a y-up axis
 	 * @return source rectangle
 	 */
-	glm::rect get_gl_rect() const { return glm::rect(x_, texture_->GetHeight() - y_ - h_, w_, h_); }
+	glm::rect get_gl_rect() const { return glm::rect(x_, texture_->get_height() - y_ - h_, w_, h_); }
 
    private:
 	Texture *texture_;

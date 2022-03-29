@@ -12,7 +12,7 @@ namespace libgl {
 class VertexBuffer {
    public:
 	VertexBuffer(const void *data, uint32_t size);
-	VertexBuffer(GLsizeiptr size);
+	explicit VertexBuffer(GLsizeiptr size);
 	~VertexBuffer();
 
 	void Bind() const;

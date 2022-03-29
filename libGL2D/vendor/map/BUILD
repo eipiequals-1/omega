@@ -39,3 +39,17 @@ cc_library(
         ":tmxparser",
     ]
 )
+
+cc_library(
+    name = "map_renderer",
+    srcs = ["map_renderer.cc"],
+    hdrs = ["map_renderer.h"],
+    copts = DEFAULT_COPTS,
+    linkopts = DEFAULT_LINKOPTS,
+    deps = [
+        "//libGL2D/core:using",
+        "//libGL2D/gfx:sprite_batch",
+        "//libGL2D/gfx/texture:texture",
+        ":tiled",
+    ]
+)

@@ -23,7 +23,6 @@ Map::~Map() {
 }
 
 void Map::Render(SpriteBatch &batch) {
-	// (void)batch;
 	for (const auto &layer : layerCollection) {
 		if (layer.visible) {
 			RenderTileLayer(batch, layer);
@@ -46,12 +45,12 @@ void Map::RenderTileLayer(SpriteBatch &batch, const Layer &layer) {
 		src.x = x * src.w;
 		src.y = y * src.h;
 		// invert y as well
-		dest.x = (tile_idx % width) * tileWidth;
-		dest.y = (height - 1 - tile_idx / width) * tileHeight;
+		dest.x = (tile_idx % layer.width) * tileWidth;
+		dest.y = (layer.height - 1 - tile_idx / layer.width) * tileHeight;
 		dest.w = tileWidth;
 		dest.h = tileHeight;
 		auto img = tex_manager_->Get(tileset.name).get();
-		batch.RenderTexture(img, src, dest, glm::vec4(1.0f, 1.0f, 0.0f, 1.0f));
+		batch.RenderTexture(img, src, dest);
 	}
 }
 
@@ -60,11 +59,10 @@ void Map::RenderObjectLayer(SpriteBatch &batch, const Layer &layer) {
 	(void)layer;
 }
 
-bool Map::GetIntersectRects(glm::rect &rect, std::vector<Tile *> &collided_tiles, std::vector<int> &collided_tile_indices) {
+void Map::GetIntersectRects(glm::rect &rect, std::vector<Tile *> &collided_tiles, std::vector<int> &collided_tile_indices) {
 	(void)rect;
 	(void)collided_tiles;
 	(void)collided_tile_indices;
-	return false;
 }
 
 void Map::SetTileRect(glm::rect &rect, unsigned int tile_idx) {

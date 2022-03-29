@@ -15,7 +15,7 @@
 namespace libgl {
 namespace tiled {
 
-class Map : private TmxMap {
+class Map : public TmxMap {
    public:
 	Map(const std::string &file_path, const std::string &tileset_path);
 	virtual ~Map();
@@ -30,9 +30,8 @@ class Map : private TmxMap {
 	 * @param rect intersection test rect
 	 * @param collidedRects vector of pointers to tiles that intersect with the given rect
 	 * @param collidedTileIndices vector of ints containing the location of the collided tiles in the layer vector
-	 * @return if the given rect collides with any non empty tiles
 	 */
-	virtual bool GetIntersectRects(glm::rect &rect, std::vector<Tile *> &collided_tiles, std::vector<int> &collided_tile_indices);
+	virtual void GetIntersectRects(glm::rect &rect, std::vector<Tile *> &collided_tiles, std::vector<int> &collided_tile_indices);
 
 	/**
 	 * Sets the tile rectangle based off of the tileIdx
