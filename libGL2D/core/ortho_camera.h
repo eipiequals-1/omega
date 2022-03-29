@@ -19,6 +19,10 @@ class OrthoCamera {
 	float get_width() const { return width_; }
 	float get_height() const { return height_; }
 
+	bool InView(float x, float y) const {
+		return x >= position_.x - width_ / 2.0f && x <= position_.x + width_ / 2.0f && y >= position_.y - height_ / 2.0f && y <= position_.y + height_ / 2.0f;
+	}
+
 	void Update();
 	const glm::mat4& GetViewProjectionMatrix() const { return view_proj_; }
 

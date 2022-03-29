@@ -18,6 +18,7 @@ GCC_FLAGS = [
     "-std=c++17",
     # Get easier to decode stack traces.
     "-fno-omit-frame-pointer ",
+    "-pg"
 ]
 
 DEFAULT_COPTS = select({
@@ -25,5 +26,5 @@ DEFAULT_COPTS = select({
 })
 
 DEFAULT_LINKOPTS = select({
-    "//conditions:default": [],
+    "//conditions:default": ["-pg"],
 })
