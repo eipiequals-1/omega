@@ -22,6 +22,8 @@ class Entity {
 	}
 	virtual const glm::vec2 &get_vel() const { return vel_; }
 	virtual void set_vel(const glm::vec2 &vel) { vel_ = vel; }
+	virtual void set_vel_x(float x) { vel_.x = x; }
+	virtual void set_vel_y(float y) { vel_.y = y; }
 
    protected:
 	glm::vec2 vel_;
@@ -42,6 +44,16 @@ class RectComponent {
    public:
 	RectComponent(float x, float y, float w, float h);
 	const glm::rect &get_rect() const { return rect_; }
+	void set_x(float x) { rect_.x = x; }
+	void set_y(float y) { rect_.y = y; }
+	void set_w(float w) { rect_.w = w; }
+	void set_h(float h) { rect_.h = h; }
+	void set_rect(const glm::rect &r) { rect_ = r; }
+
+	virtual void OnLeftCollision(float left_bound);
+	virtual void OnRightCollision(float right_bound);
+	virtual void OnTopCollision(float top_bound);
+	virtual void OnBottomCollision(float bottom_bound);
 
    protected:
 	glm::rect rect_;
