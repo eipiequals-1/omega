@@ -17,6 +17,7 @@ class Texture {
    public:
 	explicit Texture(const std::string& filepath, GLenum minFilter = GL_NEAREST, GLenum magFilter = GL_NEAREST);
 	explicit Texture(SDL_Surface* surf, GLenum minFilter = GL_NEAREST, GLenum magFilter = GL_NEAREST);
+	explicit Texture(uint32_t* pixels, uint32_t width, uint32_t height, GLenum minFilter = GL_NEAREST, GLenum magFilter = GL_NEAREST);
 	~Texture();
 
 	void Bind(uint32_t slot = 0) const;

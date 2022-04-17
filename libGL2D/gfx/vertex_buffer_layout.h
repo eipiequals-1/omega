@@ -30,9 +30,8 @@ struct VertexBufferAttrib {
 };
 
 /**
- * A Vertex Buffer Layout is a wrapper for a OpenGL vertex.
+ * A Vertex Buffer Layout is a wrapper for an OpenGL vertex.
  * It sets the data (stride, elements) necessary to add to a Vertex Buffer.
- * This should be created before creation of a VertexBuffer
  */
 class VertexBufferLayout {
    public:

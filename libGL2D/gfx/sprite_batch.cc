@@ -69,20 +69,18 @@ void SpriteBatch::RenderTexture(const Texture *texture, glm::rect src, const glm
 	auto found_itr = std::find(textures_to_render_.begin(), textures_to_render_.end(), texture);
 	if (found_itr != textures_to_render_.end()) {
 		tex_id = found_itr - textures_to_render_.begin();
-		// std::cout << "already_bound\n";
 	} else {
 		// add the texture to the to render vector and bind
 		textures_to_render_[tex_bind_slot_] = texture;
 		texture->Bind(tex_bind_slot_);
 		tex_bind_slot_++;
-		// std::cout << "not already_bound\n";
 	}
 	// normalize src rect
 	src.x = src.x / texture->get_width();
 	src.y = src.y / texture->get_height();
 	src.w = src.w / texture->get_width();
 	src.h = src.h / texture->get_height();
-	const float z = 0.0f;
+	constexpr float z = 0.0f;
 	Vertex v0 = {{dest.x, dest.y, z}, {color.r, color.g, color.b, color.a}, {src.x, src.y}, tex_id};
 	Vertex v1 = {{dest.x + dest.w, dest.y, z}, {color.r, color.g, color.b, color.a}, {src.x + src.w, src.y}, tex_id};
 	Vertex v2 = {{dest.x + dest.w, dest.y + dest.h, z}, {color.r, color.g, color.b, color.a}, {src.x + src.w, src.y + src.h}, tex_id};
