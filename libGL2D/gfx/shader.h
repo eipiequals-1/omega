@@ -20,6 +20,7 @@ struct ShaderProgramSource {
 class Shader {
    public:
 	explicit Shader(const std::string& filepath);
+	Shader(const std::string& vertex_source, const std::string& fragment_source);
 	~Shader();
 
 	void Bind() const;
@@ -38,14 +39,13 @@ class Shader {
 	GLuint GetID() const { return id_; }
 
    private:
-	ShaderProgramSource ParseShader();
+	ShaderProgramSource ParseShader(const std::string& filepath);
 
 	GLint GetUniformLocation(const std::string& name);
 	GLuint CompileShader(uint32_t type, const std::string& source);
 	GLuint CreateShader(const std::string& vertex_shader, const std::string& fragment_shader);
 
 	GLuint id_;
-	std::string filepath_;
 	std::unordered_map<std::string, int> uniform_loc_cache_;
 };
 

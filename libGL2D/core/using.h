@@ -3,6 +3,8 @@
 
 #include <SDL2/SDL.h>
 
+#include <cstdarg>
+#include <iostream>
 #include <memory>
 
 namespace libgl {
@@ -29,6 +31,19 @@ enum class InitFlags {
 	kEvents = SDL_INIT_EVENTS,
 	kEverything = SDL_INIT_EVERYTHING
 };
+
+inline void Log() {
+	std::cout << '\n';
+}
+
+/**
+ * @param args any arguments to print
+ */
+template <typename T, typename... Args>
+void Log(T t, Args... args) {
+	std::cout << t << ' ';
+	Log(args...);
+}
 
 }  // namespace libgl
 

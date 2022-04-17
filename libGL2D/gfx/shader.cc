@@ -10,9 +10,13 @@
 
 namespace libgl {
 
-Shader::Shader(const std::string& filepath) : filepath_(filepath) {
-	ShaderProgramSource source = ParseShader();
+Shader::Shader(const std::string& filepath) {
+	ShaderProgramSource source = ParseShader(filepath);
 	id_ = CreateShader(source.vertex_source, source.fragment_source);
+}
+
+Shader::Shader(const std::string& vertex_source, const std::string& fragment_source) {
+	id_ = CreateShader(vertex_source, fragment_source);
 }
 
 Shader::~Shader() {
@@ -73,8 +77,8 @@ GLint Shader::GetUniformLocation(const std::string& name) {
 	return loc;
 }
 
-ShaderProgramSource Shader::ParseShader() {
-	std::ifstream stream(filepath_);
+ShaderProgramSource Shader::ParseShader(const std::string& filepath) {
+	std::ifstream stream(filepath);
 	std::string line;
 
 	enum class ShaderType {
