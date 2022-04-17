@@ -14,7 +14,7 @@ struct Tex {
 	Tex(const std::string &input_dir, const std::string &filename) : filepath(filename) {
 		surf = IMG_Load((input_dir + filepath).c_str());
 		if (surf == nullptr) {
-			std::cout << "Unable to load surface \"" << filepath << "\" \n";
+			std::cout << "Unable to load surface \"" << input_dir + filepath << "\" \n";
 		}
 		x = 0;
 		y = 0;
@@ -161,8 +161,10 @@ int main() {
 		std::cout << "unable to open directory: \"" << input_dir_name << "\": " << strerror(errno) << std::endl;
 	}
 
+	std::cout << "Saving files to \"" << input_dir_name << "\"\n";
 	std::vector<Tex *> textures = LoadTextures(input_dir_name, png_files);
 	WriteFile(textures, output_dir_name, pack_name);
+	std::cout << "Remember to save the open and export file with Gimp to get correct format\n";
 	FreeTextures(textures);
 	return 0;
 }
