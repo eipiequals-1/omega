@@ -19,26 +19,21 @@ class Map : public TmxMap {
    public:
 	Map(const std::string &file_path, const std::string &tileset_path);
 	virtual ~Map();
-	/**
-	 * Render Map
-	 * @param batch to draw
-	 */
-	virtual void Render(SpriteBatch &batch);
 
 	/**
 	 * Returns if there is a collision between the surrounding rects
 	 * @param rect intersection test rect
-	 * @param collidedRects vector of pointers to tiles that intersect with the given rect
-	 * @param collidedTileIndices vector of ints containing the location of the collided tiles in the layer vector
+	 * @param collided_tiles vector of pointers to tiles that intersect with the given rect
+	 * @param collided_tile_indices vector of ints containing the location of the collided tiles in the layer vector
 	 */
-	virtual void GetIntersectRects(glm::rect &rect, std::vector<Tile *> &collided_tiles, std::vector<int> &collided_tile_indices);
+	virtual void GetIntersectRects(const glm::rect &rect, std::vector<Tile *> &collided_tiles, std::vector<uint32_t> &collided_tile_indices);
 
 	/**
 	 * Sets the tile rectangle based off of the tileIdx
 	 * @param rect reference to the rect to be changed
-	 * @param tileIdx index of the tile in the 1d tile vector
+	 * @param tile_idx index of the tile in the 1d tile vector
 	 */
-	virtual void SetTileRect(glm::rect &rect, unsigned int tile_idx);
+	virtual void SetTileRect(glm::rect &rect, uint32_t tile_idx);
 
 	/**
 	 * Checks if a tile has the given property
@@ -56,12 +51,6 @@ class Map : public TmxMap {
 	}
 
    protected:
-	virtual void RenderTileLayer(SpriteBatch &batch, const Layer &layer);
-	virtual void RenderObjectLayer(SpriteBatch &batch, const Layer &layer);
-	// virtual void RenderImageLayer(SDL_Renderer *renderer);
-
-	// used for drawing and collisions
-	Uptr<TextureManager> tex_manager_;
 };
 }  // namespace tiled
 }  // namespace libgl

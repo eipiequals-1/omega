@@ -12,7 +12,9 @@ MapRenderer::MapRenderer(Map *map, const std::string &tileset_path) : map_(map) 
 	}
 	// create new texture per layer
 	for (const auto &layer : map_->layerCollection) {
-		LoadLayer(layer);
+		if (layer.visible) {
+			LoadLayer(layer);
+		}
 	}
 }
 
