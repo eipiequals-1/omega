@@ -80,7 +80,6 @@ class ParticleEmitter {
 	Particle* particles_;
 	uint32_t num_particles_;
 
-	// std::vector<libgl::Uptr<Particle>> particles_;
 	EmitterBuilder data_;
 	float timer_;
 	float emit_timer_;
