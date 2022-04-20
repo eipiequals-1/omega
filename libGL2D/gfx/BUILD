@@ -58,6 +58,22 @@ cc_library(
 )
 
 cc_library(
+    name = "shape_renderer",
+    srcs = ["shape_renderer.cc"],
+    hdrs = ["shape_renderer.h"],
+    copts = DEFAULT_COPTS,
+    linkopts = DEFAULT_LINKOPTS,
+    deps = [
+        "@GL//:GL",
+        ":shader",
+        ":vertex_buffer",
+        ":vertex_buffer_layout",
+        ":vertex_array",
+        "//libGL2D/core:using"
+    ]
+)
+
+cc_library(
     name = "sprite_batch",
     srcs = ["sprite_batch.cc"],
     hdrs = ["sprite_batch.h"],
@@ -68,12 +84,12 @@ cc_library(
     ],
     deps = [
         "@GL//:GL",
-        "shader",
+        ":shader",
         "//libGL2D/gfx/texture:texture",
-        "vertex_buffer",
-        "vertex_buffer_layout",
-        "vertex_array",
-        "index_buffer"
+        ":vertex_buffer",
+        ":vertex_buffer_layout",
+        ":vertex_array",
+        ":index_buffer"
     ]
 )
 
