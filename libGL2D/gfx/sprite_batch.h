@@ -35,6 +35,7 @@ class SpriteBatch {
 	virtual void SetViewProjectionMatrix(const glm::mat4 &projection) {
 		sprite_shader_->Bind();
 		sprite_shader_->SetUniformMat4f("u_ViewProjMatrix", projection);
+		sprite_shader_->Unbind();
 	}
 
 	virtual void BeginRender();
