@@ -48,16 +48,17 @@ class Texture {
 
 class TextureManager {
    public:
-	void Load(const std::string& textureName, const std::string& filepath, GLenum minFilter = GL_NEAREST, GLenum magFilter = GL_NEAREST);
-	void Load(const std::string& textureName, SDL_Surface* surface, GLenum minFilter = GL_NEAREST, GLenum magFilter = GL_NEAREST);
+	using TextureID = uint32_t;
+	void Load(TextureID id, const std::string& filepath, GLenum minFilter = GL_NEAREST, GLenum magFilter = GL_NEAREST);
+	void Load(TextureID id, SDL_Surface* surface, GLenum minFilter = GL_NEAREST, GLenum magFilter = GL_NEAREST);
 
-	Sptr<Texture> Get(const std::string& textureName);
-	bool Contains(const std::string& textureName);
+	Sptr<Texture> Get(TextureID id);
+	bool Contains(TextureID id);
 
-	Sptr<Texture> operator[](const std::string& textureName);
+	Sptr<Texture> operator[](TextureID id);
 
    private:
-	std::unordered_map<std::string, Sptr<Texture>> textures;
+	std::unordered_map<TextureID, Sptr<Texture>> textures_;
 };
 
 }  // namespace libgl

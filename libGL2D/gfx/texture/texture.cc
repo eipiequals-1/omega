@@ -125,24 +125,24 @@ void Texture::Load(GLenum minFilter, GLenum magFilter) {
 	Unbind();
 }
 
-void TextureManager::Load(const std::string& textureName, const std::string& filepath, GLenum minFilter, GLenum magFilter) {
-	textures[textureName] = std::make_shared<Texture>(filepath, minFilter, magFilter);
+void TextureManager::Load(TextureID id, const std::string& filepath, GLenum minFilter, GLenum magFilter) {
+	textures_[id] = std::make_shared<Texture>(filepath, minFilter, magFilter);
 }
 
-void TextureManager::Load(const std::string& textureName, SDL_Surface* surface, GLenum minFilter, GLenum magFilter) {
-	textures[textureName] = std::make_shared<Texture>(surface, minFilter, magFilter);
+void TextureManager::Load(TextureID id, SDL_Surface* surface, GLenum minFilter, GLenum magFilter) {
+	textures_[id] = std::make_shared<Texture>(surface, minFilter, magFilter);
 }
 
-Sptr<Texture> TextureManager::Get(const std::string& textureName) {
-	return textures[textureName];
+Sptr<Texture> TextureManager::Get(TextureID id) {
+	return textures_[id];
 }
 
-bool TextureManager::Contains(const std::string& textureName) {
-	return textures.find(textureName) != textures.end();
+bool TextureManager::Contains(TextureID id) {
+	return textures_.find(id) != textures_.end();
 }
 
-Sptr<Texture> TextureManager::operator[](const std::string& textureName) {
-	return Get(textureName);
+Sptr<Texture> TextureManager::operator[](TextureID id) {
+	return Get(id);
 }
 
 }  // namespace libgl
