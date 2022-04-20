@@ -7,41 +7,13 @@
 
 namespace libgl {
 
-class Particle {
-   public:
+struct Particle {
 	Particle();
 	virtual ~Particle();
 
 	void Update(float dt);
 	bool is_dead() const {
-		return timer_ > lifespan_;
-	}
-	const glm::vec2 &get_pos() { return pos_; }
-	const glm::vec2 &get_vel() const { return vel_; }
-	const glm::vec4 &get_color() const { return color_; }
-	float get_w() const {
-		return w_;
-	}
-	float get_h() const {
-		return h_;
-	}
-	void set_pos(const glm::vec2 &p) {
-		pos_ = p;
-	}
-	void set_vel(const glm::vec2 &v) {
-		vel_ = v;
-	}
-	void set_lifespan(float l) {
-		lifespan_ = l;
-	}
-	void set_color(const glm::vec4 &c) {
-		color_ = c;
-	}
-	void set_w(float w) {
-		w_ = w;
-	}
-	void set_h(float h) {
-		h_ = h;
+		return life_remaining <= 0.0f;
 	}
 
 	/**
@@ -63,14 +35,12 @@ class Particle {
 		return color;
 	}
 
-   protected:
-	glm::vec2 pos_;  // bottom left of "rect"
-	glm::vec2 vel_;
-	float timer_;
-	float lifespan_;
-	float w_, h_;
+	glm::vec2 pos;  // bottom left of "rect"
+	glm::vec2 vel;
+	float life_remaining;
+	float w, h;
 
-	glm::vec4 color_;
+	glm::vec4 color;
 };
 }  // namespace libgl
 

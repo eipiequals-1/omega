@@ -27,7 +27,8 @@ struct EmitterBuilder {
 	uint32_t max_particles;  // max particles at a given instance
 	float emit_freq;         // time to emit particles
 	glm::vec2 pos;           // pos in world coordinates
-	glm::vec2 size;          // width and height describing particle
+	range width;             // width
+	range height;            // height
 	range rot_range;         // range in degrees where particles spawn
 	range speed;             // scalar range of different speeds
 	glm::vec2 accel;         // acceleration
@@ -44,17 +45,19 @@ class ParticleEmitter {
 	bool is_dead() const {
 		return timer_ > data_.lifespan;
 	}
-	void Reset() {
-		particles_.clear();
+	void Reset(bool del_particles = false) {
 		timer_ = 0.0f;
 		emit_timer_ = 0.0f;
+		if (del_particles) {
+			num_particles_ = 0;
+		}
 	}
 	void set_pos(const glm::vec2& pos) {
 		data_.pos = pos;
 	}
 
 	void Update(float dt);
-	void Render(SpriteBatch &batch);
+	void Render(SpriteBatch& batch);
 
 	EmitterBuilder& get_builder() {
 		return data_;
@@ -65,7 +68,7 @@ class ParticleEmitter {
 		u_int32_t to_add = 0;
 		while (emit_timer_ >= data_.emit_freq) {
 			emit_timer_ -= data_.emit_freq;
-			if (particles_.size() < data_.max_particles) {
+			if (num_particles_ + to_add < data_.max_particles) {
 				to_add++;
 			}
 		}
@@ -74,7 +77,10 @@ class ParticleEmitter {
 
 	void Emit();
 
-	std::vector<libgl::Uptr<Particle>> particles_;
+	Particle* particles_;
+	uint32_t num_particles_;
+
+	// std::vector<libgl::Uptr<Particle>> particles_;
 	EmitterBuilder data_;
 	float timer_;
 	float emit_timer_;
