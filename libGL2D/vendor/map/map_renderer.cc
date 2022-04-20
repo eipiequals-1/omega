@@ -6,9 +6,10 @@ namespace tiled {
 MapRenderer::MapRenderer(Map *map, const std::string &tileset_path) : map_(map) {
 	std::string path;
 	tex_manager_ = std::make_unique<TextureManager>();
-	for (const auto &tileset : map_->tilesetCollection) {
+	for (size_t i = 0; i < map_->tilesetCollection.size(); ++i) {
+		const auto &tileset = map_->tilesetCollection[i];
 		path = tileset.image.source;
-		tex_manager_->Load(tileset.name, tileset_path + "/" + path, GL_NEAREST, GL_NEAREST);
+		tex_manager_->Load(i, tileset_path + "/" + path, GL_NEAREST, GL_NEAREST);
 	}
 	// create new texture per layer
 	for (const auto &layer : map_->layerCollection) {

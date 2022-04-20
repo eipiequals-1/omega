@@ -27,7 +27,7 @@ class MapRenderer {
 		(void)layer_height_pix;
 		// get tileset image and pixels
 		const Tileset& tileset = map_->tilesetCollection[tile.tilesetIndex];
-		auto tileset_img = tex_manager_->Get(tileset.name);
+		auto tileset_img = tex_manager_->Get(tile.tilesetIndex);
 		uint32_t* tileset_pixels = tileset_img->get_sdl_pixels();  // sdl pixels since they are not inverted, new tileset image will be inverted later
 		// get location of rect on tileset
 		uint32_t src_x, src_y, src_w, src_h;
@@ -35,7 +35,6 @@ class MapRenderer {
 		src_h = tileset.tileHeight;
 		src_x = (tile.tileFlatIndex % tileset.colCount) * src_w;
 		src_y = (tile.tileFlatIndex / tileset.colCount) * src_h;
-		// printf("%i %i %i %i\n", src_x, src_y, src_w, src_h);
 		// if no tile set all of the tiles to 0
 		if (tile.gid == 0) {
 			for (uint32_t y = 0; y < src_h; ++y) {
