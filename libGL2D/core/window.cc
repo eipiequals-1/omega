@@ -18,7 +18,7 @@ bool Window::Init(const WinBuilder &builder) {
 	width_ = builder.get_width();
 	height_ = builder.get_height();
 	if (SDL_Init((uint32_t)builder.get_init_flags()) != 0) {
-		std::cout << "Failed to initialize SDL: " << SDL_GetError() << std::endl;
+		libgl::Log("Failed to initialize SDL: '", SDL_GetError(), "'");
 		return false;
 	}
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
@@ -28,14 +28,14 @@ bool Window::Init(const WinBuilder &builder) {
 
 	window_ = SDL_CreateWindow(builder.get_window_title().c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width_, height_, (uint32_t)builder.get_win_flags());
 	if (window_ == nullptr) {
-		std::cout << "Failed to create window: " << SDL_GetError() << std::endl;
+		libgl::Log("Failed to create window: '", SDL_GetError(), "'");
 		SDL_Quit();
 		return false;
 	}
 
 	SDL_GLContext gl_context = SDL_GL_CreateContext(window_);
 	if (gl_context == nullptr) {
-		std::cout << "Failed to create GL Context: " << SDL_GetError() << std::endl;
+		libgl::Log("Failed to create GL Context: '", SDL_GetError(), "'");
 		SDL_DestroyWindow(window_);
 		SDL_Quit();
 		return false;

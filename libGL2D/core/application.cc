@@ -1,14 +1,21 @@
 #include "application.h"
 
 #include "libGL2D/physics/math.h"
+
 namespace libgl {
 Application::Application(const WinBuilder& builder) : running_(true), fps_(60) {
 	window_ = std::make_unique<Window>();
 	running_ = window_->Init(builder);
+	// init TTF_Font
+	if (TTF_Init() != 0) {
+		libgl::Log("Unable to initialize SDL_ttf: '", SDL_GetError(), "'");
+		running_ = false;
+	}
 	last_time_ = SDL_GetTicks();
 }
 
 Application::~Application() {
+	TTF_Quit();
 }
 
 void Application::Update(float dt) {
@@ -46,4 +53,4 @@ void Application::Run() {
 		window_->SwapBuffers();
 	}
 }
-}
+}  // namespace libgl

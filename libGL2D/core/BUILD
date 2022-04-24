@@ -38,6 +38,7 @@ cc_library(
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
+        "@SDL2//:SDL2",
         "//libGL2D/core:window",
         "//libGL2D/core:using",
     ]

@@ -1,6 +1,10 @@
 #ifndef _LIBGL2D_CORE_APPLICATION_H_
 #define _LIBGL2D_CORE_APPLICATION_H_
 
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
+#include <SDL2/SDL_ttf.h>
+
 #include "libGL2D/core/using.h"
 #include "libGL2D/core/window.h"
 
