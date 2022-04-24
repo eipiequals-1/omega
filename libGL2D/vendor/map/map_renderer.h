@@ -18,8 +18,8 @@ class MapRenderer {
 	explicit MapRenderer(Map* map, const std::string& tileset_path);
 	virtual ~MapRenderer();
 
-	void Render(SpriteBatch& batch);
-	void RenderTileLayer(SpriteBatch& batch, const Layer& layer);
+	virtual void Render(SpriteBatch& batch);
+	virtual void RenderTileLayer(SpriteBatch& batch, const Layer& layer);
 
    protected:
 	void LoadLayer(const Layer& layer);
@@ -59,7 +59,7 @@ class MapRenderer {
 		}
 	}
 	Map* map_;
-	Uptr<TextureManager> tex_manager_;
+	Uptr<TextureManager<uint32_t>> tex_manager_;
 	std::vector<Uptr<Texture>> layer_texture_;
 };
 }  // namespace tiled

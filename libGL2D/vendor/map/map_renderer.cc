@@ -5,7 +5,7 @@ namespace tiled {
 
 MapRenderer::MapRenderer(Map *map, const std::string &tileset_path) : map_(map) {
 	std::string path;
-	tex_manager_ = std::make_unique<TextureManager>();
+	tex_manager_ = std::make_unique<TextureManager<uint32_t>>();
 	for (size_t i = 0; i < map_->tilesetCollection.size(); ++i) {
 		const auto &tileset = map_->tilesetCollection[i];
 		path = tileset.image.source;
@@ -43,7 +43,6 @@ void MapRenderer::LoadLayer(const Layer &layer) {
 		start_y = row * tile_height;   // y offset in pixels
 		// get pointer to first pixel of tile
 		uint32_t *pix = &pixels[start_y * layer_width_pix + start_x];
-		// std::cout << start_y * layer_width_pix + start_x << "\n";
 		SetTilePixels(pix, tile, layer_width_pix, layer_height_pix);
 	}
 	uint32_t rmask, gmask, bmask, amask;
