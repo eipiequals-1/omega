@@ -11,7 +11,7 @@ namespace libgl {
 Texture::Texture(const std::string& filepath, GLenum minFilter, GLenum magFilter) : id(0), filepath(filepath), surf(nullptr), flipped_pixels_(nullptr), width(0), height(0) {
 	surf = IMG_Load(filepath.c_str());
 	if (surf == nullptr) {
-		std::cout << "IMG error: Error loading '" + filepath + "': " + IMG_GetError() << "\n";
+		libgl::Log("IMG error: Error loading '", filepath, "': ", IMG_GetError());
 		return;
 	}
 	width = surf->w;
@@ -21,10 +21,25 @@ Texture::Texture(const std::string& filepath, GLenum minFilter, GLenum magFilter
 
 Texture::Texture(SDL_Surface* surf, GLenum minFilter, GLenum magFilter) : id(0), surf(surf), flipped_pixels_(nullptr), width(0), height(0) {
 	if (surf == nullptr) {
-		std::cout << "SDL_Surface error: Invalid Surface (surf = nullptr)\n";
+		libgl::Log("SDL_Surface error: Invalid Surface (surf = nullptr)");
 	}
 	width = surf->w;
 	height = surf->h;
+	// create new SDL_Surface with given pixels since textures don't seem to work with fonts
+	uint32_t rmask, gmask, bmask, amask;
+	if (SDL_BYTEORDER == SDL_BIG_ENDIAN) {
+		rmask = 0xff000000;
+		gmask = 0x00ff0000;
+		bmask = 0x0000ff00;
+		amask = 0x000000ff;
+	} else {
+		rmask = 0x000000ff;
+		gmask = 0x0000ff00;
+		bmask = 0x00ff0000;
+		amask = 0xff000000;
+	}
+	SDL_Surface* new_surf = SDL_CreateRGBSurfaceFrom((uint32_t*)surf->pixels, width, height, 32, 4 * width, rmask, gmask, bmask, amask);
+	this->surf = new_surf;
 	Load(minFilter, magFilter);
 }
 
@@ -41,7 +56,7 @@ Texture::Texture(uint32_t* pixels, uint32_t width, uint32_t height, GLenum minFi
 		bmask = 0x00ff0000;
 		amask = 0xff000000;
 	}
-	SDL_Surface* surf = SDL_CreateRGBSurfaceFrom(pixels, width, height, 32, 4, rmask, gmask, bmask, amask);
+	SDL_Surface* surf = SDL_CreateRGBSurfaceFrom(pixels, width, height, 32, 4 * width, rmask, gmask, bmask, amask);
 	if (surf == nullptr) {
 		Log("Unable to create new Texture from pixels");
 	}
@@ -116,7 +131,7 @@ void Texture::Load(GLenum minFilter, GLenum magFilter) {
 		}
 	} else {
 		std::string message = "IMG error: File '" + filepath + "' Unkown bpp format = " + std::to_string(bpp) + "!";
-		std::cout << message << '\n';
+		libgl::Log(message);
 		return;
 	}
 	FlipVertical();  // flip pixels to match OpenGL system
@@ -124,25 +139,4 @@ void Texture::Load(GLenum minFilter, GLenum magFilter) {
 	glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, flipped_pixels_);
 	Unbind();
 }
-
-void TextureManager::Load(TextureID id, const std::string& filepath, GLenum minFilter, GLenum magFilter) {
-	textures_[id] = std::make_shared<Texture>(filepath, minFilter, magFilter);
-}
-
-void TextureManager::Load(TextureID id, SDL_Surface* surface, GLenum minFilter, GLenum magFilter) {
-	textures_[id] = std::make_shared<Texture>(surface, minFilter, magFilter);
-}
-
-Sptr<Texture> TextureManager::Get(TextureID id) {
-	return textures_[id];
-}
-
-bool TextureManager::Contains(TextureID id) {
-	return textures_.find(id) != textures_.end();
-}
-
-Sptr<Texture> TextureManager::operator[](TextureID id) {
-	return Get(id);
-}
-
 }  // namespace libgl

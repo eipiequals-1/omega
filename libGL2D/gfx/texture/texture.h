@@ -46,19 +46,30 @@ class Texture {
 	uint8_t bpp;  // bytes per pixel
 };
 
+template <typename K>
 class TextureManager {
    public:
-	using TextureID = uint32_t;
-	void Load(TextureID id, const std::string& filepath, GLenum minFilter = GL_NEAREST, GLenum magFilter = GL_NEAREST);
-	void Load(TextureID id, SDL_Surface* surface, GLenum minFilter = GL_NEAREST, GLenum magFilter = GL_NEAREST);
+	void Load(const K& id, const std::string& filepath, GLenum minFilter = GL_NEAREST, GLenum magFilter = GL_NEAREST) {
+		textures_[id] = std::make_shared<Texture>(filepath, minFilter, magFilter);
+	}
+	void Load(const K& id, SDL_Surface* surface, GLenum minFilter = GL_NEAREST, GLenum magFilter = GL_NEAREST) {
+		textures_[id] = std::make_shared<Texture>(surface, minFilter, magFilter);
+	}
 
-	Sptr<Texture> Get(TextureID id);
-	bool Contains(TextureID id);
+	Sptr<Texture> Get(const K& id) {
+		return textures_[id];
+	}
 
-	Sptr<Texture> operator[](TextureID id);
+	bool Contains(const K& id) {
+		return textures_.find(id) != textures_.end();
+	}
+
+	Sptr<Texture> operator[](const K& id) {
+		return Get(id);
+	}
 
    private:
-	std::unordered_map<TextureID, Sptr<Texture>> textures_;
+	std::unordered_map<K, Sptr<Texture>> textures_;
 };
 
 }  // namespace libgl

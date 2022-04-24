@@ -19,20 +19,6 @@ cc_library(
 )
 
 cc_library(
-    name = "font",
-    srcs = ["font.cc"],
-    hdrs = ["font.h"],
-    copts = DEFAULT_COPTS,
-    linkopts = DEFAULT_LINKOPTS,
-    deps = [
-        "@SDL2//:SDL2",
-        "//libGL2D/gfx/texture:texture",
-        "//libGL2D/core:using",
-        "//libGL2D/physics:math",
-    ]
-)
-
-cc_library(
     name = "index_buffer",
     srcs = ["index_buffer.cc"],
     hdrs = ["index_buffer.h"],
@@ -79,9 +65,6 @@ cc_library(
     hdrs = ["sprite_batch.h"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
-    data = [
-        "//res/shader:shaders"
-    ],
     deps = [
         "@GL//:GL",
         ":shader",

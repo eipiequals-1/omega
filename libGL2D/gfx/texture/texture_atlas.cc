@@ -22,7 +22,7 @@ TextureAtlas::TextureAtlas(const std::string &atlas_file_path) : tex_(nullptr) {
 	// open file
 	FILE *atlas_file = fopen(atlas_file_path.c_str(), "r");
 	if (atlas_file == nullptr) {
-		std::cout << "Unable to open texture atlas\n";
+		libgl::Log("Unable to open texture atlas");
 		return;
 	}
 	// load file data

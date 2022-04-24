@@ -21,6 +21,7 @@ class TextureRegion {
 	 * @return source rectangle
 	 */
 	glm::rect get_gl_rect() const { return glm::rect(x_, texture_->get_height() - y_ - h_, w_, h_); }
+	Texture *get_texture() { return texture_; }
 
    private:
 	Texture *texture_;
