@@ -11,6 +11,7 @@ namespace libgl {
 class Entity {
    public:
 	Entity();
+	virtual ~Entity() {}
 	virtual void Update(float dt) {
 		(void)dt;
 	}
@@ -49,11 +50,6 @@ class RectComponent {
 	void set_w(float w) { rect_.w = w; }
 	void set_h(float h) { rect_.h = h; }
 	void set_rect(const glm::rect &r) { rect_ = r; }
-
-	virtual void OnLeftCollision(float left_bound);
-	virtual void OnRightCollision(float right_bound);
-	virtual void OnTopCollision(float top_bound);
-	virtual void OnBottomCollision(float bottom_bound);
 
    protected:
 	glm::rect rect_;
