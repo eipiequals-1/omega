@@ -2,6 +2,7 @@
 #define _LIBGL2D_EVENTS_INPUTPROCESSOR_H_
 
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_events.h>
 
 #include "libGL2D/events/key_processor.h"
 #include "libGL2D/physics/math.h"
@@ -15,6 +16,11 @@ enum class EventType {
 	kWindowEvent = SDL_WINDOWEVENT
 };
 
+enum class MouseButton {
+	kMouseLeft = SDL_BUTTON_LEFT,
+	KMouseRight = SDL_BUTTON_RIGHT
+};
+
 class InputProcessor {
    public:
 	InputProcessor();
@@ -24,14 +30,24 @@ class InputProcessor {
 
 	KeyProcessor &GetKeyProcessor() { return key_processor_; }
 	const glm::vec2 &GetMousePos() const { return mouse_pos_; }
-	bool LeftIsDown() const {
-		return (buttons_ & SDL_BUTTON(SDL_BUTTON_LEFT)) == 1;
+	bool MouseButtonDown(MouseButton button) const {
+		return (buttons_ & SDL_BUTTON((int)button)) == 1;
+	}
+	bool MouseButtonUp(MouseButton button) const {
+		return (buttons_ & SDL_BUTTON((int)button)) == 0;
+	}
+	bool MouseButtonJustPressed(MouseButton button) const {
+		return MouseButtonDown(button) && (prev_buttons_ & SDL_BUTTON((int)button)) == 0;
+	}
+	bool MouseButtonJustReleased(MouseButton button) const {
+		return MouseButtonUp(button) && (prev_buttons_ & SDL_BUTTON((int)button)) == 1;
 	}
 
    private:
 	KeyProcessor key_processor_;
-	glm::vec2 mouse_pos_;  // mousePos relative to top left
+	glm::vec2 mouse_pos_;  // mouse_pos relative to bottom left
 	uint32_t buttons_;
+	uint32_t prev_buttons_;
 };
 
 }  // namespace libgl
