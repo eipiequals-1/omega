@@ -67,6 +67,13 @@ class ShapeRenderer {
 	virtual void Rect(const glm::rect &rect);
 
 	/**
+	 * Renders a rectangle with the current ShapeRenderer::color_
+	 * @param rect rect in world space coords
+	 * @param width rectangle with a hole
+	 */
+	virtual void Rect(const glm::rect &rect, float width);
+
+	/**
 	 * Renders a triangle with the given points
 	 * and the current ShapeRenderer::color_
 	 * @param p1 point 1

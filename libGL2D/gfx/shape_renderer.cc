@@ -76,6 +76,13 @@ void ShapeRenderer::Rect(const glm::rect &rect) {
 	);
 }
 
+void ShapeRenderer::Rect(const glm::rect &rect, float width) {
+	Line(rect.x, rect.y, rect.x, rect.y + rect.h, width);
+	Line(rect.x, rect.y + rect.h, rect.x + rect.w, rect.y + rect.h, width);
+	Line(rect.x + rect.w, rect.y, rect.x + rect.w, rect.y + rect.h, width);
+	Line(rect.x, rect.y, rect.x + rect.w, rect.y, width);
+}
+
 void ShapeRenderer::Triangle(float x1, float y1, float x2, float y2, float x3, float y3) {
 	if (triangles_renderered_ == kNumTriangles) {
 		End();
