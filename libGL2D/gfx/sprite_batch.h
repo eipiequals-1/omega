@@ -19,10 +19,12 @@
 namespace libgl {
 
 struct Vertex {
-	float position[3];
+	float position[2];
 	float color[4];
 	float texCoords[2];
-	float texId;
+	float tex_id;
+	float rotation;
+	float center_of_rot[2];
 };
 
 using Quad = std::array<Vertex, 4>;
@@ -41,19 +43,28 @@ class SpriteBatch {
 	virtual void BeginRender();
 	virtual void EndRender();
 
-	virtual void RenderTexture(const Texture *texture, const float x, const float y, const glm::vec4 &color = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
-	virtual void RenderTexture(const Texture *texture, const float x, const float y, const float w, const float h, const glm::vec4 &color = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
+	virtual void RenderTexture(const Texture *texture, const float x, const float y, const glm::vec4 &color = glm::vec4(1.0f));
+	virtual void RenderTexture(const Texture *texture, const float x, const float y, const float w, const float h, const glm::vec4 &color = glm::vec4(1.0f));
 
 	/**
 	 * draw the given part of the texture to the destination
 	 * @param texture the texture to draw
 	 * @param src subrectangle of texture to draw in pixel units
-	 * @param rect the model matrix of the object
+	 * @param dest the model matrix of the object
 	 * @param color tint of the texture
 	 */
-	virtual void RenderTexture(const Texture *texture, glm::rect src, const glm::rect &dest, const glm::vec4 &color = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
+	virtual void RenderTexture(const Texture *texture, glm::rect src, const glm::rect &dest, const glm::vec4 &color = glm::vec4(1.0f));
 
-	// RenderTexture parts of a texture
+	/**
+	 * draw the given part of the texture to the destination
+	 * @param texture the texture to draw
+	 * @param src subrectangle of texture to draw in pixel units
+	 * @param dest the model matrix of the object
+	 * @param rotation in degrees counterclockwise
+	 * @param center center of rotation in world coordinates
+	 * @param color tint of the texture
+	 */
+	virtual void RenderTexture(const Texture *texture, glm::rect src, const glm::rect &dest, float rotation, const glm::vec2 &center, const glm::vec4 &color = glm::vec4(1.0f));
 
    protected:
 	Uptr<Shader> sprite_shader_;
@@ -64,7 +75,7 @@ class SpriteBatch {
 	static constexpr uint32_t kQuadCapacity = 1500;
 	static constexpr uint32_t kIndexBufferCapacity = kQuadCapacity * 6;
 	static constexpr uint32_t kVertexBufferCapacity = kQuadCapacity * 4;
-	static constexpr uint32_t kVertexCount = 10;
+	static constexpr uint32_t kVertexCount = 12;
 	static constexpr uint32_t kIndexCount = 6;
 	// texture data
 	static constexpr uint32_t kMaxTextures = 32;

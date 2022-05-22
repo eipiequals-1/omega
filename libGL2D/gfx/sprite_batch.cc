@@ -29,10 +29,12 @@ SpriteBatch::SpriteBatch() : quads_rendered_(0), tex_bind_slot_(0) {
 	const char vertex[] = R"glsl(
 		#version 450
 		
-		layout(location=0) in vec3 a_Pos;
+		layout(location=0) in vec2 a_Pos;
 		layout(location=1) in vec4 a_Color;
 		layout(location=2) in vec2 a_TexCoords;
 		layout(location=3) in float a_TexIdx;
+		layout(location=4) in float a_Rotation;
+		layout(location=5) in vec2 a_CenterOfRotation;
 
 		layout(location=0) out vec4 v_Color;
 		layout(location=1) out vec2 v_TexCoords;
@@ -41,7 +43,17 @@ SpriteBatch::SpriteBatch() : quads_rendered_(0), tex_bind_slot_(0) {
 		uniform mat4 u_ViewProjMatrix;
 
 		void main() {
-			gl_Position = u_ViewProjMatrix * vec4(a_Pos, 1.0f);
+			float rotation = a_Rotation * 3.141592 / 180.0;
+			float c = cos(rotation);
+			float s = sin(rotation);
+
+			vec2 posRelativeToCenter = a_Pos - a_CenterOfRotation;
+			vec2 rotatedPoint;
+			rotatedPoint.x = posRelativeToCenter.x * c - posRelativeToCenter.y * s;
+			rotatedPoint.y = posRelativeToCenter.y * c + posRelativeToCenter.x * s;
+			rotatedPoint += a_CenterOfRotation;  // shift back to world coords
+			gl_Position = u_ViewProjMatrix * vec4(rotatedPoint, 0.0, 1.0);
+
 			v_Color = a_Color;
 			v_TexCoords = a_TexCoords;
 			v_TexIdx = a_TexIdx;
@@ -68,10 +80,12 @@ SpriteBatch::SpriteBatch() : quads_rendered_(0), tex_bind_slot_(0) {
 	vao_ = std::make_unique<VertexArray>();
 	vbo_ = std::make_unique<VertexBuffer>(kVertexBufferCapacity * kVertexCount * sizeof(float));
 	VertexBufferLayout layout;
-	layout.Push(GL_FLOAT, 3);
-	layout.Push(GL_FLOAT, 4);
-	layout.Push(GL_FLOAT, 2);
-	layout.Push(GL_FLOAT, 1);
+	layout.Push(GL_FLOAT, 2);  // original world coords
+	layout.Push(GL_FLOAT, 4);  // color
+	layout.Push(GL_FLOAT, 2);  // tex coords
+	layout.Push(GL_FLOAT, 1);  // tex idx
+	layout.Push(GL_FLOAT, 1);  // rotation
+	layout.Push(GL_FLOAT, 2);  // center of rotation
 	vao_->AddBuffer(*vbo_, layout);
 
 	for (uint32_t i = 0; i < kMaxTextures; ++i) {
@@ -98,6 +112,10 @@ void SpriteBatch::RenderTexture(const Texture *texture, const float x, const flo
 }
 
 void SpriteBatch::RenderTexture(const Texture *texture, glm::rect src, const glm::rect &dest, const glm::vec4 &color) {
+	RenderTexture(texture, src, dest, 0.0f, dest.center(), color);
+}
+
+void SpriteBatch::RenderTexture(const Texture *texture, glm::rect src, const glm::rect &dest, float rotation, const glm::vec2 &center, const glm::vec4 &color) {
 	if (quads_rendered_ == kQuadCapacity || tex_bind_slot_ == kMaxTextures) {
 		EndRender();
 		BeginRender();
@@ -118,11 +136,10 @@ void SpriteBatch::RenderTexture(const Texture *texture, glm::rect src, const glm
 	src.y = src.y / texture->get_height();
 	src.w = src.w / texture->get_width();
 	src.h = src.h / texture->get_height();
-	constexpr float z = 0.0f;
-	Vertex v0 = {{dest.x, dest.y, z}, {color.r, color.g, color.b, color.a}, {src.x, src.y}, tex_id};
-	Vertex v1 = {{dest.x + dest.w, dest.y, z}, {color.r, color.g, color.b, color.a}, {src.x + src.w, src.y}, tex_id};
-	Vertex v2 = {{dest.x + dest.w, dest.y + dest.h, z}, {color.r, color.g, color.b, color.a}, {src.x + src.w, src.y + src.h}, tex_id};
-	Vertex v3 = {{dest.x, dest.y + dest.h, z}, {color.r, color.g, color.b, color.a}, {src.x, src.y + src.h}, tex_id};
+	Vertex v0 = {{dest.x, dest.y}, {color.r, color.g, color.b, color.a}, {src.x, src.y}, tex_id, rotation, {center.x, center.y}};
+	Vertex v1 = {{dest.x + dest.w, dest.y}, {color.r, color.g, color.b, color.a}, {src.x + src.w, src.y}, tex_id, rotation, {center.x, center.y}};
+	Vertex v2 = {{dest.x + dest.w, dest.y + dest.h}, {color.r, color.g, color.b, color.a}, {src.x + src.w, src.y + src.h}, tex_id, rotation, {center.x, center.y}};
+	Vertex v3 = {{dest.x, dest.y + dest.h}, {color.r, color.g, color.b, color.a}, {src.x, src.y + src.h}, tex_id, rotation, {center.x, center.y}};
 
 	Quad q = {v0, v1, v2, v3};
 	auto quad = q.data();
