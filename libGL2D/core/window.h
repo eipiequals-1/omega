@@ -1,6 +1,7 @@
 #ifndef _LIBGL2D_CORE_WINDOW_H_
 #define _LIBGL2D_CORE_WINDOW_H_
 
+#include <GL/gl.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_opengl.h>
 

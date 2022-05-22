@@ -20,6 +20,9 @@ enum class WindowFlags {
 	kFullscreen = SDL_WINDOW_FULLSCREEN,
 	kShown = SDL_WINDOW_SHOWN,
 	kHidden = SDL_WINDOW_HIDDEN,
+	kResizable = SDL_WINDOW_RESIZABLE,
+	kOpenGLResizable = SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE,
+	kOpenGLResizableFullscreen = SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE | kFullscreen,
 	kNone = 0
 };
 
