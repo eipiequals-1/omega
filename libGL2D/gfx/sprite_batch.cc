@@ -91,6 +91,9 @@ SpriteBatch::SpriteBatch() : quads_rendered_(0), tex_bind_slot_(0) {
 	for (uint32_t i = 0; i < kMaxTextures; ++i) {
 		texture_binds_[i] = i;
 	}
+	sprite_shader_->Bind();
+	sprite_shader_->SetUniform1iv("u_Textures", texture_binds_.data(), kMaxTextures);
+	sprite_shader_->Unbind();
 }
 
 SpriteBatch::~SpriteBatch() {
@@ -98,7 +101,6 @@ SpriteBatch::~SpriteBatch() {
 
 void SpriteBatch::BeginRender() {
 	quads_rendered_ = 0;
-	tex_bind_slot_ = 0;
 }
 
 void SpriteBatch::RenderTexture(const Texture *texture, const float x, const float y, const glm::vec4 &color) {
@@ -118,14 +120,19 @@ void SpriteBatch::RenderTexture(const Texture *texture, glm::rect src, const glm
 void SpriteBatch::RenderTexture(const Texture *texture, glm::rect src, const glm::rect &dest, float rotation, const glm::vec2 &center, const glm::vec4 &color) {
 	if (quads_rendered_ == kQuadCapacity || tex_bind_slot_ == kMaxTextures) {
 		EndRender();
+		tex_bind_slot_ = 0;  // reset only if there are no more texture bind slots so that batch can keep previous draw calls textures if applicable
 		BeginRender();
 	}
 	float tex_id = tex_bind_slot_;
 	// check if texture has been used in this batch
-	auto found_itr = std::find(textures_to_render_.begin(), textures_to_render_.end(), texture);
-	if (found_itr != textures_to_render_.end()) {
-		tex_id = found_itr - textures_to_render_.begin();
-	} else {
+	bool in_batch = false;
+	for (uint32_t i = 0; i < textures_to_render_.size(); i++) {
+		if (textures_to_render_[i] == texture) {
+			in_batch = true;
+			tex_id = i;
+		}
+	}
+	if (!in_batch) {
 		// add the texture to the to render vector and bind
 		textures_to_render_[tex_bind_slot_] = texture;
 		texture->Bind(tex_bind_slot_);
@@ -150,10 +157,7 @@ void SpriteBatch::RenderTexture(const Texture *texture, glm::rect src, const glm
 }
 
 void SpriteBatch::EndRender() {
-	const std::string kTextureUniformKey = "u_Textures";
-
 	sprite_shader_->Bind();
-	sprite_shader_->SetUniform1iv(kTextureUniformKey, texture_binds_.data(), kMaxTextures);
 	vao_->Bind();
 	ibo_->Bind();
 	glDrawElements(GL_TRIANGLES, quads_rendered_ * kIndexCount, GL_UNSIGNED_INT, nullptr);
