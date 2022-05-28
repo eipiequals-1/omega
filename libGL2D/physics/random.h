@@ -14,6 +14,8 @@ int RandInt(int min, int max);
 
 float RandFloat(float min, float max);
 
+void SeedTime();
+
 template <typename T>
 T &RandChoice(T *arr, int size) {
 	return arr[RandInt(0, size)];

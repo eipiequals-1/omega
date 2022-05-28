@@ -13,4 +13,8 @@ bool circleVsCircle(const glm::vec2 &center1, float radius1, const glm::vec2 &ce
 	return dist_sq < square(radius1 + radius2);
 }
 
+float distanceSq(const glm::vec2 &p1, const glm::vec2 &p2) {
+	return (p1.x - p2.x) * (p1.x - p2.x) + (p1.y - p2.y) * (p1.y - p2.y);
+}
+
 }  // namespace glm

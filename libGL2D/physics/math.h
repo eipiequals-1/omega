@@ -36,10 +36,10 @@ struct rect {
 	void set_center_y(float centery) {
 		y = centery - h / 2.0f;
 	}
-	virtual bool overlaps(const rect &a) {
+	virtual bool overlaps(const rect &a) const {
 		return x < a.x + a.w && x + w > a.x && y < a.y + a.h && y + h > a.y;
 	}
-	virtual bool point_in_rect(const vec2 &p) {
+	virtual bool point_in_rect(const vec2 &p) const {
 		return x < p.x && p.x < x + w && y < p.y && p.y < y + h;
 	}
 	virtual void print() const {
@@ -54,6 +54,8 @@ struct rect {
 };
 
 bool circleVsCircle(const glm::vec2 &center1, float radius1, const glm::vec2 &center2, float radius2);
+
+float distanceSq(const glm::vec2 &p1, const glm::vec2 &p2);
 
 const vec4 kWhite(1.0f, 1.0f, 1.0f, 1.0f);
 const vec4 kBlack(0.0f, 0.0f, 0.0f, 1.0f);
