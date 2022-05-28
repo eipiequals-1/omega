@@ -45,21 +45,9 @@ void MapRenderer::LoadLayer(const Layer &layer) {
 		uint32_t *pix = &pixels[start_y * layer_width_pix + start_x];
 		SetTilePixels(pix, tile, layer_width_pix, layer_height_pix);
 	}
-	uint32_t rmask, gmask, bmask, amask;
-	if (SDL_BYTEORDER == SDL_BIG_ENDIAN) {
-		rmask = 0xff000000;
-		gmask = 0x00ff0000;
-		bmask = 0x0000ff00;
-		amask = 0x000000ff;
-	} else {
-		rmask = 0x000000ff;
-		gmask = 0x0000ff00;
-		bmask = 0x00ff0000;
-		amask = 0xff000000;
-	}
 
-	SDL_Surface *surf = SDL_CreateRGBSurfaceFrom(pixels.data(), layer_width_pix, layer_height_pix, 32, layer_width_pix * 4, rmask, gmask, bmask, amask);
-	layer_texture_.push_back(std::make_unique<Texture>(surf));
+	layer_texture_.push_back(std::make_unique<Texture>(layer_width_pix, layer_height_pix, GL_NEAREST, GL_NEAREST));
+	(layer_texture_.end() - 1)->get()->set_data(pixels.data());
 }
 
 void MapRenderer::Render(SpriteBatch &batch) {

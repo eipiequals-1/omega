@@ -28,7 +28,7 @@ class MapRenderer {
 		// get tileset image and pixels
 		const Tileset& tileset = map_->tilesetCollection[tile.tilesetIndex];
 		auto tileset_img = tex_manager_->Get(tile.tilesetIndex);
-		uint32_t* tileset_pixels = tileset_img->get_sdl_pixels();  // sdl pixels since they are not inverted, new tileset image will be inverted later
+		const uint32_t* tileset_pixels = tileset_img->get_pixels();
 		// get location of rect on tileset
 		uint32_t src_x, src_y, src_w, src_h;
 		src_w = tileset.tileWidth;
@@ -47,13 +47,12 @@ class MapRenderer {
 		}
 		// copy pixels from tileset to tile
 		for (uint32_t y = 0; y < src_h; ++y) {
-			uint32_t* tileset_pixel_row = &tileset_pixels[(src_y + y) * tileset_img->get_width() + src_x];
+			const uint32_t* tileset_pixel_row = &tileset_pixels[(src_y + y) * tileset_img->get_width() + src_x];
 			for (uint32_t x = 0; x < src_w; ++x) {
 				uint32_t tileset_pix_data = tileset_pixel_row[x];
 				// copy r, g, b, a
 				tile_start[x] = tileset_pix_data;
 			}
-			// memcpy(tile_start, tileset_pixel_row, sizeof(uint32_t) * src_w);
 			// update location of pixel to next row
 			tile_start += layer_width_pix;
 		}
