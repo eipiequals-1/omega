@@ -79,7 +79,7 @@ class SpriteBatch {
 	static constexpr uint32_t kIndexCount = 6;
 	// texture data
 	static constexpr uint32_t kMaxTextures = 32;
-	std::array<int, kMaxTextures> texture_binds_;
+	std::array<uint32_t, kMaxTextures> texture_binds_;
 	std::array<const Texture *, kMaxTextures> textures_to_render_;
 
 	// render attributes

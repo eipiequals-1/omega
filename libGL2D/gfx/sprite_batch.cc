@@ -92,7 +92,7 @@ SpriteBatch::SpriteBatch() : quads_rendered_(0), tex_bind_slot_(0) {
 		texture_binds_[i] = i;
 	}
 	sprite_shader_->Bind();
-	sprite_shader_->SetUniform1iv("u_Textures", texture_binds_.data(), kMaxTextures);
+	sprite_shader_->SetUniform1iv("u_Textures", (int *)texture_binds_.data(), kMaxTextures);
 	sprite_shader_->Unbind();
 }
 
@@ -101,6 +101,11 @@ SpriteBatch::~SpriteBatch() {
 
 void SpriteBatch::BeginRender() {
 	quads_rendered_ = 0;
+	tex_bind_slot_ = 0;
+	// reset previous batch texture data
+	for (size_t i = 0; i < textures_to_render_.size(); i++) {
+		textures_to_render_[i] = nullptr;
+	}
 }
 
 void SpriteBatch::RenderTexture(const Texture *texture, const float x, const float y, const glm::vec4 &color) {
@@ -118,9 +123,8 @@ void SpriteBatch::RenderTexture(const Texture *texture, glm::rect src, const glm
 }
 
 void SpriteBatch::RenderTexture(const Texture *texture, glm::rect src, const glm::rect &dest, float rotation, const glm::vec2 &center, const glm::vec4 &color) {
-	if (quads_rendered_ == kQuadCapacity || tex_bind_slot_ == kMaxTextures) {
+	if (quads_rendered_ == kQuadCapacity) {
 		EndRender();
-		tex_bind_slot_ = 0;  // reset only if there are no more texture bind slots so that batch can keep previous draw calls textures if applicable
 		BeginRender();
 	}
 	float tex_id = tex_bind_slot_;
@@ -130,9 +134,14 @@ void SpriteBatch::RenderTexture(const Texture *texture, glm::rect src, const glm
 		if (textures_to_render_[i] == texture) {
 			in_batch = true;
 			tex_id = i;
+			break;
 		}
 	}
 	if (!in_batch) {
+		if (tex_bind_slot_ == kMaxTextures) {
+			EndRender();
+			BeginRender();
+		}
 		// add the texture to the to render vector and bind
 		textures_to_render_[tex_bind_slot_] = texture;
 		texture->Bind(tex_bind_slot_);
@@ -143,10 +152,11 @@ void SpriteBatch::RenderTexture(const Texture *texture, glm::rect src, const glm
 	src.y = src.y / texture->get_height();
 	src.w = src.w / texture->get_width();
 	src.h = src.h / texture->get_height();
-	Vertex v0 = {{dest.x, dest.y}, {color.r, color.g, color.b, color.a}, {src.x, src.y}, tex_id, rotation, {center.x, center.y}};
-	Vertex v1 = {{dest.x + dest.w, dest.y}, {color.r, color.g, color.b, color.a}, {src.x + src.w, src.y}, tex_id, rotation, {center.x, center.y}};
-	Vertex v2 = {{dest.x + dest.w, dest.y + dest.h}, {color.r, color.g, color.b, color.a}, {src.x + src.w, src.y + src.h}, tex_id, rotation, {center.x, center.y}};
-	Vertex v3 = {{dest.x, dest.y + dest.h}, {color.r, color.g, color.b, color.a}, {src.x, src.y + src.h}, tex_id, rotation, {center.x, center.y}};
+	// inverse texture to y up
+	Vertex v0 = {{dest.x, dest.y}, {color.r, color.g, color.b, color.a}, {src.x, src.y + src.h}, tex_id, rotation, {center.x, center.y}};
+	Vertex v1 = {{dest.x + dest.w, dest.y}, {color.r, color.g, color.b, color.a}, {src.x + src.w, src.y + src.h}, tex_id, rotation, {center.x, center.y}};
+	Vertex v2 = {{dest.x + dest.w, dest.y + dest.h}, {color.r, color.g, color.b, color.a}, {src.x + src.w, src.y}, tex_id, rotation, {center.x, center.y}};
+	Vertex v3 = {{dest.x, dest.y + dest.h}, {color.r, color.g, color.b, color.a}, {src.x, src.y}, tex_id, rotation, {center.x, center.y}};
 
 	Quad q = {v0, v1, v2, v3};
 	auto quad = q.data();
