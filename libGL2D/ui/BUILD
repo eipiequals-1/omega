@@ -15,7 +15,6 @@ cc_library(
     linkopts = DEFAULT_LINKOPTS,
     deps = [
         "@SDL2//:SDL2",
-        "//libGL2D/gfx/texture:texture",
         "//libGL2D/core:using",
         "//libGL2D/physics:math",
     ]

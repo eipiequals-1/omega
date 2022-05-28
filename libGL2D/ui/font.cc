@@ -18,15 +18,20 @@ Font::~Font() {
 
 SDL_Surface* Font::RenderText(const std::string& text, const glm::vec4& color) {
 	SDL_Color sdl_color;
-	sdl_color.r = static_cast<Uint8>(color.r * 255);
-	sdl_color.g = static_cast<Uint8>(color.g * 255);
-	sdl_color.b = static_cast<Uint8>(color.b * 255);
+	// shift colors 2 right because of TTF_RenderText_Blended errors
+	sdl_color.r = static_cast<Uint8>(color.b * 255);
+	sdl_color.g = static_cast<Uint8>(color.r * 255);
+	sdl_color.b = static_cast<Uint8>(color.g * 255);
 	sdl_color.a = static_cast<Uint8>(color.a * 255);
 	return TTF_RenderText_Blended(font_, text.c_str(), sdl_color);
 }
 
 void FontManager::Load(const std::string& font_name, const std::string& filepath, uint32_t ptsize) {
 	fonts_[font_name] = std::make_shared<Font>(filepath, ptsize);
+}
+
+Sptr<Font> FontManager::Get(const std::string& font_name) {
+	return fonts_[font_name];
 }
 
 }  // namespace libgl
