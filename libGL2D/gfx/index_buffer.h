@@ -5,15 +5,31 @@
 
 namespace libgl {
 
+/**
+ * Wrapper for OpenGL Index Buffer Object
+ * Stores the indices of vertices to render using glDrawElements
+ */
 class IndexBuffer {
    public:
 	IndexBuffer(const uint32_t* data, uint32_t count);
 	IndexBuffer(uint32_t count);
 	~IndexBuffer();
 
+	/**
+	 * Binds the Index Buffer in the OpenGL state machine
+	 */
 	void Bind() const;
+
+	/**
+	 * Unbinds the Index Buffer in the OpenGl state machine
+	 */
 	void Unbind() const;
 
+	/**
+	 * Returns the number of indices that are stored
+	 * which is passed as an argument to glDrawElements
+	 * @return the index count
+	 */
 	GLint GetCount() const { return count_; }
 
 	/**

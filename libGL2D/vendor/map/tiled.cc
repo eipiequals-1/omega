@@ -13,6 +13,7 @@ Map::Map(const std::string &file_path, const std::string &tileset_path) {
 }
 
 Map::~Map() {
+	libgl::Log("line: ", __LINE__);
 }
 
 void Map::GetIntersectRects(const glm::rect &rect, std::vector<Tile *> &collided_tiles, std::vector<uint32_t> &collided_tile_indices) {

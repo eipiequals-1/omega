@@ -11,11 +11,17 @@
 
 namespace libgl {
 
+/**
+ * CPU representation of each Vertex for the ShapeRenderer with:
+ * position,
+ * color
+ */
 struct ShapeVertex {
 	float pos[2];
 	float color[4];
 };
 
+// Represent the shape in 3 vertices
 using ShapeTriangle = std::array<ShapeVertex, 3>;
 
 /**
@@ -33,26 +39,61 @@ class ShapeRenderer {
 	ShapeRenderer();
 	virtual ~ShapeRenderer();
 
+	/**
+	 * Begins the rendering process.
+	 */
 	virtual void Begin();
+
+	/**
+	 * Ends the rendering process and sends all the triangles to the shader
+	 * and draws it on screen.
+	 */
 	virtual void End();
+
+	/**
+	 * Sets the view projection matrix, typically represented by a camer
+	 * Must be called before Rendering: i.e. ShapeRenderer::End();
+	 * @param mat the view projection matrix
+	 */
 	virtual void SetViewProjectionMatrix(const glm::mat4 &mat) {
 		shader_->Bind();
 		shader_->SetUniformMat4f(kViewProjMatrixName, mat);
 		shader_->Unbind();
 	}
 
+	/**
+	 * Set the next render call's color
+	 * @param co color
+	 */
 	virtual void Color(const glm::vec4 &co) {
 		Color(co.r, co.g, co.b, co.a);
 	}
 
+	/**
+	 * Set the next render call's color
+	 * @param co color
+	 */
 	virtual void Color(const glm::vec3 &co) {
 		Color(co.r, co.g, co.b, 1.0f);
 	}
 
+	/**
+	 * Set the next render call's color
+	 * @param r red
+	 * @param g green
+	 * @param b blue
+	 */
 	virtual void Color(float r, float g, float b) {
 		Color(r, g, b, 1.0f);
 	}
 
+	/**
+	 * Set the next render call's color
+	 * @param r red
+	 * @param g green
+	 * @param b blue
+	 * @param a alpha
+	 */
 	virtual void Color(float r, float g, float b, float a) {
 		color_.r = r;
 		color_.g = g;
@@ -109,7 +150,7 @@ class ShapeRenderer {
 	/**
 	 * Renders a line in the same way as
 	 *
-	 * ShapeRenderer::Line(const glm::vec2 &p1, const glm::vec2 &p2, float thickness)
+	 * ShapeRenderer::Line(const glm::vec2 &p1, const glm::vec2 &p2, float thickness);
 	 */
 	virtual void Line(float x1, float y1, float x2, float y2, float thickness = 1.0f);
 

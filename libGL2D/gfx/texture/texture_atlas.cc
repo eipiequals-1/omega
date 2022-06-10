@@ -18,7 +18,7 @@ static void Split(std::string str, std::vector<std::string> &ret_vec, const std:
 
 namespace libgl {
 
-TextureAtlas::TextureAtlas(const std::string &atlas_file_path) : tex_(nullptr) {
+TextureAtlas::TextureAtlas(const std::string &atlas_file_path, GLenum min_filter, GLenum mag_filter) : tex_(nullptr) {
 	// open file
 	FILE *atlas_file = fopen(atlas_file_path.c_str(), "r");
 	if (atlas_file == nullptr) {
@@ -49,7 +49,7 @@ TextureAtlas::TextureAtlas(const std::string &atlas_file_path) : tex_(nullptr) {
 			// get full path to image file
 			std::string path = atlas_file_path.substr(0, atlas_file_path.size() - 5);
 			path += "png";
-			tex_ = std::make_shared<Texture>(path);
+			tex_ = std::make_shared<Texture>(path, min_filter, mag_filter);
 			continue;
 		}
 		size_t num_words = words.size();

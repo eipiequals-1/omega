@@ -15,7 +15,14 @@ class VertexBuffer {
 	explicit VertexBuffer(GLsizeiptr size);
 	~VertexBuffer();
 
+	/**
+	 * Binds the Vertex Buffer in the OpenGL state machine
+	 */
 	void Bind() const;
+
+	/**
+	 * Unbinds the Vertex Buffer in the OpenGL state machine
+	 */
 	void Unbind() const;
 
 	/**

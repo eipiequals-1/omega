@@ -5,6 +5,19 @@
 
 namespace libgl {
 
+/**
+ * A 2D Orthographic Camera for rendering
+ * Intended Use:
+ *
+ * OrthoCamera cam(width, height, screen_res);
+ * SpriteBatch batch;
+ * batch.SetViewProjectionMatrix(cam.GetViewProjectionMatrix());
+ * batch.BeginRender();
+ *
+ * . . .
+ *
+ * batch.EndRender();
+ */
 class OrthoCamera {
    public:
 	OrthoCamera(float width, float height, const glm::vec2& screen_res);
@@ -26,8 +39,19 @@ class OrthoCamera {
 		return x >= position_.x - width_ / 2.0f && x <= position_.x + width_ / 2.0f && y >= position_.y - height_ / 2.0f && y <= position_.y + height_ / 2.0f;
 	}
 
+	/**
+	 * Updates the view projection matrix if position and/or size have changed
+	 *
+	 * IMPORTANT: must be called before rendering if the camera has changed
+	 */
 	void Update();
+
 	const glm::mat4& GetViewProjectionMatrix() const { return view_proj_; }
+
+	/**
+	 * Converts the screen/pixel coordianates to world coordinates
+	 * @param vec the coordinates to convert
+	 */
 	glm::vec2 Project(const glm::vec2& vec) const;
 
    private:

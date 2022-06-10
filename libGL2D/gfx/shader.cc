@@ -161,20 +161,4 @@ GLuint Shader::CreateShader(const std::string& vertex_shader, const std::string&
 	return program;
 }
 
-void ShaderManager::Load(const std::string& shader_name, const std::string& filepath) {
-	shaders[shader_name] = std::make_shared<Shader>(filepath);
-}
-
-Sptr<Shader> ShaderManager::Get(const std::string& shader_name) {
-	return shaders[shader_name];
-}
-
-bool ShaderManager::Contains(const std::string& shader_name) {
-	return shaders.find(shader_name) != shaders.end();
-}
-
-Sptr<Shader> ShaderManager::operator[](const std::string& shader_name) {
-	return Get(shader_name);
-}
-
 }  // namespace libgl

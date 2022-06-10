@@ -15,6 +15,9 @@
 namespace libgl {
 namespace tiled {
 
+/**
+ * Stores a tiled map
+ */
 class Map : public TmxMap {
    public:
 	Map(const std::string &file_path, const std::string &tileset_path);
@@ -39,13 +42,25 @@ class Map : public TmxMap {
 	 * Checks if a tile has the given property
 	 * @param tile tile to check property
 	 * @param property string of property to check
-	 * @param out value in property map
+	 * @return out value in property map
 	 * @return if the tile has the given property
-	 * */
+	 */
 	virtual bool ContainsProperty(const Tile &tile, const std::string &property, std::string &out);
 
+	/**
+	 * Finds all the tiles on the map with given property
+	 * @param property the tile property to check
+	 * @returns tiles_properties the vector of the tiles with that property
+	 * @returns tiles_properties_idx the vector of the indices of those tiles
+	 */
 	virtual void GetTilesWithProperty(const std::string &property, std::vector<Tile *> &tiles_properties, std::vector<int> &tiles_properties_idx);
 
+	/**
+	 * @param x coord in tile units
+	 * @param y coord in tile units
+	 * @param layer coord in tile units
+	 * @returns the tile at the given position
+	 */
 	virtual Tile &GetTileAt(int x, int y, int layer) {
 		return layerCollection[layer].tiles[y * width + x];
 	}

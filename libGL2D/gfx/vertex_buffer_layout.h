@@ -16,6 +16,10 @@ struct VertexBufferAttrib {
 	uint32_t count;  // number of elements in this attribute
 	unsigned char normalized;
 
+	/**
+	 * @param type the GLenum type of data
+	 * @return the size of the data in bytes
+	 */
 	static uint32_t GetSizeOfType(uint32_t type) {
 		switch (type) {
 		case GL_FLOAT:
@@ -47,7 +51,14 @@ class VertexBufferLayout {
 		stride_ += VertexBufferAttrib::GetSizeOfType(attrib_type) * count;
 	}
 
+	/**
+	 * @returns the vector of vertex attributes
+	 */
 	const std::vector<VertexBufferAttrib> &GetAttributes() const { return attributes_; }
+
+	/**
+	 * @returns the stride of each vertex
+	 */
 	uint32_t GetStride() const { return stride_; }
 
    private:

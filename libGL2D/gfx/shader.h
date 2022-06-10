@@ -12,18 +12,31 @@
 
 namespace libgl {
 
+/**
+ * Stores the vertex and fragment shaders source
+ */
 struct ShaderProgramSource {
 	std::string vertex_source;
 	std::string fragment_source;
 };
 
+/**
+ * OpenGL shader abstraction that stores a vertex and fragment shader
+ */
 class Shader {
    public:
 	explicit Shader(const std::string& filepath);
 	Shader(const std::string& vertex_source, const std::string& fragment_source);
 	~Shader();
 
+	/**
+	 * Binds the shader in the OpenGL state machine
+	 */
 	void Bind() const;
+
+	/**
+	 * Unbinds the shader in the OpenGL state machine
+	 */
 	void Unbind() const;
 
 	// set uniforms
@@ -39,26 +52,38 @@ class Shader {
 	GLuint GetID() const { return id_; }
 
    private:
+	/**
+	 * Parses the shader from the given source file
+	 * @param path the shader
+	 * @return the struct containing the vertex and fragment source code
+	 */
 	ShaderProgramSource ParseShader(const std::string& filepath);
 
+	/**
+	 * Returns the location of the shader
+	 * @param name of the uniform
+	 * @return the GL location of the uniform
+	 */
 	GLint GetUniformLocation(const std::string& name);
+
+	/**
+	 * Compiles the shader based off the type of the shader
+	 * @param type the GL type of shader i.e. GL_VERTEX_SHADER
+	 * @param source the code
+	 * @return the GL shader object
+	 */
 	GLuint CompileShader(uint32_t type, const std::string& source);
+
+	/**
+	 * Compiles both shaders and links them to create THE GL shader object
+	 * @param vertex_shader the vertex source code
+	 * @param fragment_shader the fragment source code
+	 * @return the GL shader object
+	 */
 	GLuint CreateShader(const std::string& vertex_shader, const std::string& fragment_shader);
 
 	GLuint id_;
 	std::unordered_map<std::string, int> uniform_loc_cache_;
-};
-
-class ShaderManager {
-   public:
-	void Load(const std::string& shader_name, const std::string& filepath);
-	Sptr<Shader> Get(const std::string& shader_name);
-	bool Contains(const std::string& shader_name);
-
-	Sptr<Shader> operator[](const std::string& shader_name);
-
-   private:
-	std::unordered_map<std::string, Sptr<Shader>> shaders;
 };
 
 }  // namespace libgl

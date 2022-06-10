@@ -18,6 +18,14 @@
 
 namespace libgl {
 
+/**
+ * Represents a SpriteBatch Vertex with:
+ * position,
+ * color,
+ * texture id,
+ * rotation,
+ * center of rotation
+ */
 struct Vertex {
 	float position[2];
 	float color[4];
@@ -27,23 +35,61 @@ struct Vertex {
 	float center_of_rot[2];
 };
 
+// represents one texture / rectangle that is passed to the sprite shader
 using Quad = std::array<Vertex, 4>;
 
+/**
+ * Renders hundreds-thousands of quads in a single draw call
+ * for faster rendering.
+ * For even more optimization, a TextureAtlas is recommended
+ * to minimize the number of slots in a draw call
+ */
 class SpriteBatch {
    public:
 	SpriteBatch();
 	virtual ~SpriteBatch();
 
-	virtual void SetViewProjectionMatrix(const glm::mat4 &projection) {
+	/**
+	 * Sets the view and projection matrices typically from the camera object
+	 * representing the game world
+	 * Must be called before rendering and on each frame if the camera changes
+	 * @param projection the view projection Matrix
+	 */
+	virtual void SetViewProjectionMatrix(const glm::mat4 &view_proj) {
 		sprite_shader_->Bind();
-		sprite_shader_->SetUniformMat4f("u_ViewProjMatrix", projection);
+		sprite_shader_->SetUniformMat4f("u_ViewProjMatrix", view_proj);
 		sprite_shader_->Unbind();
 	}
 
+	/**
+	 * Begins the rendering process
+	 */
 	virtual void BeginRender();
+
+	/**
+	 * Ends the rendering process and draws every quad from BeginRender() to the screen
+	 * in one draw call
+	 */
 	virtual void EndRender();
 
+	/**
+	 * draw the given texture at the x, y coords
+	 * @param texture the texture to draw
+	 * @param x coord in world units
+	 * @param y coord in world units
+	 * @param color tint of the texture
+	 */
 	virtual void RenderTexture(const Texture *texture, const float x, const float y, const glm::vec4 &color = glm::vec4(1.0f));
+
+	/**
+	 * draw the given texture at the x, y, w, h coords and may resize as necessary
+	 * @param texture the texture to draw
+	 * @param x coord in world units
+	 * @param y coord in world units
+	 * @param w size in world units
+	 * @param h size in world units
+	 * @param color tint of the texture
+	 */
 	virtual void RenderTexture(const Texture *texture, const float x, const float y, const float w, const float h, const glm::vec4 &color = glm::vec4(1.0f));
 
 	/**

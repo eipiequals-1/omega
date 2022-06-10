@@ -8,6 +8,9 @@
 
 namespace libgl {
 
+/**
+ * Represents a part of a texture only to be loaded by libgl::TextureAtlas
+ */
 class TextureRegion {
    public:
 	TextureRegion(Texture *tex, uint32_t x, uint32_t y, uint32_t w, uint32_t h);

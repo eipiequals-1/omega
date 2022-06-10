@@ -8,16 +8,34 @@
 
 namespace libgl {
 
+/**
+ * Basic Entity abstraction for rendering, updating, and handling inputs
+ */
 class Entity {
    public:
 	Entity();
 	virtual ~Entity() {}
+
+	/**
+	 * Updates the entity data
+	 * @param dt the timestep if necessary
+	 */
 	virtual void Update(float dt) {
 		(void)dt;
 	}
+
+	/**
+	 * Renders the entity
+	 * @param sprite_batch for rendering
+	 */
 	virtual void Render(SpriteBatch &sprite_batch) {
 		(void)sprite_batch;
 	}
+
+	/**
+	 * Handles input and stores entity data
+	 * @param input the input processor to get data from
+	 */
 	virtual void Input(InputProcessor &input) {
 		(void)input;
 	}
@@ -30,6 +48,9 @@ class Entity {
 	glm::vec2 vel_;
 };
 
+/**
+ * Abstraction for entities if they are circles
+ */
 class CircleComponent {
    public:
 	CircleComponent(float x, float y, float radius);
@@ -41,6 +62,9 @@ class CircleComponent {
 	float radius_;
 };
 
+/**
+ * Abstraction for AABB rectangle entities
+ */
 class RectComponent {
    public:
 	RectComponent(float x, float y, float w, float h);
@@ -55,6 +79,9 @@ class RectComponent {
 	glm::rect rect_;
 };
 
+/**
+ * Abstraction of a texture using / sprite rendering entity
+ */
 class SpriteComponent {
    public:
 	SpriteComponent(Texture *texture);

@@ -13,16 +13,34 @@
 namespace libgl {
 namespace tiled {
 
+/**
+ * Renders the tiled map by converting each layer into 1 texture for much faster
+ * rendering
+ */
 class MapRenderer {
    public:
 	explicit MapRenderer(Map* map, const std::string& tileset_path);
 	virtual ~MapRenderer();
 
+	/**
+	 * Renders the tiled map
+	 * @param batch for rendering
+	 */
 	virtual void Render(SpriteBatch& batch);
-	virtual void RenderTileLayer(SpriteBatch& batch, const Layer& layer);
 
    protected:
+	/**
+	 * Loads a tile layer and creates a texture
+	 * @param layer to set
+	 */
 	void LoadLayer(const Layer& layer);
+	/**
+	 * Sets the tiles pixels on the new texture
+	 * @param tile_start the offset to start copying
+	 * @param tile
+	 * @param layer_width_pix width of the layer in pixels
+	 * @param layer_height_pix height of the layer in pixels
+	 */
 	void SetTilePixels(uint32_t* tile_start, const Tile& tile, uint32_t layer_width_pix, uint32_t layer_height_pix) {
 		(void)layer_height_pix;
 		// get tileset image and pixels

@@ -51,15 +51,9 @@ void MapRenderer::LoadLayer(const Layer &layer) {
 }
 
 void MapRenderer::Render(SpriteBatch &batch) {
-	// (void)batch;
 	for (const auto &layer : layer_texture_) {
 		batch.RenderTexture(layer.get(), 0.0f, 0.0f);
 	}
-}
-
-void MapRenderer::RenderTileLayer(SpriteBatch &batch, const Layer &layer) {
-	(void)batch;
-	(void)layer;
 }
 
 }  // namespace tiled

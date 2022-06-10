@@ -41,6 +41,7 @@ cc_library(
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
+        "@GL//:GL",
         "texture",
         "texture_region",
         "//libGL2D/core:using",

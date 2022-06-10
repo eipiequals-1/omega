@@ -531,7 +531,7 @@ TmxReturn _parseLayerDataNode(tinyxml2::XMLElement* element, const TilesetCollec
 
 		// tiled base64 layer data is an unsigned 32bit array little endian
 		// TODO - verify this on other platforms, write some tests
-		unsigned int* p = (unsigned int*)csv.c_str();
+		const unsigned int* p = (const unsigned int*)csv.c_str();
 		for (unsigned int i = 0; i < length; i++) {
 			Tile tile;
 			tile.gid = p[i];

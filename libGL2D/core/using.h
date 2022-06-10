@@ -9,12 +9,19 @@
 
 namespace libgl {
 
+// a STL unique pointer
 template <typename T>
 using Uptr = std::unique_ptr<T>;
 
+// a STL shared pointer
 template <typename T>
 using Sptr = std::shared_ptr<T>;
 
+/**
+ * Specifies how the Window should be set up.
+ *
+ * i.e. Fullscreen mode, Resizable, etc
+ */
 enum class WindowFlags {
 	kOpenGL = SDL_WINDOW_OPENGL,
 	kFullscreen = SDL_WINDOW_FULLSCREEN,
@@ -26,6 +33,9 @@ enum class WindowFlags {
 	kNone = 0
 };
 
+/**
+ * Specifies how the SDL window, events, audio, etc should be set up
+ */
 enum class InitFlags {
 	kTimer = SDL_INIT_TIMER,
 	kAudio = SDL_INIT_AUDIO,
@@ -40,6 +50,7 @@ inline void Log() {
 }
 
 /**
+ * The official libgl logging function for proper formatting and ease of use
  * @param args any arguments to print
  */
 template <typename T, typename... Args>

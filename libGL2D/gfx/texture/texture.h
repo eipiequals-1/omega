@@ -13,6 +13,10 @@
 
 namespace libgl {
 
+/**
+ * Abstraction of OpenGL texture to be used with a SpriteBatch
+ * or a custom renderer.
+ */
 class Texture {
    public:
 	explicit Texture(const std::string& filepath, GLenum min_filter = GL_NEAREST, GLenum mag_filter = GL_NEAREST);
@@ -20,12 +24,24 @@ class Texture {
 
 	~Texture();
 
+	/**
+	 * Binds this texture as the active OpenGL texture to the given slot
+	 * @param slot to bind to
+	 */
 	void Bind(uint32_t slot = 0) const;
+
+	/**
+	 * Unbind the texture in OpenGL
+	 */
 	void Unbind() const;
-	// void SaveToFile(const std::string& filepath);
 
 	uint32_t get_width() const { return width_; }
 	uint32_t get_height() const { return height_; }
+
+	/**
+	 * Sets the texture data for RGBA textures using a uint32_t array
+	 * @param data with RGBA data
+	 */
 	void set_data(const uint32_t* const data) {
 		glBindTexture(GL_TEXTURE_2D, id_);  // bind without setting active texture
 		glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, width_, height_, GL_RGBA, GL_UNSIGNED_BYTE, data);
@@ -40,6 +56,7 @@ class Texture {
 	 * @param surf pointer to SDL_Surface
 	 * @param min_filter type of filter for minimizing the texture
 	 * @param max_filter type of filter for maximizing the texture
+	 * @return a new Texture
 	 */
 	static Texture* FromSurface(SDL_Surface* surf, GLenum min_filter = GL_NEAREST, GLenum mag_filter = GL_NEAREST) {
 		Texture* tex = new Texture(surf->w, surf->h, min_filter, mag_filter);
@@ -49,6 +66,9 @@ class Texture {
 	}
 
    private:
+	/**
+	 * Creates the texture and sets the min, mag, and wrap filters
+	 */
 	void Load();
 
 	GLuint id_;
@@ -57,24 +77,62 @@ class Texture {
 	uint32_t width_, height_;
 };
 
+/**
+ * Generic TextureManager for cheaper and faster look-ups using an unordered map
+ * Best Key for fastest lookup is an int or enum
+ */
 template <typename K>
 class TextureManager {
    public:
+	/**
+	 * Loads the texture at the given filepath and adds it to the map
+	 * @param id key for look-up
+	 * @param filepath relative or absolute path
+	 * @param min_filter type of filter for minimizing the texture
+	 * @param max_filter type of filter for maximizing the texture
+	 */
 	void Load(const K& id, const std::string& filepath, GLenum min_filter = GL_NEAREST, GLenum mag_filter = GL_NEAREST) {
-		textures_[id] = std::make_shared<Texture>(filepath, min_filter, mag_filter);
-	}
-	void Load(const K& id, SDL_Surface* surface, GLenum min_filter = GL_NEAREST, GLenum mag_filter = GL_NEAREST) {
-		textures_[id] = std::make_shared<Texture>(surface, min_filter, mag_filter);
+		if (!Contains(id)) {
+			textures_[id] = std::make_shared<Texture>(filepath, min_filter, mag_filter);
+		}
 	}
 
+	/**
+	 * Loads the texture at the given filepath and adds it to the map
+	 * @param id key for look-up
+	 * @param surface relative or absolute path
+	 * @param min_filter type of filter for minimizing the texture
+	 * @param max_filter type of filter for maximizing the texture
+	 */
+	void Load(const K& id, SDL_Surface* surface, GLenum min_filter = GL_NEAREST, GLenum mag_filter = GL_NEAREST) {
+		if (!Contains(id)) {
+			textures_[id] = Sptr<Texture>(Texture::FromSurface(surface, min_filter, mag_filter));
+		}
+	}
+
+	/**
+	 * Returns a libgl::Sptr to the texture based off of the given id
+	 * IMPORTANT: if the id is invalid, this case is not handled
+	 * @param id look-up id
+	 * @return the texture
+	 */
 	Sptr<Texture> Get(const K& id) {
 		return textures_[id];
 	}
 
+	/**
+	 * Returns if there is already a texture at the given id
+	 * @param id the id of the texture
+	 * @return if there is already a texture
+	 */
 	bool Contains(const K& id) {
 		return textures_.find(id) != textures_.end();
 	}
 
+	/**
+	 * Another easy look-up method
+	 * Same as Sptr<Texture> Get(const K& id);
+	 */
 	Sptr<Texture> operator[](const K& id) {
 		return Get(id);
 	}
