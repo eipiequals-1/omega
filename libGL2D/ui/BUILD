@@ -17,6 +17,19 @@ cc_library(
         "@SDL2//:SDL2",
         "//libGL2D/core:using",
         "//libGL2D/physics:math",
+        "//libGL2D/gfx/texture:texture",
     ]
 )
 
+cc_library(
+    name = "ui_screen",
+    srcs = ["ui_screen.cc"],
+    hdrs = ["ui_screen.h"],
+    copts = DEFAULT_COPTS,
+    linkopts = DEFAULT_LINKOPTS,
+    deps = [
+        "//libGL2D/events:input_processor",
+        "//libGL2D/physics:math",
+        "//libGL2D/ui/button:button",
+    ]
+)

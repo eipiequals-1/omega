@@ -8,6 +8,7 @@
 #include <unordered_map>
 
 #include "libGL2D/core/using.h"
+#include "libGL2D/gfx/texture/texture.h"
 #include "libGL2D/physics/math.h"
 
 namespace libgl {
@@ -20,15 +21,14 @@ class Font {
 	Font(const std::string& path, uint32_t size);
 	~Font();
 	/**
-	 * Creates a SDL_Surface to draw
+	 * Creates a Textre to draw
 	 * @param text to render
 	 * @param color to draw it
-	 * @return a SDL_Surface to be converted into a libgl::Texture for rendering
+	 * @return a Texture
 	 */
-	SDL_Surface* RenderText(const std::string& text, const glm::vec4& color = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
+	Texture* RenderText(const std::string& text, const glm::vec4& color = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
 
    private:
-	uint32_t size_;
 	TTF_Font* font_;
 };
 
