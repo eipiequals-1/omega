@@ -109,12 +109,12 @@ void SpriteBatch::BeginRender() {
 }
 
 void SpriteBatch::RenderTexture(const Texture *texture, const float x, const float y, const glm::vec4 &color) {
-	RenderTexture(texture, x, y, texture->get_width(), texture->get_height(), color);
+	RenderTexture(texture, x, y, texture->GetWidth(), texture->GetHeight(), color);
 }
 
 void SpriteBatch::RenderTexture(const Texture *texture, const float x, const float y, const float w, const float h, const glm::vec4 &color) {
 	// set tex coords
-	glm::rect tex_coords(0.0f, 0.0f, texture->get_width(), texture->get_height());
+	glm::rect tex_coords(0.0f, 0.0f, texture->GetWidth(), texture->GetHeight());
 	RenderTexture(texture, tex_coords, glm::rect(x, y, w, h), color);
 }
 
@@ -148,10 +148,10 @@ void SpriteBatch::RenderTexture(const Texture *texture, glm::rect src, const glm
 		tex_bind_slot_++;
 	}
 	// normalize src rect
-	src.x = src.x / texture->get_width();
-	src.y = src.y / texture->get_height();
-	src.w = src.w / texture->get_width();
-	src.h = src.h / texture->get_height();
+	src.x = src.x / texture->GetWidth();
+	src.y = src.y / texture->GetHeight();
+	src.w = src.w / texture->GetWidth();
+	src.h = src.h / texture->GetHeight();
 	// inverse texture to y up
 	Vertex v0 = {{dest.x, dest.y}, {color.r, color.g, color.b, color.a}, {src.x, src.y + src.h}, tex_id, rotation, {center.x, center.y}};
 	Vertex v1 = {{dest.x + dest.w, dest.y}, {color.r, color.g, color.b, color.a}, {src.x + src.w, src.y + src.h}, tex_id, rotation, {center.x, center.y}};

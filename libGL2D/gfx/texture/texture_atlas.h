@@ -33,7 +33,7 @@ class TextureAtlas {
 	/**
 	 * @returns the texture that the atlas is a wrapper of
 	 */
-	Sptr<Texture> get_texture() const { return tex_; };
+	Sptr<Texture> GetTexture() const { return tex_; };
 
    private:
 	std::unordered_map<std::string, Sptr<TextureRegion>> tex_regions_;

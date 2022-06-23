@@ -4,8 +4,6 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 
-#include <iostream>
-
 namespace libgl {
 
 Texture::Texture(const std::string& filepath, GLenum min_filter, GLenum mag_filter) : id_(0), min_filter_(min_filter), mag_filter_(mag_filter), pixels_(nullptr), width_(0), height_(0) {
@@ -16,8 +14,11 @@ Texture::Texture(const std::string& filepath, GLenum min_filter, GLenum mag_filt
 	}
 	width_ = surf->w;
 	height_ = surf->h;
-	pixels_ = (uint32_t*)surf->pixels;
+	pixels_ = new uint32_t[width_ * height_];
+	std::memcpy(pixels_, surf->pixels, sizeof(uint32_t) * width_ * height_);
 	Load();
+	SDL_FreeSurface(surf);
+	surf = nullptr;
 }
 
 Texture::Texture(uint32_t width, uint32_t height, GLenum min_filter, GLenum mag_filter) : id_(0), min_filter_(min_filter), mag_filter_(mag_filter), pixels_(nullptr), width_(width), height_(height) {

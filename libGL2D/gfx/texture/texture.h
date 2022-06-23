@@ -4,6 +4,7 @@
 #include <GL/gl.h>
 #include <SDL2/SDL_image.h>
 
+#include <cstring>
 #include <memory>
 #include <string>
 #include <unordered_map>
@@ -35,24 +36,30 @@ class Texture {
 	 */
 	void Unbind() const;
 
-	uint32_t get_width() const { return width_; }
-	uint32_t get_height() const { return height_; }
+	uint32_t GetWidth() const { return width_; }
+	uint32_t GetHeight() const { return height_; }
 
 	/**
 	 * Sets the texture data for RGBA textures using a uint32_t array
 	 * @param data with RGBA data
 	 */
-	void set_data(const uint32_t* const data) {
+	void SetData(uint32_t* data) {
+		if (pixels_ != nullptr) {
+			delete[] pixels_;
+			pixels_ = nullptr;
+		}
+		pixels_ = new uint32_t[width_ * height_];
+		std::memcpy(pixels_, data, sizeof(uint32_t) * width_ * height_);
 		glBindTexture(GL_TEXTURE_2D, id_);  // bind without setting active texture
 		glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, width_, height_, GL_RGBA, GL_UNSIGNED_BYTE, data);
 		Unbind();
 	}
-	const uint32_t* get_pixels() const {
+	const uint32_t* GetPixels() const {
 		return pixels_;
 	}
 
 	/**
-	 * Static factory method that creates a dynamically allocated texture from an SDL_Surface
+	 * Static factory method that creates a dynamically allocated texture from an SDL_Surface which is not destroyed
 	 * @param surf pointer to SDL_Surface
 	 * @param min_filter type of filter for minimizing the texture
 	 * @param max_filter type of filter for maximizing the texture
@@ -60,8 +67,7 @@ class Texture {
 	 */
 	static Texture* FromSurface(SDL_Surface* surf, GLenum min_filter = GL_NEAREST, GLenum mag_filter = GL_NEAREST) {
 		Texture* tex = new Texture(surf->w, surf->h, min_filter, mag_filter);
-		uint32_t* pixels = (uint32_t*)surf->pixels;
-		tex->set_data(pixels);
+		tex->SetData((uint32_t*)surf->pixels);
 		return tex;
 	}
 
