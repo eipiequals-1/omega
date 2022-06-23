@@ -123,7 +123,7 @@ void ParticleEmitter::Update(float dt) {
 		glm::vec4 diff_color = (data_.end_color - data_.begin_color) / data_.particle_lifespan;
 		p.color += diff_color * dt;
 
-		if (p.is_dead()) {
+		if (p.IsDead()) {
 			// bring last active particle to this spot
 			Particle &last_particle = particles_[num_particles_ - 1];
 			p = last_particle;  // copy last particles data to old particle

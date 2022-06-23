@@ -39,10 +39,10 @@ class Entity {
 	virtual void Input(InputProcessor &input) {
 		(void)input;
 	}
-	virtual const glm::vec2 &get_vel() const { return vel_; }
-	virtual void set_vel(const glm::vec2 &vel) { vel_ = vel; }
-	virtual void set_vel_x(float x) { vel_.x = x; }
-	virtual void set_vel_y(float y) { vel_.y = y; }
+	virtual const glm::vec2 &GetVel() const { return vel_; }
+	virtual void SetVel(const glm::vec2 &vel) { vel_ = vel; }
+	virtual void SetVelX(float x) { vel_.x = x; }
+	virtual void SetVelY(float y) { vel_.y = y; }
 
    protected:
 	glm::vec2 vel_;
@@ -54,8 +54,9 @@ class Entity {
 class CircleComponent {
    public:
 	CircleComponent(float x, float y, float radius);
-	const glm::vec2 &get_center() const { return center_; }
-	float get_radius() const { return radius_; }
+	virtual ~CircleComponent() {}
+	const glm::vec2 &GetCenter() const { return center_; }
+	float GetRadius() const { return radius_; }
 
    protected:
 	glm::vec2 center_;
@@ -68,12 +69,13 @@ class CircleComponent {
 class RectComponent {
    public:
 	RectComponent(float x, float y, float w, float h);
-	const glm::rect &get_rect() const { return rect_; }
-	void set_x(float x) { rect_.x = x; }
-	void set_y(float y) { rect_.y = y; }
-	void set_w(float w) { rect_.w = w; }
-	void set_h(float h) { rect_.h = h; }
-	void set_rect(const glm::rect &r) { rect_ = r; }
+	virtual ~RectComponent() {}
+	const glm::rect &GetRect() const { return rect_; }
+	void SetX(float x) { rect_.x = x; }
+	void SetY(float y) { rect_.y = y; }
+	void SetW(float w) { rect_.w = w; }
+	void SetH(float h) { rect_.h = h; }
+	void SetRect(const glm::rect &r) { rect_ = r; }
 
    protected:
 	glm::rect rect_;
@@ -85,6 +87,7 @@ class RectComponent {
 class SpriteComponent {
    public:
 	SpriteComponent(Texture *texture);
+	virtual ~SpriteComponent() {}
 
    protected:
 	Texture *texture_;

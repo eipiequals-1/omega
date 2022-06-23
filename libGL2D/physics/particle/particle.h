@@ -20,7 +20,7 @@ struct Particle {
 	 * @param dt the timestep
 	 */
 	virtual void Update(float dt);
-	bool is_dead() const {
+	bool IsDead() const {
 		return life_remaining <= 0.0f;
 	}
 

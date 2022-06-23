@@ -63,7 +63,7 @@ class ParticleEmitter {
 	explicit ParticleEmitter(EmitterBuilder& builder);
 	virtual ~ParticleEmitter();
 
-	virtual bool is_dead() const {
+	virtual bool IsDead() const {
 		return timer_ > data_.lifespan;
 	}
 
@@ -78,7 +78,7 @@ class ParticleEmitter {
 			num_particles_ = 0;
 		}
 	}
-	virtual void set_pos(const glm::vec2& pos) {
+	virtual void SetPos(const glm::vec2& pos) {
 		data_.pos = pos;
 	}
 
@@ -94,7 +94,7 @@ class ParticleEmitter {
 	 */
 	virtual void Render(const glm::mat4& view_proj_matrix);
 
-	EmitterBuilder& get_builder() {
+	EmitterBuilder& GetBuilder() {
 		return data_;
 	}
 
