@@ -13,7 +13,7 @@ glm::vec2 OrthographicCamera::Project(const glm::vec2& vec, const glm::vec2& scr
 	glm::vec2 convert;
 	convert.x = vec.x / screen_res.x * width_;
 	convert.y = vec.y / screen_res.y * height_;
-	convert += glm::vec2(position_.x, position_.y) - glm::vec2(width_ / 2.0f, height_ / 2.0f);
+	convert += glm::vec2(position_.x, position_.y);  // + glm::vec2(width_ / 2.0f, height_ / 2.0f);
 	return convert;
 }
 
