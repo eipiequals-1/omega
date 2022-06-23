@@ -47,7 +47,7 @@ void MapRenderer::LoadLayer(const Layer &layer) {
 	}
 
 	layer_texture_.push_back(std::make_unique<Texture>(layer_width_pix, layer_height_pix, GL_NEAREST, GL_NEAREST));
-	(layer_texture_.end() - 1)->get()->set_data(pixels.data());
+	(layer_texture_.end() - 1)->get()->SetData(pixels.data());
 }
 
 void MapRenderer::Render(SpriteBatch &batch) {

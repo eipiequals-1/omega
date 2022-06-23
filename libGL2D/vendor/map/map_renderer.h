@@ -46,7 +46,7 @@ class MapRenderer {
 		// get tileset image and pixels
 		const Tileset& tileset = map_->tilesetCollection[tile.tilesetIndex];
 		auto tileset_img = tex_manager_->Get(tile.tilesetIndex);
-		const uint32_t* tileset_pixels = tileset_img->get_pixels();
+		const uint32_t* tileset_pixels = tileset_img->GetPixels();
 		// get location of rect on tileset
 		uint32_t src_x, src_y, src_w, src_h;
 		src_w = tileset.tileWidth;
@@ -65,7 +65,7 @@ class MapRenderer {
 		}
 		// copy pixels from tileset to tile
 		for (uint32_t y = 0; y < src_h; ++y) {
-			const uint32_t* tileset_pixel_row = &tileset_pixels[(src_y + y) * tileset_img->get_width() + src_x];
+			const uint32_t* tileset_pixel_row = &tileset_pixels[(src_y + y) * tileset_img->GetWidth() + src_x];
 			for (uint32_t x = 0; x < src_w; ++x) {
 				uint32_t tileset_pix_data = tileset_pixel_row[x];
 				// copy r, g, b, a
