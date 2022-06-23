@@ -15,9 +15,9 @@ Window::~Window() {
 }
 
 bool Window::Init(const WinBuilder &builder) {
-	width_ = builder.get_width();
-	height_ = builder.get_height();
-	if (SDL_Init((uint32_t)builder.get_init_flags()) != 0) {
+	width_ = builder.GetWidth();
+	height_ = builder.GetHeight();
+	if (SDL_Init((uint32_t)builder.GetInitFlags()) != 0) {
 		libgl::Log("Failed to initialize SDL: '", SDL_GetError(), "'");
 		return false;
 	}
@@ -26,7 +26,7 @@ bool Window::Init(const WinBuilder &builder) {
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
 
-	window_ = SDL_CreateWindow(builder.get_window_title().c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width_, height_, (uint32_t)builder.get_win_flags());
+	window_ = SDL_CreateWindow(builder.GetWindowTitle().c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width_, height_, (uint32_t)builder.GetWinFlags());
 	if (window_ == nullptr) {
 		libgl::Log("Failed to create window: '", SDL_GetError(), "'");
 		SDL_Quit();

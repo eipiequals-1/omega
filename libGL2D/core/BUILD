@@ -46,9 +46,9 @@ cc_library(
 )
 
 cc_library(
-    name = "ortho_camera",
-    srcs = ["ortho_camera.cc"],
-    hdrs = ["ortho_camera.h"],
+    name = "orthographic_camera",
+    srcs = ["orthographic_camera.cc"],
+    hdrs = ["orthographic_camera.h"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [

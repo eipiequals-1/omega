@@ -27,11 +27,11 @@ class WinBuilder {
 		init_flags_ = InitFlags::kEverything;
 	}
 
-	uint32_t get_width() const { return width_; }
-	uint32_t get_height() const { return height_; }
-	const std::string &get_window_title() const { return window_title_; }
-	WindowFlags get_win_flags() const { return win_flags_; }
-	InitFlags get_init_flags() const { return init_flags_; }
+	uint32_t GetWidth() const { return width_; }
+	uint32_t GetHeight() const { return height_; }
+	const std::string &GetWindowTitle() const { return window_title_; }
+	WindowFlags GetWinFlags() const { return win_flags_; }
+	InitFlags GetInitFlags() const { return init_flags_; }
 
 	/**
 	 * Set the width of the window
@@ -106,7 +106,7 @@ class Window {
 	 * Specify the window clear color and abstracts it
 	 * @param color of (r, g, b, a) components
 	 */
-	virtual void set_clear_color(const glm::vec4 &color) {
+	virtual void SetClearColor(const glm::vec4 &color) {
 		glClearColor(color.r, color.g, color.b, color.a);
 	}
 	virtual void Clear(GLbitfield mask = GL_COLOR_BUFFER_BIT);
