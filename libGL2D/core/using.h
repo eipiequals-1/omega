@@ -13,9 +13,19 @@ namespace libgl {
 template <typename T>
 using Uptr = std::unique_ptr<T>;
 
+template <typename T, typename... Args>
+constexpr Uptr<T> CreateUptr(Args&&... args) {
+	return std::make_unique<T>(std::forward<Args>(args)...);
+}
+
 // a STL shared pointer
 template <typename T>
 using Sptr = std::shared_ptr<T>;
+
+template <typename T, typename... Args>
+constexpr Sptr<T> CreateSptr(Args&&... args) {
+	return std::make_shared<T>(std::forward<Args>(args)...);
+}
 
 /**
  * Specifies how the Window should be set up.

@@ -7,6 +7,8 @@
 
 #include "libGL2D/core/using.h"
 #include "libGL2D/core/window.h"
+#include "libGL2D/events/event.h"
+#include "libGL2D/events/input_manager.h"
 
 namespace libgl {
 
@@ -23,7 +25,7 @@ namespace libgl {
  */
 class Application {
    public:
-	Application(const WinBuilder& builder);
+	explicit Application(const WinBuilder& builder);
 	virtual ~Application();
 
 	/**
@@ -56,10 +58,12 @@ class Application {
 	virtual void Run();
 
    protected:
-	bool running_;
-	Uptr<Window> window_;
+	virtual void OnResize(const Event& event);
+
 	float fps_;
 	uint32_t last_time_;
+	Uptr<Window> window_;
+	bool running_;
 };
 }  // namespace libgl
 

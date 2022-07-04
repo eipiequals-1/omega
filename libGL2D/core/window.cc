@@ -40,6 +40,8 @@ bool Window::Init(const WinBuilder &builder) {
 		SDL_Quit();
 		return false;
 	}
+	// create viewport
+	viewport_ = CreateUptr<Viewport>(builder.GetViewportType(), width_, height_);
 	return true;
 }
 
@@ -50,4 +52,9 @@ void Window::Clear(GLbitfield mask) {
 void Window::SwapBuffers() {
 	SDL_GL_SwapWindow(window_);
 }
+
+void Window::OnResize(uint32_t new_width, uint32_t new_height) {
+	viewport_->OnResize(new_width, new_height);
+}
+
 }  // namespace libgl

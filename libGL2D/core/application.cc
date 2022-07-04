@@ -3,8 +3,8 @@
 #include "libGL2D/physics/math.h"
 
 namespace libgl {
-Application::Application(const WinBuilder& builder) : running_(true), fps_(60) {
-	window_ = std::make_unique<Window>();
+Application::Application(const WinBuilder& builder) : fps_(60), last_time_(0), window_(nullptr), running_(true) {
+	window_ = CreateUptr<Window>();
 	running_ = window_->Init(builder);
 	// init TTF_Font
 	if (TTF_Init() != 0) {
@@ -24,9 +24,9 @@ void Application::Update(float dt) {
 
 void Application::Input(float dt) {
 	(void)dt;
-	SDL_Event event;
-	while (SDL_PollEvent(&event)) {
-		if (event.type == SDL_QUIT) {
+	Event event;
+	while (InputManager::Instance().PollEvents(event)) {
+		if ((EventType)event.type == EventType::kQuit) {
 			running_ = false;
 		}
 	}
@@ -53,4 +53,11 @@ void Application::Run() {
 		window_->SwapBuffers();
 	}
 }
+
+void Application::OnResize(const Event& event) {
+	if (event.window.event == SDL_WINDOWEVENT_RESIZED) {
+		window_->OnResize(event.window.data1, event.window.data2);
+	}
+}
+
 }  // namespace libgl

@@ -28,7 +28,8 @@ cc_library(
         "@SDL2//:SDL2",
         "@GL//:GL",
         "//libGL2D/core:using",
-        "//libGL2D/physics:math"
+        "//libGL2D/physics:math",
+        ":viewport"
     ]
 )
 
@@ -40,8 +41,10 @@ cc_library(
     linkopts = DEFAULT_LINKOPTS,
     deps = [
         "@SDL2//:SDL2",
-        "//libGL2D/core:window",
-        "//libGL2D/core:using",
+        ":using",
+        ":window",
+        "//libGL2D/events:event",
+        "//libGL2D/events:input_manager",
     ]
 )
 
@@ -52,6 +55,18 @@ cc_library(
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
+        "//libGL2D/physics:math"
+    ]
+)
+
+cc_library(
+    name = "viewport",
+    srcs = ["viewport.cc"],
+    hdrs = ["viewport.h"],
+    copts = DEFAULT_COPTS,
+    linkopts = DEFAULT_LINKOPTS,
+    deps = [
+        "@GL//:GL",
         "//libGL2D/physics:math"
     ]
 )

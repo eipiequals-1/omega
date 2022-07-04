@@ -9,6 +9,7 @@
 #include <string>
 
 #include "libGL2D/core/using.h"
+#include "libGL2D/core/viewport.h"
 #include "libGL2D/physics/math.h"
 
 namespace libgl {
@@ -23,8 +24,9 @@ class WinBuilder {
 		width_ = 800;
 		height_ = 450;
 		window_title_ = "libGL2D - Window";
-		win_flags_ = WindowFlags::kOpenGL;
+		win_flags_ = WindowFlags::kOpenGLResizable;
 		init_flags_ = InitFlags::kEverything;
+		viewport_type_ = ViewportType::kStretch;
 	}
 
 	uint32_t GetWidth() const { return width_; }
@@ -32,6 +34,7 @@ class WinBuilder {
 	const std::string &GetWindowTitle() const { return window_title_; }
 	WindowFlags GetWinFlags() const { return win_flags_; }
 	InitFlags GetInitFlags() const { return init_flags_; }
+	ViewportType GetViewportType() const { return viewport_type_; }
 
 	/**
 	 * Set the width of the window
@@ -78,12 +81,22 @@ class WinBuilder {
 		return *this;
 	}
 
+	/**
+	 * Set the window viewport type
+	 * @param viewport_type
+	 */
+	WinBuilder &viewport_type(ViewportType viewport_type) {
+		viewport_type_ = viewport_type;
+		return *this;
+	}
+
    private:
 	uint32_t width_;
 	uint32_t height_;
 	std::string window_title_;
 	WindowFlags win_flags_;
 	InitFlags init_flags_;
+	ViewportType viewport_type_;
 };
 
 /**
@@ -111,11 +124,13 @@ class Window {
 	}
 	virtual void Clear(GLbitfield mask = GL_COLOR_BUFFER_BIT);
 	virtual void SwapBuffers();
+	virtual void OnResize(uint32_t new_width, uint32_t new_height);
 
    protected:
 	uint32_t width_;
 	uint32_t height_;
 	SDL_Window *window_;
+	Uptr<Viewport> viewport_;
 };
 
 }  // namespace libgl
