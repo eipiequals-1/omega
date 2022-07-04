@@ -16,7 +16,7 @@ class UIScreen {
 
 	void Update(const glm::vec2 &mouse_pos);
 	void PushButton(Button *button);
-	void HandleButtons(InputProcessor &input);
+	void HandleButtons();
 
    protected:
 	std::vector<Button *> buttons_;
