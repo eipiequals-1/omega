@@ -1,5 +1,5 @@
-#ifndef _LIBGL2D_UI_BUTTON_TEXTBUTTON_H_
-#define _LIBGL2D_UI_BUTTON_TEXTBUTTON_H_
+#ifndef LIBGL2D_UI_BUTTON_TEXTBUTTON_H
+#define LIBGL2D_UI_BUTTON_TEXTBUTTON_H
 
 #include "libGL2D/core/using.h"
 #include "libGL2D/gfx/texture/texture.h"
@@ -29,4 +29,4 @@ class TextButton : public ImageButton {
 
 }  // namespace libgl
 
-#endif  // _LIBGL2D_UI_BUTTON_TEXTBUTTON_H_
+#endif  // LIBGL2D_UI_BUTTON_TEXTBUTTON_H

@@ -1,5 +1,5 @@
-#ifndef _LIBGL2D_PHYSICS_ENTITY_H_
-#define _LIBGL2D_PHYSICS_ENTITY_H_
+#ifndef LIBGL2D_PHYSICS_ENTITY_H
+#define LIBGL2D_PHYSICS_ENTITY_H
 
 #include "libGL2D/events/input_processor.h"
 #include "libGL2D/gfx/sprite_batch.h"
@@ -95,4 +95,4 @@ class SpriteComponent {
 
 }  // namespace libgl
 
-#endif  // _LIBGL2D_PHYSICS_ENTITY_H_
+#endif  // LIBGL2D_PHYSICS_ENTITY_H

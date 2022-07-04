@@ -1,5 +1,5 @@
-#ifndef _LIBGL2D_UI_BUTTON_BUTTON_H_
-#define _LIBGL2D_UI_BUTTON_BUTTON_H_
+#ifndef LIBGL2D_UI_BUTTON_BUTTON_H
+#define LIBGL2D_UI_BUTTON_BUTTON_H
 
 #include <functional>
 
@@ -34,4 +34,4 @@ class Button : public RectComponent {
 
 }  // namespace libgl
 
-#endif  // _LIBGL2D_UI_BUTTON_BUTTON_H_
+#endif  // LIBGL2D_UI_BUTTON_BUTTON_H

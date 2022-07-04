@@ -1,5 +1,5 @@
-#ifndef _LIBGL2D_CORE_APPLICATION_H_
-#define _LIBGL2D_CORE_APPLICATION_H_
+#ifndef LIBGL2D_CORE_APPLICATION_H
+#define LIBGL2D_CORE_APPLICATION_H
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
@@ -67,4 +67,4 @@ class Application {
 };
 }  // namespace libgl
 
-#endif  // _LIBGL2D_CORE_APPLICATION_H_
+#endif  // LIBGL2D_CORE_APPLICATION_H

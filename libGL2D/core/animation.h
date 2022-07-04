@@ -1,5 +1,5 @@
-#ifndef _LIBGL2D_CORE_ANIMATION_H_
-#define _LIBGL2D_CORE_ANIMATION_H_
+#ifndef LIBGL2D_CORE_ANIMATION_H
+#define LIBGL2D_CORE_ANIMATION_H
 
 #include <vector>
 
@@ -31,4 +31,4 @@ class Animation {
 
 }  // namespace libgl
 
-#endif  // _LIBGL2D_CORE_ANIMATION_H_
+#endif  // LIBGL2D_CORE_ANIMATION_H

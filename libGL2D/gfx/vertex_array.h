@@ -1,5 +1,5 @@
-#ifndef _LIBGL2D_GFX_VERTEXARRAY_H_
-#define _LIBGL2D_GFX_VERTEXARRAY_H_
+#ifndef LIBGL2D_GFX_VERTEXARRAY_H
+#define LIBGL2D_GFX_VERTEXARRAY_H
 
 #include <vector>
 
@@ -39,4 +39,4 @@ class VertexArray {
 
 }  // namespace libgl
 
-#endif  // _LIBGL2D_GFX_VERTEXARRAY_H_
+#endif  // LIBGL2D_GFX_VERTEXARRAY_H

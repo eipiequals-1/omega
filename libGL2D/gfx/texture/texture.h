@@ -1,5 +1,5 @@
-#ifndef _LIBGL2D_GFX_TEXTURE_TEXTURE_H_
-#define _LIBGL2D_GFX_TEXTURE_TEXTURE_H_
+#ifndef LIBGL2D_GFX_TEXTURE_TEXTURE_H
+#define LIBGL2D_GFX_TEXTURE_TEXTURE_H
 
 #include <GL/gl.h>
 #include <SDL2/SDL_image.h>
@@ -149,4 +149,4 @@ class TextureManager {
 
 }  // namespace libgl
 
-#endif  // _LIBGL2D_GFX_TEXTURE_TEXTURE_H_
+#endif  // LIBGL2D_GFX_TEXTURE_TEXTURE_H

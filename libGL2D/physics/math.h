@@ -1,5 +1,5 @@
-#ifndef _LIBGL2D_PHYSICS_MATH_H_
-#define _LIBGL2D_PHYSICS_MATH_H_
+#ifndef LIBGL2D_PHYSICS_MATH_H
+#define LIBGL2D_PHYSICS_MATH_H
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -123,4 +123,4 @@ const vec4 kBlue(0.0f, 0.0f, 1.0f, 1.0f);
 const vec4 kYellow(1.0f, 1.0f, 0.0f, 1.0f);
 }  // namespace glm
 
-#endif  // _LIBGL2D_PHYSICS_MATH_H_
+#endif  // LIBGL2D_PHYSICS_MATH_H

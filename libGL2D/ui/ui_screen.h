@@ -1,5 +1,5 @@
-#ifndef _LIBGL2D_UI_UISCREEN_H_
-#define _LIBGL2D_UI_UISCREEN_H_
+#ifndef LIBGL2D_UI_UISCREEN_H
+#define LIBGL2D_UI_UISCREEN_H
 
 #include <vector>
 
@@ -23,4 +23,4 @@ class UIScreen {
 };
 }  // namespace libgl
 
-#endif  // _LIBGL2D_UI_UISCREEN_H_
+#endif  // LIBGL2D_UI_UISCREEN_H

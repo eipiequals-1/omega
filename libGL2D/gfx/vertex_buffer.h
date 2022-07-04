@@ -1,5 +1,5 @@
-#ifndef _LIBGL2D_GFX_VERTEXBUFFER_H_
-#define _LIBGL2D_GFX_VERTEXBUFFER_H_
+#ifndef LIBGL2D_GFX_VERTEXBUFFER_H
+#define LIBGL2D_GFX_VERTEXBUFFER_H
 
 #include <GL/gl.h>
 
@@ -39,4 +39,4 @@ class VertexBuffer {
 };
 }  // namespace libgl
 
-#endif  // _LIBGL2D_GFX_VERTEXBUFFER_H_
+#endif  // LIBGL2D_GFX_VERTEXBUFFER_H

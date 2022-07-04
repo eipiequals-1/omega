@@ -1,5 +1,5 @@
-#ifndef _LIBGL2D_GFX_FRAMEBUFFER_H_
-#define _LIBGL2D_GFX_FRAMEBUFFER_H_
+#ifndef LIBGL2D_GFX_FRAMEBUFFER_H
+#define LIBGL2D_GFX_FRAMEBUFFER_H
 
 #include <GL/gl.h>
 
@@ -42,4 +42,4 @@ class FrameBuffer {
 
 }  // namespace libgl
 
-#endif  // _LIBGL2D_GFX_FRAMEBUFFER_H_
+#endif  // LIBGL2D_GFX_FRAMEBUFFER_H

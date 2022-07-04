@@ -1,5 +1,5 @@
-#ifndef _LIBGL2D_CORE_USING_H_
-#define _LIBGL2D_CORE_USING_H_
+#ifndef LIBGL2D_CORE_USING_H
+#define LIBGL2D_CORE_USING_H
 
 #include <SDL2/SDL.h>
 
@@ -71,4 +71,4 @@ void Log(T t, Args... args) {
 
 }  // namespace libgl
 
-#endif  // _LIBGL2D_CORE_USING_H_
+#endif  // LIBGL2D_CORE_USING_H

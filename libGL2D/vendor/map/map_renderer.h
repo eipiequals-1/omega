@@ -1,5 +1,5 @@
-#ifndef _VENDOR_MAP_MAPRENDERER_H_
-#define _VENDOR_MAP_MAPRENDERER_H_
+#ifndef LIBGL2D_MAP_MAPRENDERER_H
+#define LIBGL2D_MAP_MAPRENDERER_H
 
 #include <cstdint>
 #include <string>
@@ -82,4 +82,4 @@ class MapRenderer {
 }  // namespace tiled
 }  // namespace libgl
 
-#endif  // _VENDOR_MAP_MAPRENDERER_H_
+#endif  // LIBGL2D_MAP_MAPRENDERER_H

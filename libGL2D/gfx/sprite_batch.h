@@ -1,5 +1,5 @@
-#ifndef _LIBGL2D_GFX_SPRITEBATCH_H_
-#define _LIBGL2D_GFX_SPRITEBATCH_H_
+#ifndef LIBGL2D_GFX_SPRITEBATCH_H
+#define LIBGL2D_GFX_SPRITEBATCH_H
 
 #include <GL/gl.h>
 
@@ -46,8 +46,15 @@ using Quad = std::array<Vertex, 4>;
  */
 class SpriteBatch {
    public:
-	SpriteBatch();
+	SpriteBatch(const SpriteBatch &) = delete;
+	SpriteBatch operator=(const SpriteBatch &) = delete;
+
 	virtual ~SpriteBatch();
+
+	static SpriteBatch &Instance() {
+		static SpriteBatch batch;
+		return batch;
+	}
 
 	/**
 	 * Sets the view and projection matrices typically from the camera object
@@ -131,8 +138,11 @@ class SpriteBatch {
 	// render attributes
 	uint32_t quads_rendered_;
 	uint32_t tex_bind_slot_;
+
+   private:
+	SpriteBatch();
 };
 
 }  // namespace libgl
 
-#endif  // _LIBGL2D_GFX_SPRITEBATCH_H_
+#endif  // LIBGL2D_GFX_SPRITEBATCH_H

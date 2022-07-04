@@ -1,5 +1,5 @@
-#ifndef _LIBGL2D_PHYSICS_PARTICLE_PARTICLE_H_
-#define _LIBGL2D_PHYSICS_PARTICLE_PARTICLE_H_
+#ifndef LIBGL2D_PHYSICS_PARTICLE_PARTICLE_H
+#define LIBGL2D_PHYSICS_PARTICLE_PARTICLE_H
 
 #include "libGL2D/core/using.h"
 #include "libGL2D/physics/math.h"
@@ -53,4 +53,4 @@ struct Particle {
 };
 }  // namespace libgl
 
-#endif  // _LIBGL2D_PHYSICS_PARTICLE_PARTICLE_H_
+#endif  // LIBGL2D_PHYSICS_PARTICLE_PARTICLE_H

@@ -1,5 +1,5 @@
-#ifndef _LIBGL2D_CORE_WINDOW_H_
-#define _LIBGL2D_CORE_WINDOW_H_
+#ifndef LIBGL2D_CORE_WINDOW_H
+#define LIBGL2D_CORE_WINDOW_H
 
 #include <GL/gl.h>
 #include <SDL2/SDL.h>
@@ -135,4 +135,4 @@ class Window {
 
 }  // namespace libgl
 
-#endif  // _LIBGL2D_CORE_WINDOW_H_
+#endif  // LIBGL2D_CORE_WINDOW_H

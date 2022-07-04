@@ -1,5 +1,5 @@
-#ifndef _LIBGL2D_CORE_VIEWPORT_H_
-#define _LIBGL2D_CORE_VIEWPORT_H_
+#ifndef LIBGL2D_CORE_VIEWPORT_H
+#define LIBGL2D_CORE_VIEWPORT_H
 
 #include <GL/gl.h>
 
@@ -27,4 +27,4 @@ class Viewport {
 
 }  // namespace libgl
 
-#endif  // _LIBGL2D_CORE_VIEWPORT_H_
+#endif  // LIBGL2D_CORE_VIEWPORT_H

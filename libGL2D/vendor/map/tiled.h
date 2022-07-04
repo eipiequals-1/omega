@@ -1,5 +1,5 @@
-#ifndef _LIBTMX_PARSER_TILED_H_
-#define _LIBTMX_PARSER_TILED_H_
+#ifndef LIBGL2D_MAP_TILED_H
+#define LIBGL2D_MAP_TILED_H
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
@@ -70,4 +70,4 @@ class Map : public TmxMap {
 }  // namespace tiled
 }  // namespace libgl
 
-#endif  // _LIBTMX_PARSER_TILED_H_
+#endif  // LIBGL2D_MAP_TILED_H

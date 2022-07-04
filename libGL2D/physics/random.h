@@ -1,5 +1,5 @@
-#ifndef _LIBGL2D_PHYSICS_RANDOM_H_
-#define _LIBGL2D_PHYSICS_RANDOM_H_
+#ifndef LIBGL2D_PHYSICS_RANDOM_H
+#define LIBGL2D_PHYSICS_RANDOM_H
 
 #include <vector>
 
@@ -48,4 +48,4 @@ T &RandChoice(const std::vector<T> &vec) {
 }  // namespace randlib
 }  // namespace libgl
 
-#endif  // _LIBGL2D_PHYSICS_RANDOM_H_
+#endif  // LIBGL2D_PHYSICS_RANDOM_H

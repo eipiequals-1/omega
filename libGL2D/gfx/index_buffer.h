@@ -1,5 +1,5 @@
-#ifndef _LIBGL2D_GFX_INDEXBUFFER_H_
-#define _LIBGL2D_GFX_INDEXBUFFER_H_
+#ifndef LIBGL2D_GFX_INDEXBUFFER_H
+#define LIBGL2D_GFX_INDEXBUFFER_H
 
 #include <GL/gl.h>
 
@@ -48,4 +48,4 @@ class IndexBuffer {
 
 }  // namespace libgl
 
-#endif  // _LIBGL2D_GFX_INDEXBUFFER_H_
+#endif  // LIBGL2D_GFX_INDEXBUFFER_H

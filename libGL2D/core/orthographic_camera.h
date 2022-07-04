@@ -1,5 +1,5 @@
-#ifndef _LIBGL2D_CORE_ORTHOCAMERA_H_
-#define _LIBGL2D_CORE_ORTHOCAMERA_H_
+#ifndef LIBGL2D_CORE_ORTHOCAMERA_H
+#define LIBGL2D_CORE_ORTHOCAMERA_H
 
 #include "libGL2D/physics/math.h"
 
@@ -59,4 +59,4 @@ class OrthographicCamera {
 };
 }  // namespace libgl
 
-#endif  // _LIBGL2D_CORE_ORTHOCAMERA_H_
+#endif  // LIBGL2D_CORE_ORTHOCAMERA_H

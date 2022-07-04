@@ -1,5 +1,5 @@
-#ifndef _LIBGL2D_GFX_FONT_H_
-#define _LIBGL2D_GFX_FONT_H_
+#ifndef LIBGL2D_GFX_FONT_H
+#define LIBGL2D_GFX_FONT_H
 
 #include <SDL2/SDL_ttf.h>
 
@@ -69,4 +69,4 @@ class FontManager {
 
 }  // namespace libgl
 
-#endif  // _LIBGL2D_GFX_FONT_H_
+#endif  // LIBGL2D_GFX_FONT_H

@@ -1,5 +1,5 @@
-#ifndef _LIBGL2D_GFX_SHAPERENDERER_H_
-#define _LIBGL2D_GFX_SHAPERENDERER_H_
+#ifndef LIBGL2D_GFX_SHAPERENDERER_H
+#define LIBGL2D_GFX_SHAPERENDERER_H
 
 #include <array>
 
@@ -36,8 +36,14 @@ using ShapeTriangle = std::array<ShapeVertex, 3>;
  */
 class ShapeRenderer {
    public:
-	ShapeRenderer();
+	ShapeRenderer(const ShapeRenderer &) = delete;
+	ShapeRenderer operator=(const ShapeRenderer &) = delete;
 	virtual ~ShapeRenderer();
+
+	static ShapeRenderer &Instance() {
+		static ShapeRenderer renderer;
+		return renderer;
+	}
 
 	/**
 	 * Begins the rendering process.
@@ -168,7 +174,10 @@ class ShapeRenderer {
 
 	uint32_t triangles_renderered_;
 	glm::vec4 color_;  // tracks current color
+
+   private:
+	ShapeRenderer();
 };
 }  // namespace libgl
 
-#endif  // _LIBGL2D_GFX_SHAPERENDERER_H_
+#endif  // LIBGL2D_GFX_SHAPERENDERER_H
