@@ -51,10 +51,10 @@ ParticleEmitter::ParticleEmitter(EmitterBuilder &builder) : particles_(nullptr),
 				}
 			}
 		)glsl";
-		shader_ = std::make_unique<Shader>(std::string(vertex), std::string(fragment));
+		shader_ = CreateUptr<Shader>(std::string(vertex), std::string(fragment));
 	}
 
-	vbo_ = std::make_unique<VertexBuffer>(sizeof(ParticleVertex) * 4 * data_.max_particles);
+	vbo_ = CreateUptr<VertexBuffer>(sizeof(ParticleVertex) * 4 * data_.max_particles);
 	const uint32_t kIndexBufferCapacity = 6 * data_.max_particles;
 	uint32_t *indices = new uint32_t[kIndexBufferCapacity];
 	uint32_t offset = 0;
@@ -69,10 +69,10 @@ ParticleEmitter::ParticleEmitter(EmitterBuilder &builder) : particles_(nullptr),
 		indices[i + 5] = 0 + offset;
 		offset += 4;
 	}
-	ibo_ = std::make_unique<IndexBuffer>(indices, kIndexBufferCapacity);
+	ibo_ = CreateUptr<IndexBuffer>(indices, kIndexBufferCapacity);
 	delete[] indices;
 	indices = nullptr;
-	vao_ = std::make_unique<VertexArray>();
+	vao_ = CreateUptr<VertexArray>();
 	VertexBufferLayout layout;
 	layout.Push(GL_FLOAT, 2);
 	layout.Push(GL_FLOAT, 2);
