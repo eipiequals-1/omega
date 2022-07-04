@@ -24,7 +24,7 @@ SpriteBatch::SpriteBatch() : quads_rendered_(0), tex_bind_slot_(0) {
 
 		offset += 4;
 	}
-	ibo_ = std::make_unique<IndexBuffer>(indices, kIndexBufferCapacity);
+	ibo_ = CreateUptr<IndexBuffer>(indices, kIndexBufferCapacity);
 
 	const char vertex[] = R"glsl(
 		#version 450
@@ -76,9 +76,9 @@ SpriteBatch::SpriteBatch() : quads_rendered_(0), tex_bind_slot_(0) {
 		}
 	)glsl";
 
-	sprite_shader_ = std::make_unique<Shader>(std::string(vertex), std::string(fragment));
-	vao_ = std::make_unique<VertexArray>();
-	vbo_ = std::make_unique<VertexBuffer>(kVertexBufferCapacity * kVertexCount * sizeof(float));
+	sprite_shader_ = CreateUptr<Shader>(std::string(vertex), std::string(fragment));
+	vao_ = CreateUptr<VertexArray>();
+	vbo_ = CreateUptr<VertexBuffer>(kVertexBufferCapacity * kVertexCount * sizeof(float));
 	VertexBufferLayout layout;
 	layout.Push(GL_FLOAT, 2);  // original world coords
 	layout.Push(GL_FLOAT, 4);  // color
@@ -145,6 +145,7 @@ void SpriteBatch::RenderTexture(const Texture *texture, glm::rect src, const glm
 		// add the texture to the to render vector and bind
 		textures_to_render_[tex_bind_slot_] = texture;
 		texture->Bind(tex_bind_slot_);
+		tex_id = tex_bind_slot_;
 		tex_bind_slot_++;
 	}
 	// normalize src rect
