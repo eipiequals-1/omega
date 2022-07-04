@@ -8,6 +8,32 @@ load(
 package(default_visibility= ["//visibility:public"])
 
 cc_library(
+    name = "event",
+    srcs = ["event.cc"],
+    hdrs = ["event.h"],
+    copts = DEFAULT_COPTS,
+    linkopts = DEFAULT_LINKOPTS,
+    deps = [
+        "@SDL2//:SDL2",
+    ]
+)
+
+cc_library(
+    name = "input_manager",
+    srcs = ["input_manager.cc"],
+    hdrs = ["input_manager.h"],
+    copts = DEFAULT_COPTS,
+    linkopts = DEFAULT_LINKOPTS,
+    deps = [
+        "@SDL2//:SDL2",
+        "//libGL2D/core:using",
+        ":event",
+        ":key_manager",
+        "//libGL2D/physics:math",
+    ]
+)
+
+cc_library(
     name = "input_processor",
     srcs = ["input_processor.cc"],
     hdrs = ["input_processor.h"],
@@ -15,18 +41,20 @@ cc_library(
     linkopts = DEFAULT_LINKOPTS,
     deps = [
         "@SDL2//:SDL2",
-        "key_processor",
-        "//libGL2D/physics:math"
+        "//libGL2D/core:using",
+        ":event",
+        ":input_manager"
     ]
 )
 
 cc_library(
-    name = "key_processor",
-    srcs = ["key_processor.cc"],
-    hdrs = ["key_processor.h"],
+    name = "key_manager",
+    srcs = ["key_manager.cc"],
+    hdrs = ["key_manager.h"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
         "@SDL2//:SDL2",
+        ":event",
     ]
 )
