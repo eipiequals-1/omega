@@ -62,9 +62,9 @@ class ShapeRenderer {
 	 * @param mat the view projection matrix
 	 */
 	virtual void SetViewProjectionMatrix(const glm::mat4 &mat) {
-		shader_->Bind();
-		shader_->SetUniformMat4f(kViewProjMatrixName, mat);
-		shader_->Unbind();
+		triangle_shader_->Bind();
+		triangle_shader_->SetUniformMat4f(kViewProjMatrixName, mat);
+		triangle_shader_->Unbind();
 	}
 
 	/**
@@ -114,11 +114,11 @@ class ShapeRenderer {
 	virtual void Rect(const glm::rect &rect);
 
 	/**
-	 * Renders a rectangle with the current ShapeRenderer::color_
+	 * Renders a rotated rectangle with the current ShapeRenderer::color_
 	 * @param rect rect in world space coords
-	 * @param width rectangle with a hole
+	 * @param rotation in trigonometric direction & degrees
 	 */
-	virtual void Rect(const glm::rect &rect, float width);
+	virtual void Rect(const glm::rect &rect, float rotation);
 
 	/**
 	 * Renders a triangle with the given points
@@ -141,7 +141,7 @@ class ShapeRenderer {
 	 * @param center the center of the circle
 	 * @param radius the radius
 	 */
-	virtual void Circle(const glm::vec2 &center, float radius);
+	virtual void Circle(const glm::vec2 &center, float radius, uint32_t segments);
 
 	/**
 	 * Renders a line with the specified points and thickness
@@ -161,6 +161,7 @@ class ShapeRenderer {
 	virtual void Line(float x1, float y1, float x2, float y2, float thickness = 1.0f);
 
    protected:
+	//
 	static const uint32_t kNumTriangles = 1000;
 	static const uint32_t kNumVerticesPerTriangle = 3;
 	static const uint32_t kNumAttributes = 6;
@@ -168,9 +169,9 @@ class ShapeRenderer {
 	const std::string kViewProjMatrixName;
 
 	// OpenGL objects
-	Uptr<Shader> shader_;
-	Uptr<VertexBuffer> vbo_;
-	Uptr<VertexArray> vao_;
+	Uptr<Shader> triangle_shader_;
+	Uptr<VertexBuffer> triangle_vbo_;
+	Uptr<VertexArray> triangle_vao_;
 
 	uint32_t triangles_renderered_;
 	glm::vec4 color_;  // tracks current color

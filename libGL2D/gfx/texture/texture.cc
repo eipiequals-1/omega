@@ -42,7 +42,7 @@ void Texture::Unbind() const {
 
 void Texture::Load() {
 	glGenTextures(1, &id_);
-	Bind();
+	glBindTexture(GL_TEXTURE_2D, id_);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, min_filter_);   // if rendered smaller, use giver filter
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, mag_filter_);   // if rendered larger, use given filter
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);  // continue closest color to edge

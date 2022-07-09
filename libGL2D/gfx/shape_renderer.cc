@@ -20,7 +20,7 @@ ShapeRenderer::ShapeRenderer() : kViewProjMatrixName("u_ViewProjMatrix") {
         uniform mat4 u_ViewProjMatrix;
 
         void main() {
-            gl_Position = u_ViewProjMatrix * vec4(a_Coord.x, a_Coord.y, 0.0f, 1.0f);
+            gl_Position = u_ViewProjMatrix * vec4(a_Coord.x, a_Coord.y, 0.0, 1.0);
             v_Color = a_Color;
         }
     )glsl";
@@ -35,16 +35,16 @@ ShapeRenderer::ShapeRenderer() : kViewProjMatrixName("u_ViewProjMatrix") {
             color = v_Color;
         }
     )glsl";
-	shader_ = CreateUptr<Shader>(std::string(vertex), std::string(fragment));
+	triangle_shader_ = CreateUptr<Shader>(std::string(vertex), std::string(fragment));
 	// create vertex buffer
-	vbo_ = CreateUptr<VertexBuffer>(sizeof(float) * kNumTriangles * kNumVerticesPerTriangle * kNumAttributes);
+	triangle_vbo_ = CreateUptr<VertexBuffer>(sizeof(float) * kNumTriangles * kNumVerticesPerTriangle * kNumAttributes);
 	// create vertex array
-	vao_ = CreateUptr<VertexArray>();
+	triangle_vao_ = CreateUptr<VertexArray>();
 	// create vertex buffer layout
 	VertexBufferLayout layout;
 	layout.Push(GL_FLOAT, 2);
 	layout.Push(GL_FLOAT, 4);
-	vao_->AddBuffer(*vbo_, layout);
+	triangle_vao_->AddBuffer(*triangle_vbo_, layout);
 }
 
 ShapeRenderer::~ShapeRenderer() {
@@ -55,12 +55,12 @@ void ShapeRenderer::Begin() {
 }
 
 void ShapeRenderer::End() {
-	shader_->Bind();
-	vao_->Bind();
+	triangle_shader_->Bind();
+	triangle_vao_->Bind();
 	glDrawArrays(GL_TRIANGLES, 0, triangles_renderered_ * kNumVerticesPerTriangle);
 	// unbind all objects
-	shader_->Unbind();
-	vao_->Unbind();
+	triangle_shader_->Unbind();
+	triangle_vao_->Unbind();
 }
 
 void ShapeRenderer::Rect(const glm::rect &rect) {
@@ -76,11 +76,28 @@ void ShapeRenderer::Rect(const glm::rect &rect) {
 	);
 }
 
-void ShapeRenderer::Rect(const glm::rect &rect, float width) {
-	Line(rect.x, rect.y, rect.x, rect.y + rect.h, width);
-	Line(rect.x, rect.y + rect.h, rect.x + rect.w, rect.y + rect.h, width);
-	Line(rect.x + rect.w, rect.y, rect.x + rect.w, rect.y + rect.h, width);
-	Line(rect.x, rect.y, rect.x + rect.w, rect.y, width);
+void ShapeRenderer::Rect(const glm::rect &rect, float rotation) {
+	glm::vec2 center = rect.center();
+	// center rect around origin/center
+	glm::vec2 points[4] = {};
+	points[0] = glm::vec2(rect.x, rect.y) - center;
+	points[1] = glm::vec2(rect.x + rect.w, rect.y) - center;
+	points[2] = glm::vec2(rect.x + rect.w, rect.y + rect.h) - center;
+	points[3] = glm::vec2(rect.x, rect.y + rect.h) - center;
+
+	rotation = glm::radians(rotation);
+	float s = glm::sin(rotation);
+	float c = glm::cos(rotation);
+	for (size_t i = 0; i < 4; ++i) {
+		glm::vec2 &point = points[i];
+		glm::vec2 point_old = point;
+		point.x = point_old.x * c - point_old.y * s;
+		point.y = point_old.y * c + point_old.x * s;
+		// revert back to original center
+		point += center;
+	}
+	Triangle(points[0], points[1], points[2]);
+	Triangle(points[2], points[3], points[0]);
 }
 
 void ShapeRenderer::Triangle(float x1, float y1, float x2, float y2, float x3, float y3) {
@@ -94,7 +111,7 @@ void ShapeRenderer::Triangle(float x1, float y1, float x2, float y2, float x3, f
 	v2 = {{x2, y2}, {color_.r, color_.g, color_.b, color_.a}};
 	v3 = {{x3, y3}, {color_.r, color_.g, color_.b, color_.a}};
 	ShapeTriangle triangle = {v1, v2, v3};
-	vbo_->SubData(triangles_renderered_ * sizeof(ShapeTriangle), sizeof(ShapeTriangle), triangle.data());
+	triangle_vbo_->SubData(triangles_renderered_ * sizeof(ShapeTriangle), sizeof(ShapeTriangle), triangle.data());
 	triangles_renderered_++;
 }
 
@@ -102,13 +119,11 @@ void ShapeRenderer::Triangle(const glm::vec2 &p1, const glm::vec2 &p2, const glm
 	Triangle(p1.x, p1.y, p2.x, p2.y, p3.x, p3.y);
 }
 
-void ShapeRenderer::Circle(const glm::vec2 &center, float radius) {
+void ShapeRenderer::Circle(const glm::vec2 &center, float radius, uint32_t segments) {
 	// estimate number of triangles
-	const uint32_t num_triangles = (uint32_t)radius;
-	// const uint32_t num_triangles = 20;
-	float angle_incr = glm::pi<float>() * 2 / num_triangles;
+	float angle_incr = glm::pi<float>() * 2 / segments;
 	glm::vec2 p2, p3;
-	for (uint32_t i = 0; i < num_triangles; i++) {
+	for (uint32_t i = 0; i < segments; i++) {
 		p2.x = radius * glm::cos(angle_incr * i) + center.x;
 		p2.y = radius * glm::sin(angle_incr * i) + center.y;
 		p3.x = radius * glm::cos(angle_incr * (i + 1)) + center.x;

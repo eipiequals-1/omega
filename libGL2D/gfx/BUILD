@@ -19,6 +19,18 @@ cc_library(
 )
 
 cc_library(
+    name = "frame_buffer",
+    srcs = ["frame_buffer.cc"],
+    hdrs = ["frame_buffer.h"],
+    copts = DEFAULT_COPTS,
+    linkopts = DEFAULT_LINKOPTS,
+    deps = [
+        "@GL//:GL",
+        "//libGL2D/core:using",
+    ]
+)
+
+cc_library(
     name = "index_buffer",
     srcs = ["index_buffer.cc"],
     hdrs = ["index_buffer.h"],
