@@ -1,0 +1,11 @@
+load("@rules_cc//cc:defs.bzl", "cc_library")
+
+cc_library(
+    name = "Box2D",
+    hdrs = glob(["include/Box2D/*.h"]),
+    linkopts = [
+        "-lBox2D"
+    ],
+    strip_include_prefix = "include/Box2D",
+    visibility = ["//visibility:public"],
+)

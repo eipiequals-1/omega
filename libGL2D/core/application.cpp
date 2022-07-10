@@ -3,9 +3,9 @@
 #include "libGL2D/physics/math.h"
 
 namespace libgl {
-Application::Application(const WinBuilder& builder) : fps_(60), last_time_(0), window_(nullptr), running_(true) {
+Application::Application(const ApplicationConfig& config) : fps_(60), last_time_(0), window_(nullptr), running_(true) {
 	window_ = CreateUptr<Window>();
-	running_ = window_->Init(builder);
+	running_ = window_->Init(config.width, config.height, config.resizable, config.title);
 	// init TTF_Font
 	if (TTF_Init() != 0) {
 		libgl::Log("Unable to initialize SDL_ttf: '", SDL_GetError(), "'");
@@ -26,8 +26,19 @@ void Application::Input(float dt) {
 	(void)dt;
 	Event event;
 	while (InputManager::Instance().PollEvents(event)) {
-		if ((EventType)event.type == EventType::kQuit) {
+		switch ((EventType)event.type) {
+		case EventType::kQuit: {
 			running_ = false;
+			break;
+		}
+		case EventType::kWindowEvent: {
+			if (event.window.type == (uint32_t)WindowEvents::kWindowResized) {
+				OnResize(event.window.data1, event.window.data2);
+			}
+			break;
+		}
+		default:
+			break;
 		}
 	}
 }
@@ -54,10 +65,8 @@ void Application::Run() {
 	}
 }
 
-void Application::OnResize(const Event& event) {
-	if (event.window.event == SDL_WINDOWEVENT_RESIZED) {
-		window_->OnResize(event.window.data1, event.window.data2);
-	}
+void Application::OnResize(uint32_t width, uint32_t height) {
+	window_->OnResize(width, height);
 }
 
 }  // namespace libgl

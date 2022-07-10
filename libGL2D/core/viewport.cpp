@@ -2,7 +2,7 @@
 
 namespace libgl {
 
-Viewport::Viewport(ViewportType viewport_type, uint32_t initial_width, uint32_t initial_height) : viewport_type_(viewport_type), initial_width_(initial_width), initial_height_(initial_height) {
+Viewport::Viewport(ViewportType viewport_type, uint32_t initial_width, uint32_t initial_height) : viewport_type_(viewport_type), initial_width_(initial_width), initial_height_(initial_height), current_width_(initial_width), current_height_(initial_height) {
 	OnResize(initial_width, initial_height);
 }
 
@@ -18,14 +18,17 @@ void Viewport::OnResize(uint32_t new_width, uint32_t new_height) {
 	switch (viewport_type_) {
 	case ViewportType::kFit: {
 		const glm::vec2 viewport_size = fit_aspect_ratio(initial_width_, initial_height_, new_width, new_height);
-		float viewport_width = glm::round(viewport_size.x);
-		float viewport_height = glm::round(viewport_size.y);
+		current_width_ = (uint32_t)glm::round(viewport_size.x);
+		current_height_ = (uint32_t)glm::round(viewport_size.y);
 		float margin_left = glm::round((new_width - viewport_size.x) / 2.0f);
 		float margin_bottom = glm::round((new_height - viewport_size.y) / 2.0f);
-		glViewport((GLint)margin_left, (GLint)margin_bottom, (GLint)viewport_width, (GLint)viewport_height);
+
+		glViewport((GLint)margin_left, (GLint)margin_bottom, current_width_, current_height_);
 		break;
 	}
 	case ViewportType::kStretch: {
+		current_width_ = new_width;
+		current_height_ = new_height;
 		glViewport(0, 0, new_width, new_height);
 		break;
 	}

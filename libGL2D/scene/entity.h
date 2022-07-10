@@ -1,8 +1,6 @@
-#ifndef LIBGL2D_PHYSICS_ENTITY_H
-#define LIBGL2D_PHYSICS_ENTITY_H
+#ifndef LIBGL2D_SCENE_ENTITY_H
+#define LIBGL2D_SCENE_ENTITY_H
 
-#include "libGL2D/events/input_processor.h"
-#include "libGL2D/gfx/sprite_batch.h"
 #include "libGL2D/gfx/texture/texture.h"
 #include "libGL2D/physics/math.h"
 
@@ -26,18 +24,18 @@ class Entity {
 
 	/**
 	 * Renders the entity
-	 * @param sprite_batch for rendering
+	 * @param dt the timestep if necessary
 	 */
-	virtual void Render(SpriteBatch &sprite_batch) {
-		(void)sprite_batch;
+	virtual void Render(float dt) {
+		(void)dt;
 	}
 
 	/**
 	 * Handles input and stores entity data
-	 * @param input the input processor to get data from
+	 * @param dt the timestep if necessary
 	 */
-	virtual void Input(InputProcessor &input) {
-		(void)input;
+	virtual void Input(float dt) {
+		(void)dt;
 	}
 	virtual const glm::vec2 &GetVel() const { return vel_; }
 	virtual void SetVel(const glm::vec2 &vel) { vel_ = vel; }
@@ -95,4 +93,4 @@ class SpriteComponent {
 
 }  // namespace libgl
 
-#endif  // LIBGL2D_PHYSICS_ENTITY_H
+#endif  // LIBGL2D_SCENE_ENTITY_H

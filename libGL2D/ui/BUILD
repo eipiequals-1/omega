@@ -9,7 +9,7 @@ package(default_visibility= ["//visibility:public"])
 
 cc_library(
     name = "font",
-    srcs = ["font.cc"],
+    srcs = ["font.cpp"],
     hdrs = ["font.h"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
@@ -23,7 +23,7 @@ cc_library(
 
 cc_library(
     name = "ui_screen",
-    srcs = ["ui_screen.cc"],
+    srcs = ["ui_screen.cpp"],
     hdrs = ["ui_screen.h"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,

@@ -9,20 +9,20 @@ package(default_visibility= ["//visibility:public"])
 
 cc_library(
     name = "button",
-    srcs = ["button.cc"],
+    srcs = ["button.cpp"],
     hdrs = ["button.h"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
         "//libGL2D/physics:math",
-        "//libGL2D/physics:entity",
+        "//libGL2D/scene:entity",
         "//libGL2D/gfx:sprite_batch",
     ]
 )
 
 cc_library(
     name = "image_button",
-    srcs = ["image_button.cc"],
+    srcs = ["image_button.cpp"],
     hdrs = ["image_button.h"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
@@ -35,7 +35,7 @@ cc_library(
 
 cc_library(
     name = "text_button",
-    srcs = ["text_button.cc"],
+    srcs = ["text_button.cpp"],
     hdrs = ["text_button.h"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,

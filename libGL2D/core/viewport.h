@@ -18,11 +18,15 @@ class Viewport {
 	virtual ~Viewport();
 
 	virtual void OnResize(uint32_t new_width, uint32_t new_height);
+	uint32_t GetViewportWidth() const { return current_width_; }
+	uint32_t GetViewportHeight() const { return current_height_; }
 
    private:
 	ViewportType viewport_type_;
 	uint32_t initial_width_;
 	uint32_t initial_height_;
+	uint32_t current_width_;
+	uint32_t current_height_;
 };
 
 }  // namespace libgl

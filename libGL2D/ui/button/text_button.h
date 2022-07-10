@@ -20,7 +20,7 @@ class TextButton : public ImageButton {
 	TextButton(float x, float y, float w, float h, std::function<void()> on_click, const TextButtonBuilder &builder);
 	virtual ~TextButton() override;
 
-	virtual void Render(SpriteBatch &sprite_batch) override;
+	virtual void Render() override;
 
    protected:
 	Uptr<Texture> text_texture_;

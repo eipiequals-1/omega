@@ -4,8 +4,8 @@
 #include <functional>
 
 #include "libGL2D/gfx/sprite_batch.h"
-#include "libGL2D/physics/entity.h"
 #include "libGL2D/physics/math.h"
+#include "libGL2D/scene/entity.h"
 
 namespace libgl {
 class Button : public RectComponent {
@@ -13,7 +13,7 @@ class Button : public RectComponent {
 	Button(float x, float y, float w, float h, std::function<void()> on_click);
 	virtual ~Button();
 
-	virtual void Render(SpriteBatch& sprite_batch) = 0;
+	virtual void Render() = 0;
 
 	bool ContainsPoint(const glm::vec2& p) const {
 		return rect_.point_in_rect(p);

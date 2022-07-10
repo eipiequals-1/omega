@@ -10,7 +10,8 @@ ImageButton::~ImageButton() {
 	un_focus_ = nullptr;
 }
 
-void ImageButton::Render(SpriteBatch& sprite_batch) {
+void ImageButton::Render() {
+	SpriteBatch& sprite_batch = SpriteBatch::Instance();
 	if (hover_) {
 		if (focus_ != nullptr) {
 			sprite_batch.RenderTexture(focus_, rect_.x, rect_.y, rect_.w, rect_.h);

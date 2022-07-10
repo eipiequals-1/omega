@@ -34,12 +34,8 @@ constexpr Sptr<T> CreateSptr(Args&&... args) {
  */
 enum class WindowFlags {
 	kOpenGL = SDL_WINDOW_OPENGL,
-	kFullscreen = SDL_WINDOW_FULLSCREEN,
-	kShown = SDL_WINDOW_SHOWN,
-	kHidden = SDL_WINDOW_HIDDEN,
-	kResizable = SDL_WINDOW_RESIZABLE,
 	kOpenGLResizable = SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE,
-	kOpenGLResizableFullscreen = SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE | kFullscreen,
+	kOpenGLResizableFullscreen = SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE | SDL_WINDOW_FULLSCREEN,
 	kNone = 0
 };
 
@@ -53,6 +49,10 @@ enum class InitFlags {
 	kJoyStick = SDL_INIT_JOYSTICK,
 	kEvents = SDL_INIT_EVENTS,
 	kEverything = SDL_INIT_EVERYTHING
+};
+
+enum class WindowEvents {
+	kWindowResized = SDL_WINDOWEVENT_RESIZED
 };
 
 inline void Log() {

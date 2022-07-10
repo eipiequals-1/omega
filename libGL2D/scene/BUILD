@@ -9,7 +9,7 @@ package(default_visibility= ["//visibility:public"])
 
 cc_library(
     name = "layer",
-    srcs = ["layer.cc"],
+    srcs = ["layer.cpp"],
     hdrs = ["layer.h"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
@@ -20,11 +20,23 @@ cc_library(
 
 cc_library(
     name = "layer_stack",
-    srcs = ["layer_stack.cc"],
+    srcs = ["layer_stack.cpp"],
     hdrs = ["layer_stack.h"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
         ":layer",
+    ]
+)
+
+cc_library(
+    name = "entity",
+    srcs = ["entity.cpp"],
+    hdrs = ["entity.h"],
+    copts = DEFAULT_COPTS,
+    linkopts = DEFAULT_LINKOPTS,
+    deps = [
+        "//libGL2D/gfx/texture:texture",
+        "//libGL2D/physics:math",
     ]
 )

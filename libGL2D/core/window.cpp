@@ -14,10 +14,10 @@ Window::~Window() {
 	SDL_Quit();
 }
 
-bool Window::Init(const WinBuilder &builder) {
-	width_ = builder.GetWidth();
-	height_ = builder.GetHeight();
-	if (SDL_Init((uint32_t)builder.GetInitFlags()) != 0) {
+bool Window::Init(uint32_t width, uint32_t height, bool resizable, const std::string &title) {
+	width_ = width;
+	height_ = height;
+	if (SDL_Init((uint32_t)InitFlags::kEverything) != 0) {
 		libgl::Log("Failed to initialize SDL: '", SDL_GetError(), "'");
 		return false;
 	}
@@ -26,7 +26,9 @@ bool Window::Init(const WinBuilder &builder) {
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
 
-	window_ = SDL_CreateWindow(builder.GetWindowTitle().c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width_, height_, (uint32_t)builder.GetWinFlags());
+	WindowFlags window_flags = resizable ? WindowFlags::kOpenGLResizable : WindowFlags::kOpenGL;
+
+	window_ = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width_, height_, (uint32_t)window_flags);
 	if (window_ == nullptr) {
 		libgl::Log("Failed to create window: '", SDL_GetError(), "'");
 		SDL_Quit();
@@ -40,8 +42,6 @@ bool Window::Init(const WinBuilder &builder) {
 		SDL_Quit();
 		return false;
 	}
-	// create viewport
-	viewport_ = CreateUptr<Viewport>(builder.GetViewportType(), width_, height_);
 	return true;
 }
 
@@ -54,7 +54,8 @@ void Window::SwapBuffers() {
 }
 
 void Window::OnResize(uint32_t new_width, uint32_t new_height) {
-	viewport_->OnResize(new_width, new_height);
+	width_ = new_width;
+	height_ = new_height;
 }
 
 }  // namespace libgl

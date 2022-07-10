@@ -9,7 +9,7 @@ package(default_visibility= ["//visibility:public"])
 
 cc_library(
     name = "random",
-    srcs = ["random.cc"],
+    srcs = ["random.cpp"],
     hdrs = ["random.h"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
@@ -17,21 +17,47 @@ cc_library(
 
 cc_library(
     name = "math",
-    srcs = ["math.cc"],
+    srcs = ["math.cpp"],
     hdrs = ["math.h"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
 )
 
 cc_library(
-    name = "entity",
-    srcs = ["entity.cc"],
-    hdrs = ["entity.h"],
+    name = "world",
+    srcs = ["world.cpp"],
+    hdrs = ["world.h"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
-        "//libGL2D/gfx:sprite_batch",
-        "//libGL2D/gfx/texture:texture",
-        "//libGL2D/events:input_processor",
+        "//libGL2D/core:using",
+        ":math",
+        ":body",
+        ":physics",
+    ]
+)
+
+cc_library(
+    name = "physics",
+    srcs = ["physics.cpp"],
+    hdrs = ["physics.h"],
+    copts = DEFAULT_COPTS,
+    linkopts = DEFAULT_LINKOPTS,
+    deps = [
+        "@Box2D//:Box2D",
+    ]
+)
+
+cc_library(
+    name = "body",
+    srcs = ["body.cpp"],
+    hdrs = ["body.h"],
+    copts = DEFAULT_COPTS,
+    linkopts = DEFAULT_LINKOPTS,
+    deps = [
+        "@Box2D//:Box2D",
+        ":math",
+        ":physics",
+        "//libGL2D/core:using",
     ]
 )

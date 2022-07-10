@@ -9,7 +9,7 @@ namespace libgl {
  * A 2D Orthographic Camera for rendering
  * Intended Use:
  *
- * OrthoCamera cam(width, height, screen_res);
+ * OrthographicCamera cam(left, right, bottom, top);
  * SpriteBatch batch;
  * cam.RecalculateViewMatrix();
  * batch.SetViewProjectionMatrix(cam.GetViewProjectionMatrix());
@@ -42,7 +42,7 @@ class OrthographicCamera {
 	 */
 	glm::vec2 Project(const glm::vec2& vec, const glm::vec2& screen_res) const;
 	/**
-	 * Updates the view projection matrix if position and/or size have changed
+	 * Updates the view projection matrix if position, rotation, and/or size have changed
 	 *
 	 * IMPORTANT: must be called before rendering if the camera has changed
 	 */

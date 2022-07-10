@@ -20,7 +20,7 @@ cc_library(
 
 cc_library(
     name = "window",
-    srcs = ["window.cc"],
+    srcs = ["window.cpp"],
     hdrs = ["window.h"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
@@ -35,7 +35,7 @@ cc_library(
 
 cc_library(
     name = "application",
-    srcs = ["application.cc"],
+    srcs = ["application.cpp"],
     hdrs = ["application.h"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
@@ -50,7 +50,7 @@ cc_library(
 
 cc_library(
     name = "orthographic_camera",
-    srcs = ["orthographic_camera.cc"],
+    srcs = ["orthographic_camera.cpp"],
     hdrs = ["orthographic_camera.h"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
@@ -61,7 +61,7 @@ cc_library(
 
 cc_library(
     name = "viewport",
-    srcs = ["viewport.cc"],
+    srcs = ["viewport.cpp"],
     hdrs = ["viewport.h"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,

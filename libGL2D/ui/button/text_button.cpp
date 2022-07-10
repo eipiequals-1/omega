@@ -9,8 +9,9 @@ TextButton::TextButton(float x, float y, float w, float h, std::function<void()>
 TextButton::~TextButton() {
 }
 
-void TextButton::Render(SpriteBatch& sprite_batch) {
-	ImageButton::Render(sprite_batch);
+void TextButton::Render() {
+	ImageButton::Render();
+	SpriteBatch& sprite_batch = SpriteBatch::Instance();
 	sprite_batch.RenderTexture(text_texture_.get(), rect_.center().x - text_width_ / 2.0f, rect_.center().y - text_height_ / 2.0f);
 }
 

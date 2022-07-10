@@ -9,7 +9,7 @@ package(default_visibility= ["//visibility:public"])
 
 cc_library(
     name = "event",
-    srcs = ["event.cc"],
+    srcs = ["event.cpp"],
     hdrs = ["event.h"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
@@ -20,7 +20,7 @@ cc_library(
 
 cc_library(
     name = "input_manager",
-    srcs = ["input_manager.cc"],
+    srcs = ["input_manager.cpp"],
     hdrs = ["input_manager.h"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
@@ -35,7 +35,7 @@ cc_library(
 
 cc_library(
     name = "input_processor",
-    srcs = ["input_processor.cc"],
+    srcs = ["input_processor.cpp"],
     hdrs = ["input_processor.h"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
@@ -49,7 +49,7 @@ cc_library(
 
 cc_library(
     name = "key_manager",
-    srcs = ["key_manager.cc"],
+    srcs = ["key_manager.cpp"],
     hdrs = ["key_manager.h"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,

@@ -12,6 +12,12 @@
 
 namespace libgl {
 
+struct ApplicationConfig {
+	uint32_t width = 800, height = 600;
+	std::string title = "Application";
+	bool resizable = true;
+};
+
 /**
  * Application class that handles everything from updating, rendering, handling input, etc
  *
@@ -25,7 +31,7 @@ namespace libgl {
  */
 class Application {
    public:
-	explicit Application(const WinBuilder& builder);
+	explicit Application(const ApplicationConfig& config);
 	virtual ~Application();
 
 	/**
@@ -53,13 +59,13 @@ class Application {
 	virtual float Tick();
 
 	/**
-	 * Abstraction of the application. Calls the Tick, Update, Input, and Render methods
+	 * Abstraction of the application loop. Calls the Tick, Update, Input, and Render methods
 	 */
 	virtual void Run();
 
-   protected:
-	virtual void OnResize(const Event& event);
+	virtual void OnResize(uint32_t width, uint32_t height);
 
+   protected:
 	float fps_;
 	uint32_t last_time_;
 	Uptr<Window> window_;

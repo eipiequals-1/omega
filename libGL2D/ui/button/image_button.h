@@ -11,7 +11,7 @@ class ImageButton : public Button {
 	ImageButton(float x, float y, float w, float h, std::function<void()> on_click);
 	virtual ~ImageButton() override;
 
-	virtual void Render(SpriteBatch& sprite_batch) override;
+	virtual void Render() override;
 	virtual void SetFocusTexture(Texture* focus) { focus_ = focus; }
 	virtual void SetUnFocusTexture(Texture* un_focus) { un_focus_ = un_focus; }
 
