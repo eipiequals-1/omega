@@ -3,13 +3,13 @@ CFLAGS = -g -Wall -Wextra -Wcast-qual -Wconversion-null -Wformat-security -Wmiss
 PROFILE_FLAGS= -pg
 LDFLAGS = -g
 INCLUDE = -I/usr/include/SDL2/ -I.
-LIBS = -lGL -lGLU -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer -ltinyxml2
+LIBS = -lGL -lGLU -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer -ltinyxml2 -lBox2D
 MACROS = -DGL_GLEXT_PROTOTYPES
 OPT = -O3
 
-SRC = ${wildcard libGL2D/*.cc} ${wildcard libGL2D/**/*.cc} ${wildcard libGL2D/**/**/*.cc}
-OBJ = $(SRC:.cc=.o)
 BIN = bin
+SRC = ${wildcard omega/*.cpp} ${wildcard omega/**/*.cpp} ${wildcard omega/**/**/*.cpp}
+OBJ = $(patsubst %.cpp, $(BIN)/%.o, $(SRC)) # (from, to, string)
 
 # < is first dep, ^ is all dependencies, @ is left of colon
 
@@ -20,13 +20,17 @@ all: dirs lib
 dirs:
 	mkdir -p $(BIN)
 	mkdir -p $(BIN)/static
+	cp -R omega/ $(BIN)/
+	find ./bin/ -name *.cpp* | xargs rm
+	find ./bin/ -name *.h* | xargs rm
+	find ./bin/ -name *BUILD* | xargs rm
 
 lib: $(OBJ)
-	$(CC) -o $(BIN)/libGL2D.so -shared $^ $(LIBS) $(OPT)
-	ar rcs  $(BIN)/static/libGL2D.a $(BIN)/libGL2D.so
+	$(CC) -o $(BIN)/libomega.so -shared $^ $(LIBS) $(OPT)
+	ar rcs  $(BIN)/static/libomega.a $(BIN)/libomega.so
 
-%.o: %.cc %.h
+$(BIN)/%.o: %.cpp %.h
 	$(CC) -o $@ -c $< $(CFLAGS) $(INCLUDE) $(MACROS) $(OPT)
 
 clean:
-	rm -rf $(OBJ) $(BIN)
+	rm -rf $(BIN)
