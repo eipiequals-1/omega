@@ -1,9 +1,9 @@
-CC = g++
+CC = clang++
 CFLAGS = -g -Wall -Wextra -Wcast-qual -Wconversion-null -Wformat-security -Wmissing-declarations -Woverlength-strings -Wpointer-arith -Wundef -Wunused-local-typedefs -Wunused-result -Wvarargs -Wvla -Wwrite-strings -DNOMINMAX -Werror -fno-omit-frame-pointer -std=c++17 -fPIC
 PROFILE_FLAGS= -pg
 LDFLAGS = -g
 INCLUDE = -I/usr/include/SDL2/ -I.
-LIBS = -lGL -lGLU -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer -ltinyxml2 -lBox2D
+LIBS = -lGL -lGLU -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer -ltinyxml2 -lBox2D -lassimp
 MACROS = -DGL_GLEXT_PROTOTYPES
 OPT = -O3
 
@@ -29,7 +29,7 @@ lib: $(OBJ)
 	$(CC) -o $(BIN)/libomega.so -shared $^ $(LIBS) $(OPT)
 	ar rcs  $(BIN)/static/libomega.a $(BIN)/libomega.so
 
-$(BIN)/%.o: %.cpp %.h
+$(BIN)/%.o: %.cpp
 	$(CC) -o $@ -c $< $(CFLAGS) $(INCLUDE) $(MACROS) $(OPT)
 
 clean:
