@@ -60,7 +60,7 @@ inline void Log() {
 }
 
 /**
- * The official libgl logging function for proper formatting and ease of use
+ * The official omega logging function for proper formatting and ease of use
  * @param args any arguments to print
  */
 template <typename T, typename... Args>

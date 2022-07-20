@@ -3,7 +3,7 @@
 #include <iostream>
 
 namespace omega {
-Window::Window() : width_(0), height_(0), window_(nullptr) {
+Window::Window() : width_(0), height_(0), window_(nullptr), context_(nullptr) {
 }
 
 Window::~Window() {
@@ -35,8 +35,8 @@ bool Window::Init(uint32_t width, uint32_t height, bool resizable, const std::st
 		return false;
 	}
 
-	SDL_GLContext gl_context = SDL_GL_CreateContext(window_);
-	if (gl_context == nullptr) {
+	context_ = SDL_GL_CreateContext(window_);
+	if (context_ == nullptr) {
 		Log("Failed to create GL Context: '", SDL_GetError(), "'");
 		SDL_DestroyWindow(window_);
 		SDL_Quit();

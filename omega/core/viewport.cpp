@@ -10,20 +10,18 @@ Viewport::~Viewport() {
 }
 
 void Viewport::OnResize(uint32_t new_width, uint32_t new_height) {
-	const auto fit_aspect_ratio = [](float src_width, float src_height, float max_width, float max_height) {
-		const float ratio = glm::min(max_width / src_width, max_height / src_height);
-		return glm::vec2(src_width * ratio, src_height * ratio);
-	};
-
 	switch (viewport_type_) {
 	case ViewportType::kFit: {
+		const auto fit_aspect_ratio = [](float src_width, float src_height, float max_width, float max_height) {
+			const float ratio = glm::min(max_width / src_width, max_height / src_height);
+			return glm::vec2(src_width * ratio, src_height * ratio);
+		};
 		const glm::vec2 viewport_size = fit_aspect_ratio(initial_width_, initial_height_, new_width, new_height);
 		current_width_ = (uint32_t)glm::round(viewport_size.x);
 		current_height_ = (uint32_t)glm::round(viewport_size.y);
-		float margin_left = glm::round((new_width - viewport_size.x) / 2.0f);
-		float margin_bottom = glm::round((new_height - viewport_size.y) / 2.0f);
-
-		glViewport((GLint)margin_left, (GLint)margin_bottom, current_width_, current_height_);
+		uint32_t margin_left = (uint32_t)glm::round((new_width - viewport_size.x) / 2.0f);
+		uint32_t margin_bottom = (uint32_t)glm::round((new_height - viewport_size.y) / 2.0f);
+		glViewport(margin_left, margin_bottom, current_width_, current_height_);
 		break;
 	}
 	case ViewportType::kStretch: {

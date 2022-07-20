@@ -8,6 +8,12 @@ OrthographicCamera::OrthographicCamera(float left, float right, float bottom, fl
 	height_ = (top - bottom);
 }
 
+void OrthographicCamera::SetProjection(float left, float right, float bottom, float top) {
+	projection_matrix_ = glm::ortho(left, right, bottom, top, -1.0f, 1.0f);
+	width_ = (right - left);
+	height_ = (top - bottom);
+}
+
 glm::vec2 OrthographicCamera::Project(const glm::vec2& vec, const glm::vec2& screen_res) const {
 	// convert to world size
 	glm::vec2 convert;

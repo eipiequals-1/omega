@@ -43,11 +43,14 @@ class Window {
 
 	uint32_t GetWidth() const { return width_; }
 	uint32_t GetHeight() const { return height_; }
+	SDL_Window *GetNativeWindow() { return window_; }
+	SDL_GLContext GetGLContext() { return context_; }
 
    protected:
 	uint32_t width_;
 	uint32_t height_;
 	SDL_Window *window_;
+	SDL_GLContext context_;
 };
 
 }  // namespace omega
