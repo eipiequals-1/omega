@@ -14,6 +14,10 @@ class Button : public RectComponent {
 	virtual ~Button();
 
 	virtual void Render() = 0;
+	void Render(float dt) override {
+		(void)dt;
+		Render();
+	}
 
 	bool ContainsPoint(const glm::vec2& p) const {
 		return rect_.point_in_rect(p);

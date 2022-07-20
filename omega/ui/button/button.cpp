@@ -2,8 +2,9 @@
 
 namespace omega {
 
-Button::Button(float x, float y, float w, float h, std::function<void()> on_click) : RectComponent(x, y, w, h), on_click_(on_click) {
+Button::Button(float x, float y, float w, float h, std::function<void()> on_click) : RectComponent(), on_click_(on_click) {
 	hover_ = false;
+	rect_ = glm::rect(x, y, w, h);
 }
 
 Button::~Button() {
