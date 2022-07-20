@@ -79,7 +79,10 @@ enum class Key {
 	kW = SDL_SCANCODE_W,
 	kX = SDL_SCANCODE_X,
 	kY = SDL_SCANCODE_Y,
-	kZ = SDL_SCANCODE_Z
+	kZ = SDL_SCANCODE_Z,
+
+	kLCtrl = SDL_SCANCODE_LCTRL,
+
 };
 
 }  // namespace omega
