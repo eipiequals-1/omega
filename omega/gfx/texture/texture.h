@@ -26,7 +26,7 @@ class Texture {
 	~Texture();
 
 	/**
-	 * Binds this texture as the active OpenGL texture to the given slot
+	 * Bind  this texture as the acti ve OpenGL texture to  the given slot
 	 * @param slot to bind to
 	 */
 	void Bind(uint32_t slot = 0) const;
@@ -35,6 +35,10 @@ class Texture {
 	 * Unbind the texture in OpenGL
 	 */
 	void Unbind() const;
+	const uint32_t* GetPixels() const {
+		return pixels_;
+	}
+	uint32_t GetRendererID() const { return id_; }
 
 	uint32_t GetWidth() const { return width_; }
 	uint32_t GetHeight() const { return height_; }
@@ -54,9 +58,6 @@ class Texture {
 		glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, width_, height_, GL_RGBA, GL_UNSIGNED_BYTE, data);
 		Unbind();
 	}
-	const uint32_t* GetPixels() const {
-		return pixels_;
-	}
 
 	/**
 	 * Static factory method that creates a dynamically allocated texture from an SDL_Surface which is not destroyed
@@ -69,6 +70,24 @@ class Texture {
 		Texture* tex = new Texture(surf->w, surf->h, min_filter, mag_filter);
 		tex->SetData((uint32_t*)surf->pixels);
 		return tex;
+	}
+
+	static void SaveToFile(const std::string& file_name, uint32_t* pixels, uint32_t width, uint32_t height) {
+		uint32_t rmask, gmask, bmask, amask;
+		if (SDL_BYTEORDER == SDL_BIG_ENDIAN) {
+			rmask = 0xff000000;
+			gmask = 0x00ff0000;
+			bmask = 0x0000ff00;
+			amask = 0x000000ff;
+		} else {
+			rmask = 0x000000ff;
+			gmask = 0x0000ff00;
+			bmask = 0x00ff0000;
+			amask = 0xff000000;
+		}
+		SDL_Surface* surf = SDL_CreateRGBSurfaceFrom(pixels, width, height, 32, 4 * width, rmask, gmask, bmask, amask);
+		// save in current working directory
+		SDL_SaveBMP(surf, file_name.c_str());
 	}
 
    private:

@@ -27,6 +27,7 @@ cc_library(
     deps = [
         "@GL//:GL",
         "//omega/core:using",
+        "//omega/gfx/texture:texture",
     ]
 )
 

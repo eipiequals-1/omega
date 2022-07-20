@@ -2,17 +2,34 @@
 
 namespace omega {
 
-FrameBuffer::FrameBuffer(uint32_t width, uint32_t height) : id_(0), width_(width), height_(height), color_buffer_(0), rbo_depth_stencil_(0) {
+FrameBuffer::FrameBuffer(uint32_t width, uint32_t height) : id_(0), width_(width), height_(height), color_buffer_(nullptr), rbo_depth_stencil_(0) {
+	Resize(width, height);
+}
+
+FrameBuffer::~FrameBuffer() {
+	glDeleteFramebuffers(1, &id_);
+	delete color_buffer_;
+	color_buffer_ = nullptr;
+	glDeleteRenderbuffers(1, &rbo_depth_stencil_);
+}
+
+void FrameBuffer::Resize(uint32_t width, uint32_t height) {
+	if (id_ != 0) {
+		glDeleteFramebuffers(1, &id_);
+		delete color_buffer_;
+		glDeleteRenderbuffers(1, &rbo_depth_stencil_);
+		id_ = 0;
+		color_buffer_ = nullptr;
+		rbo_depth_stencil_ = 0;
+	}
+	width_ = width;
+	height_ = height;
 	glCreateFramebuffers(1, &id_);
 	glBindFramebuffer(GL_FRAMEBUFFER, id_);
 	// create color buffer
-	glCreateTextures(GL_TEXTURE_2D, 1, &color_buffer_);
-	glBindTexture(GL_TEXTURE_2D, color_buffer_);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width_, height_, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	color_buffer_ = new Texture(width_, height_, GL_LINEAR, GL_LINEAR);
 	// attach to frame buffer
-	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, color_buffer_, 0);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, color_buffer_->GetRendererID(), 0);
 	// create depth and stencil buffer in render buffer
 	glCreateRenderbuffers(1, &rbo_depth_stencil_);
 	glBindRenderbuffer(GL_RENDERBUFFER, rbo_depth_stencil_);
@@ -25,19 +42,12 @@ FrameBuffer::FrameBuffer(uint32_t width, uint32_t height) : id_(0), width_(width
 	}
 
 	// unbind everything
-	glBindTexture(GL_TEXTURE_2D, 0);
+	color_buffer_->Unbind();
 	glBindRenderbuffer(GL_RENDERBUFFER, 0);
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
-FrameBuffer::~FrameBuffer() {
-	glDeleteFramebuffers(1, &id_);
-	glDeleteTextures(1, &color_buffer_);
-	glDeleteRenderbuffers(1, &rbo_depth_stencil_);
-}
-
 void FrameBuffer::Bind() const {
-	glBindTexture(GL_TEXTURE_2D, 0);
 	glBindFramebuffer(GL_FRAMEBUFFER, id_);
 	glViewport(0, 0, width_, height_);
 }
@@ -47,12 +57,11 @@ void FrameBuffer::Unbind() const {
 }
 
 void FrameBuffer::BindTexture(uint32_t slot) const {
-	glBindTexture(GL_TEXTURE_2D, color_buffer_);
-	glActiveTexture(GL_TEXTURE0 + slot);
+	color_buffer_->Bind(slot);
 }
 
 void FrameBuffer::UnbindTexture() const {
-	glBindTexture(GL_TEXTURE_2D, 0);
+	color_buffer_->Unbind();
 }
 
 }  // namespace omega

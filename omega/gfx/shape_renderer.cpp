@@ -123,11 +123,14 @@ void ShapeRenderer::Circle(const glm::vec2 &center, float radius, uint32_t segme
 	// estimate number of triangles
 	float angle_incr = glm::pi<float>() * 2 / segments;
 	glm::vec2 p2, p3;
+	float s = 0.0f, c = 1.0f;
 	for (uint32_t i = 0; i < segments; i++) {
-		p2.x = radius * glm::cos(angle_incr * i) + center.x;
-		p2.y = radius * glm::sin(angle_incr * i) + center.y;
-		p3.x = radius * glm::cos(angle_incr * (i + 1)) + center.x;
-		p3.y = radius * glm::sin(angle_incr * (i + 1)) + center.y;
+		p2.x = radius * c + center.x;
+		p2.y = radius * s + center.y;
+		c = glm::cos(angle_incr * (i + 1));
+		s = glm::sin(angle_incr * (i + 1));
+		p3.x = radius * c + center.x;
+		p3.y = radius * s + center.y;
 		Triangle(center, p2, p3);
 	}
 }
