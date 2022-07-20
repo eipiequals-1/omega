@@ -2,15 +2,25 @@
 
 namespace omega {
 
-Entity::Entity() : vel_(0.0f, 0.0f) {
+Entity::Entity() {
 }
 
-CircleComponent::CircleComponent(float x, float y, float radius) : center_(x, y), radius_(radius) {
+void Entity::Render(float dt) {
+	for (Component *c : components_) {
+		c->Render(dt);
+	}
 }
 
-RectComponent::RectComponent(float x, float y, float w, float h) : rect_(x, y, w, h) {
+void Entity::Update(float dt) {
+	for (Component *c : components_) {
+		c->Update(dt);
+	}
 }
 
-SpriteComponent::SpriteComponent(Texture *texture) : texture_(texture) {
+void Entity::Input(float dt) {
+	for (Component *c : components_) {
+		c->Input(dt);
+	}
 }
-}
+
+}  // namespace omega

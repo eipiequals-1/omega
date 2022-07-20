@@ -30,13 +30,39 @@ cc_library(
 )
 
 cc_library(
+    name = "imgui_layer",
+    srcs = ["imgui_layer.cpp"],
+    hdrs = ["imgui_layer.h"],
+    copts = DEFAULT_COPTS,
+    linkopts = DEFAULT_LINKOPTS,
+    deps = [
+        "//omega/core:window",
+        "//omega/events:event",
+        ":layer",
+        "//omega/vendor/imgui:imgui",
+    ]
+)
+
+cc_library(
     name = "entity",
     srcs = ["entity.cpp"],
     hdrs = ["entity.h"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
+        ":components"
+    ]
+)
+
+cc_library(
+    name = "components",
+    srcs = ["components.cpp"],
+    hdrs = ["components.h"],
+    copts = DEFAULT_COPTS,
+    linkopts = DEFAULT_LINKOPTS,
+    deps = [
         "//omega/gfx/texture:texture",
+        "//omega/gfx:sprite_batch",
         "//omega/physics:math",
     ]
 )
