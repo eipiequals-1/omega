@@ -25,8 +25,9 @@ struct ApplicationConfig {
  *
  * class MyGame : public Application { . . . }
  *
+ * omega::ApplicationConfig config;
+ * // set application width, height, title, window settings etc
  * MyGame game;
- *
  * game.Run();
  */
 class Application {
