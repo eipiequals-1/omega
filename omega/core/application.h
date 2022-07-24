@@ -9,6 +9,8 @@
 #include "omega/core/window.h"
 #include "omega/events/event.h"
 #include "omega/events/input_manager.h"
+#include "omega/scene/layer.h"
+#include "omega/scene/layer_stack.h"
 
 namespace omega {
 
@@ -36,22 +38,20 @@ class Application {
 	virtual ~Application();
 
 	/**
-	 * Draws every entity on the screen using any renderer
-	 * @param dt delta time if needed
+	 * Abstraction of the application loop. Calls the Tick, Update, Input, and Render methods
 	 */
-	virtual void Render(float dt);
+	virtual void Run();
 
-	/**
-	 * Updates every entity based on the delta time
-	 * @param dt delta time for frame independent updating
-	 */
-	virtual void Update(float dt);
+	virtual void OnResize(uint32_t width, uint32_t height);
 
-	/**
-	 * Handles user input such as mouse, keyboard, and window events
-	 * @param dt delta time if necessary
-	 */
-	virtual void Input(float dt);
+	static Application& Instance() { return *instance_; }
+
+	Sptr<Window> GetWindow() { return window_; }
+
+	void SetRunning(bool v) { running_ = v; }
+
+   protected:
+	void PushLayer(Layer* layer);
 
 	/**
 	 * Clamps the application by sleeping the CPU to run at Application::fps_
@@ -59,18 +59,13 @@ class Application {
 	 */
 	virtual float Tick();
 
-	/**
-	 * Abstraction of the application loop. Calls the Tick, Update, Input, and Render methods
-	 */
-	virtual void Run();
-
-	virtual void OnResize(uint32_t width, uint32_t height);
-
-   protected:
 	float fps_;
 	uint32_t last_time_;
-	Uptr<Window> window_;
+	Sptr<Window> window_;
 	bool running_;
+	Uptr<LayerStack> layer_stack_;
+	// singleton instance
+	static Application* instance_;
 };
 }  // namespace omega
 

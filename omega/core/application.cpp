@@ -3,14 +3,19 @@
 #include "omega/physics/math.h"
 
 namespace omega {
+
+Application* Application::instance_ = nullptr;
+
 Application::Application(const ApplicationConfig& config) : fps_(60), last_time_(0), window_(nullptr), running_(true) {
-	window_ = CreateUptr<Window>();
+	instance_ = this;
+	window_ = CreateSptr<Window>();
 	running_ = window_->Init(config.width, config.height, config.resizable, config.title);
 	// init TTF_Font
 	if (TTF_Init() != 0) {
 		Log("Unable to initialize SDL_ttf: '", SDL_GetError(), "'");
 		running_ = false;
 	}
+	layer_stack_ = CreateUptr<LayerStack>();
 	last_time_ = SDL_GetTicks();
 }
 
@@ -18,33 +23,8 @@ Application::~Application() {
 	TTF_Quit();
 }
 
-void Application::Update(float dt) {
-	(void)dt;
-}
-
-void Application::Input(float dt) {
-	(void)dt;
-	Event event;
-	while (InputManager::Instance().PollEvents(event)) {
-		switch ((EventType)event.type) {
-		case EventType::kQuit: {
-			running_ = false;
-			break;
-		}
-		case EventType::kWindowEvent: {
-			if (event.window.type == (uint32_t)WindowEvents::kWindowResized) {
-				OnResize(event.window.data1, event.window.data2);
-			}
-			break;
-		}
-		default:
-			break;
-		}
-	}
-}
-
-void Application::Render(float dt) {
-	(void)dt;
+void Application::PushLayer(Layer* layer) {
+	layer_stack_->PushLayer(layer);
 }
 
 float Application::Tick() {
@@ -58,9 +38,9 @@ float Application::Tick() {
 void Application::Run() {
 	while (running_) {
 		float dt = Tick();
-		Input(dt);
-		Update(dt);
-		Render(dt);
+		layer_stack_->Input(dt);
+		layer_stack_->Update(dt);
+		layer_stack_->Render(dt);
 		window_->SwapBuffers();
 	}
 }

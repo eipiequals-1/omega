@@ -45,6 +45,8 @@ cc_library(
         ":window",
         "//omega/events:event",
         "//omega/events:input_manager",
+        "//omega/scene:layer_stack",
+        "//omega/scene:layer",
     ]
 )
 

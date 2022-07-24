@@ -64,7 +64,7 @@ inline void Log() {
  * @param args any arguments to print
  */
 template <typename T, typename... Args>
-void Log(T t, Args... args) {
+void Log(T& t, Args&&... args) {
 	std::cout << t << ' ';
 	Log(args...);
 }
