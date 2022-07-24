@@ -8,14 +8,14 @@ load(
 package(default_visibility= ["//visibility:public"])
 
 cc_library(
-    name = "editor",
-    srcs = ["editor.cpp"],
-    hdrs = ["editor.h"],
+    name = "editor_layer",
+    srcs = ["editor_layer.cpp"],
+    hdrs = ["editor_layer.h"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
-        "//omega/core:using",
         "//omega/core:application",
+        "//omega/core:using",
         "//omega/core:orthographic_camera",
         "//omega/events:event",
         "//omega/events:input_manager",
@@ -34,6 +34,7 @@ cc_binary(
     linkopts = DEFAULT_LINKOPTS,
     linkstatic = True,
     deps = [
-        ":editor"
+        ":editor_layer",
+        "//omega/core:application",
     ]
 )

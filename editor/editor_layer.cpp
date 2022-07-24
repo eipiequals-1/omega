@@ -1,5 +1,6 @@
-#include "editor.h"
+#include "editor_layer.h"
 
+#include "omega/core/application.h"
 #include "omega/gfx/errors.h"
 #include "omega/gfx/shape_renderer.h"
 #include "omega/gfx/sprite_batch.h"
@@ -7,8 +8,8 @@
 
 namespace editor {
 
-EditorApplication::EditorApplication(const omega::ApplicationConfig& config) : omega::Application::Application(config) {
-	imgui_layer_ = omega::CreateUptr<omega::ImGuiLayer>(window_.get());
+EditorLayer::EditorLayer() : omega::Layer::Layer("Omega Editor Layer") {
+	imgui_layer_ = omega::CreateUptr<omega::ImGuiLayer>(omega::Application::Instance().GetWindow().get());
 
 	frame_buffer_ = omega::CreateUptr<omega::FrameBuffer>(1280, 720);
 	camera_ = omega::CreateUptr<omega::OrthographicCamera>(0.0f, 1280.0f, 0.0f, 720.0f);
@@ -17,7 +18,10 @@ EditorApplication::EditorApplication(const omega::ApplicationConfig& config) : o
 	scene_dock_size_.y = 720.0f;
 }
 
-void EditorApplication::Input(float dt) {
+EditorLayer::~EditorLayer() {
+}
+
+void EditorLayer::Input(float dt) {
 	(void)dt;
 	omega::Event event;
 	omega::InputManager& input = omega::InputManager::Instance();
@@ -25,12 +29,12 @@ void EditorApplication::Input(float dt) {
 		imgui_layer_->Input(event);
 		switch ((omega::EventType)event.type) {
 		case omega::EventType::kQuit: {
-			running_ = false;
+			omega::Application::Instance().SetRunning(false);
 			break;
 		}
 		case omega::EventType::kWindowEvent: {
 			if (event.window.type == (uint32_t)omega::WindowEvents::kWindowResized) {
-				OnResize(event.window.data1, event.window.data2);
+				omega::Application::Instance().OnResize(event.window.data1, event.window.data2);
 			}
 			break;
 		}
@@ -40,17 +44,19 @@ void EditorApplication::Input(float dt) {
 	}
 	auto key_manager = input.GetKeyManager();
 	if (key_manager->KeyPressed(omega::Key::kQ) && key_manager->KeyPressed(omega::Key::kLCtrl)) {
-		running_ = false;
+		omega::Application::Instance().SetRunning(false);
 		return;
 	}
 }
 
-void EditorApplication::Update(float dt) {
+void EditorLayer::Update(float dt) {
 	(void)dt;
 }
 
-void EditorApplication::Render(float dt) {
+void EditorLayer::Render(float dt) {
 	(void)dt;
+
+	omega::Sptr<omega::Window> window = omega::Application::Instance().GetWindow();
 
 	frame_buffer_->Bind();
 	const auto fit_aspect_ratio = [](float src_width, float src_height, float max_width, float max_height) {
@@ -66,8 +72,8 @@ void EditorApplication::Render(float dt) {
 	// omega::Log(scene_viewport_->GetViewportWidth(), scene_viewport_->GetViewportHeight(), scene_dock_size_.x, scene_dock_size_.y);
 	// glViewport(0, 63, 1629, 916);
 	// scene_viewport_->OnResize((uint32_t)glm::round(scene_dock_size_.x), (uint32_t)glm::round(scene_dock_size_.y));
-	window_->SetClearColor(glm::kBlack);
-	window_->Clear();
+	window->SetClearColor(glm::kBlack);
+	window->Clear();
 	// render scene to frame buffer
 	omega::ShapeRenderer& renderer = omega::ShapeRenderer::Instance();
 	camera_->RecalculateViewMatrix();
@@ -83,8 +89,8 @@ void EditorApplication::Render(float dt) {
 	renderer.End();
 	frame_buffer_->Unbind();
 	// reset viewport
-	OnResize(window_->GetWidth(), window_->GetHeight());
-	window_->Clear();
+	omega::Application::Instance().OnResize(window->GetWidth(), window->GetHeight());
+	window->Clear();
 
 	// render ImGui
 	{
@@ -134,7 +140,9 @@ void EditorApplication::Render(float dt) {
 
 		if (ImGui::BeginMenuBar()) {
 			if (ImGui::BeginMenu("File")) {
-				if (ImGui::MenuItem("Exit", "Ctrl+Q")) running_ = false;
+				if (ImGui::MenuItem("Exit", "Ctrl+Q")) {
+					omega::Application::Instance().SetRunning(false);
+				}
 				ImGui::EndMenu();
 			}
 			ImGui::EndMenuBar();
@@ -175,5 +183,4 @@ void EditorApplication::Render(float dt) {
 
 	batch.EndRender();
 }
-
 }  // namespace editor
