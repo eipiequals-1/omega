@@ -26,7 +26,7 @@ class Texture {
 	~Texture();
 
 	/**
-	 * Bind  this texture as the acti ve OpenGL texture to  the given slot
+	 * Bind this texture as the active OpenGL texture to the given slot
 	 * @param slot to bind to
 	 */
 	void Bind(uint32_t slot = 0) const;
