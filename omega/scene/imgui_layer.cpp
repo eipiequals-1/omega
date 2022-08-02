@@ -21,8 +21,16 @@ ImGuiLayer::ImGuiLayer(Window* window) : Layer("ImGuiLayer"), window_(window) {
 	ImGui_ImplSDL2_InitForOpenGL(window_->GetNativeWindow(), window_->GetGLContext());
 	const char version[] = "#version 450";
 	ImGui_ImplOpenGL3_Init(version);
+}
 
-	/*auto& colors = ImGui::GetStyle().Colors;
+ImGuiLayer::~ImGuiLayer() {
+	ImGui_ImplOpenGL3_Shutdown();
+	ImGui_ImplSDL2_Shutdown();
+	ImGui::DestroyContext();
+}
+
+void ImGuiLayer::SetDarkTheme() {
+	auto& colors = ImGui::GetStyle().Colors;
 	colors[ImGuiCol_WindowBg] = ImVec4{0.1f, 0.105f, 0.11f, 1.0f};
 
 	// Headers
@@ -50,13 +58,7 @@ ImGuiLayer::ImGuiLayer(Window* window) : Layer("ImGuiLayer"), window_(window) {
 	// Title
 	colors[ImGuiCol_TitleBg] = ImVec4{0.15f, 0.1505f, 0.151f, 1.0f};
 	colors[ImGuiCol_TitleBgActive] = ImVec4{0.15f, 0.1505f, 0.151f, 1.0f};
-	colors[ImGuiCol_TitleBgCollapsed] = ImVec4{0.15f, 0.1505f, 0.151f, 1.0f};*/
-}
-
-ImGuiLayer::~ImGuiLayer() {
-	ImGui_ImplOpenGL3_Shutdown();
-	ImGui_ImplSDL2_Shutdown();
-	ImGui::DestroyContext();
+	colors[ImGuiCol_TitleBgCollapsed] = ImVec4{0.15f, 0.1505f, 0.151f, 1.0f};
 }
 
 void ImGuiLayer::Input(Event& event) {

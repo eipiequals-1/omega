@@ -12,6 +12,8 @@ class ImGuiLayer : public Layer {
 	explicit ImGuiLayer(Window* window);
 	virtual ~ImGuiLayer() override;
 
+	virtual void SetDarkTheme();
+
 	void Input(Event& event);
 	virtual void Input(float dt) override { (void)dt; }
 	virtual void Update(float dt) override { (void)dt; }
