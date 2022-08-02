@@ -52,7 +52,7 @@ struct EmitterBuilder {
 	range rot_range;         // range in degrees where particles spawn
 	range speed;             // scalar range of different speeds
 	glm::vec2 accel;         // acceleration
-	glm::rect emit_rect;     // random point in rect to spawn particle
+	glm::rectf emit_rect;    // random point in rect to spawn particle
 };
 
 /**

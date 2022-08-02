@@ -23,12 +23,13 @@ namespace glm {
 /**
  * Rectangle struct storing x, y, w (width), h (height)
  */
+template <typename T>
 struct rect {
    public:
-	float x, y, w, h;
+	T x, y, w, h;
 
-	rect(float x, float y, float w, float h);
-	rect();
+	rect(T x, T y, T w, T h) : x(x), y(y), w(w), h(h) {}
+	rect() : x(0.0f), y(0.0f), w(0.0f), h(0.0f) {}
 
 	/**
 	 * Shifts the rectangle by the given vector
@@ -45,10 +46,10 @@ struct rect {
 	glm::vec2 center() const {
 		return glm::vec2(x + w / 2.0f, y + h / 2.0f);
 	}
-	void set_center_x(float centerx) {
+	void set_center_x(T centerx) {
 		x = centerx - w / 2.0f;
 	}
-	void set_center_y(float centery) {
+	void set_center_y(T centery) {
 		y = centery - h / 2.0f;
 	}
 
@@ -57,7 +58,7 @@ struct rect {
 	 * @param a the other rect
 	 * @return if they overlap
 	 */
-	virtual bool overlaps(const rect &a) const {
+	virtual bool overlaps(const rect<T> &a) const {
 		return x < a.x + a.w && x + w > a.x && y < a.y + a.h && y + h > a.y;
 	}
 
@@ -81,7 +82,7 @@ struct rect {
 	 * @param a another rect
 	 * @return if the position and sizes are exactly the same
 	 */
-	virtual bool operator==(const rect &a) const {
+	virtual bool operator==(const rect<T> &a) const {
 		return a.x == x && a.y == y && a.w == w && a.h == h;
 	}
 
@@ -89,10 +90,15 @@ struct rect {
 	 * @param a another rect
 	 * @return if the rectangles are not equal
 	 */
-	virtual bool operator!=(const rect &a) const {
+	virtual bool operator!=(const rect<T> &a) const {
 		return !(a == *this);
 	}
 };
+
+using rectf = rect<float>;
+using recti = rect<int>;
+using rectl = rect<long>;
+using rectd = rect<double>;
 
 /**
  * Checks collisions between two circles and returns if there is one

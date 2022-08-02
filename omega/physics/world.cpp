@@ -10,7 +10,7 @@ void World::Step(float timestep, uint32_t velocity_iteration, uint32_t position_
 	world_->Step(timestep, velocity_iteration, position_iterations);
 }
 
-Uptr<BoxBody> World::AddBox(const glm::rect& rect, BodyType type, b2FixtureDef fixture_def, float gravity_scale, float angle) {
+Uptr<BoxBody> World::AddBox(const glm::rectf& rect, BodyType type, b2FixtureDef fixture_def, float gravity_scale, float angle) {
 	BoxBody* body = new BoxBody(rect, type, fixture_def, gravity_scale, angle, world_.get());
 	return Uptr<BoxBody>(body);
 }

@@ -13,12 +13,12 @@ using Body = b2Body;
 
 class BoxBody {
    public:
-	BoxBody(const glm::rect &rect, BodyType type, b2FixtureDef &fixture_def, float gravity_scale, float angle, b2World *world);
+	BoxBody(const glm::rectf &rect, BodyType type, b2FixtureDef &fixture_def, float gravity_scale, float angle, b2World *world);
 	virtual ~BoxBody() = default;
 
 	const glm::vec2 &GetDimensions() const { return dimensions_; }
-	glm::rect GetRect() const {
-		return glm::rect(body_->GetPosition().x - dimensions_.x / 2.0f, body_->GetPosition().y - dimensions_.y / 2.0f, dimensions_.x, dimensions_.y);
+	glm::rectf GetRect() const {
+		return glm::rectf(body_->GetPosition().x - dimensions_.x / 2.0f, body_->GetPosition().y - dimensions_.y / 2.0f, dimensions_.x, dimensions_.y);
 	}
 	Body *GetBody() { return body_; }
 

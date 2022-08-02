@@ -17,7 +17,7 @@ class World {
 
 	void Step(float timestep = 1.0f / 60.0f, uint32_t velocity_iteration = 8, uint32_t position_iterations = 3);
 
-	Uptr<BoxBody> AddBox(const glm::rect& rect, BodyType type, b2FixtureDef fixture_def, float gravity_scale, float angle);
+	Uptr<BoxBody> AddBox(const glm::rectf& rect, BodyType type, b2FixtureDef fixture_def, float gravity_scale, float angle);
 	Uptr<CircleBody> AddCircle(const glm::vec2& center, float radius, BodyType type, b2FixtureDef fixture_def, float gravity_scale);
 
    private:
