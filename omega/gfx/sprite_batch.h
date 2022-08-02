@@ -106,7 +106,7 @@ class SpriteBatch {
 	 * @param dest the model matrix of the object
 	 * @param color tint of the texture
 	 */
-	virtual void RenderTexture(const Texture *texture, glm::rect src, const glm::rect &dest, const glm::vec4 &color = glm::vec4(1.0f));
+	virtual void RenderTexture(const Texture *texture, glm::rectf src, const glm::rectf &dest, const glm::vec4 &color = glm::vec4(1.0f));
 
 	/**
 	 * draw the given part of the texture to the destination
@@ -117,7 +117,7 @@ class SpriteBatch {
 	 * @param center center of rotation in world coordinates
 	 * @param color tint of the texture
 	 */
-	virtual void RenderTexture(const Texture *texture, glm::rect src, const glm::rect &dest, float rotation, const glm::vec2 &center, const glm::vec4 &color = glm::vec4(1.0f));
+	virtual void RenderTexture(const Texture *texture, glm::rectf src, const glm::rectf &dest, float rotation, const glm::vec2 &center, const glm::vec4 &color = glm::vec4(1.0f));
 
    protected:
 	Uptr<Shader> sprite_shader_;

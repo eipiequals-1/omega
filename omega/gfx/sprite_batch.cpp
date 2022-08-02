@@ -114,15 +114,15 @@ void SpriteBatch::RenderTexture(const Texture *texture, const float x, const flo
 
 void SpriteBatch::RenderTexture(const Texture *texture, const float x, const float y, const float w, const float h, const glm::vec4 &color) {
 	// set tex coords
-	glm::rect tex_coords(0.0f, 0.0f, texture->GetWidth(), texture->GetHeight());
-	RenderTexture(texture, tex_coords, glm::rect(x, y, w, h), color);
+	glm::rectf tex_coords(0.0f, 0.0f, texture->GetWidth(), texture->GetHeight());
+	RenderTexture(texture, tex_coords, glm::rectf(x, y, w, h), color);
 }
 
-void SpriteBatch::RenderTexture(const Texture *texture, glm::rect src, const glm::rect &dest, const glm::vec4 &color) {
+void SpriteBatch::RenderTexture(const Texture *texture, glm::rectf src, const glm::rectf &dest, const glm::vec4 &color) {
 	RenderTexture(texture, src, dest, 0.0f, dest.center(), color);
 }
 
-void SpriteBatch::RenderTexture(const Texture *texture, glm::rect src, const glm::rect &dest, float rotation, const glm::vec2 &center, const glm::vec4 &color) {
+void SpriteBatch::RenderTexture(const Texture *texture, glm::rectf src, const glm::rectf &dest, float rotation, const glm::vec2 &center, const glm::vec4 &color) {
 	if (quads_rendered_ == kQuadCapacity) {
 		EndRender();
 		BeginRender();

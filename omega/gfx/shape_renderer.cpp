@@ -63,7 +63,7 @@ void ShapeRenderer::End() {
 	triangle_vao_->Unbind();
 }
 
-void ShapeRenderer::Rect(const glm::rect &rect) {
+void ShapeRenderer::Rect(const glm::rectf &rect) {
 	Triangle(
 	    rect.x, rect.y,                   // bottom left
 	    rect.x + rect.w, rect.y,          // bottom right
@@ -76,7 +76,7 @@ void ShapeRenderer::Rect(const glm::rect &rect) {
 	);
 }
 
-void ShapeRenderer::Rect(const glm::rect &rect, float rotation) {
+void ShapeRenderer::Rect(const glm::rectf &rect, float rotation) {
 	glm::vec2 center = rect.center();
 	// center rect around origin/center
 	glm::vec2 points[4] = {};

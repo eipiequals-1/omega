@@ -31,7 +31,7 @@ using ShapeTriangle = std::array<ShapeVertex, 3>;
  *     shape_renderer.Begin();
  *     shape_renderer.Circle(glm::vec2(50.0f, 50.0f), 50.0f);
  *     shape_renderer.Color(glm::vec4(0.0f, 1.0f, 1.0f, 1.0f));
- *     shape_renderer.Rect(glm::rect(0.0f, 0.0f, 100.0f, 100.0f));
+ *     shape_renderer.Rect(glm::rectf(0.0f, 0.0f, 100.0f, 100.0f));
  *     shape_renderer.End();
  */
 class ShapeRenderer {
@@ -111,14 +111,14 @@ class ShapeRenderer {
 	 * Renders a rectangle with the current ShapeRenderer::color_
 	 * @param rect rect in world space coords
 	 */
-	virtual void Rect(const glm::rect &rect);
+	virtual void Rect(const glm::rectf &rect);
 
 	/**
 	 * Renders a rotated rectangle with the current ShapeRenderer::color_
 	 * @param rect rect in world space coords
 	 * @param rotation in trigonometric direction & degrees
 	 */
-	virtual void Rect(const glm::rect &rect, float rotation);
+	virtual void Rect(const glm::rectf &rect, float rotation);
 
 	/**
 	 * Renders a triangle with the given points

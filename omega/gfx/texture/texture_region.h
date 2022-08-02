@@ -18,7 +18,7 @@ class TextureRegion {
 	uint32_t GetY() const { return y_; }
 	uint32_t GetW() const { return w_; }
 	uint32_t GetH() const { return h_; }
-	glm::rect GetRect() const { return glm::rect(x_, y_, w_, h_); }
+	glm::rectf GetRect() const { return glm::rectf(x_, y_, w_, h_); }
 	Texture *GetTexture() { return texture_; }
 
    private:
