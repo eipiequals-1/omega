@@ -14,19 +14,16 @@ namespace omega {
 class TextureRegion {
    public:
 	TextureRegion(Texture *tex, uint32_t x, uint32_t y, uint32_t w, uint32_t h);
-	uint32_t GetX() const { return x_; }
-	uint32_t GetY() const { return y_; }
-	uint32_t GetW() const { return w_; }
-	uint32_t GetH() const { return h_; }
-	glm::rectf GetRect() const { return glm::rectf(x_, y_, w_, h_); }
+	uint32_t GetX() const { return rect_.x; }
+	uint32_t GetY() const { return rect_.y; }
+	uint32_t GetW() const { return rect_.w; }
+	uint32_t GetH() const { return rect_.h; }
+	const glm::rect<uint32_t> &GetRect() const { rect_; }
 	Texture *GetTexture() { return texture_; }
 
    private:
 	Texture *texture_;
-	uint32_t x_;
-	uint32_t y_;
-	uint32_t w_;
-	uint32_t h_;
+	glm::rect<uint32_t> rect_;
 	std::string region_name_;
 };
 }  // namespace omega
