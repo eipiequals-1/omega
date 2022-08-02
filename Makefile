@@ -27,7 +27,7 @@ dirs:
 
 lib: $(OBJ)
 	$(CC) -o $(BIN)/libomega.so -shared $^ $(LIBS) $(OPT)
-	ar rcs  $(BIN)/static/libomega.a $(BIN)/libomega.so
+	ar -rcs $(BIN)/static/libomega.a $(BIN)/libomega.so
 
 $(BIN)/%.o: %.cpp
 	$(CC) -o $@ -c $< $(CFLAGS) $(INCLUDE) $(MACROS) $(OPT)
