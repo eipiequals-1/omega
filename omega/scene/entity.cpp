@@ -5,6 +5,13 @@ namespace omega {
 Entity::Entity() {
 }
 
+Entity::~Entity() {
+	for (Component *c : components_) {
+		delete c;
+		c = nullptr;
+	}
+}
+
 void Entity::Render(float dt) {
 	for (Component *c : components_) {
 		c->Render(dt);

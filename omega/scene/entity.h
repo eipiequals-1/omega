@@ -29,9 +29,9 @@ class Entity {
 		return *c;
 	}
 
-	void Render(float dt);
-	void Input(float dt);
-	void Update(float dt);
+	virtual void Render(float dt);
+	virtual void Input(float dt);
+	virtual void Update(float dt);
 
    private:
 	std::vector<Component *> components_;
