@@ -52,14 +52,14 @@ class RectComponent : public Component {
    public:
 	RectComponent() { rotation_ = 0; }
 
-	const glm::rect &GetRect() const { return rect_; }
-	void SetRect(const glm::rect &rect) { rect_ = rect; }
+	const glm::rectf &GetRect() const { return rect_; }
+	void SetRect(const glm::rectf &rect) { rect_ = rect; }
 
 	float GetRotation() const { return rotation_; }
 	void SetRotation(float rotation) { rotation_ = rotation; }
 
    protected:
-	glm::rect rect_;
+	glm::rectf rect_;
 	float rotation_;  // in degrees
 };
 
@@ -77,7 +77,7 @@ class SpriteComponent : public RectComponent {
 	virtual void Render(float dt) override {
 		(void)dt;
 		SpriteBatch &batch = SpriteBatch::Instance();
-		batch.RenderTexture(texture_, glm::rect(0.0f, 0.0f, texture_->GetWidth(), texture_->GetHeight()), rect_, rotation_, rect_.center());
+		batch.RenderTexture(texture_, glm::rectf(0.0f, 0.0f, texture_->GetWidth(), texture_->GetHeight()), rect_, rotation_, rect_.center());
 	}
 
    protected:

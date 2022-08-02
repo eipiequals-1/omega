@@ -15,7 +15,7 @@ Map::Map(const std::string &file_path, const std::string &tileset_path) {
 Map::~Map() {
 }
 
-void Map::GetIntersectRects(const glm::rect &rect, std::vector<Tile *> &collided_tiles, std::vector<uint32_t> &collided_tile_indices) {
+void Map::GetIntersectRects(const glm::rectf &rect, std::vector<Tile *> &collided_tiles, std::vector<uint32_t> &collided_tile_indices) {
 	// reset the output vectors
 	collided_tiles.clear();
 	collided_tile_indices.clear();
@@ -42,7 +42,7 @@ void Map::GetIntersectRects(const glm::rect &rect, std::vector<Tile *> &collided
 	}
 }
 
-void Map::SetTileRect(glm::rect &rect, uint32_t tile_idx) {
+void Map::SetTileRect(glm::rectf &rect, uint32_t tile_idx) {
 	// convert tile_idx to correct width and height
 	uint32_t actual_x = tile_idx % width;
 	uint32_t actual_y = height - (tile_idx / width) - 1;

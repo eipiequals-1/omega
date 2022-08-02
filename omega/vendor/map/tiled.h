@@ -29,14 +29,14 @@ class Map : public TmxMap {
 	 * @param collided_tiles vector of pointers to tiles that intersect with the given rect
 	 * @param collided_tile_indices vector of ints containing the location of the collided tiles in the layer vector
 	 */
-	virtual void GetIntersectRects(const glm::rect &rect, std::vector<Tile *> &collided_tiles, std::vector<uint32_t> &collided_tile_indices);
+	virtual void GetIntersectRects(const glm::rectf &rect, std::vector<Tile *> &collided_tiles, std::vector<uint32_t> &collided_tile_indices);
 
 	/**
 	 * Sets the tile rectangle based off of the tileIdx
 	 * @param rect reference to the rect to be changed
 	 * @param tile_idx index of the tile in the 1d tile vector
 	 */
-	virtual void SetTileRect(glm::rect &rect, uint32_t tile_idx);
+	virtual void SetTileRect(glm::rectf &rect, uint32_t tile_idx);
 
 	/**
 	 * Checks if a tile has the given property
