@@ -8,26 +8,23 @@ FrameBuffer::FrameBuffer(uint32_t width, uint32_t height) : id_(0), width_(width
 
 FrameBuffer::~FrameBuffer() {
 	glDeleteFramebuffers(1, &id_);
-	delete color_buffer_;
-	color_buffer_ = nullptr;
 	glDeleteRenderbuffers(1, &rbo_depth_stencil_);
 }
 
 void FrameBuffer::Resize(uint32_t width, uint32_t height) {
 	if (id_ != 0) {
 		glDeleteFramebuffers(1, &id_);
-		delete color_buffer_;
 		glDeleteRenderbuffers(1, &rbo_depth_stencil_);
 		id_ = 0;
-		color_buffer_ = nullptr;
 		rbo_depth_stencil_ = 0;
 	}
 	width_ = width;
 	height_ = height;
 	glCreateFramebuffers(1, &id_);
 	glBindFramebuffer(GL_FRAMEBUFFER, id_);
+	GLCheckError();
 	// create color buffer
-	color_buffer_ = new Texture(width_, height_, GL_LINEAR, GL_LINEAR);
+	color_buffer_ = Texture::CreateEmpty(width_, height_, GL_LINEAR, GL_LINEAR);
 	// attach to frame buffer
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, color_buffer_->GetRendererID(), 0);
 	// create depth and stencil buffer in render buffer
@@ -45,6 +42,7 @@ void FrameBuffer::Resize(uint32_t width, uint32_t height) {
 	color_buffer_->Unbind();
 	glBindRenderbuffer(GL_RENDERBUFFER, 0);
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	GLCheckError();
 }
 
 void FrameBuffer::Bind() const {
