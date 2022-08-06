@@ -19,9 +19,9 @@ void Viewport::OnResize(uint32_t new_width, uint32_t new_height) {
 		const glm::vec2 viewport_size = fit_aspect_ratio(initial_width_, initial_height_, new_width, new_height);
 		current_width_ = (uint32_t)glm::round(viewport_size.x);
 		current_height_ = (uint32_t)glm::round(viewport_size.y);
-		uint32_t margin_left = (uint32_t)glm::round((new_width - viewport_size.x) / 2.0f);
-		uint32_t margin_bottom = (uint32_t)glm::round((new_height - viewport_size.y) / 2.0f);
-		glViewport(margin_left, margin_bottom, current_width_, current_height_);
+		// uint32_t margin_left = (uint32_t)glm::round((new_width - viewport_size.x) / 2.0f);
+		// uint32_t margin_bottom = (uint32_t)glm::round((new_height - viewport_size.y) / 2.0f);
+		// glViewport(margin_left, margin_bottom, current_width_, current_height_);
 		break;
 	}
 	case ViewportType::kStretch: {

@@ -26,7 +26,10 @@ class Window {
 
 	/**
 	 * Constructs the Window object and returns if it was successful
-	 * @param builder the WinBuilder Object
+	 * @param width the initial width of the window
+	 * @param height the initial height of the window
+	 * @param resizable if it can be resized
+	 * @param title the window title
 	 */
 	virtual bool Init(uint32_t width, uint32_t height, bool resizable, const std::string &title);
 

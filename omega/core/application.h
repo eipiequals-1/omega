@@ -7,8 +7,6 @@
 
 #include "omega/core/using.h"
 #include "omega/core/window.h"
-#include "omega/events/event.h"
-#include "omega/events/input_manager.h"
 #include "omega/scene/layer.h"
 #include "omega/scene/layer_stack.h"
 
