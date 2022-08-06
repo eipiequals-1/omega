@@ -30,7 +30,7 @@ class IndexBuffer {
 	 * which is passed as an argument to glDrawElements
 	 * @return the index count
 	 */
-	GLint GetCount() const { return count_; }
+	GLuint GetCount() const { return count_; }
 
 	/**
 	 * Changes the buffer's data.
