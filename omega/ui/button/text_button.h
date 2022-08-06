@@ -23,7 +23,7 @@ class TextButton : public ImageButton {
 	virtual void Render() override;
 
    protected:
-	Uptr<Texture> text_texture_;
+	Sptr<Texture> text_texture_;
 	float text_width_, text_height_;
 };
 

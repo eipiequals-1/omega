@@ -16,7 +16,7 @@ Font::~Font() {
 	font_ = nullptr;
 }
 
-Texture* Font::RenderText(const std::string& text, const glm::vec4& color) {
+Sptr<Texture> Font::RenderText(const std::string& text, const glm::vec4& color) {
 	SDL_Color sdl_color;
 	// shift colors 2 right because of TTF_RenderText_Blended errors
 	sdl_color.r = static_cast<Uint8>(color.b * 255);
@@ -24,7 +24,7 @@ Texture* Font::RenderText(const std::string& text, const glm::vec4& color) {
 	sdl_color.b = static_cast<Uint8>(color.g * 255);
 	sdl_color.a = static_cast<Uint8>(color.a * 255);
 	SDL_Surface* surf = TTF_RenderText_Blended(font_, text.c_str(), sdl_color);
-	Texture* tex = Texture::FromSurface(surf, GL_LINEAR, GL_LINEAR);
+	Sptr<Texture> tex = Texture::CreateFromSurface(surf, GL_LINEAR, GL_LINEAR);
 	SDL_FreeSurface(surf);
 	return tex;
 }

@@ -26,7 +26,7 @@ class Font {
 	 * @param color to draw it
 	 * @return a Texture
 	 */
-	Texture* RenderText(const std::string& text, const glm::vec4& color = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
+	Sptr<Texture> RenderText(const std::string& text, const glm::vec4& color = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
 
    private:
 	TTF_Font* font_;
