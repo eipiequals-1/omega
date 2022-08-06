@@ -45,8 +45,7 @@ void MapRenderer::LoadLayer(const Layer &layer) {
 		uint32_t *pix = &pixels[start_y * layer_width_pix + start_x];
 		SetTilePixels(pix, tile, layer_width_pix, layer_height_pix);
 	}
-
-	layer_texture_.push_back(CreateUptr<Texture>(layer_width_pix, layer_height_pix, GL_NEAREST, GL_NEAREST));
+	layer_texture_.push_back(Texture::CreateEmpty(layer_width_pix, layer_height_pix, GL_NEAREST, GL_NEAREST));
 	(layer_texture_.end() - 1)->get()->SetData(pixels.data());
 }
 

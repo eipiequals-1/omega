@@ -46,7 +46,7 @@ class MapRenderer {
 		// get tileset image and pixels
 		const Tileset& tileset = map_->tilesetCollection[tile.tilesetIndex];
 		auto tileset_img = tex_manager_->Get(tile.tilesetIndex);
-		const uint32_t* tileset_pixels = tileset_img->GetPixels();
+		Sptr<uint32_t[]> tileset_pixels = tileset_img->GetPixels();
 		// get location of rect on tileset
 		uint32_t src_x, src_y, src_w, src_h;
 		src_w = tileset.tileWidth;
@@ -77,7 +77,7 @@ class MapRenderer {
 	}
 	Map* map_;
 	Uptr<TextureManager<uint32_t>> tex_manager_;
-	std::vector<Uptr<Texture>> layer_texture_;
+	std::vector<Sptr<Texture>> layer_texture_;
 };
 }  // namespace tiled
 }  // namespace omega
