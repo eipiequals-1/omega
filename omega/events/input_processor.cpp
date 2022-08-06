@@ -9,9 +9,9 @@ InputProcessor::~InputProcessor() {
 }
 
 void InputProcessor::Listen() {
-	InputManager &input = InputManager::Instance();
+	Sptr<InputManager> input = InputManager::Instance();
 	Event event;
-	while (input.PollEvents(event)) {
+	while (input->PollEvents(event)) {
 		switch ((EventType)event.type) {
 		case EventType::kQuit: {
 			OnWindowClosed();
@@ -40,7 +40,7 @@ void InputProcessor::Listen() {
 			} else {
 				button = MouseButton::kMouseCenter;
 			}
-			OnMouseDown(input.GetMousePos().x, input.GetMousePos().y, button);
+			OnMouseDown(input->GetMousePos().x, input->GetMousePos().y, button);
 			break;
 		}
 		case EventType::kMouseButtonUp: {
@@ -52,7 +52,7 @@ void InputProcessor::Listen() {
 			} else {
 				button = MouseButton::kMouseCenter;
 			}
-			OnMouseDown(input.GetMousePos().x, input.GetMousePos().y, button);
+			OnMouseDown(input->GetMousePos().x, input->GetMousePos().y, button);
 			break;
 		}
 		default:

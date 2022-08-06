@@ -27,6 +27,7 @@ cc_library(
     deps = [
         "@SDL2//:SDL2",
         "//omega/core:using",
+        "//omega/core:application",
         ":event",
         ":key_manager",
         "//omega/physics:math",
