@@ -82,6 +82,7 @@ cc_library(
         "@GL//:GL",
         ":shader",
         "//omega/gfx/texture:texture",
+        "//omega/gfx/texture:texture_region",
         ":vertex_buffer",
         ":vertex_buffer_layout",
         ":vertex_array",
