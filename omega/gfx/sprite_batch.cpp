@@ -118,7 +118,7 @@ void SpriteBatch::RenderTexture(const Texture *texture, const float x, const flo
 	RenderTexture(texture, tex_coords, glm::rectf(x, y, w, h), color);
 }
 
-void SpriteBatch::RenderTexture(const Texture *texture, glm::rectf src, const glm::rectf &dest, const glm::vec4 &color) {
+void SpriteBatch::RenderTexture(const Texture *texture, const glm::rectf &src, const glm::rectf &dest, const glm::vec4 &color) {
 	RenderTexture(texture, src, dest, 0.0f, dest.center(), color);
 }
 
@@ -165,6 +165,10 @@ void SpriteBatch::RenderTexture(const Texture *texture, glm::rectf src, const gl
 	vbo_->Bind();
 	vbo_->SubData(sizeof(Quad) * quads_rendered_, sizeof(Quad), quad);
 	quads_rendered_++;
+}
+
+void SpriteBatch::RenderTextureRegion(const TextureRegion *texture_region, const glm::rectf &dest, const glm::vec4 &color) {
+	RenderTexture(texture_region->GetTexture(), texture_region->GetRect().convert_type<float>(), dest, color);
 }
 
 void SpriteBatch::EndRender() {

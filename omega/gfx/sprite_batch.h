@@ -11,6 +11,7 @@
 #include "omega/gfx/index_buffer.h"
 #include "omega/gfx/shader.h"
 #include "omega/gfx/texture/texture.h"
+#include "omega/gfx/texture/texture_region.h"
 #include "omega/gfx/vertex_array.h"
 #include "omega/gfx/vertex_buffer.h"
 #include "omega/gfx/vertex_buffer_layout.h"
@@ -106,7 +107,7 @@ class SpriteBatch {
 	 * @param dest the model matrix of the object
 	 * @param color tint of the texture
 	 */
-	virtual void RenderTexture(const Texture *texture, glm::rectf src, const glm::rectf &dest, const glm::vec4 &color = glm::vec4(1.0f));
+	virtual void RenderTexture(const Texture *texture, const glm::rectf &src, const glm::rectf &dest, const glm::vec4 &color = glm::vec4(1.0f));
 
 	/**
 	 * draw the given part of the texture to the destination
@@ -118,6 +119,8 @@ class SpriteBatch {
 	 * @param color tint of the texture
 	 */
 	virtual void RenderTexture(const Texture *texture, glm::rectf src, const glm::rectf &dest, float rotation, const glm::vec2 &center, const glm::vec4 &color = glm::vec4(1.0f));
+
+	virtual void RenderTextureRegion(const TextureRegion *texture_region, const glm::rectf &dest, const glm::vec4 &color = glm::vec4(1.0f));
 
    protected:
 	Uptr<Shader> sprite_shader_;
