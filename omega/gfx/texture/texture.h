@@ -19,10 +19,39 @@ namespace omega {
  * or a custom renderer.
  */
 class Texture {
-   public:
-	explicit Texture(const std::string& filepath, GLenum min_filter = GL_NEAREST, GLenum mag_filter = GL_NEAREST);
+   private:
 	Texture(uint32_t width, uint32_t height, GLenum min_filter = GL_NEAREST, GLenum mag_filter = GL_NEAREST);
 
+   public:
+	/**
+	 * Static factory method that creates a texture from an SDL_Surface which is not destroyed
+	 * @param surf pointer to SDL_Surface
+	 * @param min_filter type of filter for minimizing the texture
+	 * @param max_filter type of filter for maximizing the texture
+	 * @return a new Texture
+	 */
+	static Sptr<Texture> CreateFromSurface(SDL_Surface* surf, GLenum min_filter = GL_NEAREST, GLenum mag_filter = GL_NEAREST) {
+		Texture* tex = new Texture(surf->w, surf->h, min_filter, mag_filter);
+		tex->Load((uint32_t*)surf->pixels);
+		return Sptr<Texture>(tex);
+	}
+
+	static Sptr<Texture> CreateFromFile(const std::string& filepath, GLenum min_filter = GL_NEAREST, GLenum mag_filter = GL_NEAREST) {
+		SDL_Surface* surf = IMG_Load(filepath.c_str());
+		if (surf == nullptr) {
+			Log("IMG error: Error loading '", filepath, "': ", IMG_GetError());
+			return nullptr;
+		}
+		Sptr<Texture> texture = Texture::CreateFromSurface(surf, min_filter, mag_filter);
+		SDL_FreeSurface(surf);
+		surf = nullptr;
+		return texture;
+	}
+
+	static Sptr<Texture> CreateEmpty(uint32_t width, uint32_t height, GLenum min_filter = GL_NEAREST, GLenum mag_filter = GL_NEAREST) {
+		// must construct using new because constructor is private and not accessible by Sptr
+		return Sptr<Texture>(new Texture(width, height, min_filter, mag_filter));
+	}
 	~Texture();
 
 	/**
@@ -35,9 +64,6 @@ class Texture {
 	 * Unbind the texture in OpenGL
 	 */
 	void Unbind() const;
-	const uint32_t* GetPixels() const {
-		return pixels_;
-	}
 	uint32_t GetRendererID() const { return id_; }
 
 	uint32_t GetWidth() const { return width_; }
@@ -48,29 +74,12 @@ class Texture {
 	 * @param data with RGBA data
 	 */
 	void SetData(uint32_t* data) {
-		if (pixels_ != nullptr) {
-			delete[] pixels_;
-			pixels_ = nullptr;
-		}
-		pixels_ = new uint32_t[width_ * height_];
-		std::memcpy(pixels_, data, sizeof(uint32_t) * width_ * height_);
 		glBindTexture(GL_TEXTURE_2D, id_);  // bind without setting active texture
 		glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, width_, height_, GL_RGBA, GL_UNSIGNED_BYTE, data);
 		Unbind();
 	}
 
-	/**
-	 * Static factory method that creates a dynamically allocated texture from an SDL_Surface which is not destroyed
-	 * @param surf pointer to SDL_Surface
-	 * @param min_filter type of filter for minimizing the texture
-	 * @param max_filter type of filter for maximizing the texture
-	 * @return a new Texture
-	 */
-	static Texture* FromSurface(SDL_Surface* surf, GLenum min_filter = GL_NEAREST, GLenum mag_filter = GL_NEAREST) {
-		Texture* tex = new Texture(surf->w, surf->h, min_filter, mag_filter);
-		tex->SetData((uint32_t*)surf->pixels);
-		return tex;
-	}
+	Sptr<uint32_t[]> GetPixels();
 
 	static void SaveToFile(const std::string& file_name, uint32_t* pixels, uint32_t width, uint32_t height) {
 		uint32_t rmask, gmask, bmask, amask;
@@ -88,17 +97,16 @@ class Texture {
 		SDL_Surface* surf = SDL_CreateRGBSurfaceFrom(pixels, width, height, 32, 4 * width, rmask, gmask, bmask, amask);
 		// save in current working directory
 		SDL_SaveBMP(surf, file_name.c_str());
+		SDL_FreeSurface(surf);
 	}
 
    private:
 	/**
 	 * Creates the texture and sets the min, mag, and wrap filters
 	 */
-	void Load();
+	void Load(uint32_t* pixels);
 
 	GLuint id_;
-	GLenum min_filter_, mag_filter_;
-	uint32_t* pixels_;  // store the pixels in OpenGL coords
 	uint32_t width_, height_;
 };
 
@@ -118,7 +126,7 @@ class TextureManager {
 	 */
 	void Load(const K& id, const std::string& filepath, GLenum min_filter = GL_NEAREST, GLenum mag_filter = GL_NEAREST) {
 		if (!Contains(id)) {
-			textures_[id] = std::make_shared<Texture>(filepath, min_filter, mag_filter);
+			textures_[id] = Texture::CreateFromFile(filepath, min_filter, mag_filter);
 		}
 	}
 
@@ -131,7 +139,7 @@ class TextureManager {
 	 */
 	void Load(const K& id, SDL_Surface* surface, GLenum min_filter = GL_NEAREST, GLenum mag_filter = GL_NEAREST) {
 		if (!Contains(id)) {
-			textures_[id] = Sptr<Texture>(Texture::FromSurface(surface, min_filter, mag_filter));
+			textures_[id] = Texture::CreateFromSurface(surface, min_filter, mag_filter);
 		}
 	}
 

@@ -49,7 +49,7 @@ TextureAtlas::TextureAtlas(const std::string &atlas_file_path, GLenum min_filter
 			// get full path to image file
 			std::string path = atlas_file_path.substr(0, atlas_file_path.size() - 5);
 			path += "png";
-			tex_ = std::make_shared<Texture>(path, min_filter, mag_filter);
+			tex_ = Texture::CreateFromFile(path, min_filter, mag_filter);
 			continue;
 		}
 		size_t num_words = words.size();
@@ -65,7 +65,7 @@ TextureAtlas::TextureAtlas(const std::string &atlas_file_path, GLenum min_filter
 			w = std::stoi(words[3]);
 			h = std::stoi(words[4]);
 			// create TextureRegion
-			tex_regions_[tex_region_key] = std::make_shared<TextureRegion>(tex_.get(), x, y, w, h);
+			tex_regions_[tex_region_key] = CreateSptr<TextureRegion>(tex_.get(), x, y, w, h);
 		}
 	}
 }

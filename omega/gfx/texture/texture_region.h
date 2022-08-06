@@ -18,8 +18,8 @@ class TextureRegion {
 	uint32_t GetY() const { return rect_.y; }
 	uint32_t GetW() const { return rect_.w; }
 	uint32_t GetH() const { return rect_.h; }
-	const glm::rect<uint32_t> &GetRect() const { rect_; }
-	Texture *GetTexture() { return texture_; }
+	const glm::rect<uint32_t> &GetRect() const { return rect_; }
+	Texture *GetTexture() const { return texture_; }
 
    private:
 	Texture *texture_;
