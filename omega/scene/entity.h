@@ -33,7 +33,7 @@ class Entity {
 	virtual void Input(float dt);
 	virtual void Update(float dt);
 
-   private:
+   protected:
 	std::vector<Component *> components_;
 	ComponentArray component_array_;
 	ComponentBitset component_bitset_;
