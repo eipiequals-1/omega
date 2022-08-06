@@ -75,7 +75,7 @@ struct rect {
 	 * Prints the rectangle data for debugging purposes
 	 */
 	virtual void print() const {
-		printf("x=%f, y=%f, w=%f, h=%f\n", x, y, w, h);
+		std::cout << "x=" << x << ", y=" << y << ", w=" << w << ", h=" << h << '\n';
 	}
 
 	/**
@@ -92,6 +92,11 @@ struct rect {
 	 */
 	virtual bool operator!=(const rect<T> &a) const {
 		return !(a == *this);
+	}
+
+	template <typename C>
+	rect<C> convert_type() const {
+		return rect<C>(static_cast<C>(x), static_cast<C>(y), static_cast<C>(w), static_cast<C>(h));
 	}
 };
 
