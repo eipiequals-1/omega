@@ -2,7 +2,8 @@
 
 namespace omega {
 
-PerspectiveCamera::PerspectiveCamera(const glm::vec3& position, float yaw, float pitch) : position_(position), front_(0.0f, 0.0f, -1.0f), world_up_(0.0f, 1.0f, 0.0f), yaw_(yaw), pitch_(pitch) {
+PerspectiveCamera::PerspectiveCamera(const glm::vec3& position, float yaw, float pitch) : Camera::Camera(), front_(0.0f, 0.0f, -1.0f), world_up_(0.0f, 1.0f, 0.0f), yaw_(yaw), pitch_(pitch) {
+	position_ = position;
 	SetProjection();
 	UpdateViewVectors();
 }
@@ -13,7 +14,6 @@ void PerspectiveCamera::SetProjection(float fov, float aspect, float near, float
 
 void PerspectiveCamera::RecalculateViewMatrix() {
 	view_matrix_ = glm::lookAt(position_, position_ + front_, up_);
-	view_projection_matrix_ = projection_matrix_ * view_matrix_;
 }
 
 void PerspectiveCamera::MouseMovement(float dx, float dy, float mouse_sensitivity) {
@@ -22,8 +22,9 @@ void PerspectiveCamera::MouseMovement(float dx, float dy, float mouse_sensitivit
 	yaw_ += dx;
 	pitch_ += dy;
 
-	if (pitch_ > 89.0f) pitch_ = 89.0f;
-	if (pitch_ < -89.0f) pitch_ = -89.0f;
+	constexpr float max_pitch = 90.0f;  // cannot rotate 360 deg up and down
+	if (pitch_ > max_pitch) pitch_ = max_pitch;
+	if (pitch_ < -max_pitch) pitch_ = -max_pitch;
 	UpdateViewVectors();
 }
 

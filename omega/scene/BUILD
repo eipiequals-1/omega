@@ -8,6 +8,17 @@ load(
 package(default_visibility= ["//visibility:public"])
 
 cc_library(
+    name = "camera",
+    srcs = ["camera.cpp"],
+    hdrs = ["camera.h"],
+    copts = DEFAULT_COPTS,
+    linkopts = DEFAULT_LINKOPTS,
+    deps = [
+        "//omega/physics:math",
+    ]
+)
+
+cc_library(
     name = "layer",
     srcs = ["layer.cpp"],
     hdrs = ["layer.h"],

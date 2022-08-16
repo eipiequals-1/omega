@@ -14,29 +14,31 @@ class Entity {
 
 	template <typename T, typename... Args>
 	T &AddComponent(Args &&...args) {
-		Component *c = new T(std::forward<Args>(args)...);
+		T *c = new T(std::forward<Args>(args)...);
 		components_.push_back(c);
 
 		c->SetOwner(this);
-		component_array_[GetComponentID<T>()] = c;
-		component_bitset_[GetComponentID<T>()] = true;
+		// component_array_[GetComponentID<T>()] = c;
+		// component_bitset_[GetComponentID<T>()] = true;
 		return *c;
 	}
-
+#if 0
 	template <typename T>
 	T &GetComponent() {
 		Component *c = component_array_[GetComponentID<T>()];
-		return *c;
+		return static_cast<T>(*c);
 	}
-
-	virtual void Render(float dt);
+#endif
+	void Render(float dt);
 	virtual void Input(float dt);
 	virtual void Update(float dt);
 
    protected:
 	std::vector<Component *> components_;
+#if 0
 	ComponentArray component_array_;
 	ComponentBitset component_bitset_;
+#endif
 };
 
 }  // namespace omega

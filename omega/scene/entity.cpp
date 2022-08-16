@@ -13,9 +13,10 @@ Entity::~Entity() {
 }
 
 void Entity::Render(float dt) {
-	for (Component *c : components_) {
-		c->Render(dt);
-	}
+	components_[0]->Render(dt);
+	// for (Component *c : components_) {
+	// 	c->Render(dt);
+	// }
 }
 
 void Entity::Update(float dt) {

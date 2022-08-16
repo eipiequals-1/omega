@@ -55,7 +55,7 @@ cc_library(
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
-        "//omega/physics:math"
+        "//omega/scene:camera"
     ]
 )
 
@@ -66,7 +66,7 @@ cc_library(
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
-        "//omega/physics:math"
+        "//omega/scene:camera"
     ]
 )
 

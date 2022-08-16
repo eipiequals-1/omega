@@ -22,8 +22,8 @@ inline ComponentID GetUniqueComponentID() {
 
 template <typename T>
 inline ComponentID GetComponentID() {
-	static const ComponentID typeID = GetUniqueComponentID();
-	return typeID;
+	static const ComponentID type_id = GetUniqueComponentID();
+	return type_id;
 }
 
 static constexpr std::size_t kMaxEntities = 5000;
@@ -74,6 +74,7 @@ class SpriteComponent : public RectComponent {
 
 	const glm::vec4 &GetColor() { return color_; }
 	void SetColor(const glm::vec4 &color) { color_ = color; }
+
 	virtual void Render(float dt) override {
 		(void)dt;
 		SpriteBatch &batch = SpriteBatch::Instance();
