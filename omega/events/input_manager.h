@@ -48,7 +48,13 @@ class InputManager {
 
 	Sptr<KeyManager> &GetKeyManager() { return key_manager_; }
 	const glm::vec2 &GetMousePos() const { return mouse_pos_; }
-	glm::vec2 GetMouseMove() const { return mouse_pos_ - prev_mouse_pos_; }
+	glm::vec2 GetMouseMove() const { return relative_mode_ ? mouse_pos_ : mouse_pos_ - prev_mouse_pos_; }
+
+	void SetMouseRelativeMode(bool mode) {
+		SDL_SetRelativeMouseMode(mode ? SDL_TRUE : SDL_FALSE);
+		relative_mode_ = mode;
+	}
+	bool GetMouseRelativeMode() const { return relative_mode_; }
 
 	/**
 	 * Returns if the given button is pressed
@@ -92,6 +98,7 @@ class InputManager {
 	glm::vec2 mouse_pos_, prev_mouse_pos_;  // mouse_pos relative to bottom left
 	uint32_t buttons_;
 	uint32_t prev_buttons_;
+	bool relative_mode_;
 };
 
 }  // namespace omega

@@ -26,7 +26,7 @@ void UIScreen::PushButton(Button *button) {
 }
 
 void UIScreen::HandleButtons() {
-	if (InputManager::Instance().MouseButtonJustReleased(MouseButton::kMouseLeft)) {
+	if (InputManager::Instance()->MouseButtonJustReleased(MouseButton::kMouseLeft)) {
 		for (auto &btn : buttons_) {
 			if (btn->GetHover()) {
 				btn->OnClick();

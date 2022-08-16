@@ -4,6 +4,7 @@ namespace omega {
 
 InputManager::InputManager() : mouse_pos_(0.0f), prev_mouse_pos_(0.0f) {
 	key_manager_ = CreateSptr<KeyManager>();
+	relative_mode_ = false;
 }
 
 void InputManager::PrepareForUpdate() {
@@ -19,10 +20,16 @@ void InputManager::Update() {
 	// get the mouse state and store the previous frame's state
 	int x, y;
 	prev_buttons_ = buttons_;
-	buttons_ = SDL_GetMouseState(&x, &y);
 	prev_mouse_pos_ = mouse_pos_;
-	mouse_pos_.x = x;
-	mouse_pos_.y = Application::Instance().GetWindow()->GetHeight() - y;
+	if (relative_mode_) {
+		buttons_ = SDL_GetRelativeMouseState(&x, &y);
+		mouse_pos_.x = (float)x;
+		mouse_pos_.y = -(float)y;
+	} else {
+		buttons_ = SDL_GetMouseState(&x, &y);
+		mouse_pos_.x = (float)x;
+		mouse_pos_.y = (float)(Application::Instance().GetWindow()->GetHeight() - y);
+	}
 }
 
 }  // namespace omega
