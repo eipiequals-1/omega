@@ -4,7 +4,6 @@
 #include <time.h>
 
 namespace omega {
-namespace randlib {
 int RandInt(int min, int max) {
 	return rand() % (max - min) + min;
 }
@@ -17,5 +16,4 @@ void SeedTime() {
 	srand(time(nullptr));
 }
 
-}  // namespace randlib
 }  // namespace omega

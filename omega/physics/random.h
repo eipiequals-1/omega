@@ -4,7 +4,6 @@
 #include <vector>
 
 namespace omega {
-namespace randlib {
 
 /**
  * @param min inclusive min value
@@ -45,7 +44,6 @@ template <typename T>
 T &RandChoice(const std::vector<T> &vec) {
 	return vec[RandInt(0, vec.size())];
 }
-}  // namespace randlib
 }  // namespace omega
 
 #endif  // OMEGA_PHYSICS_RANDOM_H

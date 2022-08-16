@@ -32,10 +32,10 @@ struct Particle {
 	 */
 	static glm::vec4 RandomColor(const glm::vec4 &src_color, float rgb_diff_factor, float a_diff_factor) {
 		glm::vec4 color;
-		color.r = src_color.r + randlib::RandFloat(-rgb_diff_factor / 2.0f, rgb_diff_factor / 2.0f);
-		color.g = src_color.g + randlib::RandFloat(-rgb_diff_factor / 2.0f, rgb_diff_factor / 2.0f);
-		color.b = src_color.b + randlib::RandFloat(-rgb_diff_factor / 2.0f, rgb_diff_factor / 2.0f);
-		color.a = src_color.a + randlib::RandFloat(-a_diff_factor / 2.0f, a_diff_factor / 2.0f);
+		color.r = src_color.r + RandFloat(-rgb_diff_factor / 2.0f, rgb_diff_factor / 2.0f);
+		color.g = src_color.g + RandFloat(-rgb_diff_factor / 2.0f, rgb_diff_factor / 2.0f);
+		color.b = src_color.b + RandFloat(-rgb_diff_factor / 2.0f, rgb_diff_factor / 2.0f);
+		color.a = src_color.a + RandFloat(-a_diff_factor / 2.0f, a_diff_factor / 2.0f);
 
 		glm::clamp(color.r, 0.0f, 1.0f);
 		glm::clamp(color.g, 0.0f, 1.0f);

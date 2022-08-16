@@ -92,14 +92,14 @@ void ParticleEmitter::Emit() {
 	Particle &particle = particles_[num_particles_];
 	particle.color = Particle::RandomColor(data_.begin_color, 0.2f, 0.1f);
 
-	particle.pos.x = data_.pos.x + randlib::RandFloat(data_.emit_rect.x, data_.emit_rect.x + data_.emit_rect.w);
-	particle.pos.y = data_.pos.y + randlib::RandFloat(data_.emit_rect.y, data_.emit_rect.y + data_.emit_rect.h);
+	particle.pos.x = data_.pos.x + RandFloat(data_.emit_rect.x, data_.emit_rect.x + data_.emit_rect.w);
+	particle.pos.y = data_.pos.y + RandFloat(data_.emit_rect.y, data_.emit_rect.y + data_.emit_rect.h);
 
-	particle.radius = randlib::RandFloat(data_.radius.first, data_.radius.second);
+	particle.radius = RandFloat(data_.radius.first, data_.radius.second);
 
 	particle.life_remaining = data_.particle_lifespan;
-	float rotation = glm::radians(randlib::RandFloat(data_.rot_range.first, data_.rot_range.second));
-	float speed = randlib::RandFloat(data_.speed.first, data_.speed.second);
+	float rotation = glm::radians(RandFloat(data_.rot_range.first, data_.rot_range.second));
+	float speed = RandFloat(data_.speed.first, data_.speed.second);
 
 	particle.vel = glm::vec2(glm::cos(-rotation) * speed, glm::sin(-rotation) * speed);
 	num_particles_++;  // increment num particles
