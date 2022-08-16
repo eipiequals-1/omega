@@ -111,6 +111,7 @@ void ShapeRenderer::Triangle(float x1, float y1, float x2, float y2, float x3, f
 	v2 = {{x2, y2}, {color_.r, color_.g, color_.b, color_.a}};
 	v3 = {{x3, y3}, {color_.r, color_.g, color_.b, color_.a}};
 	ShapeTriangle triangle = {v1, v2, v3};
+	triangle_vbo_->Bind();
 	triangle_vbo_->SubData(triangles_renderered_ * sizeof(ShapeTriangle), sizeof(ShapeTriangle), triangle.data());
 	triangles_renderered_++;
 }

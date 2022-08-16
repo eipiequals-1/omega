@@ -29,7 +29,6 @@ void VertexBuffer::Unbind() const {
 }
 
 void VertexBuffer::SubData(GLintptr offset, GLsizeiptr size, const GLvoid *data) {
-	Bind();
 	glBufferSubData(GL_ARRAY_BUFFER, offset, size, data);
 }
 

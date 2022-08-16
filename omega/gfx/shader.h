@@ -86,6 +86,38 @@ class Shader {
 	std::unordered_map<std::string, int> uniform_loc_cache_;
 };
 
+template <typename K>
+class ShaderManager {
+   public:
+	ShaderManager() = default;
+	~ShaderManager() = default;
+
+	Sptr<Shader> Load(const K& id, const std::string& filepath) {
+		if (!Contains(id)) {
+			shaders_[id] = CreateSptr<Shader>(filepath);
+		}
+		return shaders_[id];
+	}
+
+	Sptr<Shader> Get(const K& id) {
+		if (Contains(id)) {
+			return shaders_[id];
+		}
+		return nullptr;
+	}
+
+	bool Contains(const K& id) {
+		return shaders_.find(id) != shaders_.end();
+	}
+
+	Sptr<Shader> operator[](const K& id) {
+		return Get(id);
+	}
+
+   private:
+	std::unordered_map<K, Sptr<Shader>> shaders_;
+};
+
 }  // namespace omega
 
 #endif  // OMEGA_GFX_SHADER_H
