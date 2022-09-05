@@ -1,10 +1,10 @@
 #ifndef OMEGA_UI_BUTTON_TEXTBUTTON_H
 #define OMEGA_UI_BUTTON_TEXTBUTTON_H
 
-#include "omega/core/using.h"
 #include "omega/gfx/texture/texture.h"
 #include "omega/ui/button/image_button.h"
 #include "omega/ui/font.h"
+#include "omega/util/util.h"
 
 namespace omega {
 
@@ -23,7 +23,7 @@ class TextButton : public ImageButton {
 	virtual void Render() override;
 
    protected:
-	Sptr<Texture> text_texture_;
+	sptr<Texture> text_texture_;
 	float text_width_, text_height_;
 };
 

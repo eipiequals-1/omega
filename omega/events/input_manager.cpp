@@ -3,7 +3,7 @@
 namespace omega {
 
 InputManager::InputManager() : mouse_pos_(0.0f), prev_mouse_pos_(0.0f) {
-	key_manager_ = CreateSptr<KeyManager>();
+	key_manager_ = create_sptr<KeyManager>();
 	relative_mode_ = false;
 }
 

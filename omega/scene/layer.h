@@ -1,7 +1,7 @@
 #ifndef OMEGA_SCENE_LAYER_H
 #define OMEGA_SCENE_LAYER_H
 
-#include "omega/core/using.h"
+#include "omega/util/util.h"
 
 namespace omega {
 

@@ -1,5 +1,5 @@
-#ifndef OMEGA_PHYSICS_MATH_H
-#define OMEGA_PHYSICS_MATH_H
+#ifndef OMEGA_UTIL_MATH_H
+#define OMEGA_UTIL_MATH_H
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -123,15 +123,6 @@ bool circleVsCircle(const glm::vec2 &center1, float radius1, const glm::vec2 &ce
  */
 float distanceSq(const glm::vec2 &p1, const glm::vec2 &p2);
 
-/**
- * Color constants for easier use
- */
-const vec4 kWhite(1.0f, 1.0f, 1.0f, 1.0f);
-const vec4 kBlack(0.0f, 0.0f, 0.0f, 1.0f);
-const vec4 kRed(1.0f, 0.0f, 0.0f, 1.0f);
-const vec4 kGreen(0.0f, 1.0f, 0.0f, 1.0f);
-const vec4 kBlue(0.0f, 0.0f, 1.0f, 1.0f);
-const vec4 kYellow(1.0f, 1.0f, 0.0f, 1.0f);
 }  // namespace glm
 
-#endif  // OMEGA_PHYSICS_MATH_H
+#endif  // OMEGA_UTIL_MATH_H

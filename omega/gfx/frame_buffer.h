@@ -6,8 +6,8 @@
 #include <cstdint>
 #include <vector>
 
-#include "omega/core/using.h"
 #include "omega/gfx/texture/texture.h"
+#include "omega/util/util.h"
 
 namespace omega {
 
@@ -25,7 +25,7 @@ class FrameBuffer {
 	uint32_t GetWidth() const { return width_; }
 	uint32_t GetHeight() const { return height_; }
 	uint32_t GetRenderBufferID() const { return rbo_depth_stencil_; }
-	Sptr<Texture> GetColorBuffer() const { return color_buffer_; }
+	sptr<Texture> GetColorBuffer() const { return color_buffer_; }
 
    private:
 	uint32_t id_;
@@ -33,7 +33,7 @@ class FrameBuffer {
 	uint32_t width_;
 	uint32_t height_;
 
-	Sptr<Texture> color_buffer_;
+	sptr<Texture> color_buffer_;
 	uint32_t rbo_depth_stencil_;
 };
 

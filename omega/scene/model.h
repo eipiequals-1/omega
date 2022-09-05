@@ -8,9 +8,9 @@
 #include <string>
 #include <vector>
 
-#include "omega/core/using.h"
 #include "omega/gfx/shader.h"
 #include "omega/gfx/texture/mesh.h"
+#include "omega/util/util.h"
 
 namespace omega {
 

@@ -3,9 +3,9 @@
 
 #include <cstdint>
 
-#include "omega/core/using.h"
 #include "omega/events/event.h"
 #include "omega/events/input_manager.h"
+#include "omega/util/util.h"
 
 namespace omega {
 

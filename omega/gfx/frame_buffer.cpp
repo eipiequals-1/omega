@@ -35,7 +35,7 @@ void FrameBuffer::Resize(uint32_t width, uint32_t height) {
 
 	// check if it was successful
 	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
-		Log("FrameBuffer Error: Framebuffer is not complete!");
+		log("FrameBuffer Error: Framebuffer is not complete!");
 	}
 
 	// unbind everything

@@ -26,7 +26,7 @@ cc_library(
     linkopts = DEFAULT_LINKOPTS,
     deps = [
         "@GL//:GL",
-        "//omega/core:using",
+        "//omega/util:util",
         "//omega/gfx/texture:texture",
     ]
 )
@@ -50,8 +50,7 @@ cc_library(
     linkopts = DEFAULT_LINKOPTS,
     deps = [
         "@GL//:GL",
-        "//omega/core:using",
-        "//omega/physics:math",
+        "//omega/util:util",
         "errors",
     ]
 )
@@ -68,7 +67,7 @@ cc_library(
         ":vertex_buffer",
         ":vertex_buffer_layout",
         ":vertex_array",
-        "//omega/core:using"
+        "//omega/util:util"
     ]
 )
 

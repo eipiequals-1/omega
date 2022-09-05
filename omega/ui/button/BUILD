@@ -14,7 +14,7 @@ cc_library(
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
-        "//omega/physics:math",
+        "//omega/util:util",
         "//omega/scene:entity",
         "//omega/gfx:sprite_batch",
     ]
@@ -28,7 +28,7 @@ cc_library(
     linkopts = DEFAULT_LINKOPTS,
     deps = [
         ":button",
-        "//omega/core:using",
+        "//omega/util:util",
         "//omega/gfx/texture:texture",
     ]
 )
@@ -41,7 +41,7 @@ cc_library(
     linkopts = DEFAULT_LINKOPTS,
     deps = [
         ":image_button",
-        "//omega/core:using",
+        "//omega/util:util",
         "//omega/gfx/texture:texture",
         "//omega/ui:font",
     ]

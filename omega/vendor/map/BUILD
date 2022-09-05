@@ -33,9 +33,8 @@ cc_library(
     deps = [
         "@GL//:GL",
         "@SDL2//:SDL2",
-        "//omega/core:using",
+        "//omega/util:util",
         "//omega/gfx:sprite_batch",
-        "//omega/physics:math",
         ":tmxparser",
     ]
 )
@@ -47,7 +46,7 @@ cc_library(
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
-        "//omega/core:using",
+        "//omega/util:util",
         "//omega/gfx:sprite_batch",
         "//omega/gfx/texture:texture",
         ":tiled",

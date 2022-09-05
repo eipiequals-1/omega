@@ -7,9 +7,8 @@
 #include <string>
 #include <unordered_map>
 
-#include "omega/core/using.h"
 #include "omega/gfx/texture/texture.h"
-#include "omega/physics/math.h"
+#include "omega/util/util.h"
 
 namespace omega {
 
@@ -26,7 +25,7 @@ class Font {
 	 * @param color to draw it
 	 * @return a Texture
 	 */
-	Sptr<Texture> RenderText(const std::string& text, const glm::vec4& color = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
+	sptr<Texture> RenderText(const std::string& text, const glm::vec4& color = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
 
    private:
 	TTF_Font* font_;
@@ -46,10 +45,10 @@ class FontManager {
 
 	/**
 	 * @param font_name the key representing the font
-	 * @return a Sptr<Font> containing the font
+	 * @return a sptr<Font> containing the font
 	 * IMPORTANT: the font name must be loaded, since the other case is not handled
 	 */
-	Sptr<Font> Get(const std::string& font_name);
+	sptr<Font> Get(const std::string& font_name);
 
 	/**
 	 * @param font_name
@@ -59,12 +58,12 @@ class FontManager {
 
 	/**
 	 * Another easy access method to get the font
-	 * Same as Sptr<Font> Font::Get(const std::string &font_name);
+	 * Same as sptr<Font> Font::Get(const std::string &font_name);
 	 */
-	Sptr<Font> operator[](const std::string& font_name);
+	sptr<Font> operator[](const std::string& font_name);
 
    private:
-	std::unordered_map<std::string, Sptr<Font>> fonts_;
+	std::unordered_map<std::string, sptr<Font>> fonts_;
 };
 
 }  // namespace omega

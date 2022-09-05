@@ -7,9 +7,8 @@
 #include <string>
 #include <vector>
 
-#include "omega/core/using.h"
 #include "omega/gfx/sprite_batch.h"
-#include "omega/physics/math.h"
+#include "omega/util/util.h"
 #include "omega/vendor/map/tmxparser.h"
 
 namespace omega {

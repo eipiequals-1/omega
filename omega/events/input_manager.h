@@ -5,10 +5,9 @@
 #include <SDL2/SDL_events.h>
 
 #include "omega/core/application.h"
-#include "omega/core/using.h"
 #include "omega/events/event.h"
 #include "omega/events/key_manager.h"
-#include "omega/physics/math.h"
+#include "omega/util/util.h"
 
 namespace omega {
 
@@ -21,8 +20,8 @@ class InputManager {
 	InputManager(const InputManager &) = delete;
 	InputManager operator=(const InputManager &) = delete;
 
-	static Sptr<InputManager> Instance() {
-		static Sptr<InputManager> input = Sptr<InputManager>(new InputManager());
+	static sptr<InputManager> Instance() {
+		static sptr<InputManager> input = sptr<InputManager>(new InputManager());
 		return input;
 	}
 
@@ -46,7 +45,7 @@ class InputManager {
 	 */
 	void Update();
 
-	Sptr<KeyManager> &GetKeyManager() { return key_manager_; }
+	sptr<KeyManager> &GetKeyManager() { return key_manager_; }
 	const glm::vec2 &GetMousePos() const { return mouse_pos_; }
 	glm::vec2 GetMouseMove() const { return relative_mode_ ? mouse_pos_ : mouse_pos_ - prev_mouse_pos_; }
 
@@ -94,7 +93,7 @@ class InputManager {
 
    private:
 	InputManager();
-	Sptr<KeyManager> key_manager_;
+	sptr<KeyManager> key_manager_;
 	glm::vec2 mouse_pos_, prev_mouse_pos_;  // mouse_pos relative to bottom left
 	uint32_t buttons_;
 	uint32_t prev_buttons_;

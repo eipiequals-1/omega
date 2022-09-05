@@ -6,13 +6,12 @@
 #include <string>
 #include <vector>
 
-#include "omega/core/using.h"
 #include "omega/gfx/index_buffer.h"
 #include "omega/gfx/shader.h"
 #include "omega/gfx/vertex_array.h"
 #include "omega/gfx/vertex_buffer.h"
 #include "omega/gfx/vertex_buffer_layout.h"
-#include "omega/physics/math.h"
+#include "omega/util/util.h"
 
 namespace omega {
 
@@ -43,9 +42,9 @@ class Mesh {
 	std::vector<uint32_t> indices_;
 	std::vector<MeshTexture> textures_;
 
-	Uptr<VertexArray> vao_;
-	Uptr<VertexBuffer> vbo_;
-	Uptr<IndexBuffer> ibo_;
+	uptr<VertexArray> vao_;
+	uptr<VertexBuffer> vbo_;
+	uptr<IndexBuffer> ibo_;
 };
 
 }  // namespace omega

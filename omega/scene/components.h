@@ -6,7 +6,7 @@
 
 #include "omega/gfx/sprite_batch.h"
 #include "omega/gfx/texture/texture.h"
-#include "omega/physics/math.h"
+#include "omega/util/util.h"
 
 namespace omega {
 
@@ -66,7 +66,7 @@ class RectComponent : public Component {
 class SpriteComponent : public RectComponent {
    public:
 	SpriteComponent() {
-		color_ = glm::kWhite;
+		color_ = omega::color::white;
 	}
 
 	Texture *GetTexture() { return texture_; }

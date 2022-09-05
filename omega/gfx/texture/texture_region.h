@@ -4,7 +4,7 @@
 #include <string>
 
 #include "omega/gfx/texture/texture.h"
-#include "omega/physics/math.h"
+#include "omega/util/util.h"
 
 namespace omega {
 

@@ -3,7 +3,7 @@
 
 #include <GL/gl.h>
 
-#include "omega/physics/math.h"
+#include "omega/util/util.h"
 
 namespace omega {
 

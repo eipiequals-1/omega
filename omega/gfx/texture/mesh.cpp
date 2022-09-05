@@ -36,9 +36,9 @@ void Mesh::Render(Shader& shader) {
 }
 
 void Mesh::SetupMesh() {
-	vao_ = CreateUptr<VertexArray>();
-	vbo_ = CreateUptr<VertexBuffer>(vertices_.data(), vertices_.size() * sizeof(MeshVertex));
-	ibo_ = CreateUptr<IndexBuffer>(indices_.data(), indices_.size());
+	vao_ = create_uptr<VertexArray>();
+	vbo_ = create_uptr<VertexBuffer>(vertices_.data(), vertices_.size() * sizeof(MeshVertex));
+	ibo_ = create_uptr<IndexBuffer>(indices_.data(), indices_.size());
 	VertexBufferLayout layout;
 	layout.Push(GL_FLOAT, 3);
 	layout.Push(GL_FLOAT, 3);

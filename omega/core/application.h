@@ -5,10 +5,10 @@
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
 
-#include "omega/core/using.h"
 #include "omega/core/window.h"
 #include "omega/scene/layer.h"
 #include "omega/scene/layer_stack.h"
+#include "omega/util/util.h"
 
 namespace omega {
 
@@ -44,7 +44,7 @@ class Application {
 
 	static Application& Instance() { return *instance_; }
 
-	Sptr<Window> GetWindow() { return window_; }
+	sptr<Window> GetWindow() { return window_; }
 
 	void SetRunning(bool v) { running_ = v; }
 
@@ -59,9 +59,9 @@ class Application {
 
 	float fps_;
 	uint32_t last_time_;
-	Sptr<Window> window_;
+	sptr<Window> window_;
 	bool running_;
-	Uptr<LayerStack> layer_stack_;
+	uptr<LayerStack> layer_stack_;
 	// singleton instance
 	static Application* instance_;
 };

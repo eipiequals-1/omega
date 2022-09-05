@@ -4,8 +4,8 @@
 #include <functional>
 
 #include "omega/gfx/sprite_batch.h"
-#include "omega/physics/math.h"
 #include "omega/scene/entity.h"
+#include "omega/util/util.h"
 
 namespace omega {
 class Button : public RectComponent {

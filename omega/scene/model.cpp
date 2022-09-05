@@ -8,7 +8,7 @@ static uint32_t TextureFromFile(const std::string &filepath) {
 	uint32_t id = 0;
 	SDL_Surface *surf = IMG_Load(filepath.c_str());
 	if (surf == nullptr) {
-		Log("IMG error: Error loading '", filepath, "': ", IMG_GetError());
+		log("IMG error: Error loading '", filepath, "': ", IMG_GetError());
 		return id;
 	}
 	glGenTextures(1, &id);
@@ -30,7 +30,7 @@ Model::Model(const std::string &filepath) {
 	const aiScene *scene = importer.ReadFile(filepath, aiProcess_Triangulate | aiProcess_FlipUVs);
 
 	if (scene == nullptr || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || scene->mRootNode == nullptr) {
-		Log("Error: Assimp: ", importer.GetErrorString());
+		log("Error: Assimp: ", importer.GetErrorString());
 	}
 	directory_ = filepath.substr(0, filepath.find_last_of('/'));
 	ProcessNode(scene->mRootNode, scene);

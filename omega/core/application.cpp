@@ -1,6 +1,6 @@
 #include "application.h"
 
-#include "omega/physics/math.h"
+#include "omega/util/util.h"
 
 namespace omega {
 
@@ -8,14 +8,14 @@ Application* Application::instance_ = nullptr;
 
 Application::Application(const ApplicationConfig& config) : fps_(60), last_time_(0), window_(nullptr), running_(true) {
 	instance_ = this;
-	window_ = CreateSptr<Window>();
+	window_ = create_sptr<Window>();
 	running_ = window_->Init(config.width, config.height, config.resizable, config.title);
 	// init TTF_Font
 	if (TTF_Init() != 0) {
-		Log("Unable to initialize SDL_ttf: '", SDL_GetError(), "'");
+		log("Unable to initialize SDL_ttf: '", SDL_GetError(), "'");
 		running_ = false;
 	}
-	layer_stack_ = CreateUptr<LayerStack>();
+	layer_stack_ = create_uptr<LayerStack>();
 	last_time_ = SDL_GetTicks();
 }
 

@@ -4,7 +4,6 @@
 #include <string>
 #include <vector>
 
-#include "omega/core/using.h"
 #include "omega/gfx/index_buffer.h"
 #include "omega/gfx/shader.h"
 #include "omega/gfx/sprite_batch.h"
@@ -14,6 +13,7 @@
 #include "omega/gfx/vertex_buffer_layout.h"
 #include "omega/physics/particle/particle.h"
 #include "omega/physics/random.h"
+#include "omega/util/util.h"
 
 namespace omega {
 
@@ -126,10 +126,10 @@ class ParticleEmitter {
 	float timer_;
 	float emit_timer_;
 
-	Uptr<VertexArray> vao_;
-	Uptr<VertexBuffer> vbo_;
-	Uptr<IndexBuffer> ibo_;
-	static Uptr<Shader> shader_;
+	uptr<VertexArray> vao_;
+	uptr<VertexBuffer> vbo_;
+	uptr<IndexBuffer> ibo_;
+	static uptr<Shader> shader_;
 };
 
 }  // namespace omega

@@ -8,9 +8,8 @@
 #include <cstdint>
 #include <string>
 
-#include "omega/core/using.h"
 #include "omega/core/viewport.h"
-#include "omega/physics/math.h"
+#include "omega/util/util.h"
 
 namespace omega {
 

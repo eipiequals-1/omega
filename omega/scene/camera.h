@@ -1,7 +1,7 @@
 #ifndef OMEGA_SCENE_CAMERA_H
 #define OMEGA_SCENE_CAMERA_H
 
-#include "omega/physics/math.h"
+#include "omega/util/util.h"
 
 namespace omega {
 

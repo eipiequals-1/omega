@@ -1,9 +1,8 @@
 #ifndef OMEGA_PHYSICS_PARTICLE_PARTICLE_H
 #define OMEGA_PHYSICS_PARTICLE_PARTICLE_H
 
-#include "omega/core/using.h"
-#include "omega/physics/math.h"
 #include "omega/physics/random.h"
+#include "omega/util/util.h"
 
 namespace omega {
 

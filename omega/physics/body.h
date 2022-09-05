@@ -3,9 +3,8 @@
 
 #include <Box2D/Box2D.h>
 
-#include "omega/core/using.h"
-#include "omega/physics/math.h"
 #include "omega/physics/physics.h"
+#include "omega/util/util.h"
 
 namespace omega {
 

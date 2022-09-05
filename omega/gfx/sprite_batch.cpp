@@ -24,7 +24,7 @@ SpriteBatch::SpriteBatch() : quads_rendered_(0), tex_bind_slot_(0) {
 
 		offset += 4;
 	}
-	ibo_ = CreateUptr<IndexBuffer>(indices, kIndexBufferCapacity);
+	ibo_ = create_uptr<IndexBuffer>(indices, kIndexBufferCapacity);
 
 	const char vertex[] = R"glsl(
 		#version 450
@@ -76,9 +76,9 @@ SpriteBatch::SpriteBatch() : quads_rendered_(0), tex_bind_slot_(0) {
 		}
 	)glsl";
 
-	sprite_shader_ = CreateUptr<Shader>(std::string(vertex), std::string(fragment));
-	vao_ = CreateUptr<VertexArray>();
-	vbo_ = CreateUptr<VertexBuffer>(kVertexBufferCapacity * kVertexCount * sizeof(float));
+	sprite_shader_ = create_uptr<Shader>(std::string(vertex), std::string(fragment));
+	vao_ = create_uptr<VertexArray>();
+	vbo_ = create_uptr<VertexBuffer>(kVertexBufferCapacity * kVertexCount * sizeof(float));
 	VertexBufferLayout layout;
 	layout.Push(GL_FLOAT, 2);  // original world coords
 	layout.Push(GL_FLOAT, 4);  // color

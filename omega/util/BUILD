@@ -8,46 +8,51 @@ load(
 package(default_visibility= ["//visibility:public"])
 
 cc_library(
-    name = "random",
-    srcs = ["random.cpp"],
-    hdrs = ["random.h"],
+    name = "color",
+    hdrs = ["color.h"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
 )
 
 cc_library(
-    name = "world",
-    srcs = ["world.cpp"],
-    hdrs = ["world.h"],
+    name = "log",
+    hdrs = ["log.h"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
-    deps = [
-        "//omega/util:util",
-        ":body",
-        ":physics",
-    ]
 )
 
 cc_library(
-    name = "physics",
-    srcs = ["physics.cpp"],
-    hdrs = ["physics.h"],
+    name = "math",
+    srcs = ["math.cpp"],
+    hdrs = ["math.h"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
-    deps = [
-        "@Box2D//:Box2D",
-    ]
 )
 
 cc_library(
-    name = "body",
-    srcs = ["body.cpp"],
-    hdrs = ["body.h"],
+    name = "std",
+    hdrs = ["std.h"],
+    copts = DEFAULT_COPTS,
+    linkopts = DEFAULT_LINKOPTS,
+)
+
+cc_library(
+    name = "types",
+    hdrs = ["types.h"],
+    copts = DEFAULT_COPTS,
+    linkopts = DEFAULT_LINKOPTS,
+)
+
+cc_library(
+    name = "util",
+    hdrs = ["util.h"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
-        "@Box2D//:Box2D",
-        ":physics",
-        "//omega/util:util",
+        ":color",
+        ":log",
+        ":math",
+        ":std",
+        ":types",
     ]
 )

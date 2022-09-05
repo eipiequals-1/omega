@@ -71,7 +71,7 @@ GLint Shader::GetUniformLocation(const std::string& name) {
 	}
 	GLint loc = glGetUniformLocation(id_, name.c_str());
 	if (loc == -1) {
-		Log("Warning: uniform '", name, "' doesn't exist!");
+		log("Warning: uniform '", name, "' doesn't exist!");
 	}
 	uniform_loc_cache_[name] = loc;
 	return loc;
@@ -118,8 +118,8 @@ GLuint Shader::CompileShader(uint32_t type, const std::string& source) {
 		glGetShaderiv(id, GL_INFO_LOG_LENGTH, &length);
 		char* message = (char*)malloc(sizeof(char) * length);
 		glGetShaderInfoLog(id, length, nullptr, message);
-		Log("Failed to compile: ", (type == GL_VERTEX_SHADER ? "vertex" : "fragment"), " shader!");
-		Log(message);
+		log("Failed to compile: ", (type == GL_VERTEX_SHADER ? "vertex" : "fragment"), " shader!");
+		log(message);
 		free(message);
 		glDeleteShader(id);
 		return 0;
@@ -149,7 +149,7 @@ GLuint Shader::CreateShader(const std::string& vertex_shader, const std::string&
 		glGetProgramiv(program, GL_INFO_LOG_LENGTH, &length);
 		char* message = (char*)malloc(sizeof(char) * length);
 		glGetProgramInfoLog(program, 512, nullptr, message);
-		Log("Failed to link shader: ", message);
+		log("Failed to link shader: ", message);
 		free(message);
 		glDeleteShader(program);
 		return 0;

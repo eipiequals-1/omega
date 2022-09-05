@@ -7,8 +7,7 @@
 #include <string>
 #include <unordered_map>
 
-#include "omega/core/using.h"
-#include "omega/physics/math.h"
+#include "omega/util/util.h"
 
 namespace omega {
 
@@ -92,14 +91,14 @@ class ShaderManager {
 	ShaderManager() = default;
 	~ShaderManager() = default;
 
-	Sptr<Shader> Load(const K& id, const std::string& filepath) {
+	sptr<Shader> Load(const K& id, const std::string& filepath) {
 		if (!Contains(id)) {
-			shaders_[id] = CreateSptr<Shader>(filepath);
+			shaders_[id] = create_sptr<Shader>(filepath);
 		}
 		return shaders_[id];
 	}
 
-	Sptr<Shader> Get(const K& id) {
+	sptr<Shader> Get(const K& id) {
 		if (Contains(id)) {
 			return shaders_[id];
 		}
@@ -110,12 +109,12 @@ class ShaderManager {
 		return shaders_.find(id) != shaders_.end();
 	}
 
-	Sptr<Shader> operator[](const K& id) {
+	sptr<Shader> operator[](const K& id) {
 		return Get(id);
 	}
 
    private:
-	std::unordered_map<K, Sptr<Shader>> shaders_;
+	std::unordered_map<K, sptr<Shader>> shaders_;
 };
 
 }  // namespace omega

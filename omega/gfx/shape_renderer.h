@@ -3,11 +3,11 @@
 
 #include <array>
 
-#include "omega/core/using.h"
 #include "omega/gfx/shader.h"
 #include "omega/gfx/vertex_array.h"
 #include "omega/gfx/vertex_buffer.h"
 #include "omega/gfx/vertex_buffer_layout.h"
+#include "omega/util/util.h"
 
 namespace omega {
 
@@ -169,9 +169,9 @@ class ShapeRenderer {
 	const std::string kViewProjMatrixName;
 
 	// OpenGL objects
-	Uptr<Shader> triangle_shader_;
-	Uptr<VertexBuffer> triangle_vbo_;
-	Uptr<VertexArray> triangle_vao_;
+	uptr<Shader> triangle_shader_;
+	uptr<VertexBuffer> triangle_vbo_;
+	uptr<VertexArray> triangle_vao_;
 
 	uint32_t triangles_renderered_;
 	glm::vec4 color_;  // tracks current color

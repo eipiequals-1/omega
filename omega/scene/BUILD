@@ -14,7 +14,7 @@ cc_library(
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
-        "//omega/physics:math",
+        "//omega/util:util",
     ]
 )
 
@@ -25,7 +25,7 @@ cc_library(
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
-        "//omega/core:using",
+        "//omega/util:util",
     ]
 )
 
@@ -74,6 +74,6 @@ cc_library(
     deps = [
         "//omega/gfx/texture:texture",
         "//omega/gfx:sprite_batch",
-        "//omega/physics:math",
+        "//omega/util:util",
     ]
 )

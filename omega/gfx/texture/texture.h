@@ -9,8 +9,8 @@
 #include <string>
 #include <unordered_map>
 
-#include "omega/core/using.h"
 #include "omega/gfx/errors.h"
+#include "omega/util/util.h"
 
 namespace omega {
 
@@ -30,27 +30,27 @@ class Texture {
 	 * @param max_filter type of filter for maximizing the texture
 	 * @return a new Texture
 	 */
-	static Sptr<Texture> CreateFromSurface(SDL_Surface* surf, GLenum min_filter = GL_NEAREST, GLenum mag_filter = GL_NEAREST) {
+	static sptr<Texture> CreateFromSurface(SDL_Surface* surf, GLenum min_filter = GL_NEAREST, GLenum mag_filter = GL_NEAREST) {
 		Texture* tex = new Texture(surf->w, surf->h, min_filter, mag_filter);
 		tex->Load((uint32_t*)surf->pixels);
-		return Sptr<Texture>(tex);
+		return sptr<Texture>(tex);
 	}
 
-	static Sptr<Texture> CreateFromFile(const std::string& filepath, GLenum min_filter = GL_NEAREST, GLenum mag_filter = GL_NEAREST) {
+	static sptr<Texture> CreateFromFile(const std::string& filepath, GLenum min_filter = GL_NEAREST, GLenum mag_filter = GL_NEAREST) {
 		SDL_Surface* surf = IMG_Load(filepath.c_str());
 		if (surf == nullptr) {
-			Log("IMG error: Error loading '", filepath, "': ", IMG_GetError());
+			log("IMG error: Error loading '", filepath, "': ", IMG_GetError());
 			return nullptr;
 		}
-		Sptr<Texture> texture = Texture::CreateFromSurface(surf, min_filter, mag_filter);
+		sptr<Texture> texture = Texture::CreateFromSurface(surf, min_filter, mag_filter);
 		SDL_FreeSurface(surf);
 		surf = nullptr;
 		return texture;
 	}
 
-	static Sptr<Texture> CreateEmpty(uint32_t width, uint32_t height, GLenum min_filter = GL_NEAREST, GLenum mag_filter = GL_NEAREST) {
-		// must construct using new because constructor is private and not accessible by Sptr
-		return Sptr<Texture>(new Texture(width, height, min_filter, mag_filter));
+	static sptr<Texture> CreateEmpty(uint32_t width, uint32_t height, GLenum min_filter = GL_NEAREST, GLenum mag_filter = GL_NEAREST) {
+		// must construct using new because constructor is private and not accessible by sptr
+		return sptr<Texture>(new Texture(width, height, min_filter, mag_filter));
 	}
 	~Texture();
 
@@ -79,7 +79,7 @@ class Texture {
 		Unbind();
 	}
 
-	Sptr<uint32_t[]> GetPixels();
+	sptr<uint32_t[]> GetPixels();
 
 	static void SaveToFile(const std::string& file_name, uint32_t* pixels, uint32_t width, uint32_t height) {
 		uint32_t rmask, gmask, bmask, amask;
@@ -144,12 +144,12 @@ class TextureManager {
 	}
 
 	/**
-	 * Returns a Sptr to the texture based off of the given id
+	 * Returns a sptr to the texture based off of the given id
 	 * IMPORTANT: if the id is invalid, this case is not handled
 	 * @param id look-up id
 	 * @return the texture
 	 */
-	Sptr<Texture> Get(const K& id) {
+	sptr<Texture> Get(const K& id) {
 		return textures_[id];
 	}
 
@@ -164,14 +164,14 @@ class TextureManager {
 
 	/**
 	 * Another easy look-up method
-	 * Same as Sptr<Texture> Get(const K& id);
+	 * Same as sptr<Texture> Get(const K& id);
 	 */
-	Sptr<Texture> operator[](const K& id) {
+	sptr<Texture> operator[](const K& id) {
 		return Get(id);
 	}
 
    private:
-	std::unordered_map<K, Sptr<Texture>> textures_;
+	std::unordered_map<K, sptr<Texture>> textures_;
 };
 
 }  // namespace omega

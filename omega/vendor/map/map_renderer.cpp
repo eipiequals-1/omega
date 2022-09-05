@@ -5,7 +5,7 @@ namespace tiled {
 
 MapRenderer::MapRenderer(Map *map, const std::string &tileset_path) : map_(map) {
 	std::string path;
-	tex_manager_ = CreateUptr<TextureManager<uint32_t>>();
+	tex_manager_ = create_uptr<TextureManager<uint32_t>>();
 	for (size_t i = 0; i < map_->tilesetCollection.size(); ++i) {
 		const auto &tileset = map_->tilesetCollection[i];
 		path = tileset.image.source;

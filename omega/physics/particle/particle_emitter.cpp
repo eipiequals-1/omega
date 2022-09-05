@@ -4,7 +4,7 @@
 
 namespace omega {
 
-Uptr<Shader> ParticleEmitter::shader_;
+uptr<Shader> ParticleEmitter::shader_;
 
 ParticleEmitter::ParticleEmitter(EmitterBuilder &builder) : particles_(nullptr), num_particles_(0), data_(builder) {
 	Reset();
@@ -51,10 +51,10 @@ ParticleEmitter::ParticleEmitter(EmitterBuilder &builder) : particles_(nullptr),
 				}
 			}
 		)glsl";
-		shader_ = CreateUptr<Shader>(std::string(vertex), std::string(fragment));
+		shader_ = create_uptr<Shader>(std::string(vertex), std::string(fragment));
 	}
 
-	vbo_ = CreateUptr<VertexBuffer>(sizeof(ParticleVertex) * 4 * data_.max_particles);
+	vbo_ = create_uptr<VertexBuffer>(sizeof(ParticleVertex) * 4 * data_.max_particles);
 	const uint32_t kIndexBufferCapacity = 6 * data_.max_particles;
 	uint32_t *indices = new uint32_t[kIndexBufferCapacity];
 	uint32_t offset = 0;
@@ -69,10 +69,10 @@ ParticleEmitter::ParticleEmitter(EmitterBuilder &builder) : particles_(nullptr),
 		indices[i + 5] = 0 + offset;
 		offset += 4;
 	}
-	ibo_ = CreateUptr<IndexBuffer>(indices, kIndexBufferCapacity);
+	ibo_ = create_uptr<IndexBuffer>(indices, kIndexBufferCapacity);
 	delete[] indices;
 	indices = nullptr;
-	vao_ = CreateUptr<VertexArray>();
+	vao_ = create_uptr<VertexArray>();
 	VertexBufferLayout layout;
 	layout.Push(GL_FLOAT, 2);
 	layout.Push(GL_FLOAT, 2);

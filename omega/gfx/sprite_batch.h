@@ -7,7 +7,6 @@
 #include <memory>
 #include <vector>
 
-#include "omega/core/using.h"
 #include "omega/gfx/index_buffer.h"
 #include "omega/gfx/shader.h"
 #include "omega/gfx/texture/texture.h"
@@ -15,7 +14,7 @@
 #include "omega/gfx/vertex_array.h"
 #include "omega/gfx/vertex_buffer.h"
 #include "omega/gfx/vertex_buffer_layout.h"
-#include "omega/physics/math.h"
+#include "omega/util/util.h"
 
 namespace omega {
 
@@ -123,10 +122,10 @@ class SpriteBatch {
 	virtual void RenderTextureRegion(const TextureRegion *texture_region, const glm::rectf &dest, const glm::vec4 &color = glm::vec4(1.0f));
 
    protected:
-	Uptr<Shader> sprite_shader_;
-	Uptr<VertexBuffer> vbo_;
-	Uptr<VertexArray> vao_;
-	Uptr<IndexBuffer> ibo_;
+	uptr<Shader> sprite_shader_;
+	uptr<VertexBuffer> vbo_;
+	uptr<VertexArray> vao_;
+	uptr<IndexBuffer> ibo_;
 	// buffer constants
 	static constexpr uint32_t kQuadCapacity = 1500;
 	static constexpr uint32_t kIndexBufferCapacity = kQuadCapacity * 6;

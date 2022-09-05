@@ -26,11 +26,10 @@ cc_library(
     linkopts = DEFAULT_LINKOPTS,
     deps = [
         "@SDL2//:SDL2",
-        "//omega/core:using",
+        "//omega/util:util",
         "//omega/core:application",
         ":event",
         ":key_manager",
-        "//omega/physics:math",
     ]
 )
 
@@ -42,7 +41,7 @@ cc_library(
     linkopts = DEFAULT_LINKOPTS,
     deps = [
         "@SDL2//:SDL2",
-        "//omega/core:using",
+        "//omega/util:util",
         ":event",
         ":input_manager"
     ]

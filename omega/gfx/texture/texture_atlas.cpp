@@ -22,7 +22,7 @@ TextureAtlas::TextureAtlas(const std::string &atlas_file_path, GLenum min_filter
 	// open file
 	FILE *atlas_file = fopen(atlas_file_path.c_str(), "r");
 	if (atlas_file == nullptr) {
-		Log("Unable to open texture atlas");
+		log("Unable to open texture atlas");
 		return;
 	}
 	// load file data
@@ -65,7 +65,7 @@ TextureAtlas::TextureAtlas(const std::string &atlas_file_path, GLenum min_filter
 			w = std::stoi(words[3]);
 			h = std::stoi(words[4]);
 			// create TextureRegion
-			tex_regions_[tex_region_key] = CreateSptr<TextureRegion>(tex_.get(), x, y, w, h);
+			tex_regions_[tex_region_key] = create_sptr<TextureRegion>(tex_.get(), x, y, w, h);
 		}
 	}
 }
@@ -73,7 +73,7 @@ TextureAtlas::TextureAtlas(const std::string &atlas_file_path, GLenum min_filter
 TextureAtlas::~TextureAtlas() {
 }
 
-Sptr<TextureRegion> TextureAtlas::Get(const std::string &texture_name) {
+sptr<TextureRegion> TextureAtlas::Get(const std::string &texture_name) {
 	return tex_regions_[texture_name];
 }
 

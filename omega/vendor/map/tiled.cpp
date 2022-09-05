@@ -8,7 +8,7 @@ namespace tiled {
 Map::Map(const std::string &file_path, const std::string &tileset_path) {
 	TmxReturn ret = parseFromFile(file_path, this, tileset_path);
 	if (ret != TmxReturn::kSuccess) {
-		Log("Failed to load file: '", file_path, ".'");
+		log("Failed to load file: '", file_path, ".'");
 	}
 }
 

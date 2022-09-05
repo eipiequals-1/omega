@@ -18,7 +18,7 @@ cc_library(
         "@SDL2//:SDL2",
         "@GL//:GL",
         "//omega/gfx:errors",
-        "//omega/core:using",
+        "//omega/util:util",
     ]
 )
 
@@ -30,7 +30,7 @@ cc_library(
     linkopts = DEFAULT_LINKOPTS,
     deps = [
         "texture",
-        "//omega/physics:math",
+        "//omega/util:util",
     ]
 )
 
@@ -44,7 +44,7 @@ cc_library(
         "@GL//:GL",
         "texture",
         "texture_region",
-        "//omega/core:using",
+        "//omega/util:util",
     ]
 )
 

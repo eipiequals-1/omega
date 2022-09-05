@@ -3,10 +3,9 @@
 
 #include <Box2D/Box2D.h>
 
-#include "omega/core/using.h"
 #include "omega/physics/body.h"
-#include "omega/physics/math.h"
 #include "omega/physics/physics.h"
+#include "omega/util/util.h"
 
 namespace omega {
 
@@ -17,11 +16,11 @@ class World {
 
 	void Step(float timestep = 1.0f / 60.0f, uint32_t velocity_iteration = 8, uint32_t position_iterations = 3);
 
-	Uptr<BoxBody> AddBox(const glm::rectf& rect, BodyType type, b2FixtureDef fixture_def, float gravity_scale, float angle);
-	Uptr<CircleBody> AddCircle(const glm::vec2& center, float radius, BodyType type, b2FixtureDef fixture_def, float gravity_scale);
+	uptr<BoxBody> AddBox(const glm::rectf& rect, BodyType type, b2FixtureDef fixture_def, float gravity_scale, float angle);
+	uptr<CircleBody> AddCircle(const glm::vec2& center, float radius, BodyType type, b2FixtureDef fixture_def, float gravity_scale);
 
    private:
-	Uptr<b2World> world_;
+	uptr<b2World> world_;
 };
 
 }  // namespace omega

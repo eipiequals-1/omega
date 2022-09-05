@@ -36,8 +36,8 @@ void Texture::Load(uint32_t *pixels) {
 	Unbind();
 }
 
-Sptr<uint32_t[]> Texture::GetPixels() {
-	auto pixels = CreateSptr<uint32_t[]>(width_ * height_);
+sptr<uint32_t[]> Texture::GetPixels() {
+	auto pixels = create_sptr<uint32_t[]>(width_ * height_);
 
 	glBindTexture(GL_TEXTURE_2D, id_);
 	glGetTexImage(GL_TEXTURE_2D, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels.get());

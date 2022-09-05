@@ -35,11 +35,11 @@ ShapeRenderer::ShapeRenderer() : kViewProjMatrixName("u_ViewProjMatrix") {
             color = v_Color;
         }
     )glsl";
-	triangle_shader_ = CreateUptr<Shader>(std::string(vertex), std::string(fragment));
+	triangle_shader_ = create_uptr<Shader>(std::string(vertex), std::string(fragment));
 	// create vertex buffer
-	triangle_vbo_ = CreateUptr<VertexBuffer>(sizeof(float) * kNumTriangles * kNumVerticesPerTriangle * kNumAttributes);
+	triangle_vbo_ = create_uptr<VertexBuffer>(sizeof(float) * kNumTriangles * kNumVerticesPerTriangle * kNumAttributes);
 	// create vertex array
-	triangle_vao_ = CreateUptr<VertexArray>();
+	triangle_vao_ = create_uptr<VertexArray>();
 	// create vertex buffer layout
 	VertexBufferLayout layout;
 	layout.Push(GL_FLOAT, 2);

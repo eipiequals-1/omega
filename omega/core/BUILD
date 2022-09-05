@@ -9,8 +9,8 @@ package(default_visibility= ["//visibility:public"])
 
 
 cc_library(
-    name = "using",
-    hdrs = ["using.h"],
+    name = "sdl",
+    hdrs = ["sdl.h"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
@@ -27,9 +27,9 @@ cc_library(
     deps = [
         "@SDL2//:SDL2",
         "@GL//:GL",
-        "//omega/core:using",
-        "//omega/physics:math",
-        ":viewport"
+        "//omega/util:util",
+        ":viewport",
+        ":sdl2"
     ]
 )
 
@@ -41,7 +41,7 @@ cc_library(
     linkopts = DEFAULT_LINKOPTS,
     deps = [
         "@SDL2//:SDL2",
-        ":using",
+        "//omega/util:util",
         ":window",
         "//omega/scene:layer_stack",
         "//omega/scene:layer",
@@ -71,6 +71,16 @@ cc_library(
 )
 
 cc_library(
+    name = "sdl2",
+    hdrs = ["sdl2.h"],
+    copts = DEFAULT_COPTS,
+    linkopts = DEFAULT_LINKOPTS,
+    deps = [
+        "@SDL2//:SDL2",
+    ]
+)
+
+cc_library(
     name = "viewport",
     srcs = ["viewport.cpp"],
     hdrs = ["viewport.h"],
@@ -78,6 +88,6 @@ cc_library(
     linkopts = DEFAULT_LINKOPTS,
     deps = [
         "@GL//:GL",
-        "//omega/physics:math"
+        "//omega/util:util"
     ]
 )

@@ -2,6 +2,8 @@
 
 #include <iostream>
 
+#include "omega/core/sdl2.h"
+
 namespace omega {
 Window::Window() : width_(0), height_(0), window_(nullptr), context_(nullptr) {
 }
@@ -18,8 +20,8 @@ Window::~Window() {
 bool Window::Init(uint32_t width, uint32_t height, bool resizable, const std::string &title) {
 	width_ = width;
 	height_ = height;
-	if (SDL_Init((uint32_t)InitFlags::kEverything) != 0) {
-		Log("Failed to initialize SDL: '", SDL_GetError(), "'");
+	if (SDL_Init((uint32_t)InitFlags::k_everything) != 0) {
+		log("Failed to initialize SDL: '", SDL_GetError(), "'");
 		return false;
 	}
 	// use the core OpenGL profile
@@ -37,18 +39,18 @@ bool Window::Init(uint32_t width, uint32_t height, bool resizable, const std::st
 	// force hardware acceleration
 	SDL_GL_SetAttribute(SDL_GL_ACCELERATED_VISUAL, 1);
 
-	WindowFlags window_flags = resizable ? WindowFlags::kOpenGLResizable : WindowFlags::kOpenGL;
+	WindowFlags window_flags = resizable ? WindowFlags::k_opengl_resizable : WindowFlags::k_opengl;
 
 	window_ = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width_, height_, (uint32_t)window_flags);
 	if (window_ == nullptr) {
-		Log("Failed to create window: '", SDL_GetError(), "'");
+		log("Failed to create window: '", SDL_GetError(), "'");
 		SDL_Quit();
 		return false;
 	}
 
 	context_ = SDL_GL_CreateContext(window_);
 	if (context_ == nullptr) {
-		Log("Failed to create GL Context: '", SDL_GetError(), "'");
+		log("Failed to create GL Context: '", SDL_GetError(), "'");
 		SDL_DestroyWindow(window_);
 		SDL_Quit();
 		return false;

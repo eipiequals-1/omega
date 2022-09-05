@@ -15,8 +15,7 @@ cc_library(
     linkopts = DEFAULT_LINKOPTS,
     deps = [
         "@SDL2//:SDL2",
-        "//omega/core:using",
-        "//omega/physics:math",
+        "//omega/util:util",
         "//omega/gfx/texture:texture",
     ]
 )
@@ -29,7 +28,7 @@ cc_library(
     linkopts = DEFAULT_LINKOPTS,
     deps = [
         "//omega/events:input_processor",
-        "//omega/physics:math",
+        "//omega/util:util",
         "//omega/ui/button:button",
     ]
 )
