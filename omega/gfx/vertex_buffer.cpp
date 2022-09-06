@@ -2,34 +2,34 @@
 
 #include <GL/gl.h>
 
-namespace omega {
+namespace omega::gfx {
 
-VertexBuffer::VertexBuffer(const void *data, uint32_t size) {
-	glGenBuffers(1, &id_);
-	Bind();
-	glBufferData(GL_ARRAY_BUFFER, size, data, GL_STATIC_DRAW);
+VertexBuffer::VertexBuffer(const void *data, u32 size) {
+    glGenBuffers(1, &id);
+    bind();
+    glBufferData(GL_ARRAY_BUFFER, size, data, GL_STATIC_DRAW);
 }
 
 VertexBuffer::VertexBuffer(GLsizeiptr size) {
-	glGenBuffers(1, &id_);
-	Bind();
-	glBufferData(GL_ARRAY_BUFFER, size, nullptr, GL_DYNAMIC_DRAW);
+    glGenBuffers(1, &id);
+    bind();
+    glBufferData(GL_ARRAY_BUFFER, size, nullptr, GL_DYNAMIC_DRAW);
 }
 
 VertexBuffer::~VertexBuffer() {
-	glDeleteBuffers(1, &id_);
+    glDeleteBuffers(1, &id);
 }
 
-void VertexBuffer::Bind() const {
-	glBindBuffer(GL_ARRAY_BUFFER, id_);
+void VertexBuffer::bind() const {
+    glBindBuffer(GL_ARRAY_BUFFER, id);
 }
 
-void VertexBuffer::Unbind() const {
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
+void VertexBuffer::unbind() const {
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
-void VertexBuffer::SubData(GLintptr offset, GLsizeiptr size, const GLvoid *data) {
-	glBufferSubData(GL_ARRAY_BUFFER, offset, size, data);
+void VertexBuffer::sub_data(GLintptr offset, GLsizeiptr size, const GLvoid *data) {
+    glBufferSubData(GL_ARRAY_BUFFER, offset, size, data);
 }
 
-}  // namespace omega
+} // namespace omega::gfx

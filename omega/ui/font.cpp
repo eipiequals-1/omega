@@ -2,39 +2,40 @@
 
 #include <iostream>
 
-namespace omega {
+namespace omega::ui {
 
-Font::Font(const std::string& path, uint32_t size) : font_(nullptr) {
-	font_ = TTF_OpenFont(path.c_str(), size);
-	if (font_ == nullptr) {
-		log("TTF Error: Failed to load font '", path, "' at size ", size);
-	}
+Font::Font(const std::string &path, u32 size) : font(nullptr) {
+    font = TTF_OpenFont(path.c_str(), size);
+    if (font == nullptr) {
+        util::log("TTF Error: Failed to load font '", path, "' at size ", size);
+    }
 }
 
 Font::~Font() {
-	if (font_ != nullptr) TTF_CloseFont(font_);
-	font_ = nullptr;
+    if (font != nullptr)
+        TTF_CloseFont(font);
+    font = nullptr;
 }
 
-sptr<Texture> Font::RenderText(const std::string& text, const glm::vec4& color) {
-	SDL_Color sdl_color;
-	// shift colors 2 right because of TTF_RenderText_Blended errors
-	sdl_color.r = static_cast<Uint8>(color.b * 255);
-	sdl_color.g = static_cast<Uint8>(color.r * 255);
-	sdl_color.b = static_cast<Uint8>(color.g * 255);
-	sdl_color.a = static_cast<Uint8>(color.a * 255);
-	SDL_Surface* surf = TTF_RenderText_Blended(font_, text.c_str(), sdl_color);
-	sptr<Texture> tex = Texture::CreateFromSurface(surf, GL_LINEAR, GL_LINEAR);
-	SDL_FreeSurface(surf);
-	return tex;
+sptr<Texture> Font::render_text(const std::string &text, const glm::vec4 &color) {
+    SDL_Color sdl_color;
+    // shift colors 2 right because of TTF_RenderText_Blended errors
+    sdl_color.r = static_cast<Uint8>(color.b * 255);
+    sdl_color.g = static_cast<Uint8>(color.r * 255);
+    sdl_color.b = static_cast<Uint8>(color.g * 255);
+    sdl_color.a = static_cast<Uint8>(color.a * 255);
+    SDL_Surface *surf = TTF_RenderText_Blended(font, text.c_str(), sdl_color);
+    sptr<Texture> tex = Texture::create_from_surface(surf, GL_LINEAR, GL_LINEAR);
+    SDL_FreeSurface(surf);
+    return tex;
 }
 
-void FontManager::Load(const std::string& font_name, const std::string& filepath, uint32_t ptsize) {
-	fonts_[font_name] = std::make_shared<Font>(filepath, ptsize);
+void FontManager::load(const std::string &font_name, const std::string &filepath, u32 ptsize) {
+    fonts[font_name] = std::make_shared<Font>(filepath, ptsize);
 }
 
-sptr<Font> FontManager::Get(const std::string& font_name) {
-	return fonts_[font_name];
+sptr<Font> FontManager::get(const std::string &font_name) {
+    return fonts[font_name];
 }
 
-}  // namespace omega
+} // namespace omega::ui

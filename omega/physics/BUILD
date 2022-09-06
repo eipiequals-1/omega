@@ -8,14 +8,6 @@ load(
 package(default_visibility= ["//visibility:public"])
 
 cc_library(
-    name = "random",
-    srcs = ["random.cpp"],
-    hdrs = ["random.h"],
-    copts = DEFAULT_COPTS,
-    linkopts = DEFAULT_LINKOPTS,
-)
-
-cc_library(
     name = "world",
     srcs = ["world.cpp"],
     hdrs = ["world.h"],
@@ -24,14 +16,13 @@ cc_library(
     deps = [
         "//omega/util:util",
         ":body",
-        ":physics",
+        ":physics_defines",
     ]
 )
 
 cc_library(
-    name = "physics",
-    srcs = ["physics.cpp"],
-    hdrs = ["physics.h"],
+    name = "physics_defines",
+    hdrs = ["physics_defines.h"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
@@ -47,7 +38,19 @@ cc_library(
     linkopts = DEFAULT_LINKOPTS,
     deps = [
         "@Box2D//:Box2D",
-        ":physics",
+        ":physics_defines",
         "//omega/util:util",
+    ]
+)
+
+cc_library(
+    name = "physics",
+    hdrs = ["physics.h"],
+    copts = DEFAULT_COPTS,
+    linkopts = DEFAULT_LINKOPTS,
+    deps = [
+        ":body",
+        ":world",
+        ":physics_defines",
     ]
 )

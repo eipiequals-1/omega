@@ -2,8 +2,11 @@
 #define OMEGA_CORE_ORTHOCAMERA_H
 
 #include "omega/scene/camera.h"
+#include "omega/util/util.h"
 
-namespace omega {
+namespace omega::core {
+
+using namespace omega::scene;
 
 /**
  * A 2D Orthographic Camera for rendering
@@ -13,40 +16,40 @@ namespace omega {
  * SpriteBatch batch;
  * cam.RecalculateViewMatrix();
  * batch.SetViewProjectionMatrix(cam.GetViewProjectionMatrix());
- * batch.BeginRender();
+ * batch.Beginrender();
  *
  * . . .
  *
- * batch.EndRender();
+ * batch.Endrender();
  */
 class OrthographicCamera : public Camera {
-   public:
-	OrthographicCamera(float left, float right, float bottom, float top);
+  public:
+    OrthographicCamera(f32 left, f32 right, f32 bottom, f32 top);
 
-	void SetProjection(float left, float right, float bottom, float top);
+    void set_projection(f32 left, f32 right, f32 bottom, f32 top);
 
-	float GetRotation() const { return rotation_; }
-	void SetRotation(float rotation) { rotation_ = rotation; }
+    f32 get_rotation() const { return rotation; }
+    void set_rotation(f32 rotation) { this->rotation = rotation; }
 
-	float GetWidth() const { return width_; }
-	float GetHeight() const { return height_; }
+    f32 get_width() const { return width; }
+    f32 get_height() const { return height; }
 
-	/**
-	 * Converts the screen/pixel coordianates to world coordinates
-	 * @param vec the coordinates to convert
-	 */
-	glm::vec2 Project(const glm::vec2& vec, const glm::vec2& screen_res) const;
-	/**
-	 * Updates the view projection matrix if position, rotation, and/or size have changed
-	 *
-	 * IMPORTANT: must be called before rendering if the camera has changed
-	 */
-	void RecalculateViewMatrix();
+    /**
+     * Converts the screen/pixel coordianates to world coordinates
+     * @param vec the coordinates to convert
+     */
+    glm::vec2 project(const glm::vec2 &vec, const glm::vec2 &screen_res) const;
+    /**
+     * Updates the view projection matrix if position, rotation, and/or size have changed
+     *
+     * IMPORTANT: must be called before rendering if the camera has changed
+     */
+    void recalculate_view_matrix() override;
 
-   private:
-	float width_, height_;
-	float rotation_;
+  private:
+    f32 width, height;
+    f32 rotation;
 };
-}  // namespace omega
+} // namespace omega::core
 
-#endif  // OMEGA_CORE_ORTHOCAMERA_H
+#endif // OMEGA_CORE_ORTHOCAMERA_H

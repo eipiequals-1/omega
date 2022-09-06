@@ -1,22 +1,22 @@
 #include "world.h"
 
-namespace omega {
+namespace omega::physics {
 
-World::World(float gravity_x, float gravity_y) : world_(nullptr) {
-	world_ = create_uptr<b2World>(b2Vec2(gravity_x, gravity_y));
+World::World(f32 gravity_x, f32 gravity_y) : world(nullptr) {
+    world = create_uptr<b2World>(b2Vec2(gravity_x, gravity_y));
 }
 
-void World::Step(float timestep, uint32_t velocity_iteration, uint32_t position_iterations) {
-	world_->Step(timestep, velocity_iteration, position_iterations);
+void World::step(f32 timestep, u32 velocity_iteration, u32 position_iterations) {
+    world->Step(timestep, velocity_iteration, position_iterations);
 }
 
-uptr<BoxBody> World::AddBox(const glm::rectf& rect, BodyType type, b2FixtureDef fixture_def, float gravity_scale, float angle) {
-	BoxBody* body = new BoxBody(rect, type, fixture_def, gravity_scale, angle, world_.get());
-	return uptr<BoxBody>(body);
+uptr<BoxBody> World::add_box(const glm::rectf &rect, BodyType type, b2FixtureDef fixture_def, f32 gravity_scale, f32 angle) {
+    BoxBody *body = new BoxBody(rect, type, fixture_def, gravity_scale, angle, world.get());
+    return uptr<BoxBody>(body);
 }
 
-uptr<CircleBody> World::AddCircle(const glm::vec2& center, float radius, BodyType type, b2FixtureDef fixture_def, float gravity_scale) {
-	CircleBody* body = new CircleBody(center, radius, type, fixture_def, gravity_scale, world_.get());
-	return uptr<CircleBody>(body);
+uptr<CircleBody> World::add_circle(const glm::vec2 &center, f32 radius, BodyType type, b2FixtureDef fixture_def, f32 gravity_scale) {
+    CircleBody *body = new CircleBody(center, radius, type, fixture_def, gravity_scale, world.get());
+    return uptr<CircleBody>(body);
 }
-}  // namespace omega
+} // namespace omega

@@ -32,3 +32,14 @@ cc_library(
         "//omega/ui/button:button",
     ]
 )
+
+cc_library(
+    name = "ui",
+    hdrs = ["ui.h"],
+    copts = DEFAULT_COPTS,
+    linkopts = DEFAULT_LINKOPTS,
+    deps = [
+        ":font",
+        ":ui_screen",
+    ]
+)

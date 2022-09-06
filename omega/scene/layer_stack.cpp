@@ -1,43 +1,43 @@
 #include "layer_stack.h"
 
-namespace omega {
+namespace omega::scene {
 
 LayerStack::LayerStack() {
 }
 
 LayerStack::~LayerStack() {
-	for (auto &layer : layers_) {
-		if (layer != nullptr) {
-			delete layer;
-		}
-		layer = nullptr;
-	}
+    for (auto &layer : layers) {
+        if (layer != nullptr) {
+            delete layer;
+        }
+        layer = nullptr;
+    }
 }
 
-void LayerStack::Render(float dt) {
-	for (auto itr = layers_.begin(); itr != layers_.end(); ++itr) {
-		(*itr)->Render(dt);
-	}
+void LayerStack::render(f32 dt) {
+    for (auto itr = layers.begin(); itr != layers.end(); ++itr) {
+        (*itr)->render(dt);
+    }
 }
 
-void LayerStack::Update(float dt) {
-	for (auto itr = layers_.rbegin(); itr != layers_.rend(); ++itr) {
-		(*itr)->Update(dt);
-	}
+void LayerStack::update(f32 dt) {
+    for (auto itr = layers.rbegin(); itr != layers.rend(); ++itr) {
+        (*itr)->update(dt);
+    }
 }
 
-void LayerStack::Input(float dt) {
-	for (auto itr = layers_.rbegin(); itr != layers_.rend(); ++itr) {
-		(*itr)->Input(dt);
-	}
+void LayerStack::input(f32 dt) {
+    for (auto itr = layers.rbegin(); itr != layers.rend(); ++itr) {
+        (*itr)->input(dt);
+    }
 }
 
-void LayerStack::PushLayer(Layer *layer) {
-	layers_.push_back(layer);
+void LayerStack::push_layer(Layer *layer) {
+    layers.push_back(layer);
 }
 
-void LayerStack::PopLayer() {
-	layers_.pop_back();
+void LayerStack::pop_layer() {
+    layers.pop_back();
 }
 
-}  // namespace omega
+} // namespace omega

@@ -5,21 +5,22 @@
 #include "omega/ui/button/button.h"
 #include "omega/util/util.h"
 
-namespace omega {
+namespace omega::ui::button {
+
 class ImageButton : public Button {
-   public:
-	ImageButton(float x, float y, float w, float h, std::function<void()> on_click);
-	virtual ~ImageButton() override;
+  public:
+    ImageButton(f32 x, f32 y, f32 w, f32 h, std::function<void()> on_click);
+    virtual ~ImageButton() override;
 
-	virtual void Render() override;
-	virtual void SetFocusTexture(Texture* focus) { focus_ = focus; }
-	virtual void SetUnFocusTexture(Texture* un_focus) { un_focus_ = un_focus; }
+    virtual void render() override;
+    virtual void set_focus_texture(Texture *focus) { this->focus = focus; }
+    virtual void set_unfocus_texture(Texture *un_focus) { this->un_focus = un_focus; }
 
-   protected:
-	Texture* focus_;
-	Texture* un_focus_;
+  protected:
+    Texture *focus;
+    Texture *un_focus;
 };
 
-}  // namespace omega
+} // namespace omega::ui::button
 
-#endif  // OMEGA_UI_BUTTON_IMAGEBUTTON_H
+#endif // OMEGA_UI_BUTTON_IMAGEBUTTON_H

@@ -9,7 +9,6 @@ package(default_visibility= ["//visibility:public"])
 
 cc_library(
     name = "event",
-    srcs = ["event.cpp"],
     hdrs = ["event.h"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
@@ -56,5 +55,18 @@ cc_library(
     deps = [
         "@SDL2//:SDL2",
         ":event",
+    ]
+)
+
+cc_library(
+    name = "events",
+    hdrs = ["events.h"],
+    copts = DEFAULT_COPTS,
+    linkopts = DEFAULT_LINKOPTS,
+    deps = [
+        ":event",
+        ":input_manager",
+        ":input_processor",
+        ":key_manager",
     ]
 )

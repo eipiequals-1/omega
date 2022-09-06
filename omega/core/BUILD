@@ -55,7 +55,8 @@ cc_library(
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
-        "//omega/scene:camera"
+        "//omega/scene:camera",
+        "//omega/util:util"
     ]
 )
 
@@ -89,5 +90,20 @@ cc_library(
     deps = [
         "@GL//:GL",
         "//omega/util:util"
+    ]
+)
+
+cc_library(
+    name = "core",
+    hdrs = ["core.h"],
+    copts = DEFAULT_COPTS,
+    linkopts = DEFAULT_LINKOPTS,
+    deps = [
+        ":application",
+        ":orthographic_camera",
+        ":perspective_camera",
+        ":sdl2",
+        ":viewport",
+        ":window",
     ]
 )

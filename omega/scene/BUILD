@@ -9,7 +9,6 @@ package(default_visibility= ["//visibility:public"])
 
 cc_library(
     name = "camera",
-    srcs = ["camera.cpp"],
     hdrs = ["camera.h"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
@@ -67,7 +66,6 @@ cc_library(
 
 cc_library(
     name = "components",
-    srcs = ["components.cpp"],
     hdrs = ["components.h"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
@@ -75,5 +73,20 @@ cc_library(
         "//omega/gfx/texture:texture",
         "//omega/gfx:sprite_batch",
         "//omega/util:util",
+    ]
+)
+
+cc_library(
+    name = "scene",
+    hdrs = ["scene.h"],
+    copts = DEFAULT_COPTS,
+    linkopts = DEFAULT_LINKOPTS,
+    deps = [
+        ":camera",
+        ":components",
+        ":entity",
+        ":imgui_layer",
+        ":layer_stack",
+        ":layer",
     ]
 )

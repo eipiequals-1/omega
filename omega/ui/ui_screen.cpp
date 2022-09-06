@@ -1,38 +1,37 @@
 #include "ui_screen.h"
 
-namespace omega {
+namespace omega::ui {
 
-UIScreen::UIScreen() {
-}
+UIScreen::UIScreen() {}
 
 UIScreen::~UIScreen() {
-	for (auto &btn : buttons_) {
-		if (btn != nullptr) delete btn;
-		btn = nullptr;
-	}
+    for (auto &btn : buttons) {
+        if (btn != nullptr)
+            delete btn;
+        btn = nullptr;
+    }
 }
 
-void UIScreen::Update(const glm::vec2 &mouse_pos) {
-	for (auto &btn : buttons_) {
-		btn->SetHover(false);
-		if (btn->ContainsPoint(mouse_pos)) {
-			btn->SetHover(true);
-		}
-	}
+void UIScreen::update(const glm::vec2 &mouse_pos) {
+    for (auto &btn : buttons) {
+        btn->set_hover(false);
+        if (btn->contains_point(mouse_pos)) {
+            btn->set_hover(true);
+        }
+    }
 }
 
-void UIScreen::PushButton(Button *button) {
-	buttons_.push_back(button);
+void UIScreen::push_button(Button *button) { buttons.push_back(button); }
+
+void UIScreen::handle_buttons() {
+    if (InputManager::instance()->mouse_button_just_released(
+            MouseButton::k_mouse_left)) {
+        for (auto &btn : buttons) {
+            if (btn->get_hover()) {
+                btn->on_click();
+            }
+        }
+    }
 }
 
-void UIScreen::HandleButtons() {
-	if (InputManager::Instance()->MouseButtonJustReleased(MouseButton::k_mouse_left)) {
-		for (auto &btn : buttons_) {
-			if (btn->GetHover()) {
-				btn->OnClick();
-			}
-		}
-	}
-}
-
-}  // namespace omega
+} // namespace omega::ui

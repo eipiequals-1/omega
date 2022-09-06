@@ -7,20 +7,24 @@
 #include "omega/ui/button/button.h"
 #include "omega/util/util.h"
 
-namespace omega {
+namespace omega::ui {
+
+using namespace omega::ui::button;
+using namespace omega::events;
 
 class UIScreen {
-   public:
-	UIScreen();
-	virtual ~UIScreen();
+  public:
+    UIScreen();
+    virtual ~UIScreen();
 
-	void Update(const glm::vec2 &mouse_pos);
-	void PushButton(Button *button);
-	void HandleButtons();
+    void update(const glm::vec2 &mouse_pos);
+    void push_button(Button *button);
+    void handle_buttons();
 
-   protected:
-	std::vector<Button *> buttons_;
+  protected:
+    std::vector<Button *> buttons;
 };
-}  // namespace omega
 
-#endif  // OMEGA_UI_UISCREEN_H
+} // namespace omega::ui
+
+#endif // OMEGA_UI_UISCREEN_H

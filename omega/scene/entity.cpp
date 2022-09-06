@@ -1,34 +1,33 @@
 #include "entity.h"
 
-namespace omega {
+namespace omega::scene {
 
 Entity::Entity() {
 }
 
 Entity::~Entity() {
-	for (Component *c : components_) {
-		delete c;
-		c = nullptr;
-	}
+    for (Component *c : components) {
+        delete c;
+        c = nullptr;
+    }
 }
 
-void Entity::Render(float dt) {
-	components_[0]->Render(dt);
-	// for (Component *c : components_) {
-	// 	c->Render(dt);
-	// }
+void Entity::render(f32 dt) {
+    for (Component *c : components) {
+        c->render(dt);
+    }
 }
 
-void Entity::Update(float dt) {
-	for (Component *c : components_) {
-		c->Update(dt);
-	}
+void Entity::update(f32 dt) {
+    for (Component *c : components) {
+        c->update(dt);
+    }
 }
 
-void Entity::Input(float dt) {
-	for (Component *c : components_) {
-		c->Input(dt);
-	}
+void Entity::input(f32 dt) {
+    for (Component *c : components) {
+        c->input(dt);
+    }
 }
 
-}  // namespace omega
+} // namespace omega::scene

@@ -12,24 +12,26 @@
 #include "omega/gfx/texture/mesh.h"
 #include "omega/util/util.h"
 
-namespace omega {
+namespace omega::scene {
+
+using namespace omega::gfx::texture;
 
 class Model {
-   public:
-	Model(const std::string &filepath);
+  public:
+    Model(const std::string &filepath);
 
-	void Render(Shader &shader);
+    void render(Shader &shader);
 
-   private:
-	void ProcessNode(aiNode *node, const aiScene *scene);
-	Mesh ProcessMesh(aiMesh *mesh, const aiScene *scene);
-	std::vector<MeshTexture> LoadMaterialTextures(aiMaterial *mat, aiTextureType type, const std::string &type_name);
+  private:
+    void process_node(aiNode *node, const aiScene *scene);
+    Mesh process_mesh(aiMesh *mesh, const aiScene *scene);
+    std::vector<MeshTexture> load_material_textures(aiMaterial *mat, aiTextureType type, const std::string &type_name);
 
-	std::vector<Mesh> meshes_;
-	std::vector<MeshTexture> textures_;
-	std::string directory_;
+    std::vector<Mesh> meshes;
+    std::vector<MeshTexture> textures;
+    std::string directory;
 };
 
-}  // namespace omega
+} // namespace omega::scene
 
-#endif  // OMEGA_SCENE_MODEL_H
+#endif // OMEGA_SCENE_MODEL_H

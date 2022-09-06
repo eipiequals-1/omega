@@ -7,35 +7,38 @@
 #include "omega/scene/entity.h"
 #include "omega/util/util.h"
 
-namespace omega {
+namespace omega::ui::button {
+
+using namespace omega::scene;
+
 class Button : public RectComponent {
-   public:
-	Button(float x, float y, float w, float h, std::function<void()> on_click);
-	virtual ~Button();
+  public:
+    Button(f32 x, f32 y, f32 w, f32 h, std::function<void()> on_click);
+    virtual ~Button();
 
-	virtual void Render() = 0;
-	void Render(float dt) override {
-		(void)dt;
-		Render();
-	}
+    virtual void render() = 0;
+    void render(f32 dt) override {
+        (void)dt;
+        render();
+    }
 
-	bool ContainsPoint(const glm::vec2& p) const {
-		return rect_.point_in_rect(p);
-	}
-	bool GetHover() const { return hover_; }
-	void SetHover(bool hover) { hover_ = hover; }
+    bool contains_point(const glm::vec2 &p) const {
+        return rect.point_in_rect(p);
+    }
+    bool get_hover() const { return hover; }
+    void set_hover(bool hover) { this->hover = hover; }
 
-	void OnClick() {
-		if (on_click_ != nullptr) {
-			on_click_();
-		}
-	}
+    void on_click() {
+        if (on_click_listener != nullptr) {
+            on_click_listener();
+        }
+    }
 
-   protected:
-	std::function<void()> on_click_;
-	bool hover_;
+  protected:
+    std::function<void()> on_click_listener;
+    bool hover;
 };
 
-}  // namespace omega
+} // namespace omega::ui::button
 
-#endif  // OMEGA_UI_BUTTON_BUTTON_H
+#endif // OMEGA_UI_BUTTON_BUTTON_H

@@ -1,25 +1,25 @@
 #include "image_button.h"
 
-namespace omega {
+namespace omega::ui::button {
 
-ImageButton::ImageButton(float x, float y, float w, float h, std::function<void()> on_click) : Button::Button(x, y, w, h, on_click), focus_(nullptr), un_focus_(nullptr) {
+ImageButton::ImageButton(f32 x, f32 y, f32 w, f32 h, std::function<void()> on_click) : Button::Button(x, y, w, h, on_click), focus(nullptr), un_focus(nullptr) {
 }
 
 ImageButton::~ImageButton() {
-	focus_ = nullptr;
-	un_focus_ = nullptr;
+    focus = nullptr;
+    un_focus = nullptr;
 }
 
-void ImageButton::Render() {
-	SpriteBatch& sprite_batch = SpriteBatch::Instance();
-	if (hover_) {
-		if (focus_ != nullptr) {
-			sprite_batch.RenderTexture(focus_, rect_.x, rect_.y, rect_.w, rect_.h);
-		}
-	} else {
-		if (un_focus_ != nullptr) {
-			sprite_batch.RenderTexture(un_focus_, rect_.x, rect_.y, rect_.w, rect_.h);
-		}
-	}
+void ImageButton::render() {
+    SpriteBatch &sprite_batch = SpriteBatch::instance();
+    if (hover) {
+        if (focus != nullptr) {
+            sprite_batch.render_texture(focus, rect.x, rect.y, rect.w, rect.h);
+        }
+    } else {
+        if (un_focus != nullptr) {
+            sprite_batch.render_texture(un_focus, rect.x, rect.y, rect.w, rect.h);
+        }
+    }
 }
-}  // namespace omega
+} // namespace omega::ui::button

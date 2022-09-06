@@ -7,24 +7,24 @@
 #include "omega/events/input_manager.h"
 #include "omega/util/util.h"
 
-namespace omega {
+namespace omega::events {
 
 class InputProcessor {
-   public:
-	InputProcessor();
-	virtual ~InputProcessor();
+  public:
+    InputProcessor();
+    virtual ~InputProcessor();
 
-	void Listen();
-	// mouse and key input
-	virtual void OnKeyDown(Key key) = 0;
-	virtual void OnKeyUp(Key key) = 0;
-	virtual void OnMouseDown(uint32_t screen_x, uint32_t screen_y, MouseButton button) = 0;
-	virtual void OnMouseUp(uint32_t screen_x, uint32_t screen_y, MouseButton button) = 0;
-	// window input
-	virtual void OnWindowResize(uint32_t window_width, uint32_t window_height) = 0;
-	virtual void OnWindowClosed() = 0;
+    void listen();
+    // mouse and key input
+    virtual void on_key_down(Key key) = 0;
+    virtual void on_key_up(Key key) = 0;
+    virtual void on_mouse_down(u32 screen_x, u32 screen_y, MouseButton button) = 0;
+    virtual void on_mouse_up(u32 screen_x, u32 screen_y, MouseButton button) = 0;
+    // window input
+    virtual void on_window_resized(u32 window_width, u32 window_height) = 0;
+    virtual void on_window_closed() = 0;
 };
 
-}  // namespace omega
+} // namespace omega::events
 
-#endif  // OMEGA_EVENTS_INPUTPROCESSOR_H
+#endif // OMEGA_EVENTS_INPUTPROCESSOR_H

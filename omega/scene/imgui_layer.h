@@ -5,27 +5,30 @@
 #include "omega/events/event.h"
 #include "omega/scene/layer.h"
 
-namespace omega {
+namespace omega::scene {
+
+using namespace omega::core;
+using namespace omega::events;
 
 class ImGuiLayer : public Layer {
-   public:
-	explicit ImGuiLayer(Window* window);
-	virtual ~ImGuiLayer() override;
+  public:
+    explicit ImGuiLayer(Window *window);
+    virtual ~ImGuiLayer() override;
 
-	virtual void SetDarkTheme();
+    virtual void set_dark_theme();
 
-	void Input(Event& event);
-	virtual void Input(float dt) override { (void)dt; }
-	virtual void Update(float dt) override { (void)dt; }
-	virtual void Render(float dt) override { (void)dt; }
+    void input(Event &event);
+    virtual void input(f32 dt) override { (void)dt; }
+    virtual void update(f32 dt) override { (void)dt; }
+    virtual void render(f32 dt) override { (void)dt; }
 
-	void Begin();
-	void End();
+    void begin();
+    void end();
 
-   private:
-	Window* window_;
+  private:
+    Window *window;
 };
 
-}  // namespace omega
+} // namespace omega::scene
 
-#endif  // OMEGA_SCENE_IMGUILAYER_H
+#endif // OMEGA_SCENE_IMGUILAYER_H

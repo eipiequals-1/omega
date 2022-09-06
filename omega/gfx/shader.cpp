@@ -8,157 +8,157 @@
 
 #include "omega/gfx/errors.h"
 
-namespace omega {
+namespace omega::gfx {
 
-Shader::Shader(const std::string& filepath) {
-	ShaderProgramSource source = ParseShader(filepath);
-	id_ = CreateShader(source.vertex_source, source.fragment_source);
+Shader::Shader(const std::string &filepath) {
+    ShaderProgramSource source = parse_shader(filepath);
+    id = create_shader(source.vertex_source, source.fragment_source);
 }
 
-Shader::Shader(const std::string& vertex_source, const std::string& fragment_source) {
-	id_ = CreateShader(vertex_source, fragment_source);
+Shader::Shader(const std::string &vertex_source, const std::string &fragment_source) {
+    id = create_shader(vertex_source, fragment_source);
 }
 
 Shader::~Shader() {
-	glDeleteProgram(id_);
+    glDeleteProgram(id);
 }
 
-void Shader::Bind() const {
-	glUseProgram(id_);
+void Shader::bind() const {
+    glUseProgram(id);
 }
 
-void Shader::Unbind() const {
-	glUseProgram(0);
+void Shader::unbind() const {
+    glUseProgram(0);
 }
 
-void Shader::SetUniform1i(const std::string& name, int value) {
-	glUniform1i(GetUniformLocation(name), value);
+void Shader::set_uniform_1i(const std::string &name, int value) {
+    glUniform1i(get_uniform_location(name), value);
 }
 
-void Shader::SetUniform1f(const std::string& name, float value) {
-	glUniform1f(GetUniformLocation(name), value);
+void Shader::set_uniform_1f(const std::string &name, f32 value) {
+    glUniform1f(get_uniform_location(name), value);
 }
 
-void Shader::SetUniform4f(const std::string& name, float v0, float v1, float v2, float v3) {
-	glUniform4f(GetUniformLocation(name), v0, v1, v2, v3);
+void Shader::set_uniform_4f(const std::string &name, f32 v0, f32 v1, f32 v2, f32 v3) {
+    glUniform4f(get_uniform_location(name), v0, v1, v2, v3);
 }
 
-void Shader::SetUniform3f(const std::string& name, float v0, float v1, float v2) {
-	glUniform3f(GetUniformLocation(name), v0, v1, v2);
+void Shader::set_uniform_3f(const std::string &name, f32 v0, f32 v1, f32 v2) {
+    glUniform3f(get_uniform_location(name), v0, v1, v2);
 }
 
-void Shader::SetUniform2f(const std::string& name, float v0, float v1) {
-	glUniform2f(GetUniformLocation(name), v0, v1);
+void Shader::set_uniform_2f(const std::string &name, f32 v0, f32 v1) {
+    glUniform2f(get_uniform_location(name), v0, v1);
 }
 
-void Shader::SetUniformMat4f(const std::string& name, const glm::mat4& matrix) {
-	// glm::mat4 stores data in columns which is OpenGL standard so no transpose needed
-	glUniformMatrix4fv(GetUniformLocation(name), 1, GL_FALSE, &matrix[0][0]);
+void Shader::set_uniform_mat4f(const std::string &name, const glm::mat4 &matrix) {
+    // glm::mat4 stores data in columns which is OpenGL standard so no transpose needed
+    glUniformMatrix4fv(get_uniform_location(name), 1, GL_FALSE, &matrix[0][0]);
 }
 
-void Shader::SetUniform1iv(const std::string& name, int* arr, uint32_t size) {
-	glUniform1iv(GetUniformLocation(name), size, arr);
+void Shader::set_uniform_1iv(const std::string &name, int *arr, u32 size) {
+    glUniform1iv(get_uniform_location(name), size, arr);
 }
 
-void Shader::SetUniformBool(const std::string& name, bool v0) {
-	glUniform1i(GetUniformLocation(name), v0);
+void Shader::set_uniform_bool(const std::string &name, bool v0) {
+    glUniform1i(get_uniform_location(name), v0);
 }
 
-GLint Shader::GetUniformLocation(const std::string& name) {
-	Bind();
-	if (uniform_loc_cache_.find(name) != uniform_loc_cache_.end()) {
-		return uniform_loc_cache_[name];
-	}
-	GLint loc = glGetUniformLocation(id_, name.c_str());
-	if (loc == -1) {
-		log("Warning: uniform '", name, "' doesn't exist!");
-	}
-	uniform_loc_cache_[name] = loc;
-	return loc;
+GLint Shader::get_uniform_location(const std::string &name) {
+    bind();
+    if (uniform_loc_cache.find(name) != uniform_loc_cache.end()) {
+        return uniform_loc_cache[name];
+    }
+    GLint loc = glGetUniformLocation(id, name.c_str());
+    if (loc == -1) {
+        util::log("Warning: uniform '", name, "' doesn't exist!");
+    }
+    uniform_loc_cache[name] = loc;
+    return loc;
 }
 
-ShaderProgramSource Shader::ParseShader(const std::string& filepath) {
-	std::ifstream stream(filepath);
-	std::string line;
+ShaderProgramSource Shader::parse_shader(const std::string &filepath) {
+    std::ifstream stream(filepath);
+    std::string line;
 
-	enum class ShaderType {
-		NONE = -1,
-		VERTEX = 0,
-		FRAGMENT = 1
-	};
+    enum class ShaderType {
+        k_none = -1,
+        k_vertex = 0,
+        k_fragment = 1
+    };
 
-	std::stringstream shaderstream[2];
-	ShaderType type = ShaderType::NONE;
-	while (getline(stream, line)) {
-		if (line.find("#shader") != std::string::npos) {
-			if (line.find("vertex") != std::string::npos) {
-				type = ShaderType::VERTEX;
-				// vertex shader
-			} else if (line.find("fragment") != std::string::npos) {
-				// fragment shader
-				type = ShaderType::FRAGMENT;
-			}
-		} else {
-			shaderstream[(int)type] << line << '\n';
-		}
-	}
-	return {shaderstream[0].str(), shaderstream[1].str()};
+    std::stringstream shaderstream[2];
+    ShaderType type = ShaderType::k_none;
+    while (std::getline(stream, line)) {
+        if (line.find("#shader") != std::string::npos) {
+            if (line.find("vertex") != std::string::npos) {
+                type = ShaderType::k_vertex;
+                // vertex shader
+            } else if (line.find("fragment") != std::string::npos) {
+                // fragment shader
+                type = ShaderType::k_fragment;
+            }
+        } else {
+            shaderstream[(int)type] << line << '\n';
+        }
+    }
+    return {shaderstream[0].str(), shaderstream[1].str()};
 }
 
-GLuint Shader::CompileShader(uint32_t type, const std::string& source) {
-	GLuint id = glCreateShader(type);
-	const char* src = source.c_str();
-	glShaderSource(id, 1, &src, nullptr);
-	glCompileShader(id);
+GLuint Shader::compile_shader(u32 type, const std::string &source) {
+    GLuint id = glCreateShader(type);
+    const char *src = source.c_str();
+    glShaderSource(id, 1, &src, nullptr);
+    glCompileShader(id);
 
-	int res;
-	glGetShaderiv(id, GL_COMPILE_STATUS, &res);
-	if (res == GL_FALSE) {
-		GLint length = 0;
-		glGetShaderiv(id, GL_INFO_LOG_LENGTH, &length);
-		char* message = (char*)malloc(sizeof(char) * length);
-		glGetShaderInfoLog(id, length, nullptr, message);
-		log("Failed to compile: ", (type == GL_VERTEX_SHADER ? "vertex" : "fragment"), " shader!");
-		log(message);
-		free(message);
-		glDeleteShader(id);
-		return 0;
-	}
+    int res;
+    glGetShaderiv(id, GL_COMPILE_STATUS, &res);
+    if (res == GL_FALSE) {
+        GLint length = 0;
+        glGetShaderiv(id, GL_INFO_LOG_LENGTH, &length);
+        char *message = (char *)malloc(sizeof(char) * length);
+        glGetShaderInfoLog(id, length, nullptr, message);
+        util::log("Failed to compile: ", (type == GL_VERTEX_SHADER ? "vertex" : "fragment"), " shader!");
+        util::log(message);
+        free(message);
+        glDeleteShader(id);
+        return 0;
+    }
 
-	return id;
+    return id;
 }
 
 /**
  * @return binding for shader
  */
-GLuint Shader::CreateShader(const std::string& vertex_shader, const std::string& fragment_shader) {
-	GLuint program = glCreateProgram();
+GLuint Shader::create_shader(const std::string &vertex_shader, const std::string &fragment_shader) {
+    GLuint program = glCreateProgram();
 
-	GLuint vertexs = CompileShader(GL_VERTEX_SHADER, vertex_shader);
-	GLuint frags = CompileShader(GL_FRAGMENT_SHADER, fragment_shader);
+    GLuint vertexs = compile_shader(GL_VERTEX_SHADER, vertex_shader);
+    GLuint frags = compile_shader(GL_FRAGMENT_SHADER, fragment_shader);
 
-	glAttachShader(program, vertexs);
-	glAttachShader(program, frags);
+    glAttachShader(program, vertexs);
+    glAttachShader(program, frags);
 
-	glLinkProgram(program);
-	glValidateProgram(program);
-	int success;
-	glGetProgramiv(program, GL_LINK_STATUS, &success);
-	if (success == GL_FALSE) {
-		int length = 0;
-		glGetProgramiv(program, GL_INFO_LOG_LENGTH, &length);
-		char* message = (char*)malloc(sizeof(char) * length);
-		glGetProgramInfoLog(program, 512, nullptr, message);
-		log("Failed to link shader: ", message);
-		free(message);
-		glDeleteShader(program);
-		return 0;
-	}
+    glLinkProgram(program);
+    glValidateProgram(program);
+    int success;
+    glGetProgramiv(program, GL_LINK_STATUS, &success);
+    if (success == GL_FALSE) {
+        int length = 0;
+        glGetProgramiv(program, GL_INFO_LOG_LENGTH, &length);
+        char *message = (char *)malloc(sizeof(char) * length);
+        glGetProgramInfoLog(program, 512, nullptr, message);
+        util::log("Failed to link shader: ", message);
+        free(message);
+        glDeleteShader(program);
+        return 0;
+    }
 
-	glDeleteShader(vertexs);
-	glDeleteShader(frags);
+    glDeleteShader(vertexs);
+    glDeleteShader(frags);
 
-	return program;
+    return program;
 }
 
-}  // namespace omega
+} // namespace omega::gfx

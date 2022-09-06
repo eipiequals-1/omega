@@ -10,12 +10,15 @@
 #include "omega/scene/layer_stack.h"
 #include "omega/util/util.h"
 
-namespace omega {
+namespace omega::core {
+
+using namespace omega::util;
+using namespace omega::scene;
 
 struct ApplicationConfig {
-	uint32_t width = 800, height = 600;
-	std::string title = "Application";
-	bool resizable = true;
+    u32 width = 800, height = 600;
+    std::string title = "Application";
+    bool resizable = true;
 };
 
 /**
@@ -27,44 +30,44 @@ struct ApplicationConfig {
  *
  * omega::ApplicationConfig config;
  * // set application width, height, title, window settings etc
- * MyGame game;
- * game.Run();
+ * MyGame game(config);
+ * game.run();
  */
 class Application {
-   public:
-	explicit Application(const ApplicationConfig& config);
-	virtual ~Application();
+  public:
+    explicit Application(const ApplicationConfig &config);
+    virtual ~Application();
 
-	/**
-	 * Abstraction of the application loop. Calls the Tick, Update, Input, and Render methods
-	 */
-	virtual void Run();
+    /**
+     * Abstraction of the application loop. Calls the Tick, Update, Input, and Render methods
+     */
+    virtual void run();
 
-	virtual void OnResize(uint32_t width, uint32_t height);
+    virtual void on_resize(u32 width, u32 height);
 
-	static Application& Instance() { return *instance_; }
+    static Application &instance() { return *current_instance; }
 
-	sptr<Window> GetWindow() { return window_; }
+    sptr<Window> get_window() { return window; }
 
-	void SetRunning(bool v) { running_ = v; }
+    void set_running(bool v) { running = v; }
 
-   protected:
-	void PushLayer(Layer* layer);
+  protected:
+    void push_layer(Layer *layer);
 
-	/**
-	 * Clamps the application by sleeping the CPU to run at Application::fps_
-	 * @return delta time in seconds from the last frame
-	 */
-	virtual float Tick();
+    /**
+     * Clamps the application by sleeping the CPU to run at Application::fps_
+     * @return delta time in seconds from the last frame
+     */
+    virtual f32 tick();
 
-	float fps_;
-	uint32_t last_time_;
-	sptr<Window> window_;
-	bool running_;
-	uptr<LayerStack> layer_stack_;
-	// singleton instance
-	static Application* instance_;
+    f32 fps;
+    u32 last_time;
+    sptr<Window> window;
+    bool running;
+    uptr<LayerStack> layer_stack;
+    // singleton instance
+    static Application *current_instance;
 };
-}  // namespace omega
+} // namespace omega::core
 
-#endif  // OMEGA_CORE_APPLICATION_H
+#endif // OMEGA_CORE_APPLICATION_H

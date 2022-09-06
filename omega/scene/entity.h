@@ -5,42 +5,38 @@
 
 #include "omega/scene/components.h"
 
-namespace omega {
+namespace omega::scene {
 
 class Entity {
-   public:
-	Entity();
-	virtual ~Entity();
+  public:
+    Entity();
+    virtual ~Entity();
 
-	template <typename T, typename... Args>
-	T &AddComponent(Args &&...args) {
-		T *c = new T(std::forward<Args>(args)...);
-		components_.push_back(c);
+    template <typename T, typename... Args>
+    T &add_component(Args &&...args) {
+        T *c = new T(std::forward<Args>(args)...);
+        components.push_back(c);
 
-		c->SetOwner(this);
-		// component_array_[GetComponentID<T>()] = c;
-		// component_bitset_[GetComponentID<T>()] = true;
-		return *c;
-	}
-#if 0
-	template <typename T>
-	T &GetComponent() {
-		Component *c = component_array_[GetComponentID<T>()];
-		return static_cast<T>(*c);
-	}
-#endif
-	void Render(float dt);
-	virtual void Input(float dt);
-	virtual void Update(float dt);
+        c->set_owner(this);
+        component_array[get_component_id<T>()] = c;
+        component_bitset[get_component_id<T>()] = true;
+        return *c;
+    }
+    template <typename T>
+    T &get_component() {
+        Component *c = component_array[get_component_id<T>()];
+        return static_cast<T>(*c);
+    }
+    void render(f32 dt);
+    virtual void input(f32 dt);
+    virtual void update(f32 dt);
 
-   protected:
-	std::vector<Component *> components_;
-#if 0
-	ComponentArray component_array_;
-	ComponentBitset component_bitset_;
-#endif
+  protected:
+    std::vector<Component *> components;
+    ComponentArray component_array;
+    ComponentBitset component_bitset;
 };
 
-}  // namespace omega
+} // namespace omega::scene
 
-#endif  // OMEGA_SCENE_ENTITY_H
+#endif // OMEGA_SCENE_ENTITY_H

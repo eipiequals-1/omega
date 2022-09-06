@@ -5,30 +5,30 @@
 
 #include "omega/util/util.h"
 
-namespace omega {
+namespace omega::core {
 
 enum class ViewportType {
-	kFit,      // keep aspect ratio to take up max space on the screen
-	kStretch,  // world is scaled to take up the full screen
+    k_fit,     // keep aspect ratio to take up max space on the screen
+    k_stretch, // world is scaled to take up the full screen
 };
 
 class Viewport {
-   public:
-	Viewport(ViewportType viewport_type, uint32_t initial_width, uint32_t initial_height);
-	virtual ~Viewport();
+  public:
+    Viewport(ViewportType viewport_type, u32 initial_width, u32 initial_height);
+    virtual ~Viewport();
 
-	virtual void OnResize(uint32_t new_width, uint32_t new_height);
-	uint32_t GetViewportWidth() const { return current_width_; }
-	uint32_t GetViewportHeight() const { return current_height_; }
+    virtual void on_resize(u32 new_width, u32 new_height);
+    u32 get_viewport_width() const { return current_width; }
+    u32 get_viewport_height() const { return current_height; }
 
-   private:
-	ViewportType viewport_type_;
-	uint32_t initial_width_;
-	uint32_t initial_height_;
-	uint32_t current_width_;
-	uint32_t current_height_;
+  private:
+    ViewportType viewport_type;
+    u32 initial_width;
+    u32 initial_height;
+    u32 current_width;
+    u32 current_height;
 };
 
-}  // namespace omega
+} // namespace omega::core
 
-#endif  // OMEGA_CORE_VIEWPORT_H
+#endif // OMEGA_CORE_VIEWPORT_H

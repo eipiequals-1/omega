@@ -3,23 +3,23 @@
 
 #include "omega/util/util.h"
 
-namespace omega {
+namespace omega::scene {
 
 class Layer {
-   public:
-	Layer(const std::string &name = "Layer");
-	virtual ~Layer();
+  public:
+    Layer(const std::string &name = "Layer");
+    virtual ~Layer();
 
-	virtual void Render(float dt) = 0;
-	virtual void Update(float dt) = 0;
-	virtual void Input(float dt) = 0;
+    virtual void render(f32 dt) = 0;
+    virtual void update(f32 dt) = 0;
+    virtual void input(f32 dt) = 0;
 
-	const std::string &GetName() const { return name_; }
+    const std::string &get_name() const { return name; }
 
-   protected:
-	std::string name_;
+  protected:
+    std::string name;
 };
 
-}  // namespace omega
+} // namespace omega::scene
 
-#endif  // OMEGA_SCENE_LAYER_H
+#endif // OMEGA_SCENE_LAYER_H

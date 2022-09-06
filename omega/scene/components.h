@@ -8,22 +8,25 @@
 #include "omega/gfx/texture/texture.h"
 #include "omega/util/util.h"
 
-namespace omega {
+namespace omega::scene {
+
+using namespace omega::gfx;
+using namespace omega::gfx::texture;
 
 class Entity;
 class Component;
 
 using ComponentID = std::size_t;
 
-inline ComponentID GetUniqueComponentID() {
-	static ComponentID id = 0;
-	return id++;
+inline ComponentID get_unique_component_id() {
+    static ComponentID id = 0;
+    return id++;
 }
 
 template <typename T>
-inline ComponentID GetComponentID() {
-	static const ComponentID type_id = GetUniqueComponentID();
-	return type_id;
+inline ComponentID get_component_id() {
+    static const ComponentID type_id = get_unique_component_id();
+    return type_id;
 }
 
 static constexpr std::size_t kMaxEntities = 5000;
@@ -33,59 +36,59 @@ using ComponentBitset = std::bitset<kMaxEntities>;
 using ComponentArray = std::array<Component *, kMaxEntities>;
 
 class Component {
-   public:
-	Component() : owner_(nullptr) {}
-	virtual ~Component() = default;
+  public:
+    Component() : owner(nullptr) {}
+    virtual ~Component() = default;
 
-	Entity *GetOwner() { return owner_; }
-	void SetOwner(Entity *owner) { owner_ = owner; }
+    Entity *get_owner() { return owner; }
+    void set_owner(Entity *owner) { this->owner = owner; }
 
-	virtual void Render(float dt) { (void)dt; }
-	virtual void Input(float dt) { (void)dt; }
-	virtual void Update(float dt) { (void)dt; }
+    virtual void render(f32 dt) { (void)dt; }
+    virtual void input(f32 dt) { (void)dt; }
+    virtual void update(f32 dt) { (void)dt; }
 
-   protected:
-	Entity *owner_;
+  protected:
+    Entity *owner;
 };
 
 class RectComponent : public Component {
-   public:
-	RectComponent() { rotation_ = 0; }
+  public:
+    RectComponent() { rotation = 0; }
 
-	const glm::rectf &GetRect() const { return rect_; }
-	void SetRect(const glm::rectf &rect) { rect_ = rect; }
+    const glm::rectf &GetRect() const { return rect; }
+    void SetRect(const glm::rectf &rect) { this->rect = rect; }
 
-	float GetRotation() const { return rotation_; }
-	void SetRotation(float rotation) { rotation_ = rotation; }
+    f32 GetRotation() const { return rotation; }
+    void SetRotation(f32 rotation) { this->rotation = rotation; }
 
-   protected:
-	glm::rectf rect_;
-	float rotation_;  // in degrees
+  protected:
+    glm::rectf rect;
+    f32 rotation; // in degrees
 };
 
 class SpriteComponent : public RectComponent {
-   public:
-	SpriteComponent() {
-		color_ = omega::color::white;
-	}
+  public:
+    SpriteComponent() {
+        color = omega::util::color::white;
+    }
 
-	Texture *GetTexture() { return texture_; }
-	void SetTexture(Texture *texture) { texture_ = texture; }
+    Texture *GetTexture() { return texture; }
+    void SetTexture(Texture *texture) { this->texture = texture; }
 
-	const glm::vec4 &GetColor() { return color_; }
-	void SetColor(const glm::vec4 &color) { color_ = color; }
+    const glm::vec4 &GetColor() { return color; }
+    void SetColor(const glm::vec4 &color) { this->color = color; }
 
-	virtual void Render(float dt) override {
-		(void)dt;
-		SpriteBatch &batch = SpriteBatch::Instance();
-		batch.RenderTexture(texture_, glm::rectf(0.0f, 0.0f, texture_->GetWidth(), texture_->GetHeight()), rect_, rotation_, rect_.center());
-	}
+    virtual void render(f32 dt) override {
+        (void)dt;
+        SpriteBatch &batch = SpriteBatch::instance();
+        batch.render_texture(texture, glm::rectf(0.0f, 0.0f, texture->get_width(), texture->get_height()), rect, rotation, rect.center());
+    }
 
-   protected:
-	Texture *texture_;
-	glm::vec4 color_;
+  protected:
+    Texture *texture;
+    glm::vec4 color;
 };
 
-}  // namespace omega
+} // namespace omega::scene
 
-#endif  // OMEGA_SCENE_COMPONENTS_H
+#endif // OMEGA_SCENE_COMPONENTS_H

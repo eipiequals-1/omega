@@ -13,40 +13,40 @@
 #include "omega/gfx/vertex_buffer_layout.h"
 #include "omega/util/util.h"
 
-namespace omega {
+namespace omega::gfx::texture {
 
 struct MeshVertex {
-	glm::vec3 position;
-	glm::vec3 normal;
-	glm::vec2 tex_coords;
-	glm::vec3 tangent;
-	glm::vec3 bitangent;
+    glm::vec3 position;
+    glm::vec3 normal;
+    glm::vec2 tex_coords;
+    glm::vec3 tangent;
+    glm::vec3 bitangent;
 };
 
 struct MeshTexture {
-	uint32_t id;
-	std::string type;
-	std::string path;
+    u32 id;
+    std::string type;
+    std::string path;
 };
 
 class Mesh {
-   public:
-	Mesh(std::vector<MeshVertex> vertices, std::vector<uint32_t> indices, std::vector<MeshTexture> textures);
+  public:
+    Mesh(std::vector<MeshVertex> vertices, std::vector<u32> indices, std::vector<MeshTexture> textures);
 
-	void Render(Shader &shader);
+    void render(Shader &shader);
 
-   private:
-	void SetupMesh();
+  private:
+    void setup_mesh();
 
-	std::vector<MeshVertex> vertices_;
-	std::vector<uint32_t> indices_;
-	std::vector<MeshTexture> textures_;
+    std::vector<MeshVertex> vertices;
+    std::vector<u32> indices;
+    std::vector<MeshTexture> textures;
 
-	uptr<VertexArray> vao_;
-	uptr<VertexBuffer> vbo_;
-	uptr<IndexBuffer> ibo_;
+    uptr<VertexArray> vao;
+    uptr<VertexBuffer> vbo;
+    uptr<IndexBuffer> ibo;
 };
 
-}  // namespace omega
+} // namespace omega::gfx::texture
 
-#endif  // OMEGA_GFX_TEXTURE_MESH_H
+#endif // OMEGA_GFX_TEXTURE_MESH_H

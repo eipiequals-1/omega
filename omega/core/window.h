@@ -11,7 +11,7 @@
 #include "omega/core/viewport.h"
 #include "omega/util/util.h"
 
-namespace omega {
+namespace omega::core {
 
 /**
  * Window abstraction of SDL_Window, SDL_SwapBuffers and
@@ -19,42 +19,42 @@ namespace omega {
  * OpenGL window functions
  */
 class Window {
-   public:
-	Window();
-	virtual ~Window();
+  public:
+    Window();
+    virtual ~Window();
 
-	/**
-	 * Constructs the Window object and returns if it was successful
-	 * @param width the initial width of the window
-	 * @param height the initial height of the window
-	 * @param resizable if it can be resized
-	 * @param title the window title
-	 */
-	virtual bool Init(uint32_t width, uint32_t height, bool resizable, const std::string &title);
+    /**
+     * Constructs the Window object and returns if it was successful
+     * @param width the initial width of the window
+     * @param height the initial height of the window
+     * @param resizable if it can be resized
+     * @param title the window title
+     */
+    virtual bool init(u32 width, u32 height, bool resizable, const std::string &title);
 
-	/**
-	 * Specify the window clear color and abstracts it
-	 * @param color of (r, g, b, a) components
-	 */
-	virtual void SetClearColor(const glm::vec4 &color) {
-		glClearColor(color.r, color.g, color.b, color.a);
-	}
-	virtual void Clear(GLbitfield mask = GL_COLOR_BUFFER_BIT);
-	virtual void SwapBuffers();
-	virtual void OnResize(uint32_t new_width, uint32_t new_height);
+    /**
+     * Specify the window clear color and abstracts it
+     * @param color of (r, g, b, a) components
+     */
+    virtual void set_clear_color(const glm::vec4 &color) {
+        glClearColor(color.r, color.g, color.b, color.a);
+    }
+    virtual void clear(GLbitfield mask = GL_COLOR_BUFFER_BIT);
+    virtual void swap_buffers();
+    virtual void on_resize(u32 new_width, u32 new_height);
 
-	uint32_t GetWidth() const { return width_; }
-	uint32_t GetHeight() const { return height_; }
-	SDL_Window *GetNativeWindow() { return window_; }
-	SDL_GLContext GetGLContext() { return context_; }
+    u32 get_width() const { return width; }
+    u32 get_height() const { return height; }
+    SDL_Window *get_native_window() { return window; }
+    SDL_GLContext get_gl_context() { return context; }
 
-   protected:
-	uint32_t width_;
-	uint32_t height_;
-	SDL_Window *window_;
-	SDL_GLContext context_;
+  protected:
+    u32 width;
+    u32 height;
+    SDL_Window *window;
+    SDL_GLContext context;
 };
 
-}  // namespace omega
+} // namespace omega::core
 
-#endif  // OMEGA_CORE_WINDOW_H
+#endif // OMEGA_CORE_WINDOW_H

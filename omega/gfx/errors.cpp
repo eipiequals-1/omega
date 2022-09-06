@@ -5,17 +5,17 @@
 
 #include <iostream>
 
-namespace omega {
+namespace omega::gfx {
 
-bool GLCheckError() {
-	int count = 0;
-	GLenum error = glGetError();
-	while (error != GL_NO_ERROR) {
-		std::cout << "[OpenGL Error] (" << error << ": " << gluErrorString(error) << ")" << std::endl;
-		error = glGetError();
-		count++;
-	}
-	return count > 0;
+bool glCheckError() {
+    int count = 0;
+    GLenum error = glGetError();
+    while (error != GL_NO_ERROR) {
+        std::cout << "[OpenGL Error] (" << error << ": " << gluErrorString(error) << ")" << std::endl;
+        error = glGetError();
+        count++;
+    }
+    return count > 0;
 }
 
-}  // namespace omega
+} // namespace omega::gfx

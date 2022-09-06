@@ -5,24 +5,24 @@
 
 #include "omega/scene/layer.h"
 
-namespace omega {
+namespace omega::scene {
 
 class LayerStack {
-   public:
-	LayerStack();
-	~LayerStack();
+  public:
+    LayerStack();
+    ~LayerStack();
 
-	void Render(float dt);
-	void Update(float dt);
-	void Input(float dt);
+    void render(f32 dt);
+    void update(f32 dt);
+    void input(f32 dt);
 
-	void PushLayer(Layer* layer);
-	void PopLayer();
+    void push_layer(Layer *layer);
+    void pop_layer();
 
-   private:
-	std::vector<Layer*> layers_;
+  private:
+    std::vector<Layer *> layers;
 };
 
-}  // namespace omega
+} // namespace omega::scene
 
-#endif  // OMEGA_SCENE_LAYERSTACK_H
+#endif // OMEGA_SCENE_LAYERSTACK_H

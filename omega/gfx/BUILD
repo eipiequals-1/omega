@@ -39,6 +39,7 @@ cc_library(
     linkopts = DEFAULT_LINKOPTS,
     deps = [
         "@GL//:GL",
+        "//omega/util:util"
     ]
 )
 
@@ -67,7 +68,7 @@ cc_library(
         ":vertex_buffer",
         ":vertex_buffer_layout",
         ":vertex_array",
-        "//omega/util:util"
+        "//omega/util:util",
     ]
 )
 
@@ -85,7 +86,7 @@ cc_library(
         ":vertex_buffer",
         ":vertex_buffer_layout",
         ":vertex_array",
-        ":index_buffer"
+        ":index_buffer",
     ]
 )
 
@@ -98,7 +99,8 @@ cc_library(
     deps = [
         "@GL//:GL",
         "vertex_buffer",
-        "vertex_buffer_layout"
+        "vertex_buffer_layout",
+        "//omega/util:util",
     ]
 )
 
@@ -110,6 +112,7 @@ cc_library(
     linkopts = DEFAULT_LINKOPTS,
     deps = [
         "@GL//:GL",
+        "//omega/util:util",
     ]
 )
 
@@ -121,5 +124,24 @@ cc_library(
     linkopts = DEFAULT_LINKOPTS,
     deps = [
         "@GL//:GL",
+        "//omega/util:util"
+    ]
+)
+
+cc_library(
+    name = "gfx",
+    hdrs = ["gfx.h"],
+    copts = DEFAULT_COPTS,
+    linkopts = DEFAULT_LINKOPTS,
+    deps = [
+        ":errors",
+        ":frame_buffer",
+        ":index_buffer",
+        ":shader",
+        ":shape_renderer",
+        ":sprite_batch",
+        ":vertex_array",
+        ":vertex_buffer",
+        ":vertex_buffer_layout",
     ]
 )

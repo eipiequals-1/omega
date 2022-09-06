@@ -1,11 +1,11 @@
 #include "layer.h"
 
-namespace omega {
+namespace omega::scene {
 
-Layer::Layer(const std::string &name) : name_(name) {
+Layer::Layer(const std::string &name) : name(name) {
 }
 
 Layer::~Layer() {
 }
 
-}  // namespace omega
+} // namespace omega

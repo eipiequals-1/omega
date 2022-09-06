@@ -1,8 +1,8 @@
 #include "vertex_buffer_layout.h"
 
-namespace omega {
+namespace omega::gfx {
 
-VertexBufferLayout::VertexBufferLayout() : stride_(0) {
+VertexBufferLayout::VertexBufferLayout() : stride(0) {
 }
 
 }
