@@ -30,6 +30,14 @@ cc_library(
 )
 
 cc_library(
+    name = "random",
+    srcs = ["random.cpp"],
+    hdrs = ["random.h"],
+    copts = DEFAULT_COPTS,
+    linkopts = DEFAULT_LINKOPTS,
+)
+
+cc_library(
     name = "std",
     hdrs = ["std.h"],
     copts = DEFAULT_COPTS,
@@ -54,5 +62,6 @@ cc_library(
         ":math",
         ":std",
         ":types",
+        ":random",
     ]
 )

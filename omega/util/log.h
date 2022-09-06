@@ -3,10 +3,10 @@
 
 #include <iostream>
 
-namespace omega {
+namespace omega::util {
 
 inline void log() {
-	std::cout << '\n';
+    std::cout << '\n';
 }
 
 /**
@@ -14,10 +14,10 @@ inline void log() {
  * @param args any arguments to print
  */
 template <typename T, typename... Args>
-void log(T& t, Args&&... args) {
-	std::cout << t << ' ';
-	log(args...);
+void log(T &t, Args &&...args) {
+    std::cout << t << ' ';
+    log(args...);
 }
-}  // namespace omega
+} // namespace omega::util
 
-#endif  // OMEGA_UTIL_LOG_H
+#endif // OMEGA_UTIL_LOG_H

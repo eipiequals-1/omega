@@ -18,4 +18,4 @@ using byte = uint8_t;
 using f32 = float;
 using f64 = double;
 
-#endif  // OMEGA_UTIL_TYPES_H
+#endif // OMEGA_UTIL_TYPES_H
