@@ -14,16 +14,12 @@ cc_library(
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
-        "//omega/core:application",
-        "//omega/core:using",
-        "//omega/core:orthographic_camera",
-        "//omega/events:event",
-        "//omega/events:input_manager",
-        "//omega/scene:imgui_layer",
-        "//omega/gfx:errors",
-        "//omega/gfx:shape_renderer",
-        "//omega/gfx:sprite_batch",
-        "//omega/gfx:frame_buffer",
+        "//omega/core:core",
+        "//omega/util:util",
+        "//omega/events:events",
+        "//omega/scene:scene",
+        "//omega/gfx:gfx",
+        "//omega/vendor/imgui:imgui"
     ]
 )
 
@@ -35,6 +31,6 @@ cc_binary(
     linkstatic = True,
     deps = [
         ":editor_layer",
-        "//omega/core:application",
+        "//omega/core:core",
     ]
 )

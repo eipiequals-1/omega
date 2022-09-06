@@ -1,34 +1,34 @@
 #ifndef EDITOR_EDITORLAYER_H
 #define EDITOR_EDITORLAYER_H
 
-#include "omega/core/orthographic_camera.h"
-#include "omega/core/using.h"
-#include "omega/core/viewport.h"
-#include "omega/events/event.h"
-#include "omega/events/input_manager.h"
-#include "omega/gfx/frame_buffer.h"
-#include "omega/scene/imgui_layer.h"
-#include "omega/scene/layer.h"
+#include "omega/core/core.h"
+#include "omega/events/events.h"
+#include "omega/gfx/gfx.h"
+#include "omega/scene/scene.h"
+#include "omega/util/util.h"
+#include "omega/vendor/imgui/imgui.h"
 
 namespace editor {
 
-class EditorLayer : public omega::Layer {
-   public:
-	EditorLayer();
-	~EditorLayer() override;
+using namespace omega;
 
-	void Render(float dt) override;
-	void Update(float dt) override;
-	void Input(float dt) override;
+class EditorLayer : public scene::Layer {
+  public:
+    EditorLayer();
+    ~EditorLayer() override;
 
-   private:
-	omega::Uptr<omega::ImGuiLayer> imgui_layer_;
-	omega::Uptr<omega::FrameBuffer> frame_buffer_;
-	omega::Uptr<omega::OrthographicCamera> camera_;
-	omega::Uptr<omega::Viewport> scene_viewport_;
-	glm::vec2 scene_dock_size_;
+    void render(float dt) override;
+    void update(float dt) override;
+    void input(float dt) override;
+
+  private:
+    util::uptr<scene::ImGuiLayer> imgui_layer;
+    util::uptr<gfx::FrameBuffer> frame_buffer;
+    util::uptr<core::OrthographicCamera> camera;
+    util::uptr<core::Viewport> scene_viewport;
+    glm::vec2 scene_dock_size;
 };
 
-}  // namespace editor
+} // namespace editor
 
-#endif  // EDITOR_EDITORLAYER_H
+#endif // EDITOR_EDITORLAYER_H

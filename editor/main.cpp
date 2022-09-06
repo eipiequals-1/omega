@@ -1,23 +1,23 @@
 #include "editor/editor_layer.h"
-#include "omega/core/application.h"
+#include "omega/core/core.h"
 
 namespace editor {
 
-class EditorApplication : public omega::Application {
-   public:
-	EditorApplication(const omega::ApplicationConfig &config) : omega::Application::Application(config) {
-		PushLayer(new EditorLayer());
-	}
+class EditorApplication : public omega::core::Application {
+  public:
+    EditorApplication(const omega::core::ApplicationConfig &config) : omega::core::Application::Application(config) {
+        push_layer(new EditorLayer());
+    }
 };
-}  // namespace editor
+} // namespace editor
 
 int main() {
-	omega::ApplicationConfig config;
-	config.width = 1920;
-	config.height = 1080;
-	config.title = "Omega Engine";
-	editor::EditorApplication *editor = new editor::EditorApplication(config);
-	editor->Run();
-	delete editor;
-	return 0;
+    omega::core::ApplicationConfig config;
+    config.width = 1920;
+    config.height = 1080;
+    config.title = "Omega Engine";
+    editor::EditorApplication *editor = new editor::EditorApplication(config);
+    editor->run();
+    delete editor;
+    return 0;
 }
