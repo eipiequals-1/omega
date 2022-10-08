@@ -1,8 +1,15 @@
 #ifndef OMEGA_UTIL_RANDOM_H
 #define OMEGA_UTIL_RANDOM_H
+
+#include <stdlib.h>
 #include <vector>
 
 namespace omega::util {
+
+template <typename T>
+T random(T min, T max) {
+    return min + (T)rand() / (T)RAND_MAX * (T)(max - min);
+}
 
 /**
  * @param min inclusive min value

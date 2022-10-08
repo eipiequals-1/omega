@@ -1,6 +1,5 @@
 #include "omega/util/random.h"
 
-#include <stdlib.h>
 #include <time.h>
 
 namespace omega::util {
