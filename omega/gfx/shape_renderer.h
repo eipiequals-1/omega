@@ -61,7 +61,7 @@ class ShapeRenderer {
     /**
      * Sets the view projection matrix, typically represented by a camera
      * Must be called before rendering:
-     * i.e. ShapeRenderer::End();
+     * i.e. ShapeRenderer::end();
      * @param mat the view projection matrix
      */
     virtual void set_view_projection_matrix(const glm::mat4 &mat) {

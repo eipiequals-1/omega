@@ -20,10 +20,10 @@ Font::~Font() {
 sptr<Texture> Font::render_text(const std::string &text, const glm::vec4 &color) {
     SDL_Color sdl_color;
     // shift colors 2 right because of TTF_RenderText_Blended errors
-    sdl_color.r = static_cast<Uint8>(color.b * 255);
-    sdl_color.g = static_cast<Uint8>(color.r * 255);
-    sdl_color.b = static_cast<Uint8>(color.g * 255);
-    sdl_color.a = static_cast<Uint8>(color.a * 255);
+    sdl_color.r = static_cast<u8>(color.b * 255);
+    sdl_color.g = static_cast<u8>(color.r * 255);
+    sdl_color.b = static_cast<u8>(color.g * 255);
+    sdl_color.a = static_cast<u8>(color.a * 255);
     SDL_Surface *surf = TTF_RenderText_Blended(font, text.c_str(), sdl_color);
     sptr<Texture> tex = Texture::create_from_surface(surf, GL_LINEAR, GL_LINEAR);
     SDL_FreeSurface(surf);
