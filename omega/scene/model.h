@@ -20,7 +20,7 @@ class Model {
   public:
     Model(const std::string &filepath);
 
-    void render(Shader &shader);
+    void render(gfx::Shader &shader);
 
   private:
     void process_node(aiNode *node, const aiScene *scene);

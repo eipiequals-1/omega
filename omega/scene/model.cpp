@@ -37,7 +37,7 @@ Model::Model(const std::string &filepath) {
     process_node(scene->mRootNode, scene);
 }
 
-void Model::render(Shader &shader) {
+void Model::render(gfx::Shader &shader) {
     for (auto &mesh : meshes) {
         mesh.render(shader);
     }
@@ -138,7 +138,7 @@ std::vector<MeshTexture> Model::load_material_textures(aiMaterial *mat, aiTextur
         }
         if (!skip) {
             MeshTexture texture;
-            texture.id = TextureFromFile(std::string(str.C_Str()));
+            texture.id = texture_from_file(std::string(str.C_Str()));
             texture.type = type_name;
             texture.path = str.C_Str();
             textures.push_back(texture);

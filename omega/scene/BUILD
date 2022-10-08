@@ -77,6 +77,29 @@ cc_library(
 )
 
 cc_library(
+    name = "orthographic_camera",
+    srcs = ["orthographic_camera.cpp"],
+    hdrs = ["orthographic_camera.h"],
+    copts = DEFAULT_COPTS,
+    linkopts = DEFAULT_LINKOPTS,
+    deps = [
+        ":camera",
+        "//omega/util:util"
+    ]
+)
+
+cc_library(
+    name = "perspective_camera",
+    srcs = ["perspective_camera.cpp"],
+    hdrs = ["perspective_camera.h"],
+    copts = DEFAULT_COPTS,
+    linkopts = DEFAULT_LINKOPTS,
+    deps = [
+        ":camera"
+    ]
+)
+
+cc_library(
     name = "scene",
     hdrs = ["scene.h"],
     copts = DEFAULT_COPTS,
@@ -88,5 +111,7 @@ cc_library(
         ":imgui_layer",
         ":layer_stack",
         ":layer",
+        ":orthographic_camera",
+        ":perspective_camera",
     ]
 )

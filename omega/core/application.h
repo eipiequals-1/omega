@@ -6,14 +6,15 @@
 #include <SDL2/SDL_ttf.h>
 
 #include "omega/core/window.h"
-#include "omega/scene/layer.h"
-#include "omega/scene/layer_stack.h"
+#include "omega/events/events.h"
+#include "omega/scene/scene.h"
 #include "omega/util/util.h"
 
 namespace omega::core {
 
 using namespace omega::util;
 using namespace omega::scene;
+using namespace omega::events;
 
 struct ApplicationConfig {
     u32 width = 800, height = 600;
@@ -24,11 +25,10 @@ struct ApplicationConfig {
 /**
  * Application class that handles everything from updating, rendering, handling input, etc
  *
- * Intended Use:
+ * @example
+ * class MyGame : public omega::core::Application { . . . }
  *
- * class MyGame : public Application { . . . }
- *
- * omega::ApplicationConfig config;
+ * omega::core::ApplicationConfig config;
  * // set application width, height, title, window settings etc
  * MyGame game(config);
  * game.run();
@@ -65,6 +65,7 @@ class Application {
     sptr<Window> window;
     bool running;
     uptr<LayerStack> layer_stack;
+    ImGuiLayer *imgui_layer;
     // singleton instance
     static Application *current_instance;
 };

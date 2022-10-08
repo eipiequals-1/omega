@@ -7,7 +7,7 @@ namespace omega::scene {
 
 class Layer {
   public:
-    Layer(const std::string &name = "Layer");
+    Layer(const std::string &name = "Layer", bool imgui = false);
     virtual ~Layer();
 
     virtual void render(f32 dt) = 0;
@@ -15,9 +15,11 @@ class Layer {
     virtual void input(f32 dt) = 0;
 
     const std::string &get_name() const { return name; }
+    bool is_imgui() const { return imgui; }
 
   protected:
     std::string name;
+    bool imgui;
 };
 
 } // namespace omega::scene

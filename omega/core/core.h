@@ -2,8 +2,6 @@
 #define OMEGA_CORE_CORE_H
 
 #include "omega/core/application.h"
-#include "omega/core/orthographic_camera.h"
-#include "omega/core/perspective_camera.h"
 #include "omega/core/sdl2.h"
 #include "omega/core/viewport.h"
 #include "omega/core/window.h"

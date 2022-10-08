@@ -7,5 +7,7 @@
 #include "omega/scene/imgui_layer.h"
 #include "omega/scene/layer.h"
 #include "omega/scene/layer_stack.h"
+#include "omega/scene/orthographic_camera.h"
+#include "omega/scene/perspective_camera.h"
 
 #endif // OMEGA_SCENE_SCENE_H

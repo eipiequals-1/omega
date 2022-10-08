@@ -2,7 +2,7 @@
 
 namespace omega::scene {
 
-Layer::Layer(const std::string &name) : name(name) {
+Layer::Layer(const std::string &name, bool imgui) : name(name), imgui(imgui) {
 }
 
 Layer::~Layer() {
