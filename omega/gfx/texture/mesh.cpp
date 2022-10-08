@@ -21,7 +21,7 @@ void Mesh::render(Shader &shader) {
         } else if (name == "textureSpecular") {
             number = std::to_string(specular_num++);
         }
-        shader.SetUniform1i(("material." + name + number).c_str(), i);
+        shader.set_uniform_1i(("material." + name + number).c_str(), i);
         glBindTexture(GL_TEXTURE_2D, textures[i].id);
     }
     glActiveTexture(GL_TEXTURE0);
@@ -40,11 +40,11 @@ void Mesh::setup_mesh() {
     vbo = create_uptr<VertexBuffer>(vertices.data(), vertices.size() * sizeof(MeshVertex));
     ibo = create_uptr<IndexBuffer>(indices.data(), indices.size());
     VertexBufferLayout layout;
-    layout.Push(GL_FLOAT, 3);
-    layout.Push(GL_FLOAT, 3);
-    layout.Push(GL_FLOAT, 2);
-    vao_->AddBuffer(*vbo, layout);
-    vao_->unbind();
+    layout.push(GL_FLOAT, 3);
+    layout.push(GL_FLOAT, 3);
+    layout.push(GL_FLOAT, 2);
+    vao->add_buffer(*vbo, layout);
+    vao->unbind();
 }
 
 } // namespace omega
