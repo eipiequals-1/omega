@@ -29,10 +29,6 @@ enum class InitFlags {
     k_everything = SDL_INIT_EVERYTHING
 };
 
-enum class WindowEvents {
-    k_window_resized = SDL_WINDOWEVENT_RESIZED
-};
-
 } // namespace omega::core
 
 #endif // OMEGA_CORE_USING_H

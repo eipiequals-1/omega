@@ -43,31 +43,8 @@ cc_library(
         "@SDL2//:SDL2",
         "//omega/util:util",
         ":window",
-        "//omega/scene:layer_stack",
-        "//omega/scene:layer",
-    ]
-)
-
-cc_library(
-    name = "orthographic_camera",
-    srcs = ["orthographic_camera.cpp"],
-    hdrs = ["orthographic_camera.h"],
-    copts = DEFAULT_COPTS,
-    linkopts = DEFAULT_LINKOPTS,
-    deps = [
-        "//omega/scene:camera",
-        "//omega/util:util"
-    ]
-)
-
-cc_library(
-    name = "perspective_camera",
-    srcs = ["perspective_camera.cpp"],
-    hdrs = ["perspective_camera.h"],
-    copts = DEFAULT_COPTS,
-    linkopts = DEFAULT_LINKOPTS,
-    deps = [
-        "//omega/scene:camera"
+        "//omega/scene:scene",
+        "//omega/events:events",
     ]
 )
 
@@ -100,8 +77,6 @@ cc_library(
     linkopts = DEFAULT_LINKOPTS,
     deps = [
         ":application",
-        ":orthographic_camera",
-        ":perspective_camera",
         ":sdl2",
         ":viewport",
         ":window",

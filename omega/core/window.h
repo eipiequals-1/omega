@@ -13,6 +13,8 @@
 
 namespace omega::core {
 
+using namespace omega::util;
+
 /**
  * Window abstraction of SDL_Window, SDL_SwapBuffers and
  *
@@ -20,8 +22,14 @@ namespace omega::core {
  */
 class Window {
   public:
-    Window();
+    Window(const Window &) = delete;
+    Window operator=(const Window &) = delete;
     virtual ~Window();
+
+    static sptr<Window> instance() {
+        static sptr<Window> win = sptr<Window>(new Window());
+        return win;
+    }
 
     /**
      * Constructs the Window object and returns if it was successful
@@ -49,6 +57,8 @@ class Window {
     SDL_GLContext get_gl_context() { return context; }
 
   protected:
+    Window();
+
     u32 width;
     u32 height;
     SDL_Window *window;

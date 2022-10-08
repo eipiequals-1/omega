@@ -17,9 +17,9 @@ class Viewport {
     Viewport(ViewportType viewport_type, u32 initial_width, u32 initial_height);
     virtual ~Viewport();
 
-    virtual void on_resize(u32 new_width, u32 new_height);
-    u32 get_viewport_width() const { return current_width; }
-    u32 get_viewport_height() const { return current_height; }
+    virtual glm::rect<u32> on_resize(u32 new_width, u32 new_height);
+    u32 get_width() const { return current_width; }
+    u32 get_height() const { return current_height; }
 
   private:
     ViewportType viewport_type;
