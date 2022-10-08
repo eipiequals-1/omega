@@ -4,7 +4,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_events.h>
 
-#include "omega/core/application.h"
+#include "omega/core/window.h"
 #include "omega/events/event.h"
 #include "omega/events/key_manager.h"
 #include "omega/util/util.h"

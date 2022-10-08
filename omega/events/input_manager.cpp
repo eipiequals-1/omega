@@ -28,8 +28,8 @@ void InputManager::update() {
     } else {
         buttons = SDL_GetMouseState(&x, &y);
         mouse_pos.x = (f32)x;
-        mouse_pos.y = (f32)(Application::instance().get_window()->get_height() - y);
+        mouse_pos.y = (f32)(Window::instance()->get_height() - y);
     }
 }
 
-} // namespace omega
+} // namespace omega::events
