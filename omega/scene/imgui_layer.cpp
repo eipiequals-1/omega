@@ -6,7 +6,7 @@
 
 namespace omega::scene {
 
-ImGuiLayer::ImGuiLayer(Window *window) : Layer("ImGuiLayer"), window(window) {
+ImGuiLayer::ImGuiLayer(Window *window) : Layer("ImGuiLayer", true), window(window) {
     // setup imgui
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
