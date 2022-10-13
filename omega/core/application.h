@@ -55,7 +55,7 @@ class Application {
     void push_layer(Layer *layer);
 
     /**
-     * Clamps the application by sleeping the CPU to run at Application::fps_
+     * Clamps the application by sleeping the CPU to run at Application::fps
      * @return delta time in seconds from the last frame
      */
     virtual f32 tick();

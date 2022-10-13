@@ -4,8 +4,6 @@
 
 namespace omega::core {
 
-using namespace omega::util;
-
 Application *Application::current_instance = nullptr;
 
 Application::Application(const ApplicationConfig &config) : fps(60), last_time(0), window(nullptr), running(true) {
@@ -72,9 +70,19 @@ void Application::run() {
             }
         }
         input->update();
+        // handle the inputs to the layers
         layer_stack->input(dt);
+        imgui_layer->input(dt);
+
+        // update the layers and timers
+        Time::tick(dt);
         layer_stack->update(dt);
+        imgui_layer->update(dt);
+
+        // render each layer
         layer_stack->render(dt);
+        imgui_layer->render(dt);
+
         window->swap_buffers();
     }
 }
