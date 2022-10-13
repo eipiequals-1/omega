@@ -1,5 +1,5 @@
-#ifndef OMEGA_CORE_ORTHOCAMERA_H
-#define OMEGA_CORE_ORTHOCAMERA_H
+#ifndef OMEGA_CORE_ORTHOGRAPHICCAMERA_H
+#define OMEGA_CORE_ORTHOGRAPHICCAMERA_H
 
 #include "omega/scene/camera.h"
 #include "omega/util/util.h"
@@ -50,4 +50,4 @@ class OrthographicCamera : public Camera {
 };
 } // namespace omega::scene
 
-#endif // OMEGA_CORE_ORTHOCAMERA_H
+#endif // OMEGA_CORE_ORTHOGRAPHICCAMERA_H
