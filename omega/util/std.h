@@ -1,7 +1,15 @@
 #ifndef OMEGA_UTIL_STD_H
 #define OMEGA_UTIL_STD_H
 
+#include <array>
+#include <fstream>
+#include <functional>
+#include <iostream>
+#include <list>
 #include <memory>
+#include <string>
+#include <unordered_map>
+#include <vector>
 
 namespace omega::util {
 

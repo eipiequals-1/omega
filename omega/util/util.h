@@ -6,6 +6,7 @@
 #include "omega/util/math.h"
 #include "omega/util/random.h"
 #include "omega/util/std.h"
+#include "omega/util/time.h"
 #include "omega/util/types.h"
 
 #endif // OMEGA_UTIL_UTIL_H

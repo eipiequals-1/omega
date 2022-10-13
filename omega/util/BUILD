@@ -45,6 +45,18 @@ cc_library(
 )
 
 cc_library(
+    name = "time",
+    srcs = ["time.cpp"],
+    hdrs = ["time.h"],
+    copts = DEFAULT_COPTS,
+    linkopts = DEFAULT_LINKOPTS,
+    deps = [
+        ":std",
+        ":types",
+    ]
+)
+
+cc_library(
     name = "types",
     hdrs = ["types.h"],
     copts = DEFAULT_COPTS,
@@ -63,5 +75,6 @@ cc_library(
         ":std",
         ":types",
         ":random",
+        ":time",
     ]
 )
