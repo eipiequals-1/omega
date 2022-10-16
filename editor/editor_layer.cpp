@@ -2,99 +2,67 @@
 
 namespace editor {
 
-EditorLayer::EditorLayer() : scene::Layer::Layer("Omega Editor Layer") {
-    imgui_layer = util::create_uptr<scene::ImGuiLayer>(core::Application::instance().get_window().get());
-    imgui_layer->set_dark_theme();
+EditorLayer::EditorLayer() : scene::ImGuiLayer::ImGuiLayer(omega::core::Application::instance().get_window().get()) {
+    set_dark_theme();
 
     frame_buffer = util::create_uptr<gfx::FrameBuffer>(1280, 720);
-    camera = util::create_uptr<core::OrthographicCamera>(0.0f, 1280.0f, 0.0f, 720.0f);
+    camera = util::create_uptr<scene::OrthographicCamera>(0.0f, 1280.0f, 0.0f, 720.0f);
+    camera->recalculate_view_matrix();
     scene_viewport = util::create_uptr<core::Viewport>(core::ViewportType::k_fit, 1280, 720);
-    scene_dock_size.x = 1280.0f;
-    scene_dock_size.y = 720.0f;
+
+    // load music
+    auto sound_manager = sound::SoundManager::instance();
+    music = sound_manager->load_music("./editor/DST-RailJet-LongSeamlessLoop.ogg");
+    sound_manager->play_music(music, 1.0f);
 }
 
 EditorLayer::~EditorLayer() {
 }
 
-void EditorLayer::input(float dt) {
+void EditorLayer::input(f32 dt) {
     (void)dt;
-    events::Event event;
-    util::sptr<events::InputManager> input = events::InputManager::instance();
-    input->prepare_for_update();
-    while (input->poll_events(event)) {
-        imgui_layer->input(event);
-        switch ((events::EventType)event.type) {
-        case events::EventType::k_quit: {
-            core::Application::instance().set_running(false);
-            break;
-        }
-        case events::EventType::k_window_event: {
-            if (event.window.type == (uint32_t)events::WindowEvents::k_window_resized) {
-                core::Application::instance().on_resize(event.window.data1, event.window.data2);
-            }
-            break;
-        }
-        default:
-            break;
-        }
-    }
-    input->update();
-    auto key_manager = input->get_key_manager();
+    auto key_manager = events::InputManager::instance()->get_key_manager();
     if (key_manager->key_pressed(events::Key::k_q) && key_manager->key_pressed(events::Key::k_l_ctrl)) {
         core::Application::instance().set_running(false);
         return;
     }
 }
 
-void EditorLayer::update(float dt) {
+void EditorLayer::update(f32 dt) {
     (void)dt;
 }
 
-void EditorLayer::render(float dt) {
+void EditorLayer::render(f32 dt) {
     (void)dt;
+    static glm::vec2 scene_dock_size(1280.0f, 720.0f);
+    // util::log("frame buffer size", frame_buffer->get_width(), frame_buffer->get_height());
 
     util::sptr<core::Window> window = core::Application::instance().get_window();
 
     frame_buffer->bind();
-    // const auto fit_aspect_ratio = [](float src_width, float src_height, float max_width, float max_height) {
-    // 	const float ratio = glm::min(max_width / src_width, max_height / src_height);
-    // 	return glm::vec2(src_width * ratio, src_height * ratio);
-    // };
+    scene_viewport->on_resize(frame_buffer->get_width(), frame_buffer->get_height());
 
-    // const glm::vec2 size = fit_aspect_ratio(1280.0f, 720.0f, scene_dock_size_.x, scene_dock_size_.y);
-    // float margin_left = glm::round((scene_dock_size_.x - size.x) / 2.0f);
-    // float margin_bottom = glm::round((scene_dock_size_.y - size.y) / 2.0f);
-
-    // glViewport((GLint)margin_left, (GLint)margin_bottom, (uint32_t)glm::round(size.x), (uint32_t)glm::round(size.y));
-    // omega::Log(scene_viewport_->GetViewportWidth(), scene_viewport_->GetViewportHeight(), scene_dock_size_.x, scene_dock_size_.y);
-
-    scene_viewport->on_resize((uint32_t)glm::round(scene_dock_size.x), (uint32_t)glm::round(scene_dock_size.y));
-    // glViewport(0, 63, 1629, 916);
-    glViewport(0, 0, frame_buffer->get_width(), frame_buffer->get_height());
-    // omega::Log("viewport_size:", scene_viewport_->GetViewportWidth());
     window->set_clear_color(util::color::black);
     window->clear();
     // render scene to frame buffer
     gfx::ShapeRenderer &renderer = gfx::ShapeRenderer::instance();
-    camera->recalculate_view_matrix();
     renderer.set_view_projection_matrix(camera->get_view_projection_matrix());
 
     renderer.begin();
     renderer.color(util::color::white);
-    renderer.rect(glm::rectf(0.0f, 0.0f, frame_buffer->get_width(), frame_buffer->get_height()));
+    renderer.rect(glm::rectf(0.0f, 0.0f, camera->get_width(), camera->get_height()));
 
     renderer.color(1.0f, 0.3f, 0.5f, 1.0f);
-    renderer.rect(glm::rectf(scene_viewport->get_viewport_width() / 2.0f - 50.0f, scene_viewport->get_viewport_height() / 2.0f - 50.0f, 100.0f, 100.0f));
+    renderer.rect(glm::rectf(camera->get_width() / 2.0f - 50.0f, camera->get_height() / 2.0f - 50.0f, 100.0f, 100.0f));
 
     renderer.end();
     frame_buffer->unbind();
     // reset viewport
-    core::Application::instance().on_resize(window->get_width(), window->get_height());
     window->clear();
 
     // render ImGui
     {
-        imgui_layer->begin();
+        begin();
 
         static bool dockspace_open = true;
         static bool opt_fullscreen = true;
@@ -153,36 +121,29 @@ void EditorLayer::render(float dt) {
         ImGui::Text("FPS: %.2f", 1 / dt);
         static glm::vec4 color;
         ImGui::ColorEdit4("Square Color", glm::value_ptr(color));
+        static float volume = 0.0f;
+
+        ImGui::SliderFloat("Music Volume", &volume, 0.0f, 1.0f, nullptr, 1.0f);
         ImGui::End();
+        // change sound volume
+        sound::SoundManager::instance()->set_music_volume(music, volume);
 
         ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{0.0f, 0.0f});
         ImGui::Begin("Scene");
 
         ImVec2 viewport_panel_size = ImGui::GetContentRegionAvail();
         if (scene_dock_size.x != viewport_panel_size.x || scene_dock_size.y != viewport_panel_size.y) {
-            frame_buffer->resize((uint32_t)glm::round(viewport_panel_size.x), (uint32_t)glm::round(viewport_panel_size.y));
-            // omega::Log("Width available:", viewport_panel_size.x);
+            frame_buffer->resize((u32)glm::round(viewport_panel_size.x), (u32)glm::round(viewport_panel_size.y));
+            scene_dock_size = {viewport_panel_size.x, viewport_panel_size.y};
         }
-        scene_dock_size = {viewport_panel_size.x, viewport_panel_size.y};
 
-        uint32_t texture_id = frame_buffer->get_color_buffer()->get_renderer_id();
+        u32 texture_id = frame_buffer->get_color_buffer()->get_renderer_id();
         ImGui::Image(reinterpret_cast<ImTextureID>(texture_id), viewport_panel_size, ImVec2{0.0f, 1.0f}, ImVec2{1.0f, 0.0f});
         ImGui::PopStyleVar();
 
         ImGui::End();
 
-        imgui_layer->end();
+        end();
     }
-    gfx::SpriteBatch &batch = gfx::SpriteBatch::instance();
-    batch.set_view_projection_matrix(camera->get_view_projection_matrix());
-    batch.begin_render();
-
-    // width / height = dest w / dest h
-    float width = 100.0f;
-    float height = width * frame_buffer->get_height() / frame_buffer->get_width();
-    batch.render_texture(frame_buffer->get_color_buffer().get(), 400.0f, 200.0f, width, height);
-
-    batch.end_render();
-    // omega::GLCheckError();
 }
 } // namespace editor

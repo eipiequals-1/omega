@@ -5,6 +5,7 @@
 #include "omega/events/events.h"
 #include "omega/gfx/gfx.h"
 #include "omega/scene/scene.h"
+#include "omega/sound/sound.h"
 #include "omega/util/util.h"
 #include "omega/vendor/imgui/imgui.h"
 
@@ -12,7 +13,7 @@ namespace editor {
 
 using namespace omega;
 
-class EditorLayer : public scene::Layer {
+class EditorLayer : public scene::ImGuiLayer {
   public:
     EditorLayer();
     ~EditorLayer() override;
@@ -22,11 +23,10 @@ class EditorLayer : public scene::Layer {
     void input(float dt) override;
 
   private:
-    util::uptr<scene::ImGuiLayer> imgui_layer;
     util::uptr<gfx::FrameBuffer> frame_buffer;
-    util::uptr<core::OrthographicCamera> camera;
+    util::uptr<scene::OrthographicCamera> camera;
     util::uptr<core::Viewport> scene_viewport;
-    glm::vec2 scene_dock_size;
+    sound::MusicID music;
 };
 
 } // namespace editor
