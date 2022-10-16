@@ -36,4 +36,4 @@ glm::rect<u32> Viewport::on_resize(u32 new_width, u32 new_height) {
     }
 }
 
-} // namespace omega
+} // namespace omega::core

@@ -111,13 +111,13 @@ class ShapeRenderer {
     }
 
     /**
-     * Renders a rectangle with the current ShapeRenderer::color_
+     * Renders a rectangle with the current ShapeRenderer::color
      * @param rect rect in world space coords
      */
     virtual void rect(const glm::rectf &rect);
 
     /**
-     * Renders a rotated rectangle with the current ShapeRenderer::color_
+     * Renders a rotated rectangle with the current ShapeRenderer::color
      * @param rect rect in world space coords
      * @param rotation in trigonometric direction & degrees
      */
@@ -125,7 +125,7 @@ class ShapeRenderer {
 
     /**
      * Renders a triangle with the given points
-     * and the current ShapeRenderer::color_
+     * and the current ShapeRenderer::color
      * @param p1 point 1
      * @param p2 point 2
      * @param p3 point 3
@@ -134,7 +134,7 @@ class ShapeRenderer {
 
     /**
      * Renders a triangle with the given points
-     * and the current ShapeRenderer::color_
+     * and the current ShapeRenderer::color
      */
     virtual void triangle(f32 x1, f32 y1, f32 x2, f32 y2, f32 x3, f32 y3);
 
@@ -159,7 +159,7 @@ class ShapeRenderer {
     /**
      * Renders a line in the same way as
      *
-     * ShapeRenderer::Line(const glm::vec2 &p1, const glm::vec2 &p2, f32 thickness);
+     * ShapeRenderer::line(const glm::vec2 &p1, const glm::vec2 &p2, f32 thickness);
      */
     virtual void line(f32 x1, f32 y1, f32 x2, f32 y2, f32 thickness = 1.0f);
 
