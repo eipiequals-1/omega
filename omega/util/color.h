@@ -6,9 +6,29 @@
 namespace omega::util {
 namespace color {
 
+/**
+ * Converts a 32 bit representation of a color to a normalized rgba color vector
+ * @param a the 32 bit color
+ * @return the rgba color vector
+ */
 inline glm::vec4 to_vec4(glm::u32 a) {
     unsigned char *vals = (unsigned char *)&a;
     return glm::vec4(vals[0] / 0xff, vals[1] / 0xff, vals[2] / 0xff, vals[3] / 0xff);
+}
+
+/**
+ * Converts a normalized rgba color vector to a 32 bit representation of it
+ * @param a the normalized color vector
+ * @return 32 bit representation of color
+ */
+inline glm::u32 to_u32(const glm::vec4 &a) {
+    glm::u32 b;
+    glm::u8 *ptr = (glm::u8 *)&b;
+    ptr[0] = (glm::u8)(a.r * 0xff);
+    ptr[1] = (glm::u8)(a.g * 0xff);
+    ptr[2] = (glm::u8)(a.b * 0xff);
+    ptr[3] = (glm::u8)(a.a * 0xff);
+    return b;
 }
 
 /**
