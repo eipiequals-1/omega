@@ -12,7 +12,7 @@ Application::Application(const ApplicationConfig &config) : fps(60), last_time(0
     running = window->init(config.width, config.height, config.resizable, config.title);
     // init TTF_Font
     if (TTF_Init() != 0) {
-        util::log("Unable to initialize SDL_ttf: '", SDL_GetError(), "'");
+        util::error("Unable to initialize SDL_ttf: '", SDL_GetError(), "'");
         running = false;
     }
     layer_stack = create_uptr<LayerStack>();
@@ -28,7 +28,7 @@ Application::~Application() {
 
 void Application::push_layer(Layer *layer) {
     if (layer == nullptr) {
-        log("Invalid layer: layer = nullptr!");
+        error("Invalid layer: layer = nullptr!");
         return;
     }
     if (layer->is_imgui() && imgui_layer == nullptr) {

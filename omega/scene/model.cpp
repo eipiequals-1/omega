@@ -9,7 +9,7 @@ static u32 texture_from_file(const std::string &filepath) {
     u32 id = 0;
     SDL_Surface *surf = IMG_Load(filepath.c_str());
     if (surf == nullptr) {
-        util::log("IMG error: Error loading '", filepath, "': ", IMG_GetError());
+        util::error("IMG error: Error loading '", filepath, "': ", IMG_GetError());
         return id;
     }
     glGenTextures(1, &id);
@@ -31,7 +31,7 @@ Model::Model(const std::string &filepath) {
     const aiScene *scene = importer.ReadFile(filepath, aiProcess_Triangulate | aiProcess_FlipUVs);
 
     if (scene == nullptr || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || scene->mRootNode == nullptr) {
-        util::log("Error: Assimp: ", importer.GetErrorString());
+        util::error("Error: Assimp: ", importer.GetErrorString());
     }
     directory = filepath.substr(0, filepath.find_last_of('/'));
     process_node(scene->mRootNode, scene);

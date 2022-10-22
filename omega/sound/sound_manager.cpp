@@ -4,11 +4,11 @@ namespace omega::sound {
 
 SoundManager::SoundManager() {
     if (Mix_Init(MIX_INIT_MP3 | MIX_INIT_FLAC | MIX_INIT_OGG) == 0) {
-        log("SDL_mixer error: Failed to initialize! '", Mix_GetError(), "'");
+        util::error("SDL_mixer error: Failed to initialize! '", Mix_GetError(), "'");
     }
     // sound frequency, sample format, number of hardware channels, sample size (2048 bytes)
     if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) != 0) {
-        log("SDL_mixer error: Failed to open mixer! '", Mix_GetError(), "'");
+        util::error("SDL_mixer error: Failed to open mixer! '", Mix_GetError(), "'");
     }
 }
 

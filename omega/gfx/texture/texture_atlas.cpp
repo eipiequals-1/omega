@@ -22,7 +22,7 @@ TextureAtlas::TextureAtlas(const std::string &atlas_file_path, GLenum min_filter
     // open file
     FILE *atlas_file = fopen(atlas_file_path.c_str(), "r");
     if (atlas_file == nullptr) {
-        util::log("Unable to open texture atlas");
+        util::error("Unable to open texture atlas");
         return;
     }
     // load file data

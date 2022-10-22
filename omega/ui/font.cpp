@@ -7,7 +7,7 @@ namespace omega::ui {
 Font::Font(const std::string &path, u32 size) : font(nullptr) {
     font = TTF_OpenFont(path.c_str(), size);
     if (font == nullptr) {
-        util::log("TTF Error: Failed to load font '", path, "' at size ", size);
+        util::error("TTF Error: Failed to load font '", path, "' at size ", size);
     }
 }
 

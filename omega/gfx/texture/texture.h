@@ -41,7 +41,7 @@ class Texture {
     static sptr<Texture> create_from_file(const std::string &filepath, GLenum min_filter = GL_NEAREST, GLenum mag_filter = GL_NEAREST) {
         SDL_Surface *surf = IMG_Load(filepath.c_str());
         if (surf == nullptr) {
-            util::log("IMG error: Error loading '", filepath, "': ", IMG_GetError());
+            util::error("IMG error: Error loading '", filepath, "': ", IMG_GetError());
             return nullptr;
         }
         sptr<Texture> texture = Texture::create_from_surface(surf, min_filter, mag_filter);

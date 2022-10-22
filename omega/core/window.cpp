@@ -22,7 +22,7 @@ bool Window::init(u32 width, u32 height, bool resizable, const std::string &titl
     this->width = width;
     this->height = height;
     if (SDL_Init((u32)InitFlags::k_everything) != 0) {
-        util::log("Failed to initialize SDL: '", SDL_GetError(), "'");
+        util::error("Failed to initialize SDL: '", SDL_GetError(), "'");
         return false;
     }
     // use the core OpenGL profile
@@ -44,14 +44,14 @@ bool Window::init(u32 width, u32 height, bool resizable, const std::string &titl
 
     window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, (u32)window_flags);
     if (window == nullptr) {
-        util::log("Failed to create window: '", SDL_GetError(), "'");
+        util::error("Failed to create window: '", SDL_GetError(), "'");
         SDL_Quit();
         return false;
     }
 
     context = SDL_GL_CreateContext(window);
     if (context == nullptr) {
-        util::log("Failed to create GL Context: '", SDL_GetError(), "'");
+        util::error("Failed to create GL Context: '", SDL_GetError(), "'");
         SDL_DestroyWindow(window);
         SDL_Quit();
         return false;

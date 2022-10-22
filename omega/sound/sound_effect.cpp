@@ -5,7 +5,7 @@ namespace omega::sound {
 SoundEffect::SoundEffect(const std::string &filepath) : chunk(nullptr) {
     chunk = Mix_LoadWAV(filepath.c_str());
     if (chunk == nullptr) {
-        log("Failed to load wav file: '", filepath, "' Mix Callback: '", Mix_GetError(), "'");
+        error("Failed to load wav file: '", filepath, "' Mix Callback: '", Mix_GetError(), "'");
     }
 }
 
