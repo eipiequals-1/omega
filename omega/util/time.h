@@ -13,7 +13,7 @@ class Time {
      * @param seconds
      * @param callback is called when the timer completes, passes the elapsed time since the timer ended as arg
      */
-    static void add_timer(float seconds, std::function<void(f32)> callback) {
+    static void add_timer(f32 seconds, std::function<void(f32)> callback) {
         // create new event
         uptr<TimeEvent> time_event = create_uptr<TimeEvent>();
         time_event->duration = seconds;
