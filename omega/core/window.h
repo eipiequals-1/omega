@@ -41,12 +41,17 @@ class Window {
     virtual bool init(u32 width, u32 height, bool resizable, const std::string &title);
 
     /**
-     * Specify the window clear color and abstracts it
+     * Specify the framebuffer clear color and abstracts it
      * @param color of (r, g, b, a) components
      */
     virtual void set_clear_color(const glm::vec4 &color) {
         glClearColor(color.r, color.g, color.b, color.a);
     }
+
+    /**
+     * Clear the current framebuffer with glClearColor
+     * @param mask the buffer types to clear (default=GL_COLOR_BUFFER_BIT)
+     */
     virtual void clear(GLbitfield mask = GL_COLOR_BUFFER_BIT);
     virtual void swap_buffers();
     virtual void on_resize(u32 new_width, u32 new_height);

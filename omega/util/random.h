@@ -8,7 +8,7 @@ namespace omega::util {
 
 template <typename T>
 T random(T min, T max) {
-    return min + (T)rand() / (T)RAND_MAX * (T)(max - min);
+    return min + (T)((float)rand() / (float)RAND_MAX * (float)(max - min));
 }
 
 /**
@@ -48,7 +48,7 @@ T &rand_choice(T *arr, size_t length) {
  * @return reference to the random element
  */
 template <typename T>
-T &rand_choice(const std::vector<T> &vec) {
+T &rand_choice(std::vector<T> &vec) {
     return vec[rand_int(0, vec.size())];
 }
 } // namespace omega::util

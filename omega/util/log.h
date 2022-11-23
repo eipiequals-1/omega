@@ -56,6 +56,15 @@ inline void log(Args &&...args) {
     print(log_color::green, "LOG", args...);
 }
 
+/**
+ * Output any debugging values in yellow
+ * @param args any debug values to print
+ */
+template <typename... Args>
+inline void debug(Args &&...args) {
+    print(log_color::yellow, "DEBUG", args...);
+}
+
 } // namespace omega::util
 
 #endif // OMEGA_UTIL_LOG_H

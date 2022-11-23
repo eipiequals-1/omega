@@ -61,7 +61,7 @@ void Application::run() {
                 running = false;
                 break;
             case EventType::k_window_event:
-                if (event.window.type == (uint32_t)events::WindowEvents::k_window_resized) {
+                if (event.window.event == (uint32_t)events::WindowEvents::k_window_resized) {
                     on_resize(event.window.data1, event.window.data2);
                 }
                 break;

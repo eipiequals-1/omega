@@ -1,9 +1,14 @@
 #ifndef OMEGA_UTIL_MATH_H
 #define OMEGA_UTIL_MATH_H
 
+// enable glm hash
+#define GLM_ENABLE_EXPERIMENTAL
+
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include <glm/gtx/hash.hpp>
+#include <glm/gtx/string_cast.hpp>
 #include <iostream>
 
 namespace omega::util {
@@ -104,6 +109,36 @@ using rectf = rect<f32>;
 using recti = rect<i32>;
 using rectl = rect<i64>;
 using rectd = rect<f64>;
+
+/**
+ * Rectangular Prism struct string x, y, z, width, height, depth
+ */
+template <typename T>
+struct rect_prism {
+    T x, y, z, w, h, d;
+    rect_prism(T x, T y, T z, T w, T h, T d) {
+        this->x = x;
+        this->y = y;
+        this->z = z;
+        this->w = w;
+        this->h = h;
+        this->d = d;
+    }
+
+    rect_prism() {
+        x = 0;
+        y = 0;
+        z = 0;
+        w = 0;
+        h = 0;
+        d = 0;
+    }
+};
+
+template <typename T>
+struct triangle {
+    glm::vec<2, T> p1, p2, p3;
+};
 
 /**
  * Checks collisions between two circles and returns if there is one

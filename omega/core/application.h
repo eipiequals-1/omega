@@ -43,8 +43,16 @@ class Application {
      */
     virtual void run();
 
+    /**
+     * Called when the application window is resized
+     * @param width
+     * @param height
+     */
     virtual void on_resize(u32 width, u32 height);
 
+    /**
+     * @return the current application
+     */
     static Application &instance() { return *current_instance; }
 
     sptr<Window> get_window() { return window; }

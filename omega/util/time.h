@@ -45,7 +45,7 @@ class Time {
 
   private:
     struct TimeEvent {
-        f32 timer = 0;
+        f32 timer = 0.0f;
         f32 duration;
         std::function<void(f32)> callback = nullptr;
     };

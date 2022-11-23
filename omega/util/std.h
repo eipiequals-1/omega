@@ -53,6 +53,13 @@ inline std::vector<std::string> split(std::string str, const std::string &del) {
     return ret_vec;
 }
 
+template <typename T>
+void swap_ref(T &a, T &b) {
+    T tmp = std::move(a);
+    a = std::move(b);
+    b = std::move(tmp);
+}
+
 } // namespace omega::util
 
 #endif // OMEGA_UTIL_STD_H
