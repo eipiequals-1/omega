@@ -4,10 +4,30 @@
 #include "omega/util/std.h"
 #include "omega/util/types.h"
 
+#include <SDL2/SDL.h>
+
 namespace omega::util {
 
 class Time {
   public:
+    static void init() {
+        // start = SDL_GetTicks() / 1000.0f;
+    }
+
+    /**
+     * @return the time since the initialization of the SDL library in milliseconds
+     */
+    static f32 get_time_millis() {
+        return SDL_GetTicks();
+    }
+
+    /**
+     * @return the time since the initialization of the SDL library in seconds
+     */
+    static f32 get_time() {
+        return get_time_millis() / 1000.0f;
+    }
+
     /**
      * Add a time event to be tracked
      * @param seconds

@@ -83,7 +83,7 @@ class Texture {
 
     sptr<u32[]> get_pixels();
 
-    static void SaveToFile(const std::string &file_name, u32 *pixels, u32 width, u32 height) {
+    static void save_to_file(const std::string &file_name, u32 *pixels, u32 width, u32 height) {
         u32 rmask, gmask, bmask, amask;
         if (SDL_BYTEORDER == SDL_BIG_ENDIAN) {
             rmask = 0xff000000;

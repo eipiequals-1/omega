@@ -77,10 +77,10 @@ struct rect {
     }
 
     /**
-     * Prints the rectangle data for debugging purposes
+     * Returns the {string} rectangle data for debugging purposes
      */
-    virtual void print() const {
-        std::cout << "x=" << x << ", y=" << y << ", w=" << w << ", h=" << h << '\n';
+    virtual std::string to_string() const {
+        return std::string("rect(") + std::to_string(x) + ", " + std::to_string(y) + ", " + std::to_string(w) + ", " + std::to_string(h) + ")";
     }
 
     /**
@@ -135,9 +135,9 @@ struct rect_prism {
     }
 };
 
-template <typename T>
+template <typename T, size_t N>
 struct triangle {
-    glm::vec<2, T> p1, p2, p3;
+    glm::vec<N, T> p1, p2, p3;
 };
 
 /**

@@ -7,19 +7,16 @@ load(
 
 package(default_visibility= ["//visibility:public"])
 
-filegroup(
-    name = "res",
-    srcs = glob([
-        "*"
-    ]),
-)
-
 cc_library(
     name = "editor_layer",
     srcs = ["editor_layer.cpp"],
     hdrs = ["editor_layer.h"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
+    data = [
+        "//editor/res/fnt/opensans:opensans",
+        "//editor/res/sound:sound",
+    ],
     deps = [
         "//omega/core:core",
         "//omega/util:util",
@@ -38,7 +35,7 @@ cc_binary(
     linkopts = DEFAULT_LINKOPTS,
     linkstatic = True,
     data = [
-        ":res"
+        "//editor/res/sound:sound"
     ],
     deps = [
         ":editor_layer",

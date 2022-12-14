@@ -3,8 +3,7 @@
 namespace editor {
 
 EditorLayer::EditorLayer() : scene::ImGuiLayer::ImGuiLayer(omega::core::Application::instance().get_window().get()) {
-    set_dark_theme();
-
+    set_custom_styles();
     frame_buffer = util::create_uptr<gfx::FrameBuffer>(1280, 720);
     camera = util::create_uptr<scene::OrthographicCamera>(0.0f, 1280.0f, 0.0f, 720.0f);
     camera->recalculate_view_matrix();
@@ -12,11 +11,17 @@ EditorLayer::EditorLayer() : scene::ImGuiLayer::ImGuiLayer(omega::core::Applicat
 
     // load music
     auto sound_manager = sound::SoundManager::instance();
-    music = sound_manager->load_music("./editor/DST-RailJet-LongSeamlessLoop.ogg");
+    music = sound_manager->load_music("./editor/res/sound/DST-RailJet-LongSeamlessLoop.ogg");
     sound_manager->play_music(music, 1.0f);
 }
 
 EditorLayer::~EditorLayer() {
+}
+
+void EditorLayer::set_custom_styles() {
+    set_dark_theme();
+    ImGuiIO &io = ImGui::GetIO();
+    io.FontDefault = io.Fonts->AddFontFromFileTTF("./editor/res/fnt/opensans/OpenSans-Regular.ttf", 18.0f);
 }
 
 void EditorLayer::input(f32 dt) {
@@ -108,6 +113,10 @@ void EditorLayer::render(f32 dt) {
 
         if (ImGui::BeginMenuBar()) {
             if (ImGui::BeginMenu("File")) {
+                if (ImGui::MenuItem("New", "Ctrl+N")) {
+                }
+                if (ImGui::MenuItem("Open", "Ctrl+O")) {
+                }
                 if (ImGui::MenuItem("Exit", "Ctrl+Q")) {
                     core::Application::instance().set_running(false);
                 }
@@ -117,7 +126,8 @@ void EditorLayer::render(f32 dt) {
         }
 
         ImGui::End();
-        ImGui::Begin("Settings");
+        // scene hierarchy panel
+        ImGui::Begin("Scene Hierarchy");
         ImGui::Text("FPS: %.2f", 1 / dt);
         static glm::vec4 color;
         ImGui::ColorEdit4("Square Color", glm::value_ptr(color));
@@ -128,8 +138,16 @@ void EditorLayer::render(f32 dt) {
         // change sound volume
         sound::SoundManager::instance()->set_music_volume(music, volume);
 
-        ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{0.0f, 0.0f});
-        ImGui::Begin("Scene");
+        // Project panel
+        ImGui::Begin("Project");
+
+        ImGui::End();
+        // Console panel
+        ImGui::Begin("Console");
+        ImGui::End();
+
+        // scene viewport panel
+        ImGui::Begin("Scene Viewport");
 
         ImVec2 viewport_panel_size = ImGui::GetContentRegionAvail();
         if (scene_dock_size.x != viewport_panel_size.x || scene_dock_size.y != viewport_panel_size.y) {
@@ -139,8 +157,11 @@ void EditorLayer::render(f32 dt) {
 
         u32 texture_id = frame_buffer->get_color_buffer()->get_renderer_id();
         ImGui::Image(reinterpret_cast<ImTextureID>(texture_id), viewport_panel_size, ImVec2{0.0f, 1.0f}, ImVec2{1.0f, 0.0f});
-        ImGui::PopStyleVar();
 
+        ImGui::End();
+
+        // properties panel
+        ImGui::Begin("Properties");
         ImGui::End();
 
         end();

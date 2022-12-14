@@ -10,26 +10,27 @@ OPT = -O3
 BIN = bin
 SRC = ${wildcard omega/*.cpp} ${wildcard omega/**/*.cpp} ${wildcard omega/**/**/*.cpp}
 OBJ = $(patsubst %.cpp, $(BIN)/%.o, $(SRC)) # (from, to, string)
-
+DLIB = $(BIN)/libomega.so
+SLIB = $(BIN)/static/libomega.a
 # < is first dep, ^ is all dependencies, @ is left of colon
 
 .PHONY: all clean
 
-all: dirs lib
+all: lib static_lib
 
-dirs:
-	mkdir -p $(BIN)
-	mkdir -p $(BIN)/static
-	cp -R omega/ $(BIN)/
-	find ./bin/ -name *.cpp* | xargs rm
-	find ./bin/ -name *.h* | xargs rm
-	find ./bin/ -name *BUILD* | xargs rm
+static_lib: $(SLIB)
+lib: $(DLIB)
 
-lib: $(OBJ)
-	$(CC) -o $(BIN)/libomega.so -shared $^ $(LIBS) $(OPT)
-	ar -rcs $(BIN)/static/libomega.a $(BIN)/libomega.so
+$(SLIB): $(OBJ)
+	mkdir -p $(@D)
+	ar rcs $@ $(OBJ)
+
+$(DLIB): $(OBJ)
+	mkdir -p $(@D)
+	$(CC) -o $@ -shared $^ $(LIBS) $(OPT)
 
 $(BIN)/%.o: %.cpp
+	mkdir -p $(@D)
 	$(CC) -o $@ -c $< $(CFLAGS) $(INCLUDE) $(MACROS) $(OPT)
 
 clean:

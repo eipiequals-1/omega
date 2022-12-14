@@ -18,6 +18,8 @@ class EditorLayer : public scene::ImGuiLayer {
     EditorLayer();
     ~EditorLayer() override;
 
+    void set_custom_styles();
+
     void render(float dt) override;
     void update(float dt) override;
     void input(float dt) override;

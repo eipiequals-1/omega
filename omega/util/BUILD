@@ -53,6 +53,7 @@ cc_library(
     deps = [
         ":std",
         ":types",
+        "@SDL2//:SDL2",
     ]
 )
 
