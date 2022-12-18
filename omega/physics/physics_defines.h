@@ -1,7 +1,7 @@
 #ifndef OMEGA_PHYSICS_PHYSICSDEFINES_H
 #define OMEGA_PHYSICS_PHYSICSDEFINES_H
 
-#include <Box2D/Box2D.h>
+#include <box2d/box2d.h>
 
 namespace omega::physics {
 

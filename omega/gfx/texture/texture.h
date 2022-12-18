@@ -81,7 +81,7 @@ class Texture {
         unbind();
     }
 
-    sptr<u32[]> get_pixels();
+    uptr<u32[]> get_pixels();
 
     static void save_to_file(const std::string &file_name, u32 *pixels, u32 width, u32 height) {
         u32 rmask, gmask, bmask, amask;

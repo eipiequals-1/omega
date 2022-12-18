@@ -49,7 +49,7 @@ class MapRenderer {
         // get tileset image and pixels
         const Tileset &tileset = map->tilesetCollection[tile.tilesetIndex];
         auto tileset_img = tex_manager->get(tile.tilesetIndex);
-        sptr<u32[]> tileset_pixels = tileset_img->get_pixels();
+        uptr<u32[]> tileset_pixels = tileset_img->get_pixels();
         // get location of rect on tileset
         u32 src_x, src_y, src_w, src_h;
         src_w = tileset.tileWidth;

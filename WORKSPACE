@@ -11,7 +11,7 @@ new_local_repository(
 )
 
 new_local_repository(
-    name = "Box2D",
+    name = "box2d",
     path = "/usr",
     build_file = "external/box2d.build",
 )
