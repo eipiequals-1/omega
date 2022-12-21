@@ -23,12 +23,12 @@ void InputManager::update() {
     prev_mouse_pos = mouse_pos;
     if (relative_mode) {
         buttons = SDL_GetRelativeMouseState(&x, &y);
-        mouse_pos.x = (f32)x;
-        mouse_pos.y = -(f32)y;
+        mouse_pos.x = (float)x;
+        mouse_pos.y = -(float)y;
     } else {
         buttons = SDL_GetMouseState(&x, &y);
-        mouse_pos.x = (f32)x;
-        mouse_pos.y = (f32)(Window::instance()->get_height() - y);
+        mouse_pos.x = (float)x;
+        mouse_pos.y = (float)(Window::instance()->get_height() - y);
     }
 }
 

@@ -22,7 +22,7 @@ using namespace omega::util;
 /**
  * Represents a min and max value for varius Emitter properties
  */
-using range = std::pair<f32, f32>;
+using range = std::pair<float, float>;
 
 /**
  * Represents a particle vertex on the CPU with:
@@ -32,10 +32,10 @@ using range = std::pair<f32, f32>;
  * color,
  */
 struct ParticleVertex {
-    f32 pos[2];
-    f32 center[2];
-    f32 radius;
-    f32 color[4];
+    float pos[2];
+    float center[2];
+    float radius;
+    float color[4];
 };
 
 /**
@@ -43,12 +43,12 @@ struct ParticleVertex {
  * including lifespan, starting and ending size, emittion frequency, rotations, accelerations, randomness, etc
  */
 struct EmitterBuilder {
-    f32 lifespan;
-    f32 particle_lifespan;
+    float lifespan;
+    float particle_lifespan;
     glm::vec4 begin_color; // color that particles are to be at the beginning
     glm::vec4 end_color;   // color that particles are to be at the end
-    u32 max_particles;     // max particles at a given instance
-    f32 emit_freq;         // time to emit particles
+    uint32_t max_particles;     // max particles at a given instance
+    float emit_freq;         // time to emit particles
     glm::vec2 pos;         // pos in world coordinates
     range radius;          // radius
     range rot_range;       // range in degrees where particles spawn
@@ -88,7 +88,7 @@ class ParticleEmitter {
      * Updates every particle's size, color, etc
      * @param dt the timestep
      */
-    virtual void update(f32 dt);
+    virtual void update(float dt);
 
     /**
      * Renders the particle using a specially built shader
@@ -104,7 +104,7 @@ class ParticleEmitter {
     /**
      * @return the number of particles that must be emitted
      */
-    u32 can_emit() {
+    uint32_t can_emit() {
         u_int32_t to_add = 0;
         while (emit_timer >= data.emit_freq) {
             emit_timer -= data.emit_freq;
@@ -117,16 +117,16 @@ class ParticleEmitter {
 
     /**
      * Emit's a new particle.
-     * Called by ParticleEmitter::update(f32 dt);
+     * Called by ParticleEmitter::update(float dt);
      */
     void emit();
 
     Particle *particles;
-    u32 num_particles;
+    uint32_t num_particles;
 
     EmitterBuilder data;
-    f32 timer;
-    f32 emit_timer;
+    float timer;
+    float emit_timer;
 
     uptr<VertexArray> vao;
     uptr<VertexBuffer> vbo;

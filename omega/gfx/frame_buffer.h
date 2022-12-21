@@ -17,28 +17,28 @@ using namespace omega::gfx::texture;
 
 class FrameBuffer {
   public:
-    FrameBuffer(u32 width, u32 height);
+    FrameBuffer(uint32_t width, uint32_t height);
     ~FrameBuffer();
 
     void bind() const;
     void unbind() const;
-    void bind_texture(u32 slot = 0) const;
+    void bind_texture(uint32_t slot = 0) const;
     void unbind_texture() const;
-    void resize(u32 width, u32 height);
+    void resize(uint32_t width, uint32_t height);
 
-    u32 get_width() const { return width; }
-    u32 get_height() const { return height; }
-    u32 get_render_buffer_id() const { return rbo_depth_stencil; }
+    uint32_t get_width() const { return width; }
+    uint32_t get_height() const { return height; }
+    uint32_t get_render_buffer_id() const { return rbo_depth_stencil; }
     sptr<Texture> get_color_buffer() const { return color_buffer; }
 
   private:
-    u32 id;
+    uint32_t id;
 
-    u32 width;
-    u32 height;
+    uint32_t width;
+    uint32_t height;
 
     sptr<Texture> color_buffer;
-    u32 rbo_depth_stencil;
+    uint32_t rbo_depth_stencil;
 };
 
 } // namespace omega::gfx

@@ -18,9 +18,9 @@ class ImGuiLayer : public Layer {
     virtual void set_dark_theme();
 
     void input(Event &event);
-    virtual void input(f32 dt) override { (void)dt; }
-    virtual void update(f32 dt) override { (void)dt; }
-    virtual void render(f32 dt) override { (void)dt; }
+    virtual void input(float dt) override { (void)dt; }
+    virtual void update(float dt) override { (void)dt; }
+    virtual void render(float dt) override { (void)dt; }
 
     void begin();
     void end();

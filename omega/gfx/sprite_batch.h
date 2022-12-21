@@ -30,12 +30,12 @@ using namespace omega::gfx::texture;
  * center of rotation
  */
 struct Vertex {
-    f32 position[2];
-    f32 color[4];
-    f32 texCoords[2];
-    f32 tex_id;
-    f32 rotation;
-    f32 center_of_rot[2];
+    float position[2];
+    float color[4];
+    float texCoords[2];
+    float tex_id;
+    float rotation;
+    float center_of_rot[2];
 };
 
 // represents one texture / rectangle that is passed to the sprite shader
@@ -89,7 +89,7 @@ class SpriteBatch {
      * @param y coord in world units
      * @param color tint of the texture
      */
-    virtual void render_texture(const Texture *texture, const f32 x, const f32 y, const glm::vec4 &color = glm::vec4(1.0f));
+    virtual void render_texture(const Texture *texture, const float x, const float y, const glm::vec4 &color = glm::vec4(1.0f));
 
     /**
      * draw the given texture at the x, y, w, h coords and may resize as necessary
@@ -100,7 +100,7 @@ class SpriteBatch {
      * @param h size in world units
      * @param color tint of the texture
      */
-    virtual void render_texture(const Texture *texture, const f32 x, const f32 y, const f32 w, const f32 h, const glm::vec4 &color = glm::vec4(1.0f));
+    virtual void render_texture(const Texture *texture, const float x, const float y, const float w, const float h, const glm::vec4 &color = glm::vec4(1.0f));
 
     /**
      * draw the given part of the texture to the destination
@@ -120,7 +120,7 @@ class SpriteBatch {
      * @param center center of rotation in world coordinates
      * @param color tint of the texture
      */
-    virtual void render_texture(const Texture *texture, glm::rectf src, const glm::rectf &dest, f32 rotation, const glm::vec2 &center, const glm::vec4 &color = glm::vec4(1.0f));
+    virtual void render_texture(const Texture *texture, glm::rectf src, const glm::rectf &dest, float rotation, const glm::vec2 &center, const glm::vec4 &color = glm::vec4(1.0f));
 
     virtual void render_texture_region(const TextureRegion *texture_region, const glm::rectf &dest, const glm::vec4 &color = glm::vec4(1.0f));
 
@@ -130,19 +130,19 @@ class SpriteBatch {
     uptr<VertexArray> vao;
     uptr<IndexBuffer> ibo;
     // buffer constants
-    static constexpr u32 kQuadCapacity = 1500;
-    static constexpr u32 kIndexBufferCapacity = kQuadCapacity * 6;
-    static constexpr u32 kVertexBufferCapacity = kQuadCapacity * 4;
-    static constexpr u32 kVertexCount = 12;
-    static constexpr u32 kIndexCount = 6;
+    static constexpr uint32_t kQuadCapacity = 1500;
+    static constexpr uint32_t kIndexBufferCapacity = kQuadCapacity * 6;
+    static constexpr uint32_t kVertexBufferCapacity = kQuadCapacity * 4;
+    static constexpr uint32_t kVertexCount = 12;
+    static constexpr uint32_t kIndexCount = 6;
     // texture data
-    static constexpr u32 kMaxTextures = 32;
-    std::array<u32, kMaxTextures> texture_binds;
+    static constexpr uint32_t kMaxTextures = 32;
+    std::array<uint32_t, kMaxTextures> texture_binds;
     std::array<const Texture *, kMaxTextures> textures_to_render;
 
     // render attributes
-    u32 quads_rendered;
-    u32 tex_bind_slot;
+    uint32_t quads_rendered;
+    uint32_t tex_bind_slot;
 
   private:
     SpriteBatch();

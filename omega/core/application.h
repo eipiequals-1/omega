@@ -17,7 +17,7 @@ using namespace omega::scene;
 using namespace omega::events;
 
 struct ApplicationConfig {
-    u32 width = 800, height = 600;
+    uint32_t width = 800, height = 600;
     std::string title = "Application";
     bool resizable = true;
 };
@@ -48,7 +48,7 @@ class Application {
      * @param width
      * @param height
      */
-    virtual void on_resize(u32 width, u32 height);
+    virtual void on_resize(uint32_t width, uint32_t height);
 
     /**
      * @return the current application
@@ -66,10 +66,10 @@ class Application {
      * Clamps the application by sleeping the CPU to run at Application::fps
      * @return delta time in seconds from the last frame
      */
-    virtual f32 tick();
+    virtual float tick();
 
-    f32 fps;
-    u32 last_time;
+    float fps;
+    uint32_t last_time;
     sptr<Window> window;
     bool running;
     uptr<LayerStack> layer_stack;

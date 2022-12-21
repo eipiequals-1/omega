@@ -27,9 +27,9 @@ class Entity {
         Component *c = component_array[get_component_id<T>()];
         return static_cast<T>(*c);
     }
-    void render(f32 dt);
-    virtual void input(f32 dt);
-    virtual void update(f32 dt);
+    void render(float dt);
+    virtual void input(float dt);
+    virtual void update(float dt);
 
   protected:
     std::vector<Component *> components;

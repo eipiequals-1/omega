@@ -24,14 +24,14 @@ struct MeshVertex {
 };
 
 struct MeshTexture {
-    u32 id;
+    uint32_t id;
     std::string type;
     std::string path;
 };
 
 class Mesh {
   public:
-    Mesh(std::vector<MeshVertex> vertices, std::vector<u32> indices, std::vector<MeshTexture> textures);
+    Mesh(std::vector<MeshVertex> vertices, std::vector<uint32_t> indices, std::vector<MeshTexture> textures);
 
     void render(Shader &shader);
 
@@ -39,7 +39,7 @@ class Mesh {
     void setup_mesh();
 
     std::vector<MeshVertex> vertices;
-    std::vector<u32> indices;
+    std::vector<uint32_t> indices;
     std::vector<MeshTexture> textures;
 
     uptr<VertexArray> vao;

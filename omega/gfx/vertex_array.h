@@ -34,7 +34,7 @@ class VertexArray {
     void unbind() const;
 
   private:
-    u32 id;
+    uint32_t id;
 };
 
 } // namespace omega::gfx

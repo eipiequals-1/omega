@@ -4,7 +4,7 @@
 
 namespace omega::gfx {
 
-VertexBuffer::VertexBuffer(const void *data, u32 size) {
+VertexBuffer::VertexBuffer(const void *data, uint32_t size) {
     glGenBuffers(1, &id);
     bind();
     glBufferData(GL_ARRAY_BUFFER, size, data, GL_STATIC_DRAW);

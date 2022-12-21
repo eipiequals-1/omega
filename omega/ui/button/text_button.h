@@ -14,20 +14,20 @@ using namespace omega::gfx;
 struct TextButtonBuilder {
     std::string text;
     Font *font;
-    f32 width, height;
+    float width, height;
     glm::vec4 color;
 };
 
 class TextButton : public ImageButton {
   public:
-    TextButton(f32 x, f32 y, f32 w, f32 h, std::function<void()> on_click, const TextButtonBuilder &builder);
+    TextButton(float x, float y, float w, float h, std::function<void()> on_click, const TextButtonBuilder &builder);
     virtual ~TextButton() override;
 
     virtual void render() override;
 
   protected:
     sptr<Texture> text_texture;
-    f32 text_width, text_height;
+    float text_width, text_height;
 };
 
 } // namespace omega::ui::button

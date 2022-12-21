@@ -37,7 +37,7 @@ TextureAtlas::TextureAtlas(const std::string &atlas_file_path, GLenum min_filter
     atlas_file = nullptr;
 
     // parse lines
-    u32 x, y, w, h;
+    uint32_t x, y, w, h;
     std::string tex_region_key;
     for (size_t i = 0; i < lines.size(); i++) {
         const auto &line = lines[i];

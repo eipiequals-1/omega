@@ -12,7 +12,7 @@ namespace omega::gfx {
  */
 class VertexBuffer {
   public:
-    VertexBuffer(const void *data, u32 size);
+    VertexBuffer(const void *data, uint32_t size);
     explicit VertexBuffer(GLsizeiptr size);
     ~VertexBuffer();
 
@@ -36,7 +36,7 @@ class VertexBuffer {
     void sub_data(GLintptr offset, GLsizeiptr size, const GLvoid *data);
 
   private:
-    u32 id;
+    uint32_t id;
 };
 } // namespace omega::gfx
 

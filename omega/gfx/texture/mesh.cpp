@@ -2,7 +2,7 @@
 
 namespace omega::gfx::texture {
 
-Mesh::Mesh(std::vector<MeshVertex> vertices, std::vector<u32> indices, std::vector<MeshTexture> textures) {
+Mesh::Mesh(std::vector<MeshVertex> vertices, std::vector<uint32_t> indices, std::vector<MeshTexture> textures) {
     this->vertices = vertices;
     this->indices = indices;
     this->textures = textures;
@@ -10,9 +10,9 @@ Mesh::Mesh(std::vector<MeshVertex> vertices, std::vector<u32> indices, std::vect
 }
 
 void Mesh::render(Shader &shader) {
-    u32 diffuse_num = 1;
-    u32 specular_num = 1;
-    for (u32 i = 0; i < textures.size(); ++i) {
+    uint32_t diffuse_num = 1;
+    uint32_t specular_num = 1;
+    for (uint32_t i = 0; i < textures.size(); ++i) {
         glActiveTexture(GL_TEXTURE0 + i);
         std::string number;
         std::string name = textures[i].type;

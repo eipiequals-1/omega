@@ -41,16 +41,16 @@ class Shader {
     void unbind() const;
 
     // set uniforms
-    void set_uniform_4f(const std::string &name, f32 v0, f32 v1, f32 v2, f32 v3);
-    void set_uniform_3f(const std::string &name, f32 v0, f32 v1, f32 v2);
-    void set_uniform_2f(const std::string &name, f32 v0, f32 v1);
-    void set_uniform_1f(const std::string &name, f32 value);
+    void set_uniform_4f(const std::string &name, float v0, float v1, float v2, float v3);
+    void set_uniform_3f(const std::string &name, float v0, float v1, float v2);
+    void set_uniform_2f(const std::string &name, float v0, float v1);
+    void set_uniform_1f(const std::string &name, float value);
     void set_uniform_1i(const std::string &name, int value);
     void set_uniform_mat4f(const std::string &name, const glm::mat4 &matrix);
-    void set_uniform_1iv(const std::string &name, int *arr, u32 size);
+    void set_uniform_1iv(const std::string &name, int *arr, uint32_t size);
 
     void set_uniform_bool(const std::string &name, bool v0);
-    GLuint get_id() const { return id; }
+    uint32_t get_id() const { return id; }
 
   private:
     /**
@@ -65,7 +65,7 @@ class Shader {
      * @param name of the uniform
      * @return the GL location of the uniform
      */
-    GLint get_uniform_location(const std::string &name);
+    int get_uniform_location(const std::string &name);
 
     /**
      * Compiles the shader based off the type of the shader
@@ -73,7 +73,7 @@ class Shader {
      * @param source the code
      * @return the GL shader object
      */
-    GLuint compile_shader(u32 type, const std::string &source);
+    uint32_t compile_shader(uint32_t type, const std::string &source);
 
     /**
      * Compiles both shaders and links them to create THE GL shader object
@@ -81,9 +81,9 @@ class Shader {
      * @param fragment_shader the fragment source code
      * @return the GL shader object
      */
-    GLuint create_shader(const std::string &vertex_shader, const std::string &fragment_shader);
+    uint32_t create_shader(const std::string &vertex_shader, const std::string &fragment_shader);
 
-    GLuint id;
+    uint32_t id;
     std::unordered_map<std::string, int> uniform_loc_cache;
 };
 

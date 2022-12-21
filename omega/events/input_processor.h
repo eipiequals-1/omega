@@ -18,10 +18,10 @@ class InputProcessor {
     // mouse and key input
     virtual void on_key_down(Key key) = 0;
     virtual void on_key_up(Key key) = 0;
-    virtual void on_mouse_down(u32 screen_x, u32 screen_y, MouseButton button) = 0;
-    virtual void on_mouse_up(u32 screen_x, u32 screen_y, MouseButton button) = 0;
+    virtual void on_mouse_down(uint32_t screen_x, uint32_t screen_y, MouseButton button) = 0;
+    virtual void on_mouse_up(uint32_t screen_x, uint32_t screen_y, MouseButton button) = 0;
     // window input
-    virtual void on_window_resized(u32 window_width, u32 window_height) = 0;
+    virtual void on_window_resized(uint32_t window_width, uint32_t window_height) = 0;
     virtual void on_window_closed() = 0;
 };
 

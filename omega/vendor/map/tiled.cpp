@@ -14,12 +14,12 @@ Map::Map(const std::string &file_path, const std::string &tileset_path) {
 Map::~Map() {
 }
 
-void Map::get_intersect_rects(const glm::rectf &rect, std::vector<Tile *> &collided_tiles, std::vector<u32> &collided_tile_indices) {
+void Map::get_intersect_rects(const glm::rectf &rect, std::vector<Tile *> &collided_tiles, std::vector<uint32_t> &collided_tile_indices) {
     // reset the output vectors
     collided_tiles.clear();
     collided_tile_indices.clear();
     // find bounds to search
-    u32 left, right, top, bottom;
+    uint32_t left, right, top, bottom;
     left = glm::max(glm::floor(rect.x / tileWidth), 0.0f);
     right = glm::min(glm::floor((rect.x + rect.w) / tileWidth), width - 1.0f);
     bottom = glm::max(glm::floor(rect.y / tileHeight), 0.0f);
@@ -28,10 +28,10 @@ void Map::get_intersect_rects(const glm::rectf &rect, std::vector<Tile *> &colli
         if (!layer.visible)
             continue;
 
-        for (u32 y = bottom; y <= top; y++) {
-            for (u32 x = left; x <= right; x++) {
+        for (uint32_t y = bottom; y <= top; y++) {
+            for (uint32_t x = left; x <= right; x++) {
                 // need to flip tile_pos
-                u32 tile_pos = ((layer.height - y - 1) * layer.width) + x;
+                uint32_t tile_pos = ((layer.height - y - 1) * layer.width) + x;
                 Tile &tile = layer.tiles[tile_pos];
                 if (tile.gid != 0) {
                     collided_tiles.push_back(&tile);
@@ -42,10 +42,10 @@ void Map::get_intersect_rects(const glm::rectf &rect, std::vector<Tile *> &colli
     }
 }
 
-void Map::set_tile_rect(glm::rectf &rect, u32 tile_idx) {
+void Map::set_tile_rect(glm::rectf &rect, uint32_t tile_idx) {
     // convert tile_idx to correct width and height
-    u32 actual_x = tile_idx % width;
-    u32 actual_y = height - (tile_idx / width) - 1;
+    uint32_t actual_x = tile_idx % width;
+    uint32_t actual_y = height - (tile_idx / width) - 1;
     // now turn into rect
     rect.x = actual_x * tileWidth;
     rect.y = actual_y * tileHeight;

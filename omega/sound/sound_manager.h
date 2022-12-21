@@ -28,10 +28,10 @@ class SoundManager {
     SoundEffectID load_sound_effect(const std::string &filepath);
     MusicID load_music(const std::string &filepath);
 
-    void play_sound_effect(SoundEffectID sound, f32 volume);
-    void play_music(MusicID m, f32 volume);
-    void set_music_volume(MusicID m, f32 volume);
-    void set_sound_effect_volume(SoundEffectID sound, f32 volume);
+    void play_sound_effect(SoundEffectID sound, float volume);
+    void play_music(MusicID m, float volume);
+    void set_music_volume(MusicID m, float volume);
+    void set_sound_effect_volume(SoundEffectID sound, float volume);
 
   private:
     SoundManager();

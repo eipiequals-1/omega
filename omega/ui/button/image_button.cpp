@@ -2,7 +2,7 @@
 
 namespace omega::ui::button {
 
-ImageButton::ImageButton(f32 x, f32 y, f32 w, f32 h, std::function<void()> on_click) : Button::Button(x, y, w, h, on_click), focus(nullptr), un_focus(nullptr) {
+ImageButton::ImageButton(float x, float y, float w, float h, std::function<void()> on_click) : Button::Button(x, y, w, h, on_click), focus(nullptr), un_focus(nullptr) {
 }
 
 ImageButton::~ImageButton() {

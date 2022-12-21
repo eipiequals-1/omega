@@ -10,9 +10,9 @@ class Layer {
     Layer(const std::string &name = "Layer", bool imgui = false);
     virtual ~Layer();
 
-    virtual void render(f32 dt) = 0;
-    virtual void update(f32 dt) = 0;
-    virtual void input(f32 dt) = 0;
+    virtual void render(float dt) = 0;
+    virtual void update(float dt) = 0;
+    virtual void input(float dt) = 0;
 
     const std::string &get_name() const { return name; }
     bool is_imgui() const { return imgui; }

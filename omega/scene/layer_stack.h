@@ -12,9 +12,9 @@ class LayerStack {
     LayerStack();
     ~LayerStack();
 
-    void render(f32 dt);
-    void update(f32 dt);
-    void input(f32 dt);
+    void render(float dt);
+    void update(float dt);
+    void input(float dt);
 
     void push_layer(Layer *layer);
     void pop_layer();

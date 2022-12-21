@@ -2,7 +2,6 @@
 #define OMEGA_UTIL_TIME_H
 
 #include "omega/util/std.h"
-#include "omega/util/types.h"
 
 #include <SDL2/SDL.h>
 
@@ -17,14 +16,14 @@ class Time {
     /**
      * @return the time since the initialization of the SDL library in milliseconds
      */
-    static f32 get_time_millis() {
+    static float get_time_millis() {
         return SDL_GetTicks();
     }
 
     /**
      * @return the time since the initialization of the SDL library in seconds
      */
-    static f32 get_time() {
+    static float get_time() {
         return get_time_millis() / 1000.0f;
     }
 
@@ -33,7 +32,7 @@ class Time {
      * @param seconds
      * @param callback is called when the timer completes, passes the elapsed time since the timer ended as arg
      */
-    static void add_timer(f32 seconds, std::function<void(f32)> callback) {
+    static void add_timer(float seconds, std::function<void(float)> callback) {
         // create new event
         uptr<TimeEvent> time_event = create_uptr<TimeEvent>();
         time_event->duration = seconds;
@@ -46,9 +45,9 @@ class Time {
      * Step the timers, call the callback if the timer is complete, and delete the timer event
      * @param dt delta time
      */
-    static void tick(f32 dt) {
+    static void tick(float dt) {
         // iterate in reverse all the events
-        for (i32 i = timers.size() - 1; i >= 0; --i) {
+        for (int i = timers.size() - 1; i >= 0; --i) {
             TimeEvent &event = *timers[(size_t)i];
             event.timer += dt;
             // if the timer is completed, call the callback function
@@ -65,9 +64,9 @@ class Time {
 
   private:
     struct TimeEvent {
-        f32 timer = 0.0f;
-        f32 duration;
-        std::function<void(f32)> callback = nullptr;
+        float timer = 0.0f;
+        float duration;
+        std::function<void(float)> callback = nullptr;
     };
     static std::vector<uptr<TimeEvent>> timers;
 };

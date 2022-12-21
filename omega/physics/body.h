@@ -14,7 +14,7 @@ using Body = b2Body;
 
 class BoxBody {
   public:
-    BoxBody(const glm::rectf &rect, BodyType type, b2FixtureDef &fixture_def, f32 gravity_scale, f32 angle, b2World *world);
+    BoxBody(const glm::rectf &rect, BodyType type, b2FixtureDef &fixture_def, float gravity_scale, float angle, b2World *world);
     virtual ~BoxBody() = default;
 
     const glm::vec2 &get_dimensions() const { return dimensions; }
@@ -30,17 +30,17 @@ class BoxBody {
 
 class CircleBody {
   public:
-    CircleBody(const glm::vec2 &center, f32 radius, BodyType type, b2FixtureDef &fixture_def, f32 gravity_scale, b2World *world);
+    CircleBody(const glm::vec2 &center, float radius, BodyType type, b2FixtureDef &fixture_def, float gravity_scale, b2World *world);
     virtual ~CircleBody() = default;
 
     const glm::vec2 &get_center() const { return center; }
-    f32 get_radius() const { return radius; }
+    float get_radius() const { return radius; }
     Body *get_body() { return body; }
 
   protected:
     Body *body;
     glm::vec2 center;
-    f32 radius;
+    float radius;
 };
 } // namespace omega::physics
 

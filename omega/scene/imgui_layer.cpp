@@ -72,7 +72,7 @@ void ImGuiLayer::begin() {
 
 void ImGuiLayer::end() {
     ImGuiIO &io = ImGui::GetIO();
-    io.DisplaySize = ImVec2((f32)window->get_width(), (f32)window->get_height());
+    io.DisplaySize = ImVec2((float)window->get_width(), (float)window->get_height());
 
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());

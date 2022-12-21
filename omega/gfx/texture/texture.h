@@ -22,7 +22,7 @@ using namespace omega::util;
  */
 class Texture {
   private:
-    Texture(u32 width, u32 height, GLenum min_filter = GL_NEAREST, GLenum mag_filter = GL_NEAREST);
+    Texture(uint32_t width, uint32_t height, GLenum min_filter = GL_NEAREST, GLenum mag_filter = GL_NEAREST);
 
   public:
     /**
@@ -34,7 +34,7 @@ class Texture {
      */
     static sptr<Texture> create_from_surface(SDL_Surface *surf, GLenum min_filter = GL_NEAREST, GLenum mag_filter = GL_NEAREST) {
         Texture *tex = new Texture(surf->w, surf->h, min_filter, mag_filter);
-        tex->load((u32 *)surf->pixels);
+        tex->load((uint32_t *)surf->pixels);
         return sptr<Texture>(tex);
     }
 
@@ -50,7 +50,7 @@ class Texture {
         return texture;
     }
 
-    static sptr<Texture> create_empty(u32 width, u32 height, GLenum min_filter = GL_NEAREST, GLenum mag_filter = GL_NEAREST) {
+    static sptr<Texture> create_empty(uint32_t width, uint32_t height, GLenum min_filter = GL_NEAREST, GLenum mag_filter = GL_NEAREST) {
         // must construct using new because constructor is private and not accessible by sptr
         return sptr<Texture>(new Texture(width, height, min_filter, mag_filter));
     }
@@ -60,31 +60,31 @@ class Texture {
      * Bind this texture as the active OpenGL texture to the given slot
      * @param slot to bind to
      */
-    void bind(u32 slot = 0) const;
+    void bind(uint32_t slot = 0) const;
 
     /**
      * Unbind the texture in OpenGL
      */
     void unbind() const;
-    u32 get_renderer_id() const { return id; }
+    uint32_t get_renderer_id() const { return id; }
 
-    u32 get_width() const { return width; }
-    u32 get_height() const { return height; }
+    uint32_t get_width() const { return width; }
+    uint32_t get_height() const { return height; }
 
     /**
-     * Sets the texture data for RGBA textures using a u32 array
+     * Sets the texture data for RGBA textures using a uint32_t array
      * @param data with RGBA data
      */
-    void set_data(u32 *data) {
+    void set_data(uint32_t *data) {
         glBindTexture(GL_TEXTURE_2D, id); // bind without setting active texture
         glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, data);
         unbind();
     }
 
-    uptr<u32[]> get_pixels();
+    uptr<uint32_t[]> get_pixels();
 
-    static void save_to_file(const std::string &file_name, u32 *pixels, u32 width, u32 height) {
-        u32 rmask, gmask, bmask, amask;
+    static void save_to_file(const std::string &file_name, uint32_t *pixels, uint32_t width, uint32_t height) {
+        uint32_t rmask, gmask, bmask, amask;
         if (SDL_BYTEORDER == SDL_BIG_ENDIAN) {
             rmask = 0xff000000;
             gmask = 0x00ff0000;
@@ -106,10 +106,10 @@ class Texture {
     /**
      * Creates the texture and sets the min, mag, and wrap filters
      */
-    void load(u32 *pixels);
+    void load(uint32_t *pixels);
 
     GLuint id;
-    u32 width, height;
+    uint32_t width, height;
 };
 
 /**

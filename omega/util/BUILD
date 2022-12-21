@@ -52,16 +52,8 @@ cc_library(
     linkopts = DEFAULT_LINKOPTS,
     deps = [
         ":std",
-        ":types",
         "@SDL2//:SDL2",
     ]
-)
-
-cc_library(
-    name = "types",
-    hdrs = ["types.h"],
-    copts = DEFAULT_COPTS,
-    linkopts = DEFAULT_LINKOPTS,
 )
 
 cc_library(
@@ -74,7 +66,6 @@ cc_library(
         ":log",
         ":math",
         ":std",
-        ":types",
         ":random",
         ":time",
     ]

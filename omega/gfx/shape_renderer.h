@@ -19,8 +19,8 @@ using namespace omega::util;
  * color
  */
 struct ShapeVertex {
-    f32 pos[2];
-    f32 color[4];
+    float pos[2];
+    float color[4];
 };
 
 // Represent the shape in 3 vertices
@@ -92,7 +92,7 @@ class ShapeRenderer {
      * @param g green
      * @param b blue
      */
-    virtual void color(f32 r, f32 g, f32 b) {
+    virtual void color(float r, float g, float b) {
         color(r, g, b, 1.0f);
     }
 
@@ -103,7 +103,7 @@ class ShapeRenderer {
      * @param b blue
      * @param a alpha
      */
-    virtual void color(f32 r, f32 g, f32 b, f32 a) {
+    virtual void color(float r, float g, float b, float a) {
         current_color.r = r;
         current_color.g = g;
         current_color.b = b;
@@ -121,7 +121,7 @@ class ShapeRenderer {
      * @param rect rect in world space coords
      * @param rotation in trigonometric direction & degrees
      */
-    virtual void rect(const glm::rectf &rect, f32 rotation);
+    virtual void rect(const glm::rectf &rect, float rotation);
 
     /**
      * Renders a triangle with the given points
@@ -136,7 +136,7 @@ class ShapeRenderer {
      * Renders a triangle with the given points
      * and the current ShapeRenderer::color
      */
-    virtual void triangle(f32 x1, f32 y1, f32 x2, f32 y2, f32 x3, f32 y3);
+    virtual void triangle(float x1, float y1, float x2, float y2, float x3, float y3);
 
     /**
      * Renders a Circle by approximating the number of triangle segments to draw
@@ -144,7 +144,7 @@ class ShapeRenderer {
      * @param center the center of the circle
      * @param radius the radius
      */
-    virtual void circle(const glm::vec2 &center, f32 radius, u32 segments);
+    virtual void circle(const glm::vec2 &center, float radius, uint32_t segments);
 
     /**
      * Renders a line with the specified points and thickness
@@ -154,20 +154,20 @@ class ShapeRenderer {
      * @param p2 point 2
      * @param thickness width of line
      */
-    virtual void line(const glm::vec2 &p1, const glm::vec2 &p2, f32 thickness = 1.0f);
+    virtual void line(const glm::vec2 &p1, const glm::vec2 &p2, float thickness = 1.0f);
 
     /**
      * Renders a line in the same way as
      *
-     * ShapeRenderer::line(const glm::vec2 &p1, const glm::vec2 &p2, f32 thickness);
+     * ShapeRenderer::line(const glm::vec2 &p1, const glm::vec2 &p2, float thickness);
      */
-    virtual void line(f32 x1, f32 y1, f32 x2, f32 y2, f32 thickness = 1.0f);
+    virtual void line(float x1, float y1, float x2, float y2, float thickness = 1.0f);
 
   protected:
     //
-    static const u32 kNumTriangles = 1000;
-    static const u32 kNumVerticesPerTriangle = 3;
-    static const u32 kNumAttributes = 6;
+    static const uint32_t kNumTriangles = 1000;
+    static const uint32_t kNumVerticesPerTriangle = 3;
+    static const uint32_t kNumAttributes = 6;
     const std::string kViewProjMatrixName;
 
     // OpenGL objects
@@ -175,7 +175,7 @@ class ShapeRenderer {
     uptr<VertexBuffer> triangle_vbo;
     uptr<VertexArray> triangle_vao;
 
-    u32 triangles_renderered;
+    uint32_t triangles_renderered;
     glm::vec4 current_color; // tracks current color
 
   private:

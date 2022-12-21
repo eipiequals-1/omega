@@ -2,7 +2,7 @@
 
 namespace omega::gfx {
 
-FrameBuffer::FrameBuffer(u32 width, u32 height) : id(0), width(width), height(height), color_buffer(nullptr), rbo_depth_stencil(0) {
+FrameBuffer::FrameBuffer(uint32_t width, uint32_t height) : id(0), width(width), height(height), color_buffer(nullptr), rbo_depth_stencil(0) {
     resize(width, height);
 }
 
@@ -11,7 +11,7 @@ FrameBuffer::~FrameBuffer() {
     glDeleteRenderbuffers(1, &rbo_depth_stencil);
 }
 
-void FrameBuffer::resize(u32 width, u32 height) {
+void FrameBuffer::resize(uint32_t width, uint32_t height) {
     if (id != 0) {
         glDeleteFramebuffers(1, &id);
         glDeleteRenderbuffers(1, &rbo_depth_stencil);
@@ -54,7 +54,7 @@ void FrameBuffer::unbind() const {
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
-void FrameBuffer::bind_texture(u32 slot) const {
+void FrameBuffer::bind_texture(uint32_t slot) const {
     color_buffer->bind(slot);
 }
 

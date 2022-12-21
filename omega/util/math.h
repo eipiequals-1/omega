@@ -105,8 +105,8 @@ struct rect {
     }
 };
 
-using rectf = rect<f32>;
-using recti = rect<i32>;
+using rectf = rect<float>;
+using recti = rect<int>;
 using rectl = rect<i64>;
 using rectd = rect<f64>;
 
@@ -148,7 +148,7 @@ struct triangle {
  * @param radius2 circle2 radius
  * @return if they intersect
  */
-bool circle_vs_circle(const glm::vec2 &center1, f32 radius1, const glm::vec2 &center2, f32 radius2);
+bool circle_vs_circle(const glm::vec2 &center1, float radius1, const glm::vec2 &center2, float radius2);
 
 /**
  * Returns the distance squared between two points to avoid unnecessary and slow sqrts
@@ -156,9 +156,9 @@ bool circle_vs_circle(const glm::vec2 &center1, f32 radius1, const glm::vec2 &ce
  * @param p2 point2
  * @return the distance squared
  */
-f32 distance_sq(const glm::vec2 &p1, const glm::vec2 &p2);
+float distance_sq(const glm::vec2 &p1, const glm::vec2 &p2);
 
-f32 distance_sq(const glm::vec3 &p1, const glm::vec3 &p2);
+float distance_sq(const glm::vec3 &p1, const glm::vec3 &p2);
 
 } // namespace glm
 

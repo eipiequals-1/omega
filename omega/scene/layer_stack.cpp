@@ -14,19 +14,19 @@ LayerStack::~LayerStack() {
     }
 }
 
-void LayerStack::render(f32 dt) {
+void LayerStack::render(float dt) {
     for (auto itr = layers.begin(); itr != layers.end(); ++itr) {
         (*itr)->render(dt);
     }
 }
 
-void LayerStack::update(f32 dt) {
+void LayerStack::update(float dt) {
     for (auto itr = layers.rbegin(); itr != layers.rend(); ++itr) {
         (*itr)->update(dt);
     }
 }
 
-void LayerStack::input(f32 dt) {
+void LayerStack::input(float dt) {
     for (auto itr = layers.rbegin(); itr != layers.rend(); ++itr) {
         (*itr)->input(dt);
     }

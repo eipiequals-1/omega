@@ -13,11 +13,11 @@ using namespace omega::scene;
 
 class Button : public RectComponent {
   public:
-    Button(f32 x, f32 y, f32 w, f32 h, std::function<void()> on_click);
+    Button(float x, float y, float w, float h, std::function<void()> on_click);
     virtual ~Button();
 
     virtual void render() = 0;
-    void render(f32 dt) override {
+    void render(float dt) override {
         (void)dt;
         render();
     }

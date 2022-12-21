@@ -39,17 +39,17 @@ void Application::push_layer(Layer *layer) {
     layer_stack->push_layer(layer);
 }
 
-f32 Application::tick() {
-    SDL_Delay(glm::max(1000.0f / fps - (f32)(Time::get_time_millis() - last_time), 0.0f));
-    u32 current_time = Time::get_time_millis();
-    f32 dt = (current_time - last_time) / 1000.0f; // convert to seconds
+float Application::tick() {
+    SDL_Delay(glm::max(1000.0f / fps - (float)(Time::get_time_millis() - last_time), 0.0f));
+    float current_time = Time::get_time_millis();
+    float dt = (current_time - last_time) / 1000.0f; // convert to seconds
     last_time = current_time;
     return dt;
 }
 
 void Application::run() {
     while (running) {
-        f32 dt = tick();
+        float dt = tick();
         auto input = InputManager::instance();
         input->prepare_for_update();
         Event event;
@@ -94,7 +94,7 @@ void Application::run() {
     }
 }
 
-void Application::on_resize(u32 width, u32 height) {
+void Application::on_resize(uint32_t width, uint32_t height) {
     window->on_resize(width, height);
 }
 

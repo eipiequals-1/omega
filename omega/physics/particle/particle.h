@@ -17,7 +17,7 @@ struct Particle {
      * Handles updating Particle Emitter independent data such as position and life
      * @param dt the timestep
      */
-    virtual void update(f32 dt);
+    virtual void update(float dt);
     bool is_dead() const {
         return life_remaining <= 0.0f;
     }
@@ -28,7 +28,7 @@ struct Particle {
      * @param a_diff_factor 0.0f - 1.0f random offset since alpha is usually max
      * @return a random color similar to the src_color and off by the given factors
      */
-    static glm::vec4 random_color(const glm::vec4 &src_color, f32 rgb_diff_factor, f32 a_diff_factor) {
+    static glm::vec4 random_color(const glm::vec4 &src_color, float rgb_diff_factor, float a_diff_factor) {
         glm::vec4 color;
         color.r = src_color.r + util::rand_float(-rgb_diff_factor / 2.0f, rgb_diff_factor / 2.0f);
         color.g = src_color.g + util::rand_float(-rgb_diff_factor / 2.0f, rgb_diff_factor / 2.0f);
@@ -44,8 +44,8 @@ struct Particle {
 
     glm::vec2 pos; // bottom left of "rect"
     glm::vec2 vel;
-    f32 life_remaining;
-    f32 radius;
+    float life_remaining;
+    float radius;
 
     glm::vec4 color;
 };

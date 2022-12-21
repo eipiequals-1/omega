@@ -14,8 +14,8 @@ class Music {
     Music(const std::string &filepath);
     ~Music();
 
-    void play(f32 volume);
-    void set_volume(f32 volume);
+    void play(float volume);
+    void set_volume(float volume);
 
   private:
     Mix_Music *music;

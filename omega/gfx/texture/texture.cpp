@@ -6,7 +6,7 @@
 
 namespace omega::gfx::texture {
 
-Texture::Texture(u32 width, u32 height, GLenum min_filter, GLenum mag_filter) : id(0), width(width), height(height) {
+Texture::Texture(uint32_t width, uint32_t height, GLenum min_filter, GLenum mag_filter) : id(0), width(width), height(height) {
     glGenTextures(1, &id);
     glBindTexture(GL_TEXTURE_2D, id);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, min_filter);   // if rendered smaller, use giver filter
@@ -30,14 +30,14 @@ void Texture::unbind() const {
     glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-void Texture::load(u32 *pixels) {
+void Texture::load(uint32_t *pixels) {
     glBindTexture(GL_TEXTURE_2D, id);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
     unbind();
 }
 
-uptr<u32[]> Texture::get_pixels() {
-    auto pixels = std::make_unique<u32[]>(width * height);
+uptr<uint32_t[]> Texture::get_pixels() {
+    auto pixels = std::make_unique<uint32_t[]>(width * height);
 
     glBindTexture(GL_TEXTURE_2D, id);
     glGetTexImage(GL_TEXTURE_2D, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels.get());

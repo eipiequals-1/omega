@@ -13,8 +13,8 @@ class SoundEffect {
     SoundEffect(const std::string &filepath);
     ~SoundEffect();
 
-    void play(f32 volume);
-    void set_volume(f32 volume);
+    void play(float volume);
+    void set_volume(float volume);
 
   private:
     Mix_Chunk *chunk;

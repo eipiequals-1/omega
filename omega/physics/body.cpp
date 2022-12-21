@@ -1,7 +1,7 @@
 #include "body.h"
 
 namespace omega::physics {
-BoxBody::BoxBody(const glm::rectf &rect, BodyType type, b2FixtureDef &fixture_def, f32 gravity_scale, f32 angle, b2World *world) : body(nullptr), dimensions(rect.w, rect.h) {
+BoxBody::BoxBody(const glm::rectf &rect, BodyType type, b2FixtureDef &fixture_def, float gravity_scale, float angle, b2World *world) : body(nullptr), dimensions(rect.w, rect.h) {
     b2BodyDef body_def;
     body_def.type = (b2BodyType)type;
     body_def.position.Set(rect.x + rect.w / 2.0f, rect.y + rect.h / 2.0f);
@@ -16,7 +16,7 @@ BoxBody::BoxBody(const glm::rectf &rect, BodyType type, b2FixtureDef &fixture_de
     body->CreateFixture(&fixture_def);
 }
 
-CircleBody::CircleBody(const glm::vec2 &center, f32 radius, BodyType type, b2FixtureDef &fixture_def, f32 gravity_scale, b2World *world) : center(center), radius(radius) {
+CircleBody::CircleBody(const glm::vec2 &center, float radius, BodyType type, b2FixtureDef &fixture_def, float gravity_scale, b2World *world) : center(center), radius(radius) {
     b2BodyDef body_def;
     body_def.type = (b2BodyType)type;
     body_def.position.Set(center.x, center.y);

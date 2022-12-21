@@ -43,9 +43,9 @@ class Component {
     Entity *get_owner() { return owner; }
     void set_owner(Entity *owner) { this->owner = owner; }
 
-    virtual void render(f32 dt) { (void)dt; }
-    virtual void input(f32 dt) { (void)dt; }
-    virtual void update(f32 dt) { (void)dt; }
+    virtual void render(float dt) { (void)dt; }
+    virtual void input(float dt) { (void)dt; }
+    virtual void update(float dt) { (void)dt; }
 
   protected:
     Entity *owner;
@@ -58,12 +58,12 @@ class RectComponent : public Component {
     const glm::rectf &GetRect() const { return rect; }
     void SetRect(const glm::rectf &rect) { this->rect = rect; }
 
-    f32 GetRotation() const { return rotation; }
-    void SetRotation(f32 rotation) { this->rotation = rotation; }
+    float GetRotation() const { return rotation; }
+    void SetRotation(float rotation) { this->rotation = rotation; }
 
   protected:
     glm::rectf rect;
-    f32 rotation; // in degrees
+    float rotation; // in degrees
 };
 
 class SpriteComponent : public RectComponent {
@@ -78,7 +78,7 @@ class SpriteComponent : public RectComponent {
     const glm::vec4 &GetColor() { return color; }
     void SetColor(const glm::vec4 &color) { this->color = color; }
 
-    virtual void render(f32 dt) override {
+    virtual void render(float dt) override {
         (void)dt;
         SpriteBatch &batch = SpriteBatch::instance();
         batch.render_texture(texture, glm::rectf(0.0f, 0.0f, texture->get_width(), texture->get_height()), rect, rotation, rect.center());

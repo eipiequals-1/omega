@@ -12,8 +12,8 @@ namespace omega::gfx {
  */
 class IndexBuffer {
   public:
-    IndexBuffer(const u32 *data, u32 count);
-    IndexBuffer(u32 count);
+    IndexBuffer(const uint32_t *data, uint32_t count);
+    IndexBuffer(uint32_t count);
     ~IndexBuffer();
 
     /**
@@ -31,7 +31,7 @@ class IndexBuffer {
      * which is passed as an argument to glDrawElements
      * @return the index count
      */
-    GLuint get_count() const { return count; }
+    uint32_t get_count() const { return count; }
 
     /**
      * Changes the buffer's data.
@@ -43,8 +43,8 @@ class IndexBuffer {
     void sub_data(GLintptr offset, GLsizeiptr size, const GLvoid *data);
 
   private:
-    u32 id;
-    GLuint count;
+    uint32_t id;
+    uint32_t count;
 };
 
 } // namespace omega::gfx

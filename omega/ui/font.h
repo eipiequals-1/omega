@@ -20,7 +20,7 @@ using namespace omega::gfx::texture;
  */
 class Font {
   public:
-    Font(const std::string &path, u32 size);
+    Font(const std::string &path, uint32_t size);
     ~Font();
     /**
      * Creates a Textre to draw
@@ -44,7 +44,7 @@ class FontManager {
      * @param filepath the path to the font
      * @param ptsize the size in pixels of the font
      */
-    void load(const std::string &font_name, const std::string &filepath, u32 ptsize);
+    void load(const std::string &font_name, const std::string &filepath, uint32_t ptsize);
 
     /**
      * @param font_name the key representing the font

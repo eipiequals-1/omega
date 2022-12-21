@@ -29,19 +29,19 @@ MusicID SoundManager::load_music(const std::string &filepath) {
     return music.size() - 1;
 }
 
-void SoundManager::play_sound_effect(SoundEffectID sound, f32 volume) {
+void SoundManager::play_sound_effect(SoundEffectID sound, float volume) {
     sound_effects[sound]->play(volume);
 }
 
-void SoundManager::play_music(MusicID m, f32 volume) {
+void SoundManager::play_music(MusicID m, float volume) {
     music[m]->play(volume);
 }
 
-void SoundManager::set_music_volume(MusicID m, f32 volume) {
+void SoundManager::set_music_volume(MusicID m, float volume) {
     music[m]->set_volume(volume);
 }
 
-void SoundManager::set_sound_effect_volume(SoundEffectID sound, f32 volume) {
+void SoundManager::set_sound_effect_volume(SoundEffectID sound, float volume) {
     sound_effects[sound]->set_volume(volume);
 }
 

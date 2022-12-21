@@ -98,8 +98,8 @@ class InputManager {
     InputManager();
     sptr<KeyManager> key_manager;
     glm::vec2 mouse_pos, prev_mouse_pos; // mouse_pos relative to bottom left
-    u32 buttons;
-    u32 prev_buttons;
+    uint32_t buttons;
+    uint32_t prev_buttons;
     bool relative_mode;
 };
 

@@ -18,10 +18,10 @@ Window::~Window() {
     SDL_Quit();
 }
 
-bool Window::init(u32 width, u32 height, bool resizable, const std::string &title) {
+bool Window::init(uint32_t width, uint32_t height, bool resizable, const std::string &title) {
     this->width = width;
     this->height = height;
-    if (SDL_Init((u32)InitFlags::k_everything) != 0) {
+    if (SDL_Init((uint32_t)InitFlags::k_everything) != 0) {
         util::error("Failed to initialize SDL: '", SDL_GetError(), "'");
         return false;
     }
@@ -42,7 +42,7 @@ bool Window::init(u32 width, u32 height, bool resizable, const std::string &titl
 
     WindowFlags window_flags = resizable ? WindowFlags::k_opengl_resizable : WindowFlags::k_opengl;
 
-    window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, (u32)window_flags);
+    window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, (uint32_t)window_flags);
     if (window == nullptr) {
         util::error("Failed to create window: '", SDL_GetError(), "'");
         SDL_Quit();
@@ -67,7 +67,7 @@ void Window::swap_buffers() {
     SDL_GL_SwapWindow(window);
 }
 
-void Window::on_resize(u32 new_width, u32 new_height) {
+void Window::on_resize(uint32_t new_width, uint32_t new_height) {
     width = new_width;
     height = new_height;
 }

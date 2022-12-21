@@ -55,9 +55,9 @@ ParticleEmitter::ParticleEmitter(EmitterBuilder &builder) : particles(nullptr), 
     }
 
     vbo = create_uptr<VertexBuffer>(sizeof(ParticleVertex) * 4 * data.max_particles);
-    const u32 kIndexBufferCapacity = 6 * data.max_particles;
-    u32 *indices = new u32[kIndexBufferCapacity];
-    u32 offset = 0;
+    const uint32_t kIndexBufferCapacity = 6 * data.max_particles;
+    uint32_t *indices = new uint32_t[kIndexBufferCapacity];
+    uint32_t offset = 0;
     for (size_t i = 0; i < kIndexBufferCapacity; i += 6) {
         // triangle 1
         indices[i + 0] = 0 + offset;
@@ -98,8 +98,8 @@ void ParticleEmitter::emit() {
     particle.radius = util::rand_float(data.radius.first, data.radius.second);
 
     particle.life_remaining = data.particle_lifespan;
-    f32 rotation = glm::radians(util::rand_float(data.rot_range.first, data.rot_range.second));
-    f32 speed = util::rand_float(data.speed.first, data.speed.second);
+    float rotation = glm::radians(util::rand_float(data.rot_range.first, data.rot_range.second));
+    float speed = util::rand_float(data.speed.first, data.speed.second);
 
     particle.vel = glm::vec2(glm::cos(-rotation) * speed, glm::sin(-rotation) * speed);
     num_particles++; // increment num particles
@@ -109,8 +109,8 @@ void ParticleEmitter::update(float dt) {
     timer += dt;
     emit_timer += dt;
     // add new particles if necessary
-    const u32 to_add = can_emit();
-    for (u32 i = 0; i < glm::min(to_add, (u32)3); i++) {
+    const uint32_t to_add = can_emit();
+    for (uint32_t i = 0; i < glm::min(to_add, (uint32_t)3); i++) {
         emit();
     }
 

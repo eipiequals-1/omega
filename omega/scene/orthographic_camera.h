@@ -22,15 +22,15 @@ namespace omega::scene {
  */
 class OrthographicCamera : public Camera {
   public:
-    OrthographicCamera(f32 left, f32 right, f32 bottom, f32 top);
+    OrthographicCamera(float left, float right, float bottom, float top);
 
-    void set_projection(f32 left, f32 right, f32 bottom, f32 top);
+    void set_projection(float left, float right, float bottom, float top);
 
-    f32 get_rotation() const { return rotation; }
-    void set_rotation(f32 rotation) { this->rotation = rotation; }
+    float get_rotation() const { return rotation; }
+    void set_rotation(float rotation) { this->rotation = rotation; }
 
-    f32 get_width() const { return width; }
-    f32 get_height() const { return height; }
+    float get_width() const { return width; }
+    float get_height() const { return height; }
 
     /**
      * Converts the screen/pixel coordianates to world coordinates
@@ -45,8 +45,8 @@ class OrthographicCamera : public Camera {
     void recalculate_view_matrix() override;
 
   private:
-    f32 width, height;
-    f32 rotation;
+    float width, height;
+    float rotation;
 };
 } // namespace omega::scene
 

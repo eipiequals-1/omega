@@ -38,7 +38,7 @@ class Window {
      * @param resizable if it can be resized
      * @param title the window title
      */
-    virtual bool init(u32 width, u32 height, bool resizable, const std::string &title);
+    virtual bool init(uint32_t width, uint32_t height, bool resizable, const std::string &title);
 
     /**
      * Specify the framebuffer clear color and abstracts it
@@ -54,18 +54,18 @@ class Window {
      */
     virtual void clear(GLbitfield mask = GL_COLOR_BUFFER_BIT);
     virtual void swap_buffers();
-    virtual void on_resize(u32 new_width, u32 new_height);
+    virtual void on_resize(uint32_t new_width, uint32_t new_height);
 
-    u32 get_width() const { return width; }
-    u32 get_height() const { return height; }
+    uint32_t get_width() const { return width; }
+    uint32_t get_height() const { return height; }
     SDL_Window *get_native_window() { return window; }
     SDL_GLContext get_gl_context() { return context; }
 
   protected:
     Window();
 
-    u32 width;
-    u32 height;
+    uint32_t width;
+    uint32_t height;
     SDL_Window *window;
     SDL_GLContext context;
 };

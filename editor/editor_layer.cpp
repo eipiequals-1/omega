@@ -24,7 +24,7 @@ void EditorLayer::set_custom_styles() {
     io.FontDefault = io.Fonts->AddFontFromFileTTF("./editor/res/fnt/opensans/OpenSans-Regular.ttf", 18.0f);
 }
 
-void EditorLayer::input(f32 dt) {
+void EditorLayer::input(float dt) {
     (void)dt;
     auto key_manager = events::InputManager::instance()->get_key_manager();
     if (key_manager->key_pressed(events::Key::k_q) && key_manager->key_pressed(events::Key::k_l_ctrl)) {
@@ -33,11 +33,11 @@ void EditorLayer::input(f32 dt) {
     }
 }
 
-void EditorLayer::update(f32 dt) {
+void EditorLayer::update(float dt) {
     (void)dt;
 }
 
-void EditorLayer::render(f32 dt) {
+void EditorLayer::render(float dt) {
     (void)dt;
     static glm::vec2 scene_dock_size(1280.0f, 720.0f);
     // util::log("frame buffer size", frame_buffer->get_width(), frame_buffer->get_height());
@@ -128,7 +128,7 @@ void EditorLayer::render(f32 dt) {
         ImGui::End();
         // scene hierarchy panel
         ImGui::Begin("Scene Hierarchy");
-        ImGui::Text("FPS: %.2f", 1 / dt);
+        ImGui::Text("FPS: %.2f", 1.0f / dt);
         static glm::vec4 color;
         ImGui::ColorEdit4("Square Color", glm::value_ptr(color));
         static float volume = 0.0f;
@@ -151,11 +151,11 @@ void EditorLayer::render(f32 dt) {
 
         ImVec2 viewport_panel_size = ImGui::GetContentRegionAvail();
         if (scene_dock_size.x != viewport_panel_size.x || scene_dock_size.y != viewport_panel_size.y) {
-            frame_buffer->resize((u32)glm::round(viewport_panel_size.x), (u32)glm::round(viewport_panel_size.y));
+            frame_buffer->resize((uint32_t)glm::round(viewport_panel_size.x), (uint32_t)glm::round(viewport_panel_size.y));
             scene_dock_size = {viewport_panel_size.x, viewport_panel_size.y};
         }
 
-        u32 texture_id = frame_buffer->get_color_buffer()->get_renderer_id();
+        uint32_t texture_id = frame_buffer->get_color_buffer()->get_renderer_id();
         ImGui::Image(reinterpret_cast<ImTextureID>(texture_id), viewport_panel_size, ImVec2{0.0f, 1.0f}, ImVec2{1.0f, 0.0f});
 
         ImGui::End();

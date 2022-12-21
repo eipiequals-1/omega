@@ -35,19 +35,19 @@ void Shader::set_uniform_1i(const std::string &name, int value) {
     glUniform1i(get_uniform_location(name), value);
 }
 
-void Shader::set_uniform_1f(const std::string &name, f32 value) {
+void Shader::set_uniform_1f(const std::string &name, float value) {
     glUniform1f(get_uniform_location(name), value);
 }
 
-void Shader::set_uniform_4f(const std::string &name, f32 v0, f32 v1, f32 v2, f32 v3) {
+void Shader::set_uniform_4f(const std::string &name, float v0, float v1, float v2, float v3) {
     glUniform4f(get_uniform_location(name), v0, v1, v2, v3);
 }
 
-void Shader::set_uniform_3f(const std::string &name, f32 v0, f32 v1, f32 v2) {
+void Shader::set_uniform_3f(const std::string &name, float v0, float v1, float v2) {
     glUniform3f(get_uniform_location(name), v0, v1, v2);
 }
 
-void Shader::set_uniform_2f(const std::string &name, f32 v0, f32 v1) {
+void Shader::set_uniform_2f(const std::string &name, float v0, float v1) {
     glUniform2f(get_uniform_location(name), v0, v1);
 }
 
@@ -56,7 +56,7 @@ void Shader::set_uniform_mat4f(const std::string &name, const glm::mat4 &matrix)
     glUniformMatrix4fv(get_uniform_location(name), 1, GL_FALSE, &matrix[0][0]);
 }
 
-void Shader::set_uniform_1iv(const std::string &name, int *arr, u32 size) {
+void Shader::set_uniform_1iv(const std::string &name, int *arr, uint32_t size) {
     glUniform1iv(get_uniform_location(name), size, arr);
 }
 
@@ -64,7 +64,7 @@ void Shader::set_uniform_bool(const std::string &name, bool v0) {
     glUniform1i(get_uniform_location(name), v0);
 }
 
-GLint Shader::get_uniform_location(const std::string &name) {
+int Shader::get_uniform_location(const std::string &name) {
     bind();
     if (uniform_loc_cache.find(name) != uniform_loc_cache.end()) {
         return uniform_loc_cache[name];
@@ -105,7 +105,7 @@ ShaderProgramSource Shader::parse_shader(const std::string &filepath) {
     return {shaderstream[0].str(), shaderstream[1].str()};
 }
 
-GLuint Shader::compile_shader(u32 type, const std::string &source) {
+uint32_t Shader::compile_shader(uint32_t type, const std::string &source) {
     GLuint id = glCreateShader(type);
     const char *src = source.c_str();
     glShaderSource(id, 1, &src, nullptr);
@@ -131,7 +131,7 @@ GLuint Shader::compile_shader(u32 type, const std::string &source) {
 /**
  * @return binding for shader
  */
-GLuint Shader::create_shader(const std::string &vertex_shader, const std::string &fragment_shader) {
+uint32_t Shader::create_shader(const std::string &vertex_shader, const std::string &fragment_shader) {
     GLuint program = glCreateProgram();
 
     GLuint vertexs = compile_shader(GL_VERTEX_SHADER, vertex_shader);

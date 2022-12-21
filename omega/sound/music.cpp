@@ -16,13 +16,13 @@ Music::~Music() {
     music = nullptr;
 }
 
-void Music::play(f32 volume) {
+void Music::play(float volume) {
     Mix_HaltMusic();
     Mix_VolumeMusic((int)(MIX_MAX_VOLUME * volume));
     Mix_PlayMusic(music, -1);
 }
 
-void Music::set_volume(f32 volume) {
+void Music::set_volume(float volume) {
     Mix_VolumeMusic((int)(MIX_MAX_VOLUME * volume));
 }
 

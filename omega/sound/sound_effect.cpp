@@ -16,11 +16,11 @@ SoundEffect::~SoundEffect() {
     chunk = nullptr;
 }
 
-void SoundEffect::play(f32 volume) {
+void SoundEffect::play(float volume) {
     Mix_VolumeChunk(chunk, MIX_MAX_VOLUME * volume);
     Mix_PlayChannel(-1, chunk, 0);
 }
-void SoundEffect::set_volume(f32 volume) {
+void SoundEffect::set_volume(float volume) {
     Mix_VolumeChunk(chunk, MIX_MAX_VOLUME * volume);
 }
 

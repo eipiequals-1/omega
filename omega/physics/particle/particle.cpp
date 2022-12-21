@@ -13,7 +13,7 @@ Particle::Particle() {
 Particle::~Particle() {
 }
 
-void Particle::update(f32 dt) {
+void Particle::update(float dt) {
     life_remaining -= dt;
     pos += vel * dt;
 }

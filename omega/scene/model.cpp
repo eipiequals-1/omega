@@ -5,8 +5,8 @@
 
 namespace omega::scene {
 
-static u32 texture_from_file(const std::string &filepath) {
-    u32 id = 0;
+static uint32_t texture_from_file(const std::string &filepath) {
+    uint32_t id = 0;
     SDL_Surface *surf = IMG_Load(filepath.c_str());
     if (surf == nullptr) {
         util::error("IMG error: Error loading '", filepath, "': ", IMG_GetError());
@@ -45,24 +45,24 @@ void Model::render(gfx::Shader &shader) {
 
 void Model::process_node(aiNode *node, const aiScene *scene) {
     // process all the node's meshes
-    for (u32 i = 0; i < node->mNumMeshes; ++i) {
+    for (uint32_t i = 0; i < node->mNumMeshes; ++i) {
         aiMesh *mesh = scene->mMeshes[node->mMeshes[i]];
         meshes.push_back(process_mesh(mesh, scene));
     }
     // process children recursively
-    for (u32 i = 0; i < node->mNumChildren; ++i) {
+    for (uint32_t i = 0; i < node->mNumChildren; ++i) {
         process_node(node->mChildren[i], scene);
     }
 }
 
 Mesh Model::process_mesh(aiMesh *mesh, const aiScene *scene) {
     std::vector<MeshVertex> vertices;
-    std::vector<u32> indices;
+    std::vector<uint32_t> indices;
     std::vector<MeshTexture> textures;
 
     glm::vec3 vec;
     // process vertices
-    for (u32 i = 0; i < mesh->mNumVertices; ++i) {
+    for (uint32_t i = 0; i < mesh->mNumVertices; ++i) {
         MeshVertex vertex;
         // positions
         vec.x = mesh->mVertices[i].x;
@@ -97,10 +97,10 @@ Mesh Model::process_mesh(aiMesh *mesh, const aiScene *scene) {
         vertices.push_back(vertex);
     }
     // process vertex indices
-    for (u32 i = 0; i < mesh->mNumFaces; ++i) {
+    for (uint32_t i = 0; i < mesh->mNumFaces; ++i) {
         aiFace &face = mesh->mFaces[i];
         // get all indices on each face and push_back to indices vector
-        for (u32 j = 0; j < face.mNumIndices; ++j) {
+        for (uint32_t j = 0; j < face.mNumIndices; ++j) {
             indices.push_back(face.mIndices[j]);
         }
     }
@@ -124,12 +124,12 @@ Mesh Model::process_mesh(aiMesh *mesh, const aiScene *scene) {
 
 std::vector<MeshTexture> Model::load_material_textures(aiMaterial *mat, aiTextureType type, const std::string &type_name) {
     std::vector<MeshTexture> textures;
-    for (u32 i = 0; i < mat->GetTextureCount(type); ++i) {
+    for (uint32_t i = 0; i < mat->GetTextureCount(type); ++i) {
         aiString str;
         mat->GetTexture(type, i, &str);
         // check if the texture was not already loaded
         bool skip = false;
-        for (u32 j = 0; j < textures.size(); ++j) {
+        for (uint32_t j = 0; j < textures.size(); ++j) {
             if (std::strcmp(textures[j].path.c_str(), str.C_Str()) == 0) {
                 textures.push_back(textures[j]);
                 skip = true;

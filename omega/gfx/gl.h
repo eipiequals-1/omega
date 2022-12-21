@@ -20,7 +20,7 @@ inline void clear_buffer(GLbitfield mask = GL_COLOR_BUFFER_BIT) {
     glClear(mask);
 }
 
-inline void set_clear_color(f32 r, f32 g, f32 b, f32 a) {
+inline void set_clear_color(float r, float g, float b, float a) {
     glClearColor(r, g, b, a);
 }
 
@@ -33,11 +33,11 @@ inline void enable_blending(GLenum sfactor = GL_SRC_ALPHA, GLenum dfactor = GL_O
     glBlendFunc(sfactor, dfactor);
 }
 
-inline void draw_arrays(GLenum render_type, u32 start, u32 count) {
+inline void draw_arrays(GLenum render_type, uint32_t start, uint32_t count) {
     glDrawArrays(render_type, start, count);
 }
 
-inline void draw_elements(GLenum mode, i32 count, u32 type, const void *indices) {
+inline void draw_elements(GLenum mode, int32_t count, uint32_t type, const void *indices) {
     glDrawElements(mode, count, type, indices);
 }
 

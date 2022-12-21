@@ -44,22 +44,22 @@ class MapRenderer {
      * @param layer_width_pix width of the layer in pixels
      * @param layer_height_pix height of the layer in pixels
      */
-    void set_tile_pixels(u32 *tile_start, const Tile &tile, u32 layer_width_pix, u32 layer_height_pix) {
+    void set_tile_pixels(uint32_t *tile_start, const Tile &tile, uint32_t layer_width_pix, uint32_t layer_height_pix) {
         (void)layer_height_pix;
         // get tileset image and pixels
         const Tileset &tileset = map->tilesetCollection[tile.tilesetIndex];
         auto tileset_img = tex_manager->get(tile.tilesetIndex);
-        uptr<u32[]> tileset_pixels = tileset_img->get_pixels();
+        uptr<uint32_t[]> tileset_pixels = tileset_img->get_pixels();
         // get location of rect on tileset
-        u32 src_x, src_y, src_w, src_h;
+        uint32_t src_x, src_y, src_w, src_h;
         src_w = tileset.tileWidth;
         src_h = tileset.tileHeight;
         src_x = (tile.tileFlatIndex % tileset.colCount) * src_w;
         src_y = (tile.tileFlatIndex / tileset.colCount) * src_h;
         // if no tile set all of the tiles to 0
         if (tile.gid == 0) {
-            for (u32 y = 0; y < src_h; ++y) {
-                for (u32 x = 0; x < src_w; ++x) {
+            for (uint32_t y = 0; y < src_h; ++y) {
+                for (uint32_t x = 0; x < src_w; ++x) {
                     tile_start[x] = 0;
                 }
                 tile_start += layer_width_pix;
@@ -67,10 +67,10 @@ class MapRenderer {
             return;
         }
         // copy pixels from tileset to tile
-        for (u32 y = 0; y < src_h; ++y) {
-            const u32 *tileset_pixel_row = &tileset_pixels[(src_y + y) * tileset_img->get_width() + src_x];
-            for (u32 x = 0; x < src_w; ++x) {
-                u32 tileset_pix_data = tileset_pixel_row[x];
+        for (uint32_t y = 0; y < src_h; ++y) {
+            const uint32_t *tileset_pixel_row = &tileset_pixels[(src_y + y) * tileset_img->get_width() + src_x];
+            for (uint32_t x = 0; x < src_w; ++x) {
+                uint32_t tileset_pix_data = tileset_pixel_row[x];
                 // copy r, g, b, a
                 tile_start[x] = tileset_pix_data;
             }
@@ -79,7 +79,7 @@ class MapRenderer {
         }
     }
     Map *map;
-    uptr<TextureManager<u32>> tex_manager;
+    uptr<TextureManager<uint32_t>> tex_manager;
     std::vector<sptr<Texture>> layer_texture;
 };
 } // namespace omega::map

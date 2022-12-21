@@ -14,19 +14,19 @@ enum class ViewportType {
 
 class Viewport {
   public:
-    Viewport(ViewportType viewport_type, u32 initial_width, u32 initial_height);
+    Viewport(ViewportType viewport_type, uint32_t initial_width, uint32_t initial_height);
     virtual ~Viewport();
 
-    virtual glm::rect<u32> on_resize(u32 new_width, u32 new_height);
-    u32 get_width() const { return current_width; }
-    u32 get_height() const { return current_height; }
+    virtual glm::rect<uint32_t> on_resize(uint32_t new_width, uint32_t new_height);
+    uint32_t get_width() const { return current_width; }
+    uint32_t get_height() const { return current_height; }
 
   private:
     ViewportType viewport_type;
-    u32 initial_width;
-    u32 initial_height;
-    u32 current_width;
-    u32 current_height;
+    uint32_t initial_width;
+    uint32_t initial_height;
+    uint32_t current_width;
+    uint32_t current_height;
 };
 
 } // namespace omega::core
