@@ -3,7 +3,7 @@ CFLAGS = -g -Wall -Wextra -Wcast-qual -Wconversion-null -Wformat-security -Wmiss
 PROFILE_FLAGS= -pg
 LDFLAGS = -g
 INCLUDE = -I/usr/include/SDL2/ -I.
-LIBS = -lGL -lGLU -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer -ltinyxml2 -lBox2D -lassimp
+LIBS = -lGL -lGLU -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer -ltinyxml2 -lbox2d -lassimp
 MACROS = -DGL_GLEXT_PROTOTYPES
 OPT = -O3
 
