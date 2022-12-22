@@ -11,7 +11,7 @@ Viewport::~Viewport() {
 
 glm::rect<uint32_t> Viewport::on_resize(uint32_t new_width, uint32_t new_height) {
     switch (viewport_type) {
-    case ViewportType::k_fit: {
+    case ViewportType::fit: {
         const auto fit_aspect_ratio = [](float src_width, float src_height, float max_width, float max_height) {
             const float ratio = glm::min(max_width / src_width, max_height / src_height);
             return glm::vec2(src_width * ratio, src_height * ratio);
@@ -24,7 +24,7 @@ glm::rect<uint32_t> Viewport::on_resize(uint32_t new_width, uint32_t new_height)
         glViewport(margin_left, margin_bottom, current_width, current_height);
         return glm::rect<uint32_t>(margin_left, margin_bottom, current_width, current_height);
     }
-    case ViewportType::k_stretch: {
+    case ViewportType::stretch: {
         current_width = new_width;
         current_height = new_height;
         glViewport(0, 0, new_width, new_height);

@@ -10,9 +10,9 @@ namespace omega::gfx {
 
 SpriteBatch::SpriteBatch() : quads_rendered(0), tex_bind_slot(0) {
     // indices will never change so set them now
-    uint32_t indices[kIndexBufferCapacity];
+    uint32_t indices[index_buffer_capacity];
     uint32_t offset = 0;
-    for (size_t i = 0; i < kIndexBufferCapacity; i += 6) {
+    for (size_t i = 0; i < index_buffer_capacity; i += 6) {
         // triangle 1
         indices[i + 0] = 0 + offset;
         indices[i + 1] = 1 + offset;
@@ -24,7 +24,7 @@ SpriteBatch::SpriteBatch() : quads_rendered(0), tex_bind_slot(0) {
 
         offset += 4;
     }
-    ibo = create_uptr<IndexBuffer>(indices, kIndexBufferCapacity);
+    ibo = create_uptr<IndexBuffer>(indices, index_buffer_capacity);
 
     const char vertex[] = R"glsl(
 		#version 450
@@ -78,7 +78,7 @@ SpriteBatch::SpriteBatch() : quads_rendered(0), tex_bind_slot(0) {
 
     sprite_shader = create_uptr<Shader>(std::string(vertex), std::string(fragment));
     vao = create_uptr<VertexArray>();
-    vbo = create_uptr<VertexBuffer>(kVertexBufferCapacity * kVertexCount * sizeof(float));
+    vbo = create_uptr<VertexBuffer>(vertex_buffer_capacity * vertex_count * sizeof(float));
     VertexBufferLayout layout;
     layout.push(GL_FLOAT, 2); // original world coords
     layout.push(GL_FLOAT, 4); // color
@@ -88,11 +88,11 @@ SpriteBatch::SpriteBatch() : quads_rendered(0), tex_bind_slot(0) {
     layout.push(GL_FLOAT, 2); // center of rotation
     vao->add_buffer(*vbo, layout);
 
-    for (uint32_t i = 0; i < kMaxTextures; ++i) {
+    for (uint32_t i = 0; i < max_textures; ++i) {
         texture_binds[i] = i;
     }
     sprite_shader->bind();
-    sprite_shader->set_uniform_1iv("u_Textures", (int *)texture_binds.data(), kMaxTextures);
+    sprite_shader->set_uniform_1iv("u_Textures", (int *)texture_binds.data(), max_textures);
     sprite_shader->unbind();
 }
 
@@ -123,7 +123,7 @@ void SpriteBatch::render_texture(const Texture *texture, const glm::rectf &src, 
 }
 
 void SpriteBatch::render_texture(const Texture *texture, glm::rectf src, const glm::rectf &dest, float rotation, const glm::vec2 &center, const glm::vec4 &color) {
-    if (quads_rendered == kQuadCapacity) {
+    if (quads_rendered == quad_capacity) {
         end_render();
         begin_render();
     }
@@ -138,7 +138,7 @@ void SpriteBatch::render_texture(const Texture *texture, glm::rectf src, const g
         }
     }
     if (!in_batch) {
-        if (tex_bind_slot == kMaxTextures) {
+        if (tex_bind_slot == max_textures) {
             end_render();
             begin_render();
         }
@@ -175,7 +175,7 @@ void SpriteBatch::end_render() {
     sprite_shader->bind();
     vao->bind();
     ibo->bind();
-    glDrawElements(GL_TRIANGLES, quads_rendered * kIndexCount, GL_UNSIGNED_INT, nullptr);
+    glDrawElements(GL_TRIANGLES, quads_rendered * index_count, GL_UNSIGNED_INT, nullptr);
     VertexArray::unbind();
     IndexBuffer::unbind();
     Shader::unbind();

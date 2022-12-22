@@ -130,15 +130,15 @@ class SpriteBatch {
     uptr<VertexArray> vao;
     uptr<IndexBuffer> ibo;
     // buffer constants
-    static constexpr uint32_t kQuadCapacity = 1500;
-    static constexpr uint32_t kIndexBufferCapacity = kQuadCapacity * 6;
-    static constexpr uint32_t kVertexBufferCapacity = kQuadCapacity * 4;
-    static constexpr uint32_t kVertexCount = 12;
-    static constexpr uint32_t kIndexCount = 6;
+    static constexpr uint32_t quad_capacity = 1500;
+    static constexpr uint32_t index_buffer_capacity = quad_capacity * 6;
+    static constexpr uint32_t vertex_buffer_capacity = quad_capacity * 4;
+    static constexpr uint32_t vertex_count = 12;
+    static constexpr uint32_t index_count = 6;
     // texture data
-    static constexpr uint32_t kMaxTextures = 32;
-    std::array<uint32_t, kMaxTextures> texture_binds;
-    std::array<const Texture *, kMaxTextures> textures_to_render;
+    static constexpr uint32_t max_textures = 32;
+    std::array<uint32_t, max_textures> texture_binds;
+    std::array<const Texture *, max_textures> textures_to_render;
 
     // render attributes
     uint32_t quads_rendered;

@@ -12,21 +12,21 @@ using Event = SDL_Event;
  * Describes possible events
  */
 enum class EventType {
-    k_quit = SDL_QUIT,
-    k_window_event = SDL_WINDOWEVENT,
-    k_key_down = SDL_KEYDOWN,
-    k_key_up = SDL_KEYUP,
-    k_mouse_button_down = SDL_MOUSEBUTTONDOWN,
-    k_mouse_button_up = SDL_MOUSEBUTTONUP
+    quit = SDL_QUIT,
+    window_event = SDL_WINDOWEVENT,
+    key_down = SDL_KEYDOWN,
+    key_up = SDL_KEYUP,
+    mouse_button_down = SDL_MOUSEBUTTONDOWN,
+    mouse_button_up = SDL_MOUSEBUTTONUP
 };
 
 /**
  * Represents the type of mouse
  */
 enum class MouseButton {
-    k_mouse_left = SDL_BUTTON_LEFT,
-    k_mouse_right = SDL_BUTTON_RIGHT,
-    k_mouse_center = SDL_BUTTON_MIDDLE
+    mouse_left = SDL_BUTTON_LEFT,
+    mouse_right = SDL_BUTTON_RIGHT,
+    mouse_center = SDL_BUTTON_MIDDLE
 };
 
 /**
@@ -86,7 +86,7 @@ enum class Key {
 };
 
 enum class WindowEvents {
-    k_window_resized = SDL_WINDOWEVENT_RESIZED
+    window_resized = SDL_WINDOWEVENT_RESIZED
 };
 
 } // namespace omega::events

@@ -28,8 +28,8 @@ class Entity {
         return static_cast<T>(*c);
     }
     void render(float dt);
-    virtual void input(float dt);
-    virtual void update(float dt);
+    void input(float dt);
+    void update(float dt);
 
   protected:
     std::vector<Component *> components;

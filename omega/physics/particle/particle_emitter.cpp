@@ -55,10 +55,10 @@ ParticleEmitter::ParticleEmitter(EmitterBuilder &builder) : particles(nullptr), 
     }
 
     vbo = create_uptr<VertexBuffer>(sizeof(ParticleVertex) * 4 * data.max_particles);
-    const uint32_t kIndexBufferCapacity = 6 * data.max_particles;
-    uint32_t *indices = new uint32_t[kIndexBufferCapacity];
+    const uint32_t index_buffer_capacity = 6 * data.max_particles;
+    uint32_t *indices = new uint32_t[index_buffer_capacity];
     uint32_t offset = 0;
-    for (size_t i = 0; i < kIndexBufferCapacity; i += 6) {
+    for (size_t i = 0; i < index_buffer_capacity; i += 6) {
         // triangle 1
         indices[i + 0] = 0 + offset;
         indices[i + 1] = 1 + offset;
@@ -69,7 +69,7 @@ ParticleEmitter::ParticleEmitter(EmitterBuilder &builder) : particles(nullptr), 
         indices[i + 5] = 0 + offset;
         offset += 4;
     }
-    ibo = create_uptr<IndexBuffer>(indices, kIndexBufferCapacity);
+    ibo = create_uptr<IndexBuffer>(indices, index_buffer_capacity);
     delete[] indices;
     indices = nullptr;
     vao = create_uptr<VertexArray>();

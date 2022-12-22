@@ -25,7 +25,7 @@ void UIScreen::push_button(Button *button) { buttons.push_back(button); }
 
 void UIScreen::handle_buttons() {
     if (InputManager::instance()->mouse_button_just_released(
-            MouseButton::k_mouse_left)) {
+            MouseButton::mouse_left)) {
         for (auto &btn : buttons) {
             if (btn->get_hover()) {
                 btn->on_click();

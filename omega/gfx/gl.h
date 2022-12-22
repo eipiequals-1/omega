@@ -8,6 +8,10 @@
 
 namespace omega::gfx {
 
+inline void viewport(int x, int y, uint32_t width, uint32_t height) {
+    glViewport(x, y, width, height);
+}
+
 inline bool check_error() {
     int count = 0;
     GLenum error = glGetError();

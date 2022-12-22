@@ -8,8 +8,8 @@
 namespace omega::core {
 
 enum class ViewportType {
-    k_fit,     // keep aspect ratio to take up max space on the screen
-    k_stretch, // world is scaled to take up the full screen
+    fit,     // keep aspect ratio to take up max space on the screen
+    stretch, // world is scaled to take up the full screen
 };
 
 class Viewport {

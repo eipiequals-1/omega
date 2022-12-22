@@ -29,11 +29,11 @@ inline ComponentID get_component_id() {
     return type_id;
 }
 
-static constexpr std::size_t kMaxEntities = 5000;
-static constexpr std::size_t kMaxComponents = 32;
+static constexpr std::size_t max_entities = 5000;
+static constexpr std::size_t max_components = 32;
 
-using ComponentBitset = std::bitset<kMaxEntities>;
-using ComponentArray = std::array<Component *, kMaxEntities>;
+using ComponentBitset = std::bitset<max_components>;
+using ComponentArray = std::array<Component *, max_components>;
 
 class Component {
   public:
@@ -55,11 +55,11 @@ class RectComponent : public Component {
   public:
     RectComponent() { rotation = 0; }
 
-    const glm::rectf &GetRect() const { return rect; }
-    void SetRect(const glm::rectf &rect) { this->rect = rect; }
+    const glm::rectf &get_rect() const { return rect; }
+    void set_rect(const glm::rectf &rect) { this->rect = rect; }
 
-    float GetRotation() const { return rotation; }
-    void SetRotation(float rotation) { this->rotation = rotation; }
+    float get_rotation() const { return rotation; }
+    void set_rotation(float rotation) { this->rotation = rotation; }
 
   protected:
     glm::rectf rect;
@@ -72,11 +72,11 @@ class SpriteComponent : public RectComponent {
         color = omega::util::color::white;
     }
 
-    Texture *GetTexture() { return texture; }
-    void SetTexture(Texture *texture) { this->texture = texture; }
+    Texture *get_texture() { return texture; }
+    void set_texture(Texture *texture) { this->texture = texture; }
 
-    const glm::vec4 &GetColor() { return color; }
-    void SetColor(const glm::vec4 &color) { this->color = color; }
+    const glm::vec4 &get_color() { return color; }
+    void set_color(const glm::vec4 &color) { this->color = color; }
 
     virtual void render(float dt) override {
         (void)dt;

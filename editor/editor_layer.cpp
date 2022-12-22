@@ -7,7 +7,7 @@ EditorLayer::EditorLayer() : scene::ImGuiLayer::ImGuiLayer(omega::core::Applicat
     frame_buffer = util::create_uptr<gfx::FrameBuffer>(1280, 720);
     camera = util::create_uptr<scene::OrthographicCamera>(0.0f, 1280.0f, 0.0f, 720.0f);
     camera->recalculate_view_matrix();
-    scene_viewport = util::create_uptr<core::Viewport>(core::ViewportType::k_fit, 1280, 720);
+    scene_viewport = util::create_uptr<core::Viewport>(core::ViewportType::fit, 1280, 720);
 
     // load music
     auto sound_manager = sound::SoundManager::instance();

@@ -11,22 +11,22 @@ namespace omega::core {
  * i.e. Fullscreen mode, Resizable, etc
  */
 enum class WindowFlags {
-    k_opengl = SDL_WINDOW_OPENGL,
-    k_opengl_resizable = SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE,
-    k_opengl_resizable_fullscreen = SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE | SDL_WINDOW_FULLSCREEN,
-    k_none = 0
+    opengl = SDL_WINDOW_OPENGL,
+    opengl_resizable = SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE,
+    opengl_resizable_fullscreen = SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE | SDL_WINDOW_FULLSCREEN,
+    none = 0
 };
 
 /**
  * Specifies how the SDL window, events, audio, etc should be set up
  */
 enum class InitFlags {
-    k_timer = SDL_INIT_TIMER,
-    k_audio = SDL_INIT_AUDIO,
-    k_video = SDL_INIT_VIDEO,
-    k_joystick = SDL_INIT_JOYSTICK,
-    k_events = SDL_INIT_EVENTS,
-    k_everything = SDL_INIT_EVERYTHING
+    timer = SDL_INIT_TIMER,
+    audio = SDL_INIT_AUDIO,
+    video = SDL_INIT_VIDEO,
+    joystick = SDL_INIT_JOYSTICK,
+    events = SDL_INIT_EVENTS,
+    everything = SDL_INIT_EVERYTHING
 };
 
 } // namespace omega::core

@@ -28,7 +28,7 @@ CircleBody::CircleBody(const glm::vec2 &center, float radius, BodyType type, b2F
     b2CircleShape circle;
     circle.m_p = body_def.position;
     circle.m_radius = radius;
-    circle.m_type = (b2Shape::Type)ShapeType::k_circle;
+    circle.m_type = (b2Shape::Type)ShapeType::circle;
     fixture_def.shape = &circle;
     body->CreateFixture(&fixture_def);
 }

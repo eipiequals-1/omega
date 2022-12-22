@@ -6,16 +6,6 @@
 #include <string>
 #include <vector>
 
-static void split(std::string str, std::vector<std::string> &ret_vec, const std::string &del = " ") {
-    char *s = &str[0]; // get pointer to string
-    // start splitting string
-    char *piece = strtok(s, del.c_str());
-    while (piece != nullptr) {
-        ret_vec.push_back(std::string(piece));
-        piece = strtok(nullptr, del.c_str());
-    }
-}
-
 namespace omega::gfx::texture {
 
 TextureAtlas::TextureAtlas(const std::string &atlas_file_path, GLenum min_filter, GLenum mag_filter) : tex(nullptr) {
@@ -43,7 +33,7 @@ TextureAtlas::TextureAtlas(const std::string &atlas_file_path, GLenum min_filter
         const auto &line = lines[i];
         // split line into words
         std::vector<std::string> words;
-        split(line, words, " ");
+        util::split(line, words, " ");
         // must be line 1 -> contains image
         if (i == 0) {
             // get full path to image file

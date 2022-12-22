@@ -37,20 +37,17 @@ constexpr sptr<T> create_sptr(Args &&...args) {
 /**
  * Splits the string into a vector of substrings using the delimeter
  * @param str the string to split
+ * @param ret_vec out vector<string> of the split string
  * @param del the delimeter to split the string with
- * @return vector<string> of the split string
  */
-inline std::vector<std::string> split(std::string str, const std::string &del) {
-    std::vector<std::string> ret_vec;
+inline void split(std::string str, std::vector<std::string> &ret_vec, const std::string &del = " ") {
     char *s = &str[0]; // get pointer to string
     // start splitting string
     char *piece = strtok(s, del.c_str());
     while (piece != nullptr) {
         ret_vec.push_back(std::string(piece));
-        // get next string token
         piece = strtok(nullptr, del.c_str());
     }
-    return ret_vec;
 }
 
 template <typename T>

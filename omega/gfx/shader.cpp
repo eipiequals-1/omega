@@ -76,21 +76,21 @@ ShaderProgramSource Shader::parse_shader(const std::string &filepath) {
     std::string line;
 
     enum class ShaderType {
-        k_none = -1,
-        k_vertex = 0,
-        k_fragment = 1
+        none = -1,
+        vertex = 0,
+        fragment = 1
     };
 
     std::stringstream shaderstream[2];
-    ShaderType type = ShaderType::k_none;
+    ShaderType type = ShaderType::none;
     while (std::getline(stream, line)) {
         if (line.find("#shader") != std::string::npos) {
             if (line.find("vertex") != std::string::npos) {
-                type = ShaderType::k_vertex;
+                type = ShaderType::vertex;
                 // vertex shader
             } else if (line.find("fragment") != std::string::npos) {
                 // fragment shader
-                type = ShaderType::k_fragment;
+                type = ShaderType::fragment;
             }
         } else {
             shaderstream[(int)type] << line << '\n';
