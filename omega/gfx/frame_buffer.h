@@ -21,7 +21,10 @@ class FrameBuffer {
     ~FrameBuffer();
 
     void bind() const;
-    void unbind() const;
+    static void unbind() {
+        glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    }
+
     void bind_texture(uint32_t slot = 0) const;
     void unbind_texture() const;
     void resize(uint32_t width, uint32_t height);

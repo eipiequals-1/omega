@@ -9,7 +9,6 @@
 #include <string>
 #include <unordered_map>
 
-#include "omega/gfx/errors.h"
 #include "omega/util/util.h"
 
 namespace omega::gfx::texture {
@@ -65,7 +64,9 @@ class Texture {
     /**
      * Unbind the texture in OpenGL
      */
-    void unbind() const;
+    static void unbind() {
+        glBindTexture(GL_TEXTURE_2D, 0);
+    }
     uint32_t get_renderer_id() const { return id; }
 
     uint32_t get_width() const { return width; }

@@ -32,8 +32,4 @@ void VertexArray::bind() const {
     glBindVertexArray(id);
 }
 
-void VertexArray::unbind() const {
-    glBindVertexArray(0);
-}
-
 } // namespace omega

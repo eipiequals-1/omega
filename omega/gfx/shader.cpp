@@ -6,8 +6,6 @@
 #include <iostream>
 #include <sstream>
 
-#include "omega/gfx/errors.h"
-
 namespace omega::gfx {
 
 Shader::Shader(const std::string &filepath) {
@@ -25,10 +23,6 @@ Shader::~Shader() {
 
 void Shader::bind() const {
     glUseProgram(id);
-}
-
-void Shader::unbind() const {
-    glUseProgram(0);
 }
 
 void Shader::set_uniform_1i(const std::string &name, int value) {

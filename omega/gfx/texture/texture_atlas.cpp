@@ -6,7 +6,7 @@
 #include <string>
 #include <vector>
 
-static void Split(std::string str, std::vector<std::string> &ret_vec, const std::string &del = " ") {
+static void split(std::string str, std::vector<std::string> &ret_vec, const std::string &del = " ") {
     char *s = &str[0]; // get pointer to string
     // start splitting string
     char *piece = strtok(s, del.c_str());
@@ -43,7 +43,7 @@ TextureAtlas::TextureAtlas(const std::string &atlas_file_path, GLenum min_filter
         const auto &line = lines[i];
         // split line into words
         std::vector<std::string> words;
-        Split(line, words, " ");
+        split(line, words, " ");
         // must be line 1 -> contains image
         if (i == 0) {
             // get full path to image file

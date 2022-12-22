@@ -1,8 +1,8 @@
 #ifndef OMEGA_GFX_GFX_H
 #define OMEGA_GFX_GFX_H
 
-#include "omega/gfx/errors.h"
 #include "omega/gfx/frame_buffer.h"
+#include "omega/gfx/gl.h"
 #include "omega/gfx/index_buffer.h"
 #include "omega/gfx/shader.h"
 #include "omega/gfx/shape_renderer.h"

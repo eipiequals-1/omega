@@ -24,10 +24,6 @@ void IndexBuffer::bind() const {
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id);
 }
 
-void IndexBuffer::unbind() const {
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-}
-
 void IndexBuffer::sub_data(GLintptr offset, GLsizeiptr size, const GLvoid *data) {
     bind();
     glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, offset, size, data);

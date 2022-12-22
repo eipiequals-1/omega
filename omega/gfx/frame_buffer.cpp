@@ -1,5 +1,7 @@
 #include "frame_buffer.h"
 
+#include "omega/gfx/gl.h"
+
 namespace omega::gfx {
 
 FrameBuffer::FrameBuffer(uint32_t width, uint32_t height) : id(0), width(width), height(height), color_buffer(nullptr), rbo_depth_stencil(0) {
@@ -22,7 +24,7 @@ void FrameBuffer::resize(uint32_t width, uint32_t height) {
     this->height = height;
     glCreateFramebuffers(1, &id);
     glBindFramebuffer(GL_FRAMEBUFFER, id);
-    glCheckError();
+    check_error();
     // create color buffer
     color_buffer = Texture::create_empty(width, height, GL_LINEAR, GL_LINEAR);
     // attach to frame buffer
@@ -42,16 +44,12 @@ void FrameBuffer::resize(uint32_t width, uint32_t height) {
     color_buffer->unbind();
     glBindRenderbuffer(GL_RENDERBUFFER, 0);
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
-    glCheckError();
+    check_error();
 }
 
 void FrameBuffer::bind() const {
     glBindFramebuffer(GL_FRAMEBUFFER, id);
     glViewport(0, 0, width, height);
-}
-
-void FrameBuffer::unbind() const {
-    glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
 void FrameBuffer::bind_texture(uint32_t slot) const {

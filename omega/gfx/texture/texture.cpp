@@ -21,13 +21,9 @@ Texture::~Texture() {
     glDeleteTextures(1, &id);
 }
 
-void Texture::bind(GLuint slot) const {
+void Texture::bind(uint32_t slot) const {
     glActiveTexture(GL_TEXTURE0 + slot); // which slot the next texture will use
     glBindTexture(GL_TEXTURE_2D, id);
-}
-
-void Texture::unbind() const {
-    glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 void Texture::load(uint32_t *pixels) {

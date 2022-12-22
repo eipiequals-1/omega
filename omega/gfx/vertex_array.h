@@ -31,7 +31,9 @@ class VertexArray {
     /**
      * Unbinds the Vertex Array in the OpenGL state machine
      */
-    void unbind() const;
+    static void unbind() {
+        glBindVertexArray(0);
+    }
 
   private:
     uint32_t id;

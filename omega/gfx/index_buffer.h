@@ -24,7 +24,9 @@ class IndexBuffer {
     /**
      * Unbinds the Index Buffer in the OpenGl state machine
      */
-    void unbind() const;
+    static void unbind() {
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+    }
 
     /**
      * Returns the number of indices that are stored

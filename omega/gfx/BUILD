@@ -8,17 +8,6 @@ load(
 package(default_visibility= ["//visibility:public"])
 
 cc_library(
-    name = "errors",
-    srcs = ["errors.cpp"],
-    hdrs = ["errors.h"],
-    copts = DEFAULT_COPTS,
-    linkopts = DEFAULT_LINKOPTS,
-    deps = [
-        "@GL//:GL"
-    ]
-)
-
-cc_library(
     name = "frame_buffer",
     srcs = ["frame_buffer.cpp"],
     hdrs = ["frame_buffer.h"],
@@ -28,6 +17,17 @@ cc_library(
         "@GL//:GL",
         "//omega/util:util",
         "//omega/gfx/texture:texture",
+        ":gl",
+    ]
+)
+
+cc_library(
+    name = "gl",
+    hdrs = ["gl.h"],
+    copts = DEFAULT_COPTS,
+    linkopts = DEFAULT_LINKOPTS,
+    deps = [
+        "@GL//:GL",
     ]
 )
 
@@ -52,7 +52,6 @@ cc_library(
     deps = [
         "@GL//:GL",
         "//omega/util:util",
-        "errors",
     ]
 )
 
@@ -134,8 +133,8 @@ cc_library(
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
-        ":errors",
         ":frame_buffer",
+        ":gl",
         ":index_buffer",
         ":shader",
         ":shape_renderer",

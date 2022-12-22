@@ -59,8 +59,8 @@ void ShapeRenderer::end() {
     triangle_vao->bind();
     glDrawArrays(GL_TRIANGLES, 0, triangles_renderered * kNumVerticesPerTriangle);
     // unbind all objects
-    triangle_shader->unbind();
-    triangle_vao->unbind();
+    VertexArray::unbind();
+    Shader::unbind();
 }
 
 void ShapeRenderer::rect(const glm::rectf &rect) {
@@ -156,4 +156,4 @@ void ShapeRenderer::line(float x1, float y1, float x2, float y2, float thickness
     line(glm::vec2(x1, y1), glm::vec2(x2, y2), thickness);
 }
 
-} // namespace omega
+} // namespace omega::gfx

@@ -17,7 +17,6 @@ cc_library(
     deps = [
         "@SDL2//:SDL2",
         "@GL//:GL",
-        "//omega/gfx:errors",
         "//omega/util:util",
     ]
 )

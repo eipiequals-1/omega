@@ -2,15 +2,22 @@
 #define OMEGA_GFX_GL_H
 
 #include <GL/gl.h>
+#include <GL/glu.h>
 
-#include "omega/util/types.h"
+#include <iostream>
 
 namespace omega::gfx {
 
-enum class GLConstant {
-    src_alpha = GL_SRC_ALPHA,
-    one_minus_src_alpha = GL_ONE_MINUS_SRC_ALPHA
-};
+inline bool check_error() {
+    int count = 0;
+    GLenum error = glGetError();
+    while (error != GL_NO_ERROR) {
+        std::cout << "[OpenGL Error] (" << error << ": " << gluErrorString(error) << ")" << std::endl;
+        error = glGetError();
+        count++;
+    }
+    return count > 0;
+}
 
 /**
  * Clear the current frame buffer with the current clear color

@@ -24,7 +24,9 @@ class VertexBuffer {
     /**
      * Unbinds the Vertex Buffer in the OpenGL state machine
      */
-    void unbind() const;
+    static void unbind() {
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
+    }
 
     /**
      * Changes the buffer's data.

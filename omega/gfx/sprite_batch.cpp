@@ -176,9 +176,9 @@ void SpriteBatch::end_render() {
     vao->bind();
     ibo->bind();
     glDrawElements(GL_TRIANGLES, quads_rendered * kIndexCount, GL_UNSIGNED_INT, nullptr);
-    vao->unbind();
-    ibo->unbind();
-    sprite_shader->unbind();
+    VertexArray::unbind();
+    IndexBuffer::unbind();
+    Shader::unbind();
 }
 
 } // namespace omega::gfx
