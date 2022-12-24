@@ -35,8 +35,12 @@ inline void set_clear_color(float r, float g, float b, float a) {
     glClearColor(r, g, b, a);
 }
 
-inline void enable_depth_test() {
-    glEnable(GL_DEPTH_TEST);
+inline void set_depth_test(bool b) {
+    if (b) {
+        glEnable(GL_DEPTH_TEST);
+    } else {
+        glDisable(GL_DEPTH_TEST);
+    }
 }
 
 inline void enable_blending(GLenum sfactor = GL_SRC_ALPHA, GLenum dfactor = GL_ONE_MINUS_SRC_ALPHA) {

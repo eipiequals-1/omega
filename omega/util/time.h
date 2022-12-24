@@ -1,30 +1,35 @@
 #ifndef OMEGA_UTIL_TIME_H
 #define OMEGA_UTIL_TIME_H
 
-#include "omega/util/std.h"
-
 #include <SDL2/SDL.h>
+#include <chrono>
+#include <thread>
+
+#include "omega/util/std.h"
 
 namespace omega::util {
 
 class Time {
   public:
     static void init() {
-        // start = SDL_GetTicks() / 1000.0f;
+        start = std::chrono::high_resolution_clock::now();
     }
 
     /**
-     * @return the time since the initialization of the SDL library in milliseconds
+     * @return the time since the initialization of the engine in milliseconds
      */
-    static float get_time_millis() {
-        return SDL_GetTicks();
+    template <typename T>
+    static T get_time_millis() {
+        // return SDL_GetTicks();
+        return static_cast<T>(std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::high_resolution_clock::now() - start).count() * 0.001 * 0.001);
     }
 
     /**
-     * @return the time since the initialization of the SDL library in seconds
+     * @return the time since the initialization of the engine in seconds
      */
-    static float get_time() {
-        return get_time_millis() / 1000.0f;
+    template <typename T>
+    static T get_time() {
+        return static_cast<T>(get_time_millis<double>() * 0.001);
     }
 
     /**
@@ -62,13 +67,33 @@ class Time {
         }
     }
 
+    /**
+     * Sleep the current thread for specified time
+     * @param time seconds
+     */
+    template <typename T>
+    static void sleep(T time) {
+        std::this_thread::sleep_for(std::chrono::microseconds((int64_t)(time / 1000.0f / 1000.0f)));
+    }
+
+    /**
+     * @return the current time formatted as such: Day-of-week Month Day hr:min:sec yr
+     */
+    static std::string get_current_time() {
+        std::time_t current_time = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
+        return std::string(
+            std::ctime(&current_time));
+    }
+
   private:
     struct TimeEvent {
         float timer = 0.0f;
-        float duration;
+        float duration = 0.0f;
         std::function<void(float)> callback = nullptr;
     };
+
     static std::vector<uptr<TimeEvent>> timers;
+    static std::chrono::time_point<std::chrono::high_resolution_clock> start;
 };
 
 } // namespace omega::util
