@@ -7,7 +7,9 @@
 
 #include "omega/core/window.h"
 #include "omega/events/events.h"
-#include "omega/scene/scene.h"
+#include "omega/scene/imgui_layer.h"
+#include "omega/scene/layer.h"
+#include "omega/scene/layer_stack.h"
 #include "omega/util/util.h"
 
 namespace omega::core {
@@ -69,7 +71,7 @@ class Application {
     virtual float tick();
 
     float fps;
-    uint32_t last_time;
+    float last_time;
     sptr<Window> window;
     bool running;
     uptr<LayerStack> layer_stack;

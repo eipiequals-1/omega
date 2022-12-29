@@ -18,7 +18,7 @@ Application::Application(const ApplicationConfig &config) : fps(60), last_time(0
     layer_stack = create_uptr<LayerStack>();
     imgui_layer = nullptr;
     Time::init();
-    last_time = Time::get_time_millis<float>();
+    last_time = Time::get_time<float>();
 }
 
 Application::~Application() {
@@ -40,10 +40,12 @@ void Application::push_layer(Layer *layer) {
 }
 
 float Application::tick() {
-    Time::sleep(glm::max(1000.0f / fps - (float)(Time::get_time_millis<float>() - last_time) * 1000.0f, 0.0f));
-    // SDL_Delay();
-    float current_time = Time::get_time_millis<float>();
-    float dt = (current_time - last_time) / 1000.0f; // convert to seconds
+    float to_sleep = glm::max(
+        1.0f / fps - (Time::get_time<float>() - last_time),
+        0.0f);
+    Time::sleep(to_sleep);
+    float current_time = Time::get_time<float>();
+    float dt = (current_time - last_time); // get delta time
     last_time = current_time;
     return dt;
 }

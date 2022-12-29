@@ -43,7 +43,9 @@ cc_library(
         "@SDL2//:SDL2",
         "//omega/util:util",
         ":window",
-        "//omega/scene:scene",
+        "//omega/scene:layer",
+        "//omega/scene:layer_stack",
+        "//omega/scene:imgui_layer",
         "//omega/events:events",
     ]
 )
