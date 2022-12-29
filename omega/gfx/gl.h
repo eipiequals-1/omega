@@ -4,6 +4,8 @@
 #include <GL/gl.h>
 #include <GL/glu.h>
 
+#include "omega/util/math.h"
+
 #include <iostream>
 
 namespace omega::gfx {
@@ -33,6 +35,10 @@ inline void clear_buffer(GLbitfield mask = GL_COLOR_BUFFER_BIT) {
 
 inline void set_clear_color(float r, float g, float b, float a) {
     glClearColor(r, g, b, a);
+}
+
+inline void set_clear_color(const glm::vec4 &color) {
+    glClearColor(color.r, color.g, color.b, color.a);
 }
 
 inline void set_depth_test(bool b) {
