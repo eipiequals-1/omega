@@ -28,6 +28,7 @@ cc_library(
     linkopts = DEFAULT_LINKOPTS,
     deps = [
         "@GL//:GL",
+        "//omega/util:math",
     ]
 )
 
