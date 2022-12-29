@@ -11,7 +11,7 @@ ImageButton::~ImageButton() {
 }
 
 void ImageButton::render() {
-    SpriteBatch &sprite_batch = SpriteBatch::instance();
+    gfx::SpriteBatch &sprite_batch = gfx::SpriteBatch::instance();
     if (hover) {
         if (focus != nullptr) {
             sprite_batch.render_texture(focus, rect.x, rect.y, rect.w, rect.h);

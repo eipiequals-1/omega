@@ -13,12 +13,12 @@ class ImageButton : public Button {
     virtual ~ImageButton() override;
 
     virtual void render() override;
-    virtual void set_focus_texture(Texture *focus) { this->focus = focus; }
-    virtual void set_unfocus_texture(Texture *un_focus) { this->un_focus = un_focus; }
+    virtual void set_focus_texture(gfx::texture::Texture *focus) { this->focus = focus; }
+    virtual void set_unfocus_texture(gfx::texture::Texture *un_focus) { this->un_focus = un_focus; }
 
   protected:
-    Texture *focus;
-    Texture *un_focus;
+    gfx::texture::Texture *focus;
+    gfx::texture::Texture *un_focus;
 };
 
 } // namespace omega::ui::button

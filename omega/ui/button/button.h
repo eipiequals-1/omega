@@ -11,16 +11,12 @@ namespace omega::ui::button {
 
 using namespace omega::scene;
 
-class Button : public RectComponent {
+class Button {
   public:
     Button(float x, float y, float w, float h, std::function<void()> on_click);
     virtual ~Button();
 
     virtual void render() = 0;
-    void render(float dt) override {
-        (void)dt;
-        render();
-    }
 
     bool contains_point(const glm::vec2 &p) const {
         return rect.point_in_rect(p);
@@ -35,6 +31,7 @@ class Button : public RectComponent {
     }
 
   protected:
+    glm::rectf rect;
     std::function<void()> on_click_listener;
     bool hover;
 };
