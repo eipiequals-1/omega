@@ -16,15 +16,21 @@ cc_library(
     data = [
         "//editor/res/fnt/opensans:opensans",
         "//editor/res/sound:sound",
+        "//editor/res/ui:ui",
     ],
     deps = [
         "//omega/core:core",
         "//omega/util:util",
         "//omega/events:events",
         "//omega/scene:scene",
+        "//omega/scene:components",
+        "//omega/scene:orthographic_camera",
         "//omega/sound:sound",
         "//omega/gfx:gfx",
-        "//omega/vendor/imgui:imgui"
+        "//omega/vendor/imgui:imgui",
+
+        "//editor/panels:scene_hierarchy",
+        "//editor/panels:resource_panel",
     ]
 )
 
