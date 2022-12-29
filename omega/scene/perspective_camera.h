@@ -2,6 +2,7 @@
 #define OMEGA_CORE_PERSPECTIVECAMERA_H
 
 #include "omega/scene/camera.h"
+#include "omega/util/math.h"
 
 namespace omega::scene {
 

@@ -25,7 +25,8 @@ cc_library(
     linkopts = DEFAULT_LINKOPTS,
     deps = [
         "@SDL2//:SDL2",
-        "//omega/util:util",
+        "//omega/util:std",
+        "//omega/util:math",
         "//omega/core:window",
         ":event",
         ":key_manager",

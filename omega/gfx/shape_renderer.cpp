@@ -4,7 +4,7 @@
 
 namespace omega::gfx {
 
-ShapeRenderer::ShapeRenderer() : kViewProjMatrixName("u_ViewProjMatrix") {
+ShapeRenderer::ShapeRenderer() : view_proj_matrix_name("u_ViewProjMatrix") {
     // initialize numerical data
     triangles_renderered = 0;
     current_color = glm::vec4(1.0f);
@@ -37,7 +37,7 @@ ShapeRenderer::ShapeRenderer() : kViewProjMatrixName("u_ViewProjMatrix") {
     )glsl";
     triangle_shader = create_uptr<Shader>(std::string(vertex), std::string(fragment));
     // create vertex buffer
-    triangle_vbo = create_uptr<VertexBuffer>(sizeof(float) * kNumTriangles * kNumVerticesPerTriangle * kNumAttributes);
+    triangle_vbo = create_uptr<VertexBuffer>(sizeof(float) * num_triangles * num_vertices_per_triangle * num_attributes);
     // create vertex array
     triangle_vao = create_uptr<VertexArray>();
     // create vertex buffer layout
@@ -57,7 +57,7 @@ void ShapeRenderer::begin() {
 void ShapeRenderer::end() {
     triangle_shader->bind();
     triangle_vao->bind();
-    glDrawArrays(GL_TRIANGLES, 0, triangles_renderered * kNumVerticesPerTriangle);
+    glDrawArrays(GL_TRIANGLES, 0, triangles_renderered * num_vertices_per_triangle);
     // unbind all objects
     VertexArray::unbind();
     Shader::unbind();
@@ -101,7 +101,7 @@ void ShapeRenderer::rect(const glm::rectf &rect, float rotation) {
 }
 
 void ShapeRenderer::triangle(float x1, float y1, float x2, float y2, float x3, float y3) {
-    if (triangles_renderered == kNumTriangles) {
+    if (triangles_renderered == num_triangles) {
         end();
         begin();
     }

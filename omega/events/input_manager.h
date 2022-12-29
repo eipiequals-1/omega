@@ -1,18 +1,17 @@
 #ifndef OMEGA_EVENTS_INPUTMANAGER_H
 #define OMEGA_EVENTS_INPUTMANAGER_H
 
+#include <cstdint>
+
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_events.h>
 
-#include "omega/core/window.h"
 #include "omega/events/event.h"
 #include "omega/events/key_manager.h"
-#include "omega/util/util.h"
+#include "omega/util/math.h"
+#include "omega/util/std.h"
 
 namespace omega::events {
-
-using namespace omega::util;
-using namespace omega::core;
 
 /**
  * Abstraction for all input from the user
@@ -23,8 +22,8 @@ class InputManager {
     InputManager(const InputManager &) = delete;
     InputManager operator=(const InputManager &) = delete;
 
-    static sptr<InputManager> instance() {
-        static sptr<InputManager> input = sptr<InputManager>(new InputManager());
+    static util::sptr<InputManager> instance() {
+        static util::sptr<InputManager> input = util::sptr<InputManager>(new InputManager());
         return input;
     }
 
@@ -48,7 +47,7 @@ class InputManager {
      */
     void update();
 
-    sptr<KeyManager> &get_key_manager() { return key_manager; }
+    util::sptr<KeyManager> &get_key_manager() { return key_manager; }
     const glm::vec2 &get_mouse_pos() const { return mouse_pos; }
     glm::vec2 get_mouse_move() const { return relative_mode ? mouse_pos : mouse_pos - prev_mouse_pos; }
 
@@ -96,7 +95,7 @@ class InputManager {
 
   private:
     InputManager();
-    sptr<KeyManager> key_manager;
+    util::sptr<KeyManager> key_manager;
     glm::vec2 mouse_pos, prev_mouse_pos; // mouse_pos relative to bottom left
     uint32_t buttons;
     uint32_t prev_buttons;

@@ -31,7 +31,6 @@ cc_library(
 
 cc_library(
     name = "random",
-    srcs = ["random.cpp"],
     hdrs = ["random.h"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,

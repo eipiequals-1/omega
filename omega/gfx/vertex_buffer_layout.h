@@ -3,7 +3,7 @@
 
 #include <GL/gl.h>
 
-#include "omega/util/util.h"
+#include <cstdint>
 #include <vector>
 
 namespace omega::gfx {
@@ -42,7 +42,7 @@ struct VertexBufferAttrib {
  */
 class VertexBufferLayout {
   public:
-    VertexBufferLayout();
+    VertexBufferLayout() = default;
 
     /**
      * Add a vertex attribute
@@ -66,7 +66,7 @@ class VertexBufferLayout {
 
   private:
     std::vector<VertexBufferAttrib> attributes;
-    uint32_t stride; // space between this vertex and next vertex
+    uint32_t stride = 0; // space between this vertex and next vertex
 };
 
 } // namespace omega::gfx

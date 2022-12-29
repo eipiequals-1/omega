@@ -9,14 +9,11 @@ package(default_visibility= ["//visibility:public"])
 
 cc_library(
     name = "button",
-    srcs = ["button.cpp"],
     hdrs = ["button.h"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
-        "//omega/util:util",
-        "//omega/scene:entity",
-        "//omega/gfx:sprite_batch",
+        "//omega/util:math",
     ]
 )
 
@@ -30,6 +27,7 @@ cc_library(
         ":button",
         "//omega/util:util",
         "//omega/gfx/texture:texture",
+        "//omega/gfx:sprite_batch",
     ]
 )
 
@@ -41,8 +39,9 @@ cc_library(
     linkopts = DEFAULT_LINKOPTS,
     deps = [
         ":image_button",
-        "//omega/util:util",
+        "//omega/util:std",
         "//omega/gfx/texture:texture",
+        "//omega/gfx:sprite_batch",
         "//omega/ui:font",
     ]
 )

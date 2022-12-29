@@ -1,7 +1,8 @@
 #ifndef OMEGA_PHYSICS_PARTICLE_PARTICLE_H
 #define OMEGA_PHYSICS_PARTICLE_PARTICLE_H
 
-#include "omega/util/util.h"
+#include "omega/util/math.h"
+#include "omega/util/random.h"
 
 namespace omega::physics::particle {
 
@@ -30,10 +31,10 @@ struct Particle {
      */
     static glm::vec4 random_color(const glm::vec4 &src_color, float rgb_diff_factor, float a_diff_factor) {
         glm::vec4 color;
-        color.r = src_color.r + util::rand_float(-rgb_diff_factor / 2.0f, rgb_diff_factor / 2.0f);
-        color.g = src_color.g + util::rand_float(-rgb_diff_factor / 2.0f, rgb_diff_factor / 2.0f);
-        color.b = src_color.b + util::rand_float(-rgb_diff_factor / 2.0f, rgb_diff_factor / 2.0f);
-        color.a = src_color.a + util::rand_float(-a_diff_factor / 2.0f, a_diff_factor / 2.0f);
+        color.r = src_color.r + util::random<float>(-rgb_diff_factor / 2.0f, rgb_diff_factor / 2.0f);
+        color.g = src_color.g + util::random<float>(-rgb_diff_factor / 2.0f, rgb_diff_factor / 2.0f);
+        color.b = src_color.b + util::random<float>(-rgb_diff_factor / 2.0f, rgb_diff_factor / 2.0f);
+        color.a = src_color.a + util::random<float>(-a_diff_factor / 2.0f, a_diff_factor / 2.0f);
 
         glm::clamp(color.r, 0.0f, 1.0f);
         glm::clamp(color.g, 0.0f, 1.0f);

@@ -5,13 +5,14 @@
 
 #include <string>
 #include <vector>
+#include <cstdint>
 
 #include "omega/gfx/index_buffer.h"
 #include "omega/gfx/shader.h"
 #include "omega/gfx/vertex_array.h"
 #include "omega/gfx/vertex_buffer.h"
 #include "omega/gfx/vertex_buffer_layout.h"
-#include "omega/util/util.h"
+#include "omega/util/std.h"
 
 namespace omega::gfx::texture {
 
@@ -42,9 +43,9 @@ class Mesh {
     std::vector<uint32_t> indices;
     std::vector<MeshTexture> textures;
 
-    uptr<VertexArray> vao;
-    uptr<VertexBuffer> vbo;
-    uptr<IndexBuffer> ibo;
+    util::uptr<VertexArray> vao;
+    util::uptr<VertexBuffer> vbo;
+    util::uptr<IndexBuffer> ibo;
 };
 
 } // namespace omega::gfx::texture

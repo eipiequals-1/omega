@@ -19,12 +19,10 @@ cc_library(
 
 cc_library(
     name = "layer",
-    srcs = ["layer.cpp"],
     hdrs = ["layer.h"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
-        "//omega/util:util",
     ]
 )
 
@@ -48,8 +46,8 @@ cc_library(
     deps = [
         "//omega/core:window",
         "//omega/events:event",
-        ":layer",
         "//omega/vendor/imgui:imgui",
+        ":layer",
     ]
 )
 
@@ -70,8 +68,8 @@ cc_library(
     linkopts = DEFAULT_LINKOPTS,
     deps = [
         "//omega/gfx/texture:texture",
-        "//omega/gfx:sprite_batch",
-        "//omega/util:util",
+        "//omega/util:math",
+        "//omega/util:std",
         ":orthographic_camera",
         ":perspective_camera",
     ]
@@ -85,7 +83,7 @@ cc_library(
     linkopts = DEFAULT_LINKOPTS,
     deps = [
         ":camera",
-        "//omega/util:util"
+        "//omega/util:math",
     ]
 )
 
@@ -96,7 +94,8 @@ cc_library(
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
-        ":camera"
+        ":camera",
+        "//omega/util:math",
     ]
 )
 

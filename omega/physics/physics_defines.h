@@ -14,9 +14,9 @@ enum class ShapeType {
 };
 
 enum class BodyType {
-    staticB = b2_staticBody,
-    kinematicB = b2_kinematicBody,
-    dynamicB = b2_dynamicBody
+    static_body = b2_staticBody,
+    kinematic_body = b2_kinematicBody,
+    dynamic_body = b2_dynamicBody
 };
 
 } // namespace omega::physics

@@ -2,39 +2,29 @@
 #define OMEGA_GFX_SHAPERENDERER_H
 
 #include <array>
+#include <cstdint>
+#include <string>
 
 #include "omega/gfx/shader.h"
 #include "omega/gfx/vertex_array.h"
 #include "omega/gfx/vertex_buffer.h"
 #include "omega/gfx/vertex_buffer_layout.h"
-#include "omega/util/util.h"
+#include "omega/util/math.h"
+#include "omega/util/std.h"
 
 namespace omega::gfx {
 
 using namespace omega::util;
 
 /**
- * CPU representation of each Vertex for the ShapeRenderer with:
- * position,
- * color
- */
-struct ShapeVertex {
-    float pos[2];
-    float color[4];
-};
-
-// Represent the shape in 3 vertices
-using ShapeTriangle = std::array<ShapeVertex, 3>;
-
-/**
  * ShapeRenderer renders rectangles, circles, lines, etc.
  * Uses batch rendering for better results
  * Example:
- *     shape_renderer.Begin();
- *     shape_renderer.Circle(glm::vec2(50.0f, 50.0f), 50.0f);
- *     shape_renderer.Color(glm::vec4(0.0f, 1.0f, 1.0f, 1.0f));
- *     shape_renderer.Rect(glm::rectf(0.0f, 0.0f, 100.0f, 100.0f));
- *     shape_renderer.End();
+ *     shape_renderer.begin();
+ *     shape_renderer.circle(glm::vec2(50.0f, 50.0f), 50.0f);
+ *     shape_renderer.color(glm::vec4(0.0f, 1.0f, 1.0f, 1.0f));
+ *     shape_renderer.rect(glm::rectf(0.0f, 0.0f, 100.0f, 100.0f));
+ *     shape_renderer.end();
  */
 class ShapeRenderer {
   public:
@@ -66,7 +56,7 @@ class ShapeRenderer {
      */
     virtual void set_view_projection_matrix(const glm::mat4 &mat) {
         triangle_shader->bind();
-        triangle_shader->set_uniform_mat4f(kViewProjMatrixName, mat);
+        triangle_shader->set_uniform_mat4f(view_proj_matrix_name, mat);
         triangle_shader->unbind();
     }
 
@@ -165,10 +155,10 @@ class ShapeRenderer {
 
   protected:
     //
-    static const uint32_t kNumTriangles = 1000;
-    static const uint32_t kNumVerticesPerTriangle = 3;
-    static const uint32_t kNumAttributes = 6;
-    const std::string kViewProjMatrixName;
+    static const uint32_t num_triangles = 1000;
+    static const uint32_t num_vertices_per_triangle = 3;
+    static const uint32_t num_attributes = 6;
+    const std::string view_proj_matrix_name;
 
     // OpenGL objects
     uptr<Shader> triangle_shader;
@@ -179,6 +169,19 @@ class ShapeRenderer {
     glm::vec4 current_color; // tracks current color
 
   private:
+    /**
+     * CPU representation of each Vertex for the ShapeRenderer with:
+     * position,
+     * color
+     */
+    struct ShapeVertex {
+        float pos[2];
+        float color[4];
+    };
+
+    // Represent the shape in 3 vertices
+    using ShapeTriangle = std::array<ShapeVertex, 3>;
+
     ShapeRenderer();
 };
 } // namespace omega::gfx

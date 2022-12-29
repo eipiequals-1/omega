@@ -1,5 +1,9 @@
 #include "sound_manager.h"
 
+#include <SDL2/SDL_mixer.h>
+
+#include "omega/util/log.h"
+
 namespace omega::sound {
 
 SoundManager::SoundManager() {

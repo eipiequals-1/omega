@@ -27,7 +27,8 @@ cc_library(
     deps = [
         "@SDL2//:SDL2",
         "@GL//:GL",
-        "//omega/util:util",
+        "//omega/util:std",
+        "//omega/util:log",
         ":viewport",
         ":sdl2"
     ]
@@ -41,7 +42,10 @@ cc_library(
     linkopts = DEFAULT_LINKOPTS,
     deps = [
         "@SDL2//:SDL2",
-        "//omega/util:util",
+        "//omega/util:math",
+        "//omega/util:log",
+        "//omega/util:std",
+        "//omega/util:time",
         ":window",
         "//omega/scene:layer",
         "//omega/scene:layer_stack",
@@ -68,7 +72,7 @@ cc_library(
     linkopts = DEFAULT_LINKOPTS,
     deps = [
         "@GL//:GL",
-        "//omega/util:util"
+        "//omega/util:math"
     ]
 )
 

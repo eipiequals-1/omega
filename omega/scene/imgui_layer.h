@@ -26,7 +26,7 @@ class ImGuiLayer : public Layer {
     void end();
 
   private:
-    Window *window;
+    Window *window = nullptr;
 };
 
 } // namespace omega::scene

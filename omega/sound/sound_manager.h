@@ -1,11 +1,12 @@
 #ifndef OMEGA_SOUND_SOUNDMANAGER_H
 #define OMEGA_SOUND_SOUNDMANAGER_H
 
-#include <SDL2/SDL_mixer.h>
+#include <string>
+#include <vector>
 
 #include "omega/sound/music.h"
 #include "omega/sound/sound_effect.h"
-#include "omega/util/util.h"
+#include "omega/util/std.h"
 
 namespace omega::sound {
 

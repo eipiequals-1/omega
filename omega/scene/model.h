@@ -10,7 +10,6 @@
 
 #include "omega/gfx/shader.h"
 #include "omega/gfx/texture/mesh.h"
-#include "omega/util/util.h"
 
 namespace omega::scene {
 

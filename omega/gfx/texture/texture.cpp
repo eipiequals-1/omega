@@ -32,7 +32,7 @@ void Texture::load(uint32_t *pixels) {
     unbind();
 }
 
-uptr<uint32_t[]> Texture::get_pixels() {
+util::uptr<uint32_t[]> Texture::get_pixels() {
     auto pixels = std::make_unique<uint32_t[]>(width * height);
 
     glBindTexture(GL_TEXTURE_2D, id);

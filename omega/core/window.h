@@ -9,11 +9,9 @@
 #include <string>
 
 #include "omega/core/viewport.h"
-#include "omega/util/util.h"
+#include "omega/util/std.h"
 
 namespace omega::core {
-
-using namespace omega::util;
 
 /**
  * Window abstraction of SDL_Window, SDL_SwapBuffers and
@@ -26,8 +24,8 @@ class Window {
     Window operator=(const Window &) = delete;
     virtual ~Window();
 
-    static sptr<Window> instance() {
-        static sptr<Window> win = sptr<Window>(new Window());
+    static util::sptr<Window> instance() {
+        static util::sptr<Window> win = util::sptr<Window>(new Window());
         return win;
     }
 

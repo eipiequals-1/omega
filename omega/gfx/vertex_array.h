@@ -1,6 +1,7 @@
 #ifndef OMEGA_GFX_VERTEXARRAY_H
 #define OMEGA_GFX_VERTEXARRAY_H
 
+#include <cstdint>
 #include <vector>
 
 #include "omega/gfx/vertex_buffer.h"

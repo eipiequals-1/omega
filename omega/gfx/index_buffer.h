@@ -1,7 +1,8 @@
 #ifndef OMEGA_GFX_INDEXBUFFER_H
 #define OMEGA_GFX_INDEXBUFFER_H
 
-#include "omega/util/util.h"
+#include <cstdint>
+
 #include <GL/gl.h>
 
 namespace omega::gfx {

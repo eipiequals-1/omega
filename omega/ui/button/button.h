@@ -3,18 +3,15 @@
 
 #include <functional>
 
-#include "omega/gfx/sprite_batch.h"
-#include "omega/scene/entity.h"
-#include "omega/util/util.h"
+#include "omega/util/math.h"
 
 namespace omega::ui::button {
 
-using namespace omega::scene;
-
 class Button {
   public:
-    Button(float x, float y, float w, float h, std::function<void()> on_click);
-    virtual ~Button();
+    Button(float x, float y, float w, float h, std::function<void()> on_click) : rect(x, y, w, h),
+                                                                                 on_click_listener(on_click) {}
+    virtual ~Button() = default;
 
     virtual void render() = 0;
 
@@ -32,8 +29,8 @@ class Button {
 
   protected:
     glm::rectf rect;
-    std::function<void()> on_click_listener;
-    bool hover;
+    std::function<void()> on_click_listener = nullptr;
+    bool hover = false;
 };
 
 } // namespace omega::ui::button

@@ -3,6 +3,7 @@
 #include <iostream>
 
 #include "omega/core/sdl2.h"
+#include "omega/util/log.h"
 
 namespace omega::core {
 

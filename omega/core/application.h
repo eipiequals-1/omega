@@ -10,13 +10,9 @@
 #include "omega/scene/imgui_layer.h"
 #include "omega/scene/layer.h"
 #include "omega/scene/layer_stack.h"
-#include "omega/util/util.h"
+#include "omega/util/std.h"
 
 namespace omega::core {
-
-using namespace omega::util;
-using namespace omega::scene;
-using namespace omega::events;
 
 struct ApplicationConfig {
     uint32_t width = 800, height = 600;
@@ -57,12 +53,12 @@ class Application {
      */
     static Application &instance() { return *current_instance; }
 
-    sptr<Window> get_window() { return window; }
+    util::sptr<Window> get_window() { return window; }
 
     void set_running(bool v) { running = v; }
 
   protected:
-    void push_layer(Layer *layer);
+    void push_layer(scene::Layer *layer);
 
     /**
      * Clamps the application by sleeping the CPU to run at Application::fps
@@ -70,12 +66,12 @@ class Application {
      */
     virtual float tick();
 
-    float fps;
-    float last_time;
-    sptr<Window> window;
-    bool running;
-    uptr<LayerStack> layer_stack;
-    ImGuiLayer *imgui_layer;
+    float fps = 60.0f;
+    float last_time = 0.0f;
+    util::sptr<Window> window = nullptr;
+    bool running = true;
+    util::uptr<scene::LayerStack> layer_stack = nullptr;
+    scene::ImGuiLayer *imgui_layer = nullptr;
     // singleton instance
     static Application *current_instance;
 };

@@ -111,36 +111,6 @@ using rectl = rect<i64>;
 using rectd = rect<f64>;
 
 /**
- * Rectangular Prism struct string x, y, z, width, height, depth
- */
-template <typename T>
-struct rect_prism {
-    T x, y, z, w, h, d;
-    rect_prism(T x, T y, T z, T w, T h, T d) {
-        this->x = x;
-        this->y = y;
-        this->z = z;
-        this->w = w;
-        this->h = h;
-        this->d = d;
-    }
-
-    rect_prism() {
-        x = 0;
-        y = 0;
-        z = 0;
-        w = 0;
-        h = 0;
-        d = 0;
-    }
-};
-
-template <typename T, size_t N>
-struct triangle {
-    glm::vec<N, T> p1, p2, p3;
-};
-
-/**
  * Checks collisions between two circles and returns if there is one
  * @param center1 circle1 center
  * @param radius1 circle1 radius

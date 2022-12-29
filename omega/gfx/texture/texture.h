@@ -9,11 +9,10 @@
 #include <string>
 #include <unordered_map>
 
-#include "omega/util/util.h"
+#include "omega/util/log.h"
+#include "omega/util/std.h"
 
 namespace omega::gfx::texture {
-
-using namespace omega::util;
 
 /**
  * Abstraction of OpenGL texture to be used with a SpriteBatch
@@ -31,27 +30,27 @@ class Texture {
      * @param max_filter type of filter for maximizing the texture
      * @return a new Texture
      */
-    static sptr<Texture> create_from_surface(SDL_Surface *surf, GLenum min_filter = GL_NEAREST, GLenum mag_filter = GL_NEAREST) {
+    static util::sptr<Texture> create_from_surface(SDL_Surface *surf, GLenum min_filter = GL_NEAREST, GLenum mag_filter = GL_NEAREST) {
         Texture *tex = new Texture(surf->w, surf->h, min_filter, mag_filter);
         tex->load((uint32_t *)surf->pixels);
-        return sptr<Texture>(tex);
+        return util::sptr<Texture>(tex);
     }
 
-    static sptr<Texture> create_from_file(const std::string &filepath, GLenum min_filter = GL_NEAREST, GLenum mag_filter = GL_NEAREST) {
+    static util::sptr<Texture> create_from_file(const std::string &filepath, GLenum min_filter = GL_NEAREST, GLenum mag_filter = GL_NEAREST) {
         SDL_Surface *surf = IMG_Load(filepath.c_str());
         if (surf == nullptr) {
             util::error("IMG error: Error loading '", filepath, "': ", IMG_GetError());
             return nullptr;
         }
-        sptr<Texture> texture = Texture::create_from_surface(surf, min_filter, mag_filter);
+        util::sptr<Texture> texture = Texture::create_from_surface(surf, min_filter, mag_filter);
         SDL_FreeSurface(surf);
         surf = nullptr;
         return texture;
     }
 
-    static sptr<Texture> create_empty(uint32_t width, uint32_t height, GLenum min_filter = GL_NEAREST, GLenum mag_filter = GL_NEAREST) {
+    static util::sptr<Texture> create_empty(uint32_t width, uint32_t height, GLenum min_filter = GL_NEAREST, GLenum mag_filter = GL_NEAREST) {
         // must construct using new because constructor is private and not accessible by sptr
-        return sptr<Texture>(new Texture(width, height, min_filter, mag_filter));
+        return util::sptr<Texture>(new Texture(width, height, min_filter, mag_filter));
     }
     ~Texture();
 
@@ -82,7 +81,7 @@ class Texture {
         unbind();
     }
 
-    uptr<uint32_t[]> get_pixels();
+    util::uptr<uint32_t[]> get_pixels();
 
     static void save_to_file(const std::string &file_name, uint32_t *pixels, uint32_t width, uint32_t height) {
         uint32_t rmask, gmask, bmask, amask;
@@ -152,7 +151,7 @@ class TextureManager {
      * @param id look-up id
      * @return the texture
      */
-    sptr<Texture> get(const K &id) {
+    util::sptr<Texture> get(const K &id) {
         return textures_[id];
     }
 
@@ -169,12 +168,12 @@ class TextureManager {
      * Another easy look-up method
      * Same as sptr<Texture> Get(const K& id);
      */
-    sptr<Texture> operator[](const K &id) {
+    util::sptr<Texture> operator[](const K &id) {
         return get(id);
     }
 
   private:
-    std::unordered_map<K, sptr<Texture>> textures_;
+    std::unordered_map<K, util::sptr<Texture>> textures_;
 };
 
 } // namespace omega::gfx::texture

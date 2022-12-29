@@ -3,11 +3,13 @@
 
 #include <GL/gl.h>
 
-#include <memory>
+#include <cstdint>
 #include <string>
 #include <unordered_map>
 
-#include "omega/util/util.h"
+#include "omega/util/log.h"
+#include "omega/util/math.h"
+#include "omega/util/std.h"
 
 namespace omega::gfx {
 

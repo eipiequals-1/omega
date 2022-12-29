@@ -1,14 +1,14 @@
 #ifndef OMEGA_SCENE_LAYER_H
 #define OMEGA_SCENE_LAYER_H
 
-#include "omega/util/util.h"
+#include <string>
 
 namespace omega::scene {
 
 class Layer {
   public:
-    Layer(const std::string &name = "Layer", bool imgui = false);
-    virtual ~Layer();
+    Layer(const std::string &name = "Layer", bool imgui = false) : name(name), imgui(imgui) {}
+    virtual ~Layer() = default;
 
     virtual void render(float dt) = 0;
     virtual void update(float dt) = 0;

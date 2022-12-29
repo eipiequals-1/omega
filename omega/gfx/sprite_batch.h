@@ -3,6 +3,7 @@
 
 #include <GL/gl.h>
 
+#include <array>
 #include <cstring>
 #include <memory>
 #include <vector>
@@ -14,32 +15,13 @@
 #include "omega/gfx/vertex_array.h"
 #include "omega/gfx/vertex_buffer.h"
 #include "omega/gfx/vertex_buffer_layout.h"
-#include "omega/util/util.h"
+#include "omega/util/math.h"
+#include "omega/util/std.h"
 
 namespace omega::gfx {
 
 using namespace omega::util;
 using namespace omega::gfx::texture;
-
-/**
- * Represents a SpriteBatch Vertex with:
- * position,
- * color,
- * texture id,
- * rotation,
- * center of rotation
- */
-struct Vertex {
-    float position[2];
-    float color[4];
-    float texCoords[2];
-    float tex_id;
-    float rotation;
-    float center_of_rot[2];
-};
-
-// represents one texture / rectangle that is passed to the sprite shader
-using Quad = std::array<Vertex, 4>;
 
 /**
  * Renders hundreds-thousands of quads in a single draw call
@@ -145,6 +127,26 @@ class SpriteBatch {
     uint32_t tex_bind_slot;
 
   private:
+    /**
+     * Represents a SpriteBatch Vertex with:
+     * position,
+     * color,
+     * texture id,
+     * rotation,
+     * center of rotation
+     */
+    struct Vertex {
+        float position[2];
+        float color[4];
+        float texCoords[2];
+        float tex_id;
+        float rotation;
+        float center_of_rot[2];
+    };
+
+    // represents one texture / rectangle that is passed to the sprite shader
+    using Quad = std::array<Vertex, 4>;
+
     SpriteBatch();
 };
 

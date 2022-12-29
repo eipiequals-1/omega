@@ -6,29 +6,23 @@
 
 namespace omega::util {
 
+/**
+ * @param min inclusive min value
+ * @param max exclusive max value
+ * @return random<T> number in [min, max)
+ */
 template <typename T>
 T random(T min, T max) {
     return min + (T)((float)rand() / (float)RAND_MAX * (float)(max - min));
 }
 
 /**
- * @param min inclusive min value
- * @param max exclusive max value
- * @return randint int in [min, max)
- */
-int rand_int(int min, int max);
-
-/**
- * @param min inclusive min value
- * @param max exclusive max value
- */
-float rand_float(float min, float max);
-
-/**
  * Seeds the random function with the time
  * for truly random numbers
  */
-void seed_time();
+inline void seed_time() {
+    srand(time(nullptr));
+}
 
 /**
  * Chooses a random element from the given list
@@ -38,8 +32,8 @@ void seed_time();
  * @return reference to the random element
  */
 template <typename T>
-T &rand_choice(T *arr, size_t length) {
-    return arr[rand_int(0, length)];
+T &random_choice(T *arr, size_t length) {
+    return arr[random<int>(0, length)];
 }
 
 /**
@@ -48,8 +42,8 @@ T &rand_choice(T *arr, size_t length) {
  * @return reference to the random element
  */
 template <typename T>
-T &rand_choice(std::vector<T> &vec) {
-    return vec[rand_int(0, vec.size())];
+T &random_choice(std::vector<T> &vec) {
+    return vec[random<int>(0, vec.size())];
 }
 } // namespace omega::util
 

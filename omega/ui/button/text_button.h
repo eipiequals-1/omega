@@ -4,7 +4,7 @@
 #include "omega/gfx/texture/texture.h"
 #include "omega/ui/button/image_button.h"
 #include "omega/ui/font.h"
-#include "omega/util/util.h"
+#include "omega/util/std.h"
 
 namespace omega::ui::button {
 
@@ -21,12 +21,12 @@ struct TextButtonBuilder {
 class TextButton : public ImageButton {
   public:
     TextButton(float x, float y, float w, float h, std::function<void()> on_click, const TextButtonBuilder &builder);
-    virtual ~TextButton() override;
+    virtual ~TextButton() override = default;
 
     virtual void render() override;
 
   protected:
-    sptr<Texture> text_texture;
+    util::sptr<gfx::texture::Texture> text_texture;
     float text_width, text_height;
 };
 

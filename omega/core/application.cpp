@@ -1,12 +1,14 @@
 #include "application.h"
 
-#include "omega/util/util.h"
+#include "omega/util/log.h"
+#include "omega/util/math.h"
+#include "omega/util/time.h"
 
 namespace omega::core {
 
 Application *Application::current_instance = nullptr;
 
-Application::Application(const ApplicationConfig &config) : fps(60), last_time(0), window(nullptr), running(true) {
+Application::Application(const ApplicationConfig &config) {
     current_instance = this;
     window = Window::instance();
     running = window->init(config.width, config.height, config.resizable, config.title);
@@ -15,10 +17,9 @@ Application::Application(const ApplicationConfig &config) : fps(60), last_time(0
         util::error("Unable to initialize SDL_ttf: '", SDL_GetError(), "'");
         running = false;
     }
-    layer_stack = create_uptr<LayerStack>();
-    imgui_layer = nullptr;
-    Time::init();
-    last_time = Time::get_time<float>();
+    layer_stack = util::create_uptr<scene::LayerStack>();
+    util::Time::init();
+    last_time = util::Time::get_time<float>();
 }
 
 Application::~Application() {
@@ -27,13 +28,13 @@ Application::~Application() {
     TTF_Quit();
 }
 
-void Application::push_layer(Layer *layer) {
+void Application::push_layer(scene::Layer *layer) {
     if (layer == nullptr) {
-        error("Invalid layer: layer = nullptr!");
+        util::error("Invalid layer: layer = nullptr!");
         return;
     }
     if (layer->is_imgui() && imgui_layer == nullptr) {
-        imgui_layer = (ImGuiLayer *)layer;
+        imgui_layer = (scene::ImGuiLayer *)layer;
         return;
     }
     layer_stack->push_layer(layer);
@@ -41,10 +42,10 @@ void Application::push_layer(Layer *layer) {
 
 float Application::tick() {
     float to_sleep = glm::max(
-        1.0f / fps - (Time::get_time<float>() - last_time),
+        1.0f / fps - (util::Time::get_time<float>() - last_time),
         0.0f);
-    Time::sleep(to_sleep);
-    float current_time = Time::get_time<float>();
+    util::Time::sleep(to_sleep);
+    float current_time = util::Time::get_time<float>();
     float dt = (current_time - last_time); // get delta time
     last_time = current_time;
     return dt;
@@ -53,18 +54,18 @@ float Application::tick() {
 void Application::run() {
     while (running) {
         float dt = tick();
-        auto input = InputManager::instance();
+        auto input = events::InputManager::instance();
         input->prepare_for_update();
-        Event event;
+        events::Event event;
         while (input->poll_events(event)) {
             if (imgui_layer != nullptr) {
                 imgui_layer->input(event);
             }
-            switch ((EventType)event.type) {
-            case EventType::quit:
+            switch ((events::EventType)event.type) {
+            case events::EventType::quit:
                 running = false;
                 break;
-            case EventType::window_event:
+            case events::EventType::window_event:
                 if (event.window.event == (uint32_t)events::WindowEvents::window_resized) {
                     on_resize(event.window.data1, event.window.data2);
                 }
@@ -81,7 +82,7 @@ void Application::run() {
         }
 
         // update the layers and timers
-        Time::tick(dt);
+        util::Time::tick(dt);
         layer_stack->update(dt);
         if (imgui_layer != nullptr) {
             imgui_layer->update(dt);

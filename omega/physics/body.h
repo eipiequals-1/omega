@@ -4,11 +4,9 @@
 #include <box2d/box2d.h>
 
 #include "omega/physics/physics_defines.h"
-#include "omega/util/util.h"
+#include "omega/util/math.h"
 
 namespace omega::physics {
-
-using namespace omega::util;
 
 using Body = b2Body;
 

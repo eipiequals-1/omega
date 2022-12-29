@@ -3,8 +3,7 @@
 
 #include <glm/glm.hpp>
 
-namespace omega::util {
-namespace color {
+namespace omega::util::color {
 
 /**
  * Converts a 32 bit representation of a color to a normalized rgba color vector
@@ -41,7 +40,6 @@ const glm::vec4 green(0.0f, 1.0f, 0.0f, 1.0f);
 const glm::vec4 blue(0.0f, 0.0f, 1.0f, 1.0f);
 const glm::vec4 yellow(1.0f, 1.0f, 0.0f, 1.0f);
 
-} // namespace color
-} // namespace omega::util
+} // namespace omega::util::color
 
 #endif // OMEGA_UTIL_COLOR_H

@@ -4,7 +4,7 @@
 #include <string>
 
 #include "omega/gfx/texture/texture.h"
-#include "omega/util/util.h"
+#include "omega/util/math.h"
 
 namespace omega::gfx::texture {
 
@@ -13,7 +13,7 @@ namespace omega::gfx::texture {
  */
 class TextureRegion {
   public:
-    TextureRegion(Texture *tex, uint32_t x, uint32_t y, uint32_t w, uint32_t h);
+    TextureRegion(Texture *tex, uint32_t x, uint32_t y, uint32_t w, uint32_t h) : texture(tex), rect(x, y, w, h) {}
     uint32_t get_x() const { return rect.x; }
     uint32_t get_y() const { return rect.y; }
     uint32_t get_w() const { return rect.w; }
@@ -22,7 +22,7 @@ class TextureRegion {
     Texture *get_texture() const { return texture; }
 
   private:
-    Texture *texture;
+    Texture *texture = nullptr;
     glm::rect<uint32_t> rect;
     std::string region_name;
 };

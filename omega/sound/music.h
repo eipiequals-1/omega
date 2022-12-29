@@ -3,11 +3,9 @@
 
 #include <SDL2/SDL_mixer.h>
 
-#include "omega/util/util.h"
+#include <string>
 
 namespace omega::sound {
-
-using namespace omega::util;
 
 class Music {
   public:

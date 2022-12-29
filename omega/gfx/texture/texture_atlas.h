@@ -8,7 +8,7 @@
 
 #include "omega/gfx/texture/texture.h"
 #include "omega/gfx/texture/texture_region.h"
-#include "omega/util/util.h"
+#include "omega/util/std.h"
 
 namespace omega::gfx::texture {
 
@@ -28,16 +28,16 @@ class TextureAtlas {
      * @param texture_name name of the texture region as defined by the atlas file
      * @return shared pointer to the TextureRegion
      */
-    sptr<TextureRegion> get(const std::string &texture_name);
+    util::sptr<TextureRegion> get(const std::string &texture_name);
 
     /**
      * @returns the texture that the atlas is a wrapper of
      */
-    sptr<Texture> get_texture() const { return tex; };
+    util::sptr<Texture> get_texture() const { return tex; };
 
   private:
-    std::unordered_map<std::string, sptr<TextureRegion>> tex_regions;
-    sptr<Texture> tex;
+    std::unordered_map<std::string, util::sptr<TextureRegion>> tex_regions;
+    util::sptr<Texture> tex;
 };
 } // namespace omega::gfx::texture
 

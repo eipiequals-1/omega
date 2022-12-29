@@ -14,7 +14,7 @@ cc_library(
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
-        "//omega/util:util",
+        "//omega/util:std",
         "@box2d//:box2d",
         ":body",
         ":physics_defines",
@@ -40,7 +40,7 @@ cc_library(
     deps = [
         "@box2d//:box2d",
         ":physics_defines",
-        "//omega/util:util",
+        "//omega/util:math",
     ]
 )
 

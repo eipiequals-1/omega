@@ -2,14 +2,13 @@
 #define OMEGA_SCENE_COMPONENTS_H
 
 #include <array>
-#include <bitset>
 #include <string>
 
 #include "omega/gfx/texture/texture.h"
-#include "omega/util/util.h"
-
 #include "omega/scene/orthographic_camera.h"
 #include "omega/scene/perspective_camera.h"
+#include "omega/util/math.h"
+#include "omega/util/std.h"
 
 namespace omega::scene {
 

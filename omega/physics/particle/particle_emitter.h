@@ -12,7 +12,8 @@
 #include "omega/gfx/vertex_buffer.h"
 #include "omega/gfx/vertex_buffer_layout.h"
 #include "omega/physics/particle/particle.h"
-#include "omega/util/util.h"
+#include "omega/util/math.h"
+#include "omega/util/std.h"
 
 namespace omega::physics::particle {
 
@@ -45,16 +46,16 @@ struct ParticleVertex {
 struct EmitterBuilder {
     float lifespan;
     float particle_lifespan;
-    glm::vec4 begin_color; // color that particles are to be at the beginning
-    glm::vec4 end_color;   // color that particles are to be at the end
-    uint32_t max_particles;     // max particles at a given instance
-    float emit_freq;         // time to emit particles
-    glm::vec2 pos;         // pos in world coordinates
-    range radius;          // radius
-    range rot_range;       // range in degrees where particles spawn
-    range speed;           // scalar range of different speeds
-    glm::vec2 accel;       // acceleration
-    glm::rectf emit_rect;  // random point in rect to spawn particle
+    glm::vec4 begin_color;  // color that particles are to be at the beginning
+    glm::vec4 end_color;    // color that particles are to be at the end
+    uint32_t max_particles; // max particles at a given instance
+    float emit_freq;        // time to emit particles
+    glm::vec2 pos;          // pos in world coordinates
+    range radius;           // radius
+    range rot_range;        // range in degrees where particles spawn
+    range speed;            // scalar range of different speeds
+    glm::vec2 accel;        // acceleration
+    glm::rectf emit_rect;   // random point in rect to spawn particle
 };
 
 /**

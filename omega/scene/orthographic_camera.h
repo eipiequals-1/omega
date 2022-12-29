@@ -2,7 +2,7 @@
 #define OMEGA_CORE_ORTHOGRAPHICCAMERA_H
 
 #include "omega/scene/camera.h"
-#include "omega/util/util.h"
+#include "omega/util/math.h"
 
 namespace omega::scene {
 

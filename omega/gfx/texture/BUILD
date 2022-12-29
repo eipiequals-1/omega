@@ -17,19 +17,19 @@ cc_library(
     deps = [
         "@SDL2//:SDL2",
         "@GL//:GL",
-        "//omega/util:util",
+        "//omega/util:std",
+        "//omega/util:log",
     ]
 )
 
 cc_library(
     name = "texture_region",
-    srcs = ["texture_region.cpp"],
     hdrs = ["texture_region.h"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
         "texture",
-        "//omega/util:util",
+        "//omega/util:math",
     ]
 )
 
@@ -46,12 +46,3 @@ cc_library(
         "//omega/util:util",
     ]
 )
-
-#cc_proto_library(
-#    name = "texture_atlas_cc_proto",
-#    deps = [":texture_atlas_proto"],
-#)
-#proto_library(
-#    name = "texture_atlas_proto",
-#    srcs = ["texture_atlas.proto"],
-#)

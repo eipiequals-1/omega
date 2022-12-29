@@ -92,14 +92,14 @@ void ParticleEmitter::emit() {
     Particle &particle = particles[num_particles];
     particle.color = Particle::random_color(data.begin_color, 0.2f, 0.1f);
 
-    particle.pos.x = data.pos.x + util::rand_float(data.emit_rect.x, data.emit_rect.x + data.emit_rect.w);
-    particle.pos.y = data.pos.y + util::rand_float(data.emit_rect.y, data.emit_rect.y + data.emit_rect.h);
+    particle.pos.x = data.pos.x + util::random<float>(data.emit_rect.x, data.emit_rect.x + data.emit_rect.w);
+    particle.pos.y = data.pos.y + util::random<float>(data.emit_rect.y, data.emit_rect.y + data.emit_rect.h);
 
-    particle.radius = util::rand_float(data.radius.first, data.radius.second);
+    particle.radius = util::random<float>(data.radius.first, data.radius.second);
 
     particle.life_remaining = data.particle_lifespan;
-    float rotation = glm::radians(util::rand_float(data.rot_range.first, data.rot_range.second));
-    float speed = util::rand_float(data.speed.first, data.speed.second);
+    float rotation = glm::radians(util::random<float>(data.rot_range.first, data.rot_range.second));
+    float speed = util::random<float>(data.speed.first, data.speed.second);
 
     particle.vel = glm::vec2(glm::cos(-rotation) * speed, glm::sin(-rotation) * speed);
     num_particles++; // increment num particles

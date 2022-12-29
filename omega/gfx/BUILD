@@ -40,7 +40,6 @@ cc_library(
     linkopts = DEFAULT_LINKOPTS,
     deps = [
         "@GL//:GL",
-        "//omega/util:util"
     ]
 )
 
@@ -52,7 +51,9 @@ cc_library(
     linkopts = DEFAULT_LINKOPTS,
     deps = [
         "@GL//:GL",
-        "//omega/util:util",
+        "//omega/util:std",
+        "//omega/util:math",
+        "//omega/util:log",
     ]
 )
 
@@ -68,7 +69,8 @@ cc_library(
         ":vertex_buffer",
         ":vertex_buffer_layout",
         ":vertex_array",
-        "//omega/util:util",
+        "//omega/util:std",
+        "//omega/util:math",
     ]
 )
 
@@ -87,6 +89,8 @@ cc_library(
         ":vertex_buffer_layout",
         ":vertex_array",
         ":index_buffer",
+        "//omega/util:std",
+        "//omega/util:math",
     ]
 )
 
@@ -98,9 +102,8 @@ cc_library(
     linkopts = DEFAULT_LINKOPTS,
     deps = [
         "@GL//:GL",
-        "vertex_buffer",
-        "vertex_buffer_layout",
-        "//omega/util:util",
+        ":vertex_buffer",
+        ":vertex_buffer_layout",
     ]
 )
 
@@ -112,19 +115,16 @@ cc_library(
     linkopts = DEFAULT_LINKOPTS,
     deps = [
         "@GL//:GL",
-        "//omega/util:util",
     ]
 )
 
 cc_library(
     name = "vertex_buffer_layout",
-    srcs = ["vertex_buffer_layout.cpp"],
     hdrs = ["vertex_buffer_layout.h"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
         "@GL//:GL",
-        "//omega/util:util"
     ]
 )
 

@@ -1,9 +1,11 @@
 #include "input_manager.h"
 
+#include "omega/core/window.h"
+
 namespace omega::events {
 
 InputManager::InputManager() : mouse_pos(0.0f), prev_mouse_pos(0.0f) {
-    key_manager = create_sptr<KeyManager>();
+    key_manager = util::create_sptr<KeyManager>();
     relative_mode = false;
 }
 
@@ -28,7 +30,7 @@ void InputManager::update() {
     } else {
         buttons = SDL_GetMouseState(&x, &y);
         mouse_pos.x = (float)x;
-        mouse_pos.y = (float)(Window::instance()->get_height() - y);
+        mouse_pos.y = (float)(core::Window::instance()->get_height() - y);
     }
 }
 

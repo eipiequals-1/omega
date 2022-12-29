@@ -3,17 +3,15 @@
 
 #include <SDL2/SDL_ttf.h>
 
-#include <memory>
+#include <cstdint>
 #include <string>
 #include <unordered_map>
 
 #include "omega/gfx/texture/texture.h"
-#include "omega/util/util.h"
+#include "omega/util/math.h"
+#include "omega/util/std.h"
 
 namespace omega::ui {
-
-using namespace omega::util;
-using namespace omega::gfx::texture;
 
 /**
  * Represents a ttf / SDL_ttf font at a given size
@@ -28,7 +26,7 @@ class Font {
      * @param color to draw it
      * @return a Texture
      */
-    sptr<Texture> render_text(const std::string &text, const glm::vec4 &color = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
+    util::sptr<gfx::texture::Texture> render_text(const std::string &text, const glm::vec4 &color = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
 
   private:
     TTF_Font *font;
@@ -51,7 +49,7 @@ class FontManager {
      * @return a sptr<Font> containing the font
      * IMPORTANT: the font name must be loaded, since the other case is not handled
      */
-    sptr<Font> get(const std::string &font_name);
+    util::sptr<Font> get(const std::string &font_name);
 
     /**
      * @param font_name
@@ -63,10 +61,10 @@ class FontManager {
      * Another easy access method to get the font
      * Same as sptr<Font> Font::Get(const std::string &font_name);
      */
-    sptr<Font> operator[](const std::string &font_name);
+    util::sptr<Font> operator[](const std::string &font_name);
 
   private:
-    std::unordered_map<std::string, sptr<Font>> fonts;
+    std::unordered_map<std::string, util::sptr<Font>> fonts;
 };
 
 } // namespace omega::ui

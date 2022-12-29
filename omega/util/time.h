@@ -20,7 +20,6 @@ class Time {
      */
     template <typename T>
     static T get_time_millis() {
-        // return SDL_GetTicks();
         return static_cast<T>(std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::high_resolution_clock::now() - start).count() * 0.001 * 0.001);
     }
 

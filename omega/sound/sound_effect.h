@@ -1,12 +1,11 @@
 #ifndef OMEGA_SOUND_SOUNDEFFECT_H
 #define OMEGA_SOUND_SOUNDEFFECT_H
 
-#include "omega/util/util.h"
 #include <SDL2/SDL_mixer.h>
 
-namespace omega::sound {
+#include <string>
 
-using namespace omega::util;
+namespace omega::sound {
 
 class SoundEffect {
   public:

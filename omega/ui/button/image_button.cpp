@@ -1,5 +1,7 @@
 #include "image_button.h"
 
+#include "omega/gfx/sprite_batch.h"
+
 namespace omega::ui::button {
 
 ImageButton::ImageButton(float x, float y, float w, float h, std::function<void()> on_click) : Button::Button(x, y, w, h, on_click), focus(nullptr), un_focus(nullptr) {

@@ -14,7 +14,8 @@ cc_library(
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
-        "//omega/util:util",
+        "//omega/util:math",
+        "//omega/util:random",
     ]
 )
 
@@ -32,7 +33,8 @@ cc_library(
         "//omega/gfx:sprite_batch",
         "//omega/gfx:vertex_array",
         "//omega/gfx:vertex_buffer_layout",
-        "//omega/util:util",
+        "//omega/util:math",
+        "//omega/util:std",
         ":particle"
     ]
 )
