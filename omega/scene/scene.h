@@ -1,13 +1,51 @@
 #ifndef OMEGA_SCENE_SCENE_H
 #define OMEGA_SCENE_SCENE_H
 
-#include "omega/scene/camera.h"
-#include "omega/scene/components.h"
-#include "omega/scene/entity.h"
-#include "omega/scene/imgui_layer.h"
-#include "omega/scene/layer.h"
-#include "omega/scene/layer_stack.h"
-#include "omega/scene/orthographic_camera.h"
-#include "omega/scene/perspective_camera.h"
+#include <string>
+
+#include "omega/core/viewport.h"
+#include "omega/vendor/entt/entt.hpp"
+
+namespace omega {
+
+class SceneHierarchy;
+
+namespace scene {
+
+class Entity;
+
+class Scene {
+  public:
+    Scene(const std::string &name = "Main Scene");
+    ~Scene();
+
+    Entity create_entity(const std::string &tag_name = "New Entity");
+
+    void render(float dt);
+    void update(float dt);
+
+    // getters and setters
+    const std::string &get_name() const { return name; }
+    entt::registry &get_registry() { return registry; }
+
+    // resize
+    void on_resize(uint32_t width, uint32_t height) {
+        viewport.on_resize(width, height);
+    }
+
+  private:
+    std::string name;
+
+    // entities
+    entt::registry registry;
+
+    core::Viewport viewport;
+
+    friend class Entity;
+    friend class SceneHierarchy;
+};
+} // namespace scene
+
+} // namespace omega
 
 #endif // OMEGA_SCENE_SCENE_H

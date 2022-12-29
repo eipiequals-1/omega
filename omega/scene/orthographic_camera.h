@@ -7,10 +7,10 @@
 namespace omega::scene {
 
 /**
- * A 2D Orthographic Camera for rendering
+ * A general purpose Orthographic Camera for rendering
  * Intended Use:
  *
- * OrthographicCamera cam(left, right, bottom, top);
+ * OrthographicCamera cam(left, right, bottom, top, near, far);
  * SpriteBatch batch;
  * cam.recalculate_view_matrix();
  * batch.set_view_projection_matrix(cam.get_view_projection_matrix());
@@ -22,15 +22,16 @@ namespace omega::scene {
  */
 class OrthographicCamera : public Camera {
   public:
-    OrthographicCamera(float left, float right, float bottom, float top);
+    OrthographicCamera(float left, float right, float bottom, float top, float near = -1.0f, float far = 1.0f);
 
-    void set_projection(float left, float right, float bottom, float top);
+    void set_projection(float left, float right, float bottom, float top, float near = -1.0f, float far = 1.0f);
 
     float get_rotation() const { return rotation; }
     void set_rotation(float rotation) { this->rotation = rotation; }
 
     float get_width() const { return width; }
     float get_height() const { return height; }
+    float get_depth() const { return depth; }
 
     /**
      * Converts the screen/pixel coordianates to world coordinates
@@ -45,8 +46,8 @@ class OrthographicCamera : public Camera {
     void recalculate_view_matrix() override;
 
   private:
-    float width, height;
-    float rotation;
+    float width, height, depth;
+    float rotation = 0.0f;
 };
 } // namespace omega::scene
 

@@ -3,38 +3,54 @@
 
 #include <vector>
 
-#include "omega/scene/components.h"
+#include "omega/vendor/entt/entt.hpp"
 
 namespace omega::scene {
 
 class Entity {
   public:
-    Entity();
-    virtual ~Entity();
+    Entity() = default;
+
+    Entity(entt::entity handle, entt::registry *registry) : entity(handle),
+                                                            registry(registry) {}
+
+    Entity(const Entity &other) = default;
+
+    ~Entity() = default;
 
     template <typename T, typename... Args>
     T &add_component(Args &&...args) {
-        T *c = new T(std::forward<Args>(args)...);
-        components.push_back(c);
-
-        c->set_owner(this);
-        component_array[get_component_id<T>()] = c;
-        component_bitset[get_component_id<T>()] = true;
-        return *c;
+        return registry->emplace<T>(entity, std::forward<Args>(args)...);
     }
+
     template <typename T>
     T &get_component() {
-        Component *c = component_array[get_component_id<T>()];
-        return static_cast<T>(*c);
+        return registry->get<T>(entity);
     }
-    void render(float dt);
-    void input(float dt);
-    void update(float dt);
+
+    template <typename T>
+    bool has_component() {
+        return registry->has<T>(entity);
+    }
+
+    template <typename T>
+    void remove_component() {
+        registry->remove<T>(entity);
+    }
+
+    bool operator==(Entity other) const {
+        return entity == other.entity;
+    }
+
+    operator uint32_t() const {
+        return (uint32_t)entity;
+    }
+    operator entt::entity() const { return entity; }
+    operator bool() const { return entity != entt::null; }
 
   protected:
-    std::vector<Component *> components;
-    ComponentArray component_array;
-    ComponentBitset component_bitset;
+    entt::entity entity{entt::null};
+    entt::registry *registry = nullptr;
 };
 
 } // namespace omega::scene

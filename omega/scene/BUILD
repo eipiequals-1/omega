@@ -55,12 +55,11 @@ cc_library(
 
 cc_library(
     name = "entity",
-    srcs = ["entity.cpp"],
     hdrs = ["entity.h"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
-        ":components"
+        "//omega/vendor/entt:entt",
     ]
 )
 
@@ -73,6 +72,8 @@ cc_library(
         "//omega/gfx/texture:texture",
         "//omega/gfx:sprite_batch",
         "//omega/util:util",
+        ":orthographic_camera",
+        ":perspective_camera",
     ]
 )
 
@@ -102,16 +103,18 @@ cc_library(
 cc_library(
     name = "scene",
     hdrs = ["scene.h"],
+    srcs = ["scene.cpp"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
-        ":camera",
+        "//omega/vendor/entt:entt",
+        "//omega/core:viewport",
+        "//omega/gfx:sprite_batch",
+        "//omega/gfx:gl",
+        "//omega/util:color",
+        "//omega/util:math",
+        
         ":components",
         ":entity",
-        ":imgui_layer",
-        ":layer_stack",
-        ":layer",
-        ":orthographic_camera",
-        ":perspective_camera",
     ]
 )
