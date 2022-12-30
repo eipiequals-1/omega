@@ -14,7 +14,7 @@ cc_library(
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
-        "//omega/util:util",
+        "//omega/util:std",
         "//omega/scene:scene",
         "//omega/scene:entity",
         "//omega/scene:components",
@@ -32,7 +32,7 @@ cc_library(
         "//editor/res/ui:ui"
     ],
     deps = [
-        "//omega/util:util",
+        "//omega/util:std",
         "//omega/scene:scene",
         "//omega/vendor/imgui:imgui",
         "//omega/gfx:gfx",

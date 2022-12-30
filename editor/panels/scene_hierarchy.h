@@ -4,7 +4,7 @@
 #include "omega/scene/components.h"
 #include "omega/scene/entity.h"
 #include "omega/scene/scene.h"
-#include "omega/util/util.h"
+#include "omega/util/std.h"
 
 namespace omega {
 

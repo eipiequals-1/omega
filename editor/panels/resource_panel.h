@@ -4,7 +4,7 @@
 #include "omega/gfx/gfx.h"
 #include "omega/gfx/texture/texture.h"
 #include "omega/scene/scene.h"
-#include "omega/util/util.h"
+#include "omega/util/std.h"
 
 namespace omega {
 

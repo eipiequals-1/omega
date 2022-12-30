@@ -4,6 +4,7 @@
 
 #include <cstring>
 #include <functional>
+#include <string>
 
 namespace omega {
 
@@ -73,6 +74,10 @@ void SceneHierarchy::render() {
 
         // sprite component
         render_component<scene::SpriteComponent>("Sprite", selected_entity, [](scene::SpriteComponent &sprite) {
+            // show sprite dimensions
+            ImGui::Text("Dimensions: %u x %u", sprite.texture->get_width(), sprite.texture->get_height());
+            ImGui::LogText("hey there");
+            // change sprite color
             ImGui::ColorEdit4("Color", glm::value_ptr(sprite.color));
         });
 
