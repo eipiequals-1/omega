@@ -1,5 +1,5 @@
-#ifndef OMEGA_CORE_USING_H
-#define OMEGA_CORE_USING_H
+#ifndef OMEGA_CORE_SDL2_H
+#define OMEGA_CORE_SDL2_H
 
 #include <SDL2/SDL.h>
 
@@ -31,4 +31,4 @@ enum class InitFlags {
 
 } // namespace omega::core
 
-#endif // OMEGA_CORE_USING_H
+#endif // OMEGA_CORE_SDL2_H
