@@ -30,8 +30,11 @@ class ShapeRenderer {
   public:
     ShapeRenderer(const ShapeRenderer &) = delete;
     ShapeRenderer operator=(const ShapeRenderer &) = delete;
-    virtual ~ShapeRenderer();
+    ~ShapeRenderer() = default;
 
+    /**
+     * @returns a singleton shape renderer
+     */
     static ShapeRenderer &instance() {
         static ShapeRenderer renderer;
         return renderer;

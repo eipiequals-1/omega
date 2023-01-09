@@ -12,21 +12,33 @@
 
 namespace omega::scene {
 
+/**
+ * Represents a tag or identifier
+ */
 struct TagComponent {
     std::string tag;
 };
 
+/**
+ * Represents a model matrix or transform
+ */
 struct TransformComponent {
     glm::vec3 position{0.0f, 0.0f, 0.0f};
     glm::vec3 rotation{0.0f, 0.0f, 0.0f};
     glm::vec3 scale{0.0f, 0.0f, 0.0f};
 };
 
+/**
+ * Represents a rendering component through a texture
+ */
 struct SpriteComponent {
     glm::vec4 color{1.0f, 1.0f, 1.0f, 1.0f};
     util::sptr<gfx::texture::Texture> texture = nullptr;
 };
 
+/**
+ * Represents a scene camera component
+ */
 struct CameraComponent {
     enum class ProjectionType {
         perspective,

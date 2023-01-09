@@ -14,16 +14,17 @@
 namespace omega::core {
 
 /**
- * Window abstraction of SDL_Window, SDL_SwapBuffers and
- *
- * OpenGL window functions
+ * Window abstraction of SDL_Window, SDL_SwapBuffers, and OpenGL window functions
  */
 class Window {
   public:
     Window(const Window &) = delete;
     Window operator=(const Window &) = delete;
-    virtual ~Window();
+    ~Window();
 
+    /**
+     * @return pointer the window instance
+     */
     static util::sptr<Window> instance() {
         static util::sptr<Window> win = util::sptr<Window>(new Window());
         return win;
@@ -36,13 +37,13 @@ class Window {
      * @param resizable if it can be resized
      * @param title the window title
      */
-    virtual bool init(uint32_t width, uint32_t height, bool resizable, const std::string &title);
+    bool init(uint32_t width, uint32_t height, bool resizable, const std::string &title);
 
     /**
      * Specify the framebuffer clear color and abstracts it
      * @param color of (r, g, b, a) components
      */
-    virtual void set_clear_color(const glm::vec4 &color) {
+    void set_clear_color(const glm::vec4 &color) const {
         glClearColor(color.r, color.g, color.b, color.a);
     }
 
@@ -50,20 +51,40 @@ class Window {
      * Clear the current framebuffer with glClearColor
      * @param mask the buffer types to clear (default=GL_COLOR_BUFFER_BIT)
      */
-    virtual void clear(GLbitfield mask = GL_COLOR_BUFFER_BIT);
-    virtual void swap_buffers();
-    virtual void on_resize(uint32_t new_width, uint32_t new_height);
+    void clear(GLbitfield mask = GL_COLOR_BUFFER_BIT);
+    /**
+     * Update the window with OpenGL rendering
+     * analagous to SDL_GL_SwapWindow
+     */
+    void swap_buffers();
+    /**
+     * When the window changes size
+     */
+    void on_resize(uint32_t new_width, uint32_t new_height);
 
+    /**
+     * @return width
+     */
     uint32_t get_width() const { return width; }
+    /**
+     * @return height
+     */
     uint32_t get_height() const { return height; }
+    /**
+     * @return native SDL_Window *
+     */
     SDL_Window *get_native_window() { return window; }
+    /**
+     * @return SDL_GLContext
+     */
     SDL_GLContext get_gl_context() { return context; }
 
-  protected:
+  private:
     Window();
 
     uint32_t width;
     uint32_t height;
+    // sdl
     SDL_Window *window;
     SDL_GLContext context;
 };

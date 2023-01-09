@@ -6,9 +6,6 @@ Viewport::Viewport(ViewportType viewport_type, uint32_t initial_width, uint32_t 
     on_resize(initial_width, initial_height);
 }
 
-Viewport::~Viewport() {
-}
-
 glm::rect<uint32_t> Viewport::on_resize(uint32_t new_width, uint32_t new_height) {
     switch (viewport_type) {
     case ViewportType::fit: {

@@ -51,10 +51,17 @@ class InputManager {
     const glm::vec2 &get_mouse_pos() const { return mouse_pos; }
     glm::vec2 get_mouse_move() const { return relative_mode ? mouse_pos : mouse_pos - prev_mouse_pos; }
 
+    /**
+     * Set mouse relative mode for first person feel (true), or third person feel (false)
+     * @param mode
+     */
     void set_relative_mouse_mode(bool mode) {
         SDL_SetRelativeMouseMode(mode ? SDL_TRUE : SDL_FALSE);
         relative_mode = mode;
     }
+    /**
+     * @return the current mode
+     */
     bool get_relative_mouse_mode() const { return relative_mode; }
 
     /**
@@ -95,11 +102,14 @@ class InputManager {
 
   private:
     InputManager();
-    util::sptr<KeyManager> key_manager;
-    glm::vec2 mouse_pos, prev_mouse_pos; // mouse_pos relative to bottom left
-    uint32_t buttons;
-    uint32_t prev_buttons;
-    bool relative_mode;
+    // keys
+    util::sptr<KeyManager> key_manager = nullptr;
+    glm::vec2 mouse_pos{0.0f}, prev_mouse_pos{0.0f}; // mouse_pos relative to bottom left
+
+    // mouse
+    uint32_t buttons = 0;
+    uint32_t prev_buttons = 0;
+    bool relative_mode = false;
 };
 
 } // namespace omega::events

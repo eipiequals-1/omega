@@ -6,14 +6,30 @@
 
 namespace omega::scene {
 
+/**
+ * Perspective Camera represents a 3D projection of a scene, as well as its position, forward, and up vectors
+ */
 class PerspectiveCamera : public Camera {
   public:
     PerspectiveCamera(const glm::vec3 &position = glm::vec3(0.0f), float yaw = -90.0f, float pitch = 0.0f);
     ~PerspectiveCamera() = default;
 
+    /**
+     * Set the projection matrix
+     * @param fov field of view
+     * @param aspect camera aspect ratio
+     * @param near the near clip plane / distance
+     * @param far the far clip plane / distance
+     */
     void set_projection(float fov = 45.0f, float aspect = 16.0f / 9.0f, float near = 0.1f, float far = 100.0f);
 
+    /**
+     * @return the camera front vector
+     */
     const glm::vec3 &get_front() const { return front; }
+    /**
+     * @return the camera right vector
+     */
     const glm::vec3 &get_right() const { return right; }
 
     float get_pitch() const { return pitch; }

@@ -47,9 +47,6 @@ ShapeRenderer::ShapeRenderer() : view_proj_matrix_name("u_ViewProjMatrix") {
     triangle_vao->add_buffer(*triangle_vbo, layout);
 }
 
-ShapeRenderer::~ShapeRenderer() {
-}
-
 void ShapeRenderer::begin() {
     triangles_renderered = 0;
 }

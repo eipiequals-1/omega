@@ -16,14 +16,6 @@ namespace omega::gfx {
 using namespace omega::util;
 
 /**
- * Stores the vertex and fragment shaders source
- */
-struct ShaderProgramSource {
-    std::string vertex_source;
-    std::string fragment_source;
-};
-
-/**
  * OpenGL shader abstraction that stores a vertex and fragment shader
  */
 class Shader {
@@ -58,11 +50,19 @@ class Shader {
 
   private:
     /**
+     * Stores the vertex and fragment shaders source
+     */
+    struct ShaderProgramSource {
+        std::string vertex_source;
+        std::string fragment_source;
+    };
+
+    /**
      * Parses the shader from the given source file
      * @param path the shader
      * @return the struct containing the vertex and fragment source code
      */
-    ShaderProgramSource parse_shader(const std::string &filepath);
+    Shader::ShaderProgramSource parse_shader(const std::string &filepath);
 
     /**
      * Returns the location of the shader

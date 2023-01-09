@@ -37,7 +37,7 @@ class TextureAtlas {
 
   private:
     std::unordered_map<std::string, util::sptr<TextureRegion>> tex_regions;
-    util::sptr<Texture> tex;
+    util::sptr<Texture> tex = nullptr;
 };
 } // namespace omega::gfx::texture
 

@@ -11,14 +11,15 @@ namespace omega::physics::particle {
  * to be used by ParticleEmitter
  */
 struct Particle {
-    Particle();
-    virtual ~Particle();
+    Particle() = default;
+    virtual ~Particle() = default;
 
     /**
      * Handles updating Particle Emitter independent data such as position and life
      * @param dt the timestep
      */
     virtual void update(float dt);
+
     bool is_dead() const {
         return life_remaining <= 0.0f;
     }
@@ -43,12 +44,12 @@ struct Particle {
         return color;
     }
 
-    glm::vec2 pos; // bottom left of "rect"
-    glm::vec2 vel;
-    float life_remaining;
-    float radius;
+    glm::vec2 pos{0.0f}; // bottom left of "rect"
+    glm::vec2 vel{10.0f};
+    float life_remaining = 0.0f;
+    float radius = 0.0f;
 
-    glm::vec4 color;
+    glm::vec4 color{1.0f};
 };
 } // namespace omega::physics::particle
 

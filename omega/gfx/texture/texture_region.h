@@ -24,7 +24,6 @@ class TextureRegion {
   private:
     Texture *texture = nullptr;
     glm::rect<uint32_t> rect;
-    std::string region_name;
 };
 } // namespace omega::gfx::texture
 

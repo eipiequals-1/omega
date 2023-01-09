@@ -4,7 +4,7 @@
 
 namespace omega::gfx {
 
-FrameBuffer::FrameBuffer(uint32_t width, uint32_t height) : id(0), width(width), height(height), color_buffer(nullptr), rbo_depth_stencil(0) {
+FrameBuffer::FrameBuffer(uint32_t width, uint32_t height) : width(width), height(height) {
     resize(width, height);
 }
 

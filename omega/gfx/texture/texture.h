@@ -36,6 +36,12 @@ class Texture {
         return util::sptr<Texture>(tex);
     }
 
+    /**
+     * Construct a texture from the given filepath and min/mag filters
+     * @param filepath
+     * @param min_filter (default = GL_NEAREST)
+     * @param mag_filter (default = GL_NEAREST)
+     */
     static util::sptr<Texture> create_from_file(const std::string &filepath, GLenum min_filter = GL_NEAREST, GLenum mag_filter = GL_NEAREST) {
         SDL_Surface *surf = IMG_Load(filepath.c_str());
         if (surf == nullptr) {
@@ -48,6 +54,13 @@ class Texture {
         return texture;
     }
 
+    /**
+     * Construct a new gl texture object with the given dimensions and min/mag filters
+     * @param width
+     * @param height
+     * @param min_filter (default = GL_NEAREST)
+     * @param mag_filter (default = GL_NEAREST)
+     */
     static util::sptr<Texture> create_empty(uint32_t width, uint32_t height, GLenum min_filter = GL_NEAREST, GLenum mag_filter = GL_NEAREST) {
         // must construct using new because constructor is private and not accessible by sptr
         return util::sptr<Texture>(new Texture(width, height, min_filter, mag_filter));
@@ -66,9 +79,19 @@ class Texture {
     static void unbind() {
         glBindTexture(GL_TEXTURE_2D, 0);
     }
+
+    /**
+     * @return the texture object in OpenGL
+     */
     uint32_t get_renderer_id() const { return id; }
 
+    /**
+     * @return the width
+     */
     uint32_t get_width() const { return width; }
+    /**
+     * @return the height
+     */
     uint32_t get_height() const { return height; }
 
     /**
@@ -81,8 +104,18 @@ class Texture {
         unbind();
     }
 
+    /**
+     * @returns the pixels of the texture
+     */
     util::uptr<uint32_t[]> get_pixels();
 
+    /**
+     * Save the pixels, at the given dimensions to the file
+     * @param file_name path to the file
+     * @param pixels pointer to uint32_t/rgba pixels
+     * @param width
+     * @param height
+     */
     static void save_to_file(const std::string &file_name, uint32_t *pixels, uint32_t width, uint32_t height) {
         uint32_t rmask, gmask, bmask, amask;
         if (SDL_BYTEORDER == SDL_BIG_ENDIAN) {
@@ -128,7 +161,7 @@ class TextureManager {
      */
     void load(const K &id, const std::string &filepath, GLenum min_filter = GL_NEAREST, GLenum mag_filter = GL_NEAREST) {
         if (!contains(id)) {
-            textures_[id] = Texture::create_from_file(filepath, min_filter, mag_filter);
+            textures[id] = Texture::create_from_file(filepath, min_filter, mag_filter);
         }
     }
 
@@ -141,7 +174,7 @@ class TextureManager {
      */
     void load(const K &id, SDL_Surface *surface, GLenum min_filter = GL_NEAREST, GLenum mag_filter = GL_NEAREST) {
         if (!contains(id)) {
-            textures_[id] = Texture::create_from_surface(surface, min_filter, mag_filter);
+            textures[id] = Texture::create_from_surface(surface, min_filter, mag_filter);
         }
     }
 
@@ -152,7 +185,7 @@ class TextureManager {
      * @return the texture
      */
     util::sptr<Texture> get(const K &id) {
-        return textures_[id];
+        return textures[id];
     }
 
     /**
@@ -161,7 +194,7 @@ class TextureManager {
      * @return if there is already a texture
      */
     bool contains(const K &id) {
-        return textures_.find(id) != textures_.end();
+        return textures.find(id) != textures.end();
     }
 
     /**
@@ -173,7 +206,7 @@ class TextureManager {
     }
 
   private:
-    std::unordered_map<K, util::sptr<Texture>> textures_;
+    std::unordered_map<K, util::sptr<Texture>> textures;
 };
 
 } // namespace omega::gfx::texture

@@ -19,6 +19,10 @@ class Scene {
     Scene(const std::string &name = "Main Scene");
     ~Scene();
 
+    /**
+     * Create a new entity with a default tag "New Entity"
+     * @param tag_name
+     */
     Entity create_entity(const std::string &tag_name = "New Entity");
 
     void render(float dt);
@@ -28,7 +32,11 @@ class Scene {
     const std::string &get_name() const { return name; }
     entt::registry &get_registry() { return registry; }
 
-    // resize
+    /**
+     * Resizes the scene viewport
+     * @param width
+     * @param height
+     */
     void on_resize(uint32_t width, uint32_t height) {
         viewport.on_resize(width, height);
     }

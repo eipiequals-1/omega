@@ -29,12 +29,13 @@ SpriteBatch::SpriteBatch() : quads_rendered(0), tex_bind_slot(0) {
     const char vertex[] = R"glsl(
 		#version 450
 		
-		layout(location=0) in vec2 a_Pos;
+		layout(location=0) in vec3 a_Pos;
 		layout(location=1) in vec4 a_Color;
 		layout(location=2) in vec2 a_TexCoords;
 		layout(location=3) in float a_TexIdx;
-		layout(location=4) in float a_Rotation;
-		layout(location=5) in vec2 a_CenterOfRotation;
+		layout(location=4) in vec3 a_RotationAxis;
+		layout(location=5) in float a_RotationAngle;
+		layout(location=6) in vec3 a_CenterOfRotation;
 
 		layout(location=0) out vec4 v_Color;
 		layout(location=1) out vec2 v_TexCoords;
@@ -42,17 +43,23 @@ SpriteBatch::SpriteBatch() : quads_rendered(0), tex_bind_slot(0) {
 
 		uniform mat4 u_ViewProjMatrix;
 
-		void main() {
-			float rotation = a_Rotation * 3.141592 / 180.0;
-			float c = cos(rotation);
-			float s = sin(rotation);
+        mat4 rotationMatrix(vec3 axis, float angle) {
+            axis = normalize(axis);
+            float s = sin(angle);
+            float c = cos(angle);
+            float oc = 1.0 - c;
+            
+            return mat4(oc * axis.x * axis.x + c,           oc * axis.x * axis.y - axis.z * s,  oc * axis.z * axis.x + axis.y * s,  0.0,
+                        oc * axis.x * axis.y + axis.z * s,  oc * axis.y * axis.y + c,           oc * axis.y * axis.z - axis.x * s,  0.0,
+                        oc * axis.z * axis.x - axis.y * s,  oc * axis.y * axis.z + axis.x * s,  oc * axis.z * axis.z + c,           0.0,
+                        0.0,                                0.0,                                0.0,                                1.0);
+        }
 
-			vec2 posRelativeToCenter = a_Pos - a_CenterOfRotation;
-			vec2 rotatedPoint;
-			rotatedPoint.x = posRelativeToCenter.x * c - posRelativeToCenter.y * s;
-			rotatedPoint.y = posRelativeToCenter.y * c + posRelativeToCenter.x * s;
-			rotatedPoint += a_CenterOfRotation;  // shift back to world coords
-			gl_Position = u_ViewProjMatrix * vec4(rotatedPoint, 0.0, 1.0);
+		void main() {
+            mat4 model = rotationMatrix(a_RotationAxis, a_RotationAngle * 3.14159265 / 180.0);
+            vec3 position = (model * vec4(a_Pos - a_CenterOfRotation, 1.0)).xyz;
+			position += a_CenterOfRotation;
+            gl_Position = u_ViewProjMatrix * vec4(position, 1.0);
 
 			v_Color = a_Color;
 			v_TexCoords = a_TexCoords;
@@ -80,12 +87,13 @@ SpriteBatch::SpriteBatch() : quads_rendered(0), tex_bind_slot(0) {
     vao = create_uptr<VertexArray>();
     vbo = create_uptr<VertexBuffer>(vertex_buffer_capacity * vertex_count * sizeof(float));
     VertexBufferLayout layout;
-    layout.push(GL_FLOAT, 2); // original world coords
+    layout.push(GL_FLOAT, 3); // world coords
     layout.push(GL_FLOAT, 4); // color
     layout.push(GL_FLOAT, 2); // tex coords
     layout.push(GL_FLOAT, 1); // tex idx
-    layout.push(GL_FLOAT, 1); // rotation
-    layout.push(GL_FLOAT, 2); // center of rotation
+    layout.push(GL_FLOAT, 3); // rotation axis
+    layout.push(GL_FLOAT, 1); // rotation angle
+    layout.push(GL_FLOAT, 3); // rotation center
     vao->add_buffer(*vbo, layout);
 
     for (uint32_t i = 0; i < max_textures; ++i) {
@@ -94,9 +102,6 @@ SpriteBatch::SpriteBatch() : quads_rendered(0), tex_bind_slot(0) {
     sprite_shader->bind();
     sprite_shader->set_uniform_1iv("u_Textures", (int *)texture_binds.data(), max_textures);
     sprite_shader->unbind();
-}
-
-SpriteBatch::~SpriteBatch() {
 }
 
 void SpriteBatch::begin_render() {
@@ -123,6 +128,10 @@ void SpriteBatch::render_texture(const Texture *texture, const glm::rectf &src, 
 }
 
 void SpriteBatch::render_texture(const Texture *texture, glm::rectf src, const glm::rectf &dest, float rotation, const glm::vec2 &center, const glm::vec4 &color) {
+    render_texture(texture, src, dest, glm::vec3(0.0f, 0.0f, -1.0f), rotation, glm::vec3(center, 0.0f), color);
+}
+
+void SpriteBatch::render_texture(const Texture *texture, glm::rectf src, const glm::rectf &dest, const glm::vec3 rotation_axis, float rotation, const glm::vec3 &center_of_rotation, const glm::vec4 &color) {
     if (quads_rendered == quad_capacity) {
         end_render();
         begin_render();
@@ -153,11 +162,41 @@ void SpriteBatch::render_texture(const Texture *texture, glm::rectf src, const g
     src.y = src.y / texture->get_height();
     src.w = src.w / texture->get_width();
     src.h = src.h / texture->get_height();
+    constexpr static float z = 0.0f;
+
     // inverse texture to y up
-    Vertex v0 = {{dest.x, dest.y}, {color.r, color.g, color.b, color.a}, {src.x, src.y + src.h}, tex_id, rotation, {center.x, center.y}};
-    Vertex v1 = {{dest.x + dest.w, dest.y}, {color.r, color.g, color.b, color.a}, {src.x + src.w, src.y + src.h}, tex_id, rotation, {center.x, center.y}};
-    Vertex v2 = {{dest.x + dest.w, dest.y + dest.h}, {color.r, color.g, color.b, color.a}, {src.x + src.w, src.y}, tex_id, rotation, {center.x, center.y}};
-    Vertex v3 = {{dest.x, dest.y + dest.h}, {color.r, color.g, color.b, color.a}, {src.x, src.y}, tex_id, rotation, {center.x, center.y}};
+    Vertex v0 = {
+        {dest.x, dest.y, z},
+        color,
+        {src.x, src.y + src.h},
+        tex_id,
+        rotation_axis,
+        rotation,
+        center_of_rotation};
+    Vertex v1 = {
+        {dest.x + dest.w, dest.y, z},
+        color,
+        {src.x + src.w, src.y + src.h},
+        tex_id,
+        rotation_axis,
+        rotation,
+        center_of_rotation};
+    Vertex v2 = {
+        {dest.x + dest.w, dest.y + dest.h, z},
+        color,
+        {src.x + src.w, src.y},
+        tex_id,
+        rotation_axis,
+        rotation,
+        center_of_rotation};
+    Vertex v3 = {
+        {dest.x, dest.y + dest.h, z},
+        color,
+        {src.x, src.y},
+        tex_id,
+        rotation_axis,
+        rotation,
+        center_of_rotation};
 
     Quad q = {v0, v1, v2, v3};
     auto quad = q.data();

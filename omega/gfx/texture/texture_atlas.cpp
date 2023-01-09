@@ -8,7 +8,7 @@
 
 namespace omega::gfx::texture {
 
-TextureAtlas::TextureAtlas(const std::string &atlas_file_path, GLenum min_filter, GLenum mag_filter) : tex(nullptr) {
+TextureAtlas::TextureAtlas(const std::string &atlas_file_path, GLenum min_filter, GLenum mag_filter) {
     // open file
     FILE *atlas_file = fopen(atlas_file_path.c_str(), "r");
     if (atlas_file == nullptr) {

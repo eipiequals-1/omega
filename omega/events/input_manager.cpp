@@ -4,9 +4,8 @@
 
 namespace omega::events {
 
-InputManager::InputManager() : mouse_pos(0.0f), prev_mouse_pos(0.0f) {
+InputManager::InputManager() {
     key_manager = util::create_sptr<KeyManager>();
-    relative_mode = false;
 }
 
 void InputManager::prepare_for_update() {

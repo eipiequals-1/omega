@@ -1,10 +1,6 @@
 #ifndef OMEGA_CORE_APPLICATION_H
 #define OMEGA_CORE_APPLICATION_H
 
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
-#include <SDL2/SDL_ttf.h>
-
 #include "omega/core/window.h"
 #include "omega/events/events.h"
 #include "omega/scene/imgui_layer.h"
@@ -14,6 +10,9 @@
 
 namespace omega::core {
 
+/**
+ * Configuration for the application including width, height, title, window settings, etc
+ */
 struct ApplicationConfig {
     uint32_t width = 800, height = 600;
     std::string title = "Application";
@@ -33,6 +32,10 @@ struct ApplicationConfig {
  */
 class Application {
   public:
+    /**
+     * Constructs an application given the configuration
+     * @param config
+     */
     explicit Application(const ApplicationConfig &config);
     virtual ~Application();
 
@@ -53,25 +56,42 @@ class Application {
      */
     static Application &instance() { return *current_instance; }
 
+    /**
+     * @return the window
+     */
     util::sptr<Window> get_window() { return window; }
 
+    /**
+     * Useful to quit the application from any class
+     * @param v set the application run state
+     */
     void set_running(bool v) { running = v; }
 
   protected:
+    /**
+     * Push a layer to the top of the layer stack, i.e. it will be the top most layer
+     * @param layer dynamically allocated
+     */
     void push_layer(scene::Layer *layer);
 
     /**
      * Clamps the application by sleeping the CPU to run at Application::fps
      * @return delta time in seconds from the last frame
      */
-    virtual float tick();
+    float tick();
 
+    // application state
+    bool running = true;
+    util::sptr<Window> window = nullptr;
+
+    // clock and timing
     float fps = 60.0f;
     float last_time = 0.0f;
-    util::sptr<Window> window = nullptr;
-    bool running = true;
+
+    // different layers
     util::uptr<scene::LayerStack> layer_stack = nullptr;
     scene::ImGuiLayer *imgui_layer = nullptr;
+
     // singleton instance
     static Application *current_instance;
 };

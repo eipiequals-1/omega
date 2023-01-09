@@ -26,20 +26,6 @@ using namespace omega::util;
 using range = std::pair<float, float>;
 
 /**
- * Represents a particle vertex on the CPU with:
- * position,
- * center, (of the particle for the fragment shader)
- * radius,
- * color,
- */
-struct ParticleVertex {
-    float pos[2];
-    float center[2];
-    float radius;
-    float color[4];
-};
-
-/**
  * Handles setting the settings of the particle emitters
  * including lifespan, starting and ending size, emittion frequency, rotations, accelerations, randomness, etc
  */
@@ -103,6 +89,20 @@ class ParticleEmitter {
 
   protected:
     /**
+     * Represents a particle vertex on the CPU with:
+     * position,
+     * center, (of the particle for the fragment shader)
+     * radius,
+     * color,
+     */
+    struct ParticleVertex {
+        float pos[2];
+        float center[2];
+        float radius;
+        float color[4];
+    };
+
+    /**
      * @return the number of particles that must be emitted
      */
     uint32_t can_emit() {
@@ -122,13 +122,16 @@ class ParticleEmitter {
      */
     void emit();
 
+    // particle data
     Particle *particles;
     uint32_t num_particles;
 
+    // emission data
     EmitterBuilder data;
     float timer;
     float emit_timer;
 
+    // gl objections
     uptr<VertexArray> vao;
     uptr<VertexBuffer> vbo;
     uptr<IndexBuffer> ibo;

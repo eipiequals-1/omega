@@ -71,7 +71,7 @@ int Shader::get_uniform_location(const std::string &name) {
     return loc;
 }
 
-ShaderProgramSource Shader::parse_shader(const std::string &filepath) {
+Shader::ShaderProgramSource Shader::parse_shader(const std::string &filepath) {
     std::ifstream stream(filepath);
     std::string line;
 
