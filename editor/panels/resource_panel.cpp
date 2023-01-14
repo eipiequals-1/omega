@@ -1,6 +1,6 @@
 #include "resource_panel.h"
 
-#include "omega/vendor/imgui/imgui.h"
+#include "lib/imgui/imgui.h"
 
 #include <cstring>
 

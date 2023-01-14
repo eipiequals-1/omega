@@ -27,7 +27,7 @@ cc_library(
         "//omega/scene:orthographic_camera",
         "//omega/sound:sound",
         "//omega/gfx:gfx",
-        "//omega/vendor/imgui:imgui",
+        "//lib/imgui:imgui",
 
         "//editor/panels:scene_hierarchy",
         "//editor/panels:resource_panel",

@@ -3,7 +3,7 @@
 
 #include <vector>
 
-#include "omega/vendor/entt/entt.hpp"
+#include "lib/entt/entt.hpp"
 
 namespace omega::scene {
 

@@ -3,8 +3,9 @@
 
 #include <string>
 
+#include "lib/entt/entt.hpp"
+
 #include "omega/core/viewport.h"
-#include "omega/vendor/entt/entt.hpp"
 
 namespace omega {
 

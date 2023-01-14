@@ -1,8 +1,8 @@
 #include "imgui_layer.h"
 
-#include "omega/vendor/imgui/imgui.h"
-#include "omega/vendor/imgui/imgui_impl_opengl3.h"
-#include "omega/vendor/imgui/imgui_impl_sdl.h"
+#include "lib/imgui/imgui.h"
+#include "lib/imgui/imgui_impl_opengl3.h"
+#include "lib/imgui/imgui_impl_sdl.h"
 
 namespace omega::scene {
 

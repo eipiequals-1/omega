@@ -18,7 +18,7 @@ cc_library(
         "//omega/scene:scene",
         "//omega/scene:entity",
         "//omega/scene:components",
-        "//omega/vendor/imgui:imgui",
+        "//lib/imgui:imgui",
     ]
 )
 
@@ -34,7 +34,7 @@ cc_library(
     deps = [
         "//omega/util:std",
         "//omega/scene:scene",
-        "//omega/vendor/imgui:imgui",
+        "//lib/imgui:imgui",
         "//omega/gfx:gfx",
         "//omega/gfx/texture:texture",
     ]

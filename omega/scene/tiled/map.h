@@ -3,13 +3,13 @@
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include "lib/map/tmxparser.h"
 
 #include <string>
 #include <vector>
 
 #include "omega/gfx/sprite_batch.h"
 #include "omega/util/util.h"
-#include "omega/vendor/map/tmxparser.h"
 
 namespace omega::scene::tiled {
 

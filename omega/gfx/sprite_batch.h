@@ -108,7 +108,7 @@ class SpriteBatch {
 
     void render_texture_region(const TextureRegion *texture_region, const glm::rectf &dest, const glm::vec4 &color = glm::vec4(1.0f));
 
-  protected:
+  private:
     uptr<Shader> sprite_shader;
 
     // buffers and gl objects
@@ -132,7 +132,6 @@ class SpriteBatch {
     uint32_t quads_rendered;
     uint32_t tex_bind_slot;
 
-  private:
     /**
      * Represents a SpriteBatch Vertex with:
      * position,

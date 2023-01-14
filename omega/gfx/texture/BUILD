@@ -19,6 +19,7 @@ cc_library(
         "@GL//:GL",
         "//omega/util:std",
         "//omega/util:log",
+        "//lib/stb:stb_image"
     ]
 )
 

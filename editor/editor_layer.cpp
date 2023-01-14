@@ -163,17 +163,6 @@ void EditorLayer::render_to_framebuffer(float dt) {
 
     // render scene to frame buffer
     scene->render(dt);
-    /*gfx::ShapeRenderer &renderer = gfx::ShapeRenderer::instance();
-    renderer.set_view_projection_matrix(camera->get_view_projection_matrix());
-
-    renderer.begin();
-    renderer.color(util::color::white);
-    renderer.rect(glm::rectf(0.0f, 0.0f, camera->get_width(), camera->get_height()));
-
-    renderer.color(1.0f, 0.3f, 0.5f, 1.0f);
-    renderer.rect(glm::rectf(camera->get_width() / 2.0f - 50.0f, camera->get_height() / 2.0f - 50.0f, 100.0f, 100.0f));
-
-    renderer.end();*/
     // unbind
     gfx::FrameBuffer::unbind();
 }

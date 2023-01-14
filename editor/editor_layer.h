@@ -1,6 +1,8 @@
 #ifndef EDITOR_EDITORLAYER_H
 #define EDITOR_EDITORLAYER_H
 
+#include "lib/imgui/imgui.h"
+
 #include "omega/core/core.h"
 #include "omega/events/events.h"
 #include "omega/gfx/gfx.h"
@@ -8,7 +10,6 @@
 #include "omega/scene/scene.h"
 #include "omega/sound/sound.h"
 #include "omega/util/util.h"
-#include "omega/vendor/imgui/imgui.h"
 
 #include "editor/panels/resource_panel.h"
 #include "editor/panels/scene_hierarchy.h"

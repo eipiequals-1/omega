@@ -46,7 +46,7 @@ cc_library(
     deps = [
         "//omega/core:window",
         "//omega/events:event",
-        "//omega/vendor/imgui:imgui",
+        "//lib/imgui:imgui",
         ":layer",
     ]
 )
@@ -57,7 +57,7 @@ cc_library(
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
-        "//omega/vendor/entt:entt",
+        "//lib/entt:entt",
     ]
 )
 
@@ -106,7 +106,7 @@ cc_library(
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
-        "//omega/vendor/entt:entt",
+        "//lib/entt:entt",
         "//omega/core:viewport",
         "//omega/gfx:sprite_batch",
         "//omega/gfx:gl",

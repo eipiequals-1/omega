@@ -12,6 +12,8 @@
 #include "omega/util/log.h"
 #include "omega/util/std.h"
 
+#include "lib/stb/stb_image.h"
+
 namespace omega::gfx::texture {
 
 /**
@@ -43,14 +45,13 @@ class Texture {
      * @param mag_filter (default = GL_NEAREST)
      */
     static util::sptr<Texture> create_from_file(const std::string &filepath, GLenum min_filter = GL_NEAREST, GLenum mag_filter = GL_NEAREST) {
-        SDL_Surface *surf = IMG_Load(filepath.c_str());
-        if (surf == nullptr) {
-            util::error("IMG error: Error loading '", filepath, "': ", IMG_GetError());
-            return nullptr;
+        int width, height, nrChannels;
+        stbi_uc* data = stbi_load(filepath.c_str(), &width, &height, &nrChannels, 0);
+        if (data == nullptr) {
+            util::error("STB Error: Error loading '", filepath, "'");
         }
-        util::sptr<Texture> texture = Texture::create_from_surface(surf, min_filter, mag_filter);
-        SDL_FreeSurface(surf);
-        surf = nullptr;
+        util::sptr<Texture> texture = util::sptr<Texture>(new Texture(width, height, min_filter, mag_filter));
+        texture->load((uint32_t *)data);
         return texture;
     }
 
