@@ -9,7 +9,6 @@ package(default_visibility= ["//visibility:public"])
 
 cc_library(
     name = "entt",
-    srcs = ["entt.cpp"],
     hdrs = ["entt.hpp"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
