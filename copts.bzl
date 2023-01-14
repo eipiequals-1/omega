@@ -20,6 +20,7 @@ GCC_FLAGS = [
     "-fno-omit-frame-pointer ",
     "-pg",
     "-g",
+    "-I."
 ]
 
 DEFAULT_COPTS = select({
