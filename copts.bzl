@@ -15,7 +15,7 @@ GCC_FLAGS = [
     "-Wwrite-strings",
     "-DNOMINMAX",
     "-Werror",
-    "-std=c++17",
+    "-std=c++20",
     # Get easier to decode stack traces.
     "-fno-omit-frame-pointer ",
     "-pg",
