@@ -46,7 +46,8 @@ struct Map {
 #include <vector>
 
 namespace omega {
-namespace map {
+namespace scene {
+namespace tiled {
 
 enum TmxReturn {
     kSuccess,
@@ -251,7 +252,8 @@ TmxReturn parseFromMemory(void *data, size_t length, TmxMap *outMap, const std::
  */
 TmxReturn calculateTileCoordinatesUV(const Tileset &tileset, unsigned int tileFlatIndex, float pixelCorrection, bool flipY, Rect &outRect);
 
-} // namespace map
+} // namespace tiled
+} // namespace scene
 } // namespace omega
 
 #endif /* _LIB_TMX_PARSER_H_ */

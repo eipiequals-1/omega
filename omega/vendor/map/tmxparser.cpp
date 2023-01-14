@@ -96,7 +96,8 @@ THE SOFTWARE.
 #endif
 
 namespace omega {
-namespace map {
+namespace scene {
+namespace tiled {
 
 #define CHECK_AND_RETRIEVE_OPT_ATTRIBUTE_STRING(XMLELEMENT, ATTRIBNAME, LHS) \
     if (XMLELEMENT->Attribute(ATTRIBNAME) != NULL) {                         \
@@ -724,7 +725,7 @@ TmxReturn calculateTileCoordinatesUV(const Tileset &tileset, unsigned int tileFl
     return kSuccess;
 }
 
-map::TmxReturn _parseOffsetNode(tinyxml2::XMLElement *element, Offset *offset) {
+TmxReturn _parseOffsetNode(tinyxml2::XMLElement *element, Offset *offset) {
     TmxReturn error = TmxReturn::kSuccess;
 
     offset->x = 0;
@@ -741,7 +742,7 @@ map::TmxReturn _parseOffsetNode(tinyxml2::XMLElement *element, Offset *offset) {
     return error;
 }
 
-map::TmxReturn _parseImageLayerNode(tinyxml2::XMLElement *element, ImageLayer *outImageLayer) {
+TmxReturn _parseImageLayerNode(tinyxml2::XMLElement *element, ImageLayer *outImageLayer) {
     TmxReturn error = TmxReturn::kSuccess;
 
     CHECK_AND_RETRIEVE_REQ_ATTRIBUTE_STRING(element, "name", outImageLayer->name);
@@ -789,5 +790,6 @@ map::TmxReturn _parseImageLayerNode(tinyxml2::XMLElement *element, ImageLayer *o
     return error;
 }
 
-} // namespace map
+} // namespace tiled
+} // namespace scene
 } // namespace omega

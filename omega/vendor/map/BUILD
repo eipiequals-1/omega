@@ -24,31 +24,3 @@ cc_library(
     ],
 )
 
-cc_library(
-    name = "tiled",
-    srcs = ["tiled.cpp"],
-    hdrs = ["tiled.h"],
-    copts = DEFAULT_COPTS,
-    linkopts = DEFAULT_LINKOPTS,
-    deps = [
-        "@GL//:GL",
-        "@SDL2//:SDL2",
-        "//omega/util:util",
-        "//omega/gfx:sprite_batch",
-        ":tmxparser",
-    ]
-)
-
-cc_library(
-    name = "map_renderer",
-    srcs = ["map_renderer.cpp"],
-    hdrs = ["map_renderer.h"],
-    copts = DEFAULT_COPTS,
-    linkopts = DEFAULT_LINKOPTS,
-    deps = [
-        "//omega/util:util",
-        "//omega/gfx:sprite_batch",
-        "//omega/gfx/texture:texture",
-        ":tiled",
-    ]
-)
