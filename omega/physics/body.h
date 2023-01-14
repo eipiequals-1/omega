@@ -29,7 +29,7 @@ class BoxBody {
 
   protected:
     Body *body = nullptr;
-    glm::vec2 dimensions;
+    glm::vec2 dimensions{0.0f};
 };
 
 /**
@@ -45,9 +45,9 @@ class CircleBody {
     Body *get_body() { return body; }
 
   protected:
-    Body *body;
-    glm::vec2 center;
-    float radius;
+    Body *body = nullptr;
+    glm::vec2 center{0.0f};
+    float radius = 0.0f;
 };
 } // namespace omega::physics
 
