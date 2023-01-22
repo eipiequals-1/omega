@@ -10,7 +10,7 @@ package(default_visibility= ["//visibility:public"])
 cc_library(
     name = "world",
     srcs = ["world.cpp"],
-    hdrs = ["world.h"],
+    hdrs = ["world.hpp"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
@@ -23,7 +23,7 @@ cc_library(
 
 cc_library(
     name = "physics_defines",
-    hdrs = ["physics_defines.h"],
+    hdrs = ["physics_defines.hpp"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
@@ -34,7 +34,7 @@ cc_library(
 cc_library(
     name = "body",
     srcs = ["body.cpp"],
-    hdrs = ["body.h"],
+    hdrs = ["body.hpp"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
@@ -46,7 +46,7 @@ cc_library(
 
 cc_library(
     name = "physics",
-    hdrs = ["physics.h"],
+    hdrs = ["physics.hpp"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [

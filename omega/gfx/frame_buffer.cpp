@@ -1,6 +1,6 @@
-#include "frame_buffer.h"
+#include "frame_buffer.hpp"
 
-#include "omega/gfx/gl.h"
+#include "omega/gfx/gl.hpp"
 
 namespace omega::gfx {
 

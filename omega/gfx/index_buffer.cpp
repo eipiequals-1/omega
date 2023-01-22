@@ -1,4 +1,4 @@
-#include "index_buffer.h"
+#include "index_buffer.hpp"
 
 #include <GL/gl.h>
 

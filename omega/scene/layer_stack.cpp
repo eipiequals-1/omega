@@ -1,4 +1,4 @@
-#include "layer_stack.h"
+#include "layer_stack.hpp"
 
 namespace omega::scene {
 

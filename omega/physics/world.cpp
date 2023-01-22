@@ -1,8 +1,8 @@
-#include "world.h"
+#include "world.hpp"
 
 namespace omega::physics {
 
-World::World(float gravity_x, float gravity_y) : world(nullptr) {
+World::World(float gravity_x, float gravity_y) {
     world = create_uptr<b2World>(b2Vec2(gravity_x, gravity_y));
 }
 

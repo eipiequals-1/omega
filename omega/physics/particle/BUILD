@@ -10,7 +10,7 @@ package(default_visibility= ["//visibility:public"])
 cc_library(
     name = "particle",
     srcs = ["particle.cpp"],
-    hdrs = ["particle.h"],
+    hdrs = ["particle.hpp"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
@@ -22,7 +22,7 @@ cc_library(
 cc_library(
     name = "particle_emitter",
     srcs = ["particle_emitter.cpp"],
-    hdrs = ["particle_emitter.h"],
+    hdrs = ["particle_emitter.hpp"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [

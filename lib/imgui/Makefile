@@ -1,38 +1,31 @@
-EXE = app
-IMGUI_DIR = ./
-SOURCES = main.cpp
-SOURCES += $(IMGUI_DIR)/imgui.cpp $(IMGUI_DIR)/imgui_demo.cpp $(IMGUI_DIR)/imgui_draw.cpp $(IMGUI_DIR)/imgui_tables.cpp $(IMGUI_DIR)/imgui_widgets.cpp
-SOURCES += $(IMGUI_DIR)/imgui_impl_sdl.cpp $(IMGUI_DIR)/imgui_impl_opengl3.cpp
-OBJS = $(addsuffix .o, $(basename $(notdir $(SOURCES))))
-UNAME_S := $(shell uname -s)
-LINUX_GL_LIBS = -lGL
+CC = clang++
+CFLAGS = -g -Wall -Wextra -Wcast-qual -Wconversion-null -Wformat-security -Wmissing-declarations -Woverlength-strings -Wpointer-arith -Wundef -Wunused-local-typedefs -Wunused-result -Wvarargs -Wvla -Wwrite-strings -DNOMINMAX -Werror -fno-omit-frame-pointer -std=c++20 -fPIC
+PROFILE_FLAGS= -pg
+LDFLAGS = -g
+INCLUDE = -I/usr/include/SDL2/ -I. 
+LIBS = -lGL -lGLU -lSDL2 -lSDL2_image -lSDL2_ttf
+MACROS = -DGL_GLEXT_PROTOTYPES
+OPT = -O3
 
-CXXFLAGS = -std=c++11 -I$(IMGUI_DIR)
-CXXFLAGS += -g -Wall -Wformat
-LIBS =
+BIN = bin
+SRC = ${wildcard *.cpp}
+OBJ = $(patsubst %.cpp, $(BIN)/%.o, $(SRC)) # (from, to, string)
+DLIB = $(BIN)/libimgui.so
+# < is first dep, ^ is all dependencies, @ is left of colon
 
-ECHO_MESSAGE = "Linux"
-LIBS += $(LINUX_GL_LIBS) -ldl `sdl2-config --libs`
+.PHONY: all clean
 
-CXXFLAGS += `sdl2-config --cflags`
-CFLAGS = $(CXXFLAGS)
+all: lib 
 
+lib: $(DLIB)
 
-##---------------------------------------------------------------------
-## BUILD RULES
-##---------------------------------------------------------------------
+$(DLIB): $(OBJ)
+	mkdir -p $(@D)
+	$(CC) -o $@ -shared $^ $(LIBS) $(OPT)
 
-%.o:%.cpp
-	$(CXX) $(CXXFLAGS) -c -o $@ $<
-
-%.o:$(IMGUI_DIR)/%.cpp
-	$(CXX) $(CXXFLAGS) -c -o $@ $<
-
-all: $(EXE)
-	@echo Build complete for $(ECHO_MESSAGE)
-
-$(EXE): $(OBJS)
-	$(CXX) -o $@ $^ $(CXXFLAGS) $(LIBS)
+$(BIN)/%.o: %.cpp
+	mkdir -p $(@D)
+	$(CC) -o $@ -c $< $(CFLAGS) $(INCLUDE) $(MACROS) $(OPT)
 
 clean:
-	rm -f $(EXE) $(OBJS)
+	rm -rf $(BIN)

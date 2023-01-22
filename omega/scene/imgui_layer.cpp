@@ -1,4 +1,4 @@
-#include "imgui_layer.h"
+#include "imgui_layer.hpp"
 
 #include "lib/imgui/imgui.h"
 #include "lib/imgui/imgui_impl_opengl3.h"

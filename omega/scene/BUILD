@@ -9,7 +9,7 @@ package(default_visibility= ["//visibility:public"])
 
 cc_library(
     name = "camera",
-    hdrs = ["camera.h"],
+    hdrs = ["camera.hpp"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
@@ -19,7 +19,7 @@ cc_library(
 
 cc_library(
     name = "layer",
-    hdrs = ["layer.h"],
+    hdrs = ["layer.hpp"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
@@ -29,7 +29,7 @@ cc_library(
 cc_library(
     name = "layer_stack",
     srcs = ["layer_stack.cpp"],
-    hdrs = ["layer_stack.h"],
+    hdrs = ["layer_stack.hpp"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
@@ -40,7 +40,7 @@ cc_library(
 cc_library(
     name = "imgui_layer",
     srcs = ["imgui_layer.cpp"],
-    hdrs = ["imgui_layer.h"],
+    hdrs = ["imgui_layer.hpp"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
@@ -53,7 +53,7 @@ cc_library(
 
 cc_library(
     name = "entity",
-    hdrs = ["entity.h"],
+    hdrs = ["entity.hpp"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
@@ -63,7 +63,7 @@ cc_library(
 
 cc_library(
     name = "components",
-    hdrs = ["components.h"],
+    hdrs = ["components.hpp"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
@@ -78,7 +78,7 @@ cc_library(
 cc_library(
     name = "orthographic_camera",
     srcs = ["orthographic_camera.cpp"],
-    hdrs = ["orthographic_camera.h"],
+    hdrs = ["orthographic_camera.hpp"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
@@ -90,7 +90,7 @@ cc_library(
 cc_library(
     name = "perspective_camera",
     srcs = ["perspective_camera.cpp"],
-    hdrs = ["perspective_camera.h"],
+    hdrs = ["perspective_camera.hpp"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
@@ -101,7 +101,7 @@ cc_library(
 
 cc_library(
     name = "scene",
-    hdrs = ["scene.h"],
+    hdrs = ["scene.hpp"],
     srcs = ["scene.cpp"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,

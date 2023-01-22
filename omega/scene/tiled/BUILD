@@ -10,7 +10,7 @@ package(default_visibility= ["//visibility:public"])
 cc_library(
     name = "map",
     srcs = ["map.cpp"],
-    hdrs = ["map.h"],
+    hdrs = ["map.hpp"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
@@ -25,7 +25,7 @@ cc_library(
 cc_library(
     name = "map_renderer",
     srcs = ["map_renderer.cpp"],
-    hdrs = ["map_renderer.h"],
+    hdrs = ["map_renderer.hpp"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [

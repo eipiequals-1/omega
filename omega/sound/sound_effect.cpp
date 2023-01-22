@@ -1,6 +1,6 @@
-#include "sound_effect.h"
+#include "sound_effect.hpp"
 
-#include "omega/util/log.h"
+#include "omega/util/log.hpp"
 
 namespace omega::sound {
 

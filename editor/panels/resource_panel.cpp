@@ -1,4 +1,4 @@
-#include "resource_panel.h"
+#include "resource_panel.hpp"
 
 #include "lib/imgui/imgui.h"
 
@@ -7,8 +7,8 @@
 namespace omega {
 
 ResourcePanel::ResourcePanel() {
-    file_texture = gfx::texture::Texture::create_from_file("./editor/res/ui/file_icon.png");
-    directory_texture = gfx::texture::Texture::create_from_file("./editor/res/ui/directory_icon.png");
+    file_texture = gfx::texture::Texture::create_from_file("./res/ui/file_icon.png");
+    directory_texture = gfx::texture::Texture::create_from_file("./res/ui/directory_icon.png");
 }
 
 ResourcePanel::~ResourcePanel() {

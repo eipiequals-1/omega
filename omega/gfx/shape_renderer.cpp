@@ -1,4 +1,4 @@
-#include "shape_renderer.h"
+#include "shape_renderer.hpp"
 
 #include <string>
 

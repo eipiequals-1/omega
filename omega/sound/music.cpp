@@ -1,6 +1,6 @@
-#include "music.h"
+#include "music.hpp"
 
-#include "omega/util/log.h"
+#include "omega/util/log.hpp"
 
 namespace omega::sound {
 

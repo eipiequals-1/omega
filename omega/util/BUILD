@@ -9,14 +9,14 @@ package(default_visibility= ["//visibility:public"])
 
 cc_library(
     name = "color",
-    hdrs = ["color.h"],
+    hdrs = ["color.hpp"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
 )
 
 cc_library(
     name = "log",
-    hdrs = ["log.h"],
+    hdrs = ["log.hpp"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
 )
@@ -24,21 +24,21 @@ cc_library(
 cc_library(
     name = "math",
     srcs = ["math.cpp"],
-    hdrs = ["math.h"],
+    hdrs = ["math.hpp"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
 )
 
 cc_library(
     name = "random",
-    hdrs = ["random.h"],
+    hdrs = ["random.hpp"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
 )
 
 cc_library(
     name = "std",
-    hdrs = ["std.h"],
+    hdrs = ["std.hpp"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
 )
@@ -46,7 +46,7 @@ cc_library(
 cc_library(
     name = "time",
     srcs = ["time.cpp"],
-    hdrs = ["time.h"],
+    hdrs = ["time.hpp"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
@@ -57,7 +57,7 @@ cc_library(
 
 cc_library(
     name = "util",
-    hdrs = ["util.h"],
+    hdrs = ["util.hpp"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [

@@ -1,4 +1,4 @@
-#include "sprite_batch.h"
+#include "sprite_batch.hpp"
 
 #include <GL/gl.h>
 

@@ -1,14 +1,11 @@
-#include "window.h"
+#include "window.hpp"
 
 #include <iostream>
 
-#include "omega/core/sdl2.h"
-#include "omega/util/log.h"
+#include "omega/core/sdl2.hpp"
+#include "omega/util/log.hpp"
 
 namespace omega::core {
-
-Window::Window() : width(0), height(0), window(nullptr), context(nullptr) {
-}
 
 Window::~Window() {
     SDL_GL_DeleteContext(context);

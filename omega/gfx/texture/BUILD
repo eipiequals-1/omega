@@ -11,7 +11,7 @@ package(default_visibility= ["//visibility:public"])
 cc_library(
     name = "texture",
     srcs = ["texture.cpp"],
-    hdrs = ["texture.h"],
+    hdrs = ["texture.hpp"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
@@ -25,7 +25,7 @@ cc_library(
 
 cc_library(
     name = "texture_region",
-    hdrs = ["texture_region.h"],
+    hdrs = ["texture_region.hpp"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
@@ -37,7 +37,7 @@ cc_library(
 cc_library(
     name = "texture_atlas",
     srcs = ["texture_atlas.cpp"],
-    hdrs = ["texture_atlas.h"],
+    hdrs = ["texture_atlas.hpp"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [

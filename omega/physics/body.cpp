@@ -1,4 +1,4 @@
-#include "body.h"
+#include "body.hpp"
 
 namespace omega::physics {
 BoxBody::BoxBody(const glm::rectf &rect, BodyType type, b2FixtureDef &fixture_def, float gravity_scale, float angle, b2World *world) : dimensions(rect.w, rect.h) {

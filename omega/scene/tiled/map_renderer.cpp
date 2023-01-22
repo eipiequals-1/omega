@@ -1,4 +1,4 @@
-#include "map_renderer.h"
+#include "map_renderer.hpp"
 
 namespace omega::scene::tiled {
 

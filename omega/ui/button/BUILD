@@ -9,7 +9,7 @@ package(default_visibility= ["//visibility:public"])
 
 cc_library(
     name = "button",
-    hdrs = ["button.h"],
+    hdrs = ["button.hpp"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
@@ -20,7 +20,7 @@ cc_library(
 cc_library(
     name = "image_button",
     srcs = ["image_button.cpp"],
-    hdrs = ["image_button.h"],
+    hdrs = ["image_button.hpp"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
@@ -34,7 +34,7 @@ cc_library(
 cc_library(
     name = "text_button",
     srcs = ["text_button.cpp"],
-    hdrs = ["text_button.h"],
+    hdrs = ["text_button.hpp"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [

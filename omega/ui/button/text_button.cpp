@@ -1,6 +1,6 @@
-#include "text_button.h"
+#include "text_button.hpp"
 
-#include "omega/gfx/sprite_batch.h"
+#include "omega/gfx/sprite_batch.hpp"
 
 namespace omega::ui::button {
 

@@ -1,4 +1,4 @@
-#include "key_manager.h"
+#include "key_manager.hpp"
 
 #include <SDL2/SDL.h>
 

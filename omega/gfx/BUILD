@@ -10,7 +10,7 @@ package(default_visibility= ["//visibility:public"])
 cc_library(
     name = "frame_buffer",
     srcs = ["frame_buffer.cpp"],
-    hdrs = ["frame_buffer.h"],
+    hdrs = ["frame_buffer.hpp"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
@@ -23,7 +23,7 @@ cc_library(
 
 cc_library(
     name = "gl",
-    hdrs = ["gl.h"],
+    hdrs = ["gl.hpp"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
@@ -35,7 +35,7 @@ cc_library(
 cc_library(
     name = "index_buffer",
     srcs = ["index_buffer.cpp"],
-    hdrs = ["index_buffer.h"],
+    hdrs = ["index_buffer.hpp"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
@@ -46,7 +46,7 @@ cc_library(
 cc_library(
     name = "shader",
     srcs = ["shader.cpp"],
-    hdrs = ["shader.h"],
+    hdrs = ["shader.hpp"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
@@ -60,7 +60,7 @@ cc_library(
 cc_library(
     name = "shape_renderer",
     srcs = ["shape_renderer.cpp"],
-    hdrs = ["shape_renderer.h"],
+    hdrs = ["shape_renderer.hpp"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
@@ -77,7 +77,7 @@ cc_library(
 cc_library(
     name = "sprite_batch",
     srcs = ["sprite_batch.cpp"],
-    hdrs = ["sprite_batch.h"],
+    hdrs = ["sprite_batch.hpp"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
@@ -97,7 +97,7 @@ cc_library(
 cc_library(
     name = "vertex_array",
     srcs = ["vertex_array.cpp"],
-    hdrs = ["vertex_array.h"],
+    hdrs = ["vertex_array.hpp"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
@@ -110,7 +110,7 @@ cc_library(
 cc_library(
     name = "vertex_buffer",
     srcs = ["vertex_buffer.cpp"],
-    hdrs = ["vertex_buffer.h"],
+    hdrs = ["vertex_buffer.hpp"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
@@ -120,7 +120,7 @@ cc_library(
 
 cc_library(
     name = "vertex_buffer_layout",
-    hdrs = ["vertex_buffer_layout.h"],
+    hdrs = ["vertex_buffer_layout.hpp"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
@@ -130,7 +130,7 @@ cc_library(
 
 cc_library(
     name = "gfx",
-    hdrs = ["gfx.h"],
+    hdrs = ["gfx.hpp"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [

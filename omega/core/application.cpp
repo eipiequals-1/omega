@@ -1,12 +1,12 @@
-#include "application.h"
+#include "application.hpp"
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
 
-#include "omega/util/log.h"
-#include "omega/util/math.h"
-#include "omega/util/time.h"
+#include "omega/util/log.hpp"
+#include "omega/util/math.hpp"
+#include "omega/util/time.hpp"
 
 namespace omega::core {
 

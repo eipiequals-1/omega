@@ -1,6 +1,6 @@
-#include "font.h"
+#include "font.hpp"
 
-#include "omega/util/log.h"
+#include "omega/util/log.hpp"
 
 namespace omega::ui {
 

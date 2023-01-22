@@ -10,7 +10,7 @@ package(default_visibility= ["//visibility:public"])
 cc_library(
     name = "scene_hierarchy",
     srcs = ["scene_hierarchy.cpp"],
-    hdrs = ["scene_hierarchy.h"],
+    hdrs = ["scene_hierarchy.hpp"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
@@ -25,7 +25,7 @@ cc_library(
 cc_library(
     name = "resource_panel",
     srcs = ["resource_panel.cpp"],
-    hdrs = ["resource_panel.h"],
+    hdrs = ["resource_panel.hpp"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     data = [

@@ -1,6 +1,6 @@
-#include "image_button.h"
+#include "image_button.hpp"
 
-#include "omega/gfx/sprite_batch.h"
+#include "omega/gfx/sprite_batch.hpp"
 
 namespace omega::ui::button {
 

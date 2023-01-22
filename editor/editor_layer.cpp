@@ -1,10 +1,10 @@
-#include "editor_layer.h"
+#include "editor_layer.hpp"
 
-#include "omega/scene/components.h"
+#include "omega/scene/components.hpp"
 
 namespace omega {
 
-EditorLayer::EditorLayer() : scene::ImGuiLayer::ImGuiLayer(omega::core::Application::instance().get_window().get()) {
+EditorLayer::EditorLayer() : scene::ImGuiLayer::ImGuiLayer(core::Window::instance()) {
     set_custom_styles();
     gfx::enable_blending(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
@@ -28,7 +28,7 @@ EditorLayer::EditorLayer() : scene::ImGuiLayer::ImGuiLayer(omega::core::Applicat
 
     auto &sprite = square.add_component<scene::SpriteComponent>();
     sprite.color = util::color::white;
-    sprite.texture = gfx::texture::Texture::create_from_file("./editor/res/ui/file_icon.png");
+    sprite.texture = gfx::texture::Texture::create_from_file("./res/ui/file_icon.png");
 
     // create panels
     scene_hierarchy = util::create_uptr<SceneHierarchy>(scene);
@@ -40,7 +40,7 @@ EditorLayer::~EditorLayer() {
 
 void EditorLayer::input(float dt) {
     (void)dt;
-    auto key_manager = events::InputManager::instance()->get_key_manager();
+    events::KeyManager *key_manager = events::InputManager::instance()->get_key_manager();
     if (
         (key_manager->key_pressed(events::Key::k_q) && key_manager->key_pressed(events::Key::k_l_ctrl)) ||
         key_manager->key_pressed(events::Key::k_escape)) {
@@ -58,7 +58,7 @@ void EditorLayer::render(float dt) {
     static glm::vec2 scene_dock_size(1280.0f, 720.0f);
     render_to_framebuffer(dt);
 
-    auto window = core::Application::instance().get_window();
+    core::Window *window = core::Application::instance().get_window();
     // reset viewport
     gfx::viewport(0, 0, window->get_width(), window->get_height());
     window->clear();
@@ -113,7 +113,7 @@ void EditorLayer::render(float dt) {
 void EditorLayer::set_custom_styles() {
     set_dark_theme();
     ImGuiIO &io = ImGui::GetIO();
-    io.FontDefault = io.Fonts->AddFontFromFileTTF("./editor/res/fnt/opensans/OpenSans-Regular.ttf", 18.0f);
+    io.FontDefault = io.Fonts->AddFontFromFileTTF("./res/fnt/opensans/OpenSans-Regular.ttf", 18.0f);
 }
 
 void EditorLayer::dockspace() {

@@ -1,4 +1,4 @@
-#include "scene_hierarchy.h"
+#include "scene_hierarchy.hpp"
 
 #include <cstring>
 #include <functional>

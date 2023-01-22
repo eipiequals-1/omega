@@ -1,6 +1,6 @@
-#include "editor/editor_layer.h"
-#include "omega/core/core.h"
-#include "omega/sound/sound.h"
+#include "editor/editor_layer.hpp"
+#include "omega/core/core.hpp"
+#include "omega/sound/sound.hpp"
 
 class EditorApplication : public omega::core::Application {
   public:

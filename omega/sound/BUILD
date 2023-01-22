@@ -10,7 +10,7 @@ package(default_visibility= ["//visibility:public"])
 cc_library(
     name = "music",
     srcs = ["music.cpp"],
-    hdrs = ["music.h"],
+    hdrs = ["music.hpp"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
@@ -22,7 +22,7 @@ cc_library(
 cc_library(
     name = "sound_effect",
     srcs = ["sound_effect.cpp"],
-    hdrs = ["sound_effect.h"],
+    hdrs = ["sound_effect.hpp"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
@@ -34,7 +34,7 @@ cc_library(
 cc_library(
     name = "sound_manager",
     srcs = ["sound_manager.cpp"],
-    hdrs = ["sound_manager.h"],
+    hdrs = ["sound_manager.hpp"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
@@ -49,7 +49,7 @@ cc_library(
 
 cc_library(
     name = "sound",
-    hdrs = ["sound.h"],
+    hdrs = ["sound.hpp"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [

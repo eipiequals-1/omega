@@ -1,4 +1,4 @@
-#include "perspective_camera.h"
+#include "perspective_camera.hpp"
 
 namespace omega::scene {
 

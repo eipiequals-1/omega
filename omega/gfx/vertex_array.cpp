@@ -1,4 +1,4 @@
-#include "vertex_array.h"
+#include "vertex_array.hpp"
 
 #include <GL/gl.h>
 

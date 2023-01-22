@@ -1,4 +1,4 @@
-#include "vertex_buffer.h"
+#include "vertex_buffer.hpp"
 
 #include <GL/gl.h>
 

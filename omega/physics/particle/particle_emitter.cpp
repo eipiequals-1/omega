@@ -1,4 +1,4 @@
-#include "particle_emitter.h"
+#include "particle_emitter.hpp"
 
 #include <algorithm>
 

@@ -10,7 +10,7 @@ package(default_visibility= ["//visibility:public"])
 
 cc_library(
     name = "sdl",
-    hdrs = ["sdl.h"],
+    hdrs = ["sdl.hpp"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
@@ -21,7 +21,7 @@ cc_library(
 cc_library(
     name = "window",
     srcs = ["window.cpp"],
-    hdrs = ["window.h"],
+    hdrs = ["window.hpp"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
@@ -37,7 +37,7 @@ cc_library(
 cc_library(
     name = "application",
     srcs = ["application.cpp"],
-    hdrs = ["application.h"],
+    hdrs = ["application.hpp"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
@@ -56,7 +56,7 @@ cc_library(
 
 cc_library(
     name = "sdl2",
-    hdrs = ["sdl2.h"],
+    hdrs = ["sdl2.hpp"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
@@ -67,7 +67,7 @@ cc_library(
 cc_library(
     name = "viewport",
     srcs = ["viewport.cpp"],
-    hdrs = ["viewport.h"],
+    hdrs = ["viewport.hpp"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
@@ -78,7 +78,7 @@ cc_library(
 
 cc_library(
     name = "core",
-    hdrs = ["core.h"],
+    hdrs = ["core.hpp"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [

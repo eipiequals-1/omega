@@ -1,4 +1,4 @@
-#include "orthographic_camera.h"
+#include "orthographic_camera.hpp"
 
 namespace omega::scene {
 

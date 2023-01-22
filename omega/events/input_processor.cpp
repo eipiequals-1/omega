@@ -1,4 +1,4 @@
-#include "input_processor.h"
+#include "input_processor.hpp"
 
 namespace omega::events {
 
@@ -11,7 +11,7 @@ InputProcessor::~InputProcessor() {
 }
 
 void InputProcessor::listen() {
-    sptr<InputManager> input = InputManager::instance();
+    InputManager *input = InputManager::instance();
     Event event;
     while (input->poll_events(event)) {
         switch ((EventType)event.type) {

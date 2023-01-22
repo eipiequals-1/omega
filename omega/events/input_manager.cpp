@@ -1,11 +1,11 @@
-#include "input_manager.h"
+#include "input_manager.hpp"
 
-#include "omega/core/window.h"
+#include "omega/core/window.hpp"
 
 namespace omega::events {
 
 InputManager::InputManager() {
-    key_manager = util::create_sptr<KeyManager>();
+    key_manager = util::create_uptr<KeyManager>();
 }
 
 void InputManager::prepare_for_update() {

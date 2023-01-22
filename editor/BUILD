@@ -10,7 +10,7 @@ package(default_visibility= ["//visibility:public"])
 cc_library(
     name = "editor_layer",
     srcs = ["editor_layer.cpp"],
-    hdrs = ["editor_layer.h"],
+    hdrs = ["editor_layer.hpp"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     data = [

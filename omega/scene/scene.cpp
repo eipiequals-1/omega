@@ -1,11 +1,11 @@
-#include "scene.h"
+#include "scene.hpp"
 
-#include "omega/gfx/gl.h"
-#include "omega/gfx/sprite_batch.h"
-#include "omega/scene/components.h"
-#include "omega/scene/entity.h"
-#include "omega/util/color.h"
-#include "omega/util/math.h"
+#include "omega/gfx/gl.hpp"
+#include "omega/gfx/sprite_batch.hpp"
+#include "omega/scene/components.hpp"
+#include "omega/scene/entity.hpp"
+#include "omega/util/color.hpp"
+#include "omega/util/math.hpp"
 
 namespace omega::scene {
 

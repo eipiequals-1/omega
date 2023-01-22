@@ -1,4 +1,4 @@
-#include "texture.h"
+#include "texture.hpp"
 
 #include <GL/gl.h>
 #include <SDL2/SDL.h>
