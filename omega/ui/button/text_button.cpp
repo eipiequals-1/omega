@@ -10,8 +10,6 @@ TextButton::TextButton(float x, float y, float w, float h, std::function<void()>
 
 void TextButton::render() {
     ImageButton::render();
-    gfx::SpriteBatch &sprite_batch = gfx::SpriteBatch::instance();
-    sprite_batch.render_texture(text_texture.get(), rect.center().x - text_width / 2.0f, rect.center().y - text_height / 2.0f);
 }
 
 } // namespace omega

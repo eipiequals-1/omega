@@ -31,15 +31,8 @@ using namespace omega::gfx::texture;
  */
 class SpriteBatch {
   public:
-    SpriteBatch(const SpriteBatch &) = delete;
-    SpriteBatch operator=(const SpriteBatch &) = delete;
-
-    ~SpriteBatch() = default;
-
-    static SpriteBatch &instance() {
-        static SpriteBatch batch;
-        return batch;
-    }
+    SpriteBatch();
+   ~SpriteBatch() = default;
 
     /**
      * Sets the view and projection matrices typically from the camera object
@@ -109,12 +102,12 @@ class SpriteBatch {
     void render_texture_region(const TextureRegion *texture_region, const glm::rectf &dest, const glm::vec4 &color = glm::vec4(1.0f));
 
   private:
-    uptr<Shader> sprite_shader;
+    uptr<Shader> sprite_shader = nullptr;
 
     // buffers and gl objects
-    uptr<VertexBuffer> vbo;
-    uptr<VertexArray> vao;
-    uptr<IndexBuffer> ibo;
+    uptr<VertexBuffer> vbo = nullptr;
+    uptr<VertexArray> vao = nullptr;
+    uptr<IndexBuffer> ibo = nullptr;
 
     // buffer constants
     static constexpr uint32_t quad_capacity = 1500;
@@ -129,8 +122,8 @@ class SpriteBatch {
     std::array<const Texture *, max_textures> textures_to_render;
 
     // render attributes
-    uint32_t quads_rendered;
-    uint32_t tex_bind_slot;
+    uint32_t quads_rendered = 0;
+    uint32_t tex_bind_slot = 0;
 
     /**
      * Represents a SpriteBatch Vertex with:
@@ -155,7 +148,6 @@ class SpriteBatch {
     // represents one texture / rectangle that is passed to the sprite shader
     using Quad = std::array<Vertex, 4>;
 
-    SpriteBatch();
 };
 
 } // namespace omega::gfx

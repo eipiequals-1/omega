@@ -13,15 +13,15 @@ ImageButton::~ImageButton() {
 }
 
 void ImageButton::render() {
-    gfx::SpriteBatch &sprite_batch = gfx::SpriteBatch::instance();
-    if (hover) {
-        if (focus != nullptr) {
-            sprite_batch.render_texture(focus, rect.x, rect.y, rect.w, rect.h);
-        }
-    } else {
-        if (un_focus != nullptr) {
-            sprite_batch.render_texture(un_focus, rect.x, rect.y, rect.w, rect.h);
-        }
-    }
+    /* gfx::SpriteBatch &sprite_batch = gfx::SpriteBatch::instance(); */
+    /* if (hover) { */
+    /*     if (focus != nullptr) { */
+    /*         sprite_batch.render_texture(focus, rect.x, rect.y, rect.w, rect.h); */
+    /*     } */
+    /* } else { */
+    /*     if (un_focus != nullptr) { */
+    /*         sprite_batch.render_texture(un_focus, rect.x, rect.y, rect.w, rect.h); */
+    /*     } */
+    /* } */
 }
 } // namespace omega::ui::button

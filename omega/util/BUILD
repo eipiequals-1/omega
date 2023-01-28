@@ -8,6 +8,21 @@ load(
 package(default_visibility= ["//visibility:public"])
 
 cc_library(
+    name = "asset_manager",
+    srcs = ["asset_manager.cpp"],
+    hdrs = ["asset_manager.hpp"],
+    copts = DEFAULT_COPTS,
+    linkopts = DEFAULT_LINKOPTS,
+    deps = [
+        ":log",
+        "//omega/sound:music",
+        "//omega/sound:sound_effect",
+        "//omega/gfx/texture:texture",
+        "@SDL2//:SDL2",
+    ]
+)
+
+cc_library(
     name = "color",
     hdrs = ["color.hpp"],
     copts = DEFAULT_COPTS,

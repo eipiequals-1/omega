@@ -23,8 +23,8 @@ void UIScreen::update(const glm::vec2 &mouse_pos) {
 
 void UIScreen::push_button(button::Button *button) { buttons.push_back(button); }
 
-void UIScreen::handle_buttons() {
-    if (events::InputManager::instance()->mouse_button_just_released(
+void UIScreen::handle_buttons(events::InputManager &input) {
+    if (input.mouse_button_just_released(
             events::MouseButton::mouse_left)) {
         for (auto &btn : buttons) {
             if (btn->get_hover()) {

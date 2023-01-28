@@ -34,20 +34,6 @@ cc_library(
 )
 
 cc_library(
-    name = "input_processor",
-    srcs = ["input_processor.cpp"],
-    hdrs = ["input_processor.hpp"],
-    copts = DEFAULT_COPTS,
-    linkopts = DEFAULT_LINKOPTS,
-    deps = [
-        "@SDL2//:SDL2",
-        "//omega/util:util",
-        ":event",
-        ":input_manager"
-    ]
-)
-
-cc_library(
     name = "key_manager",
     srcs = ["key_manager.cpp"],
     hdrs = ["key_manager.hpp"],
@@ -67,7 +53,6 @@ cc_library(
     deps = [
         ":event",
         ":input_manager",
-        ":input_processor",
         ":key_manager",
     ]
 )

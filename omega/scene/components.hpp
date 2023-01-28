@@ -33,7 +33,7 @@ struct TransformComponent {
  */
 struct SpriteComponent {
     glm::vec4 color{1.0f, 1.0f, 1.0f, 1.0f};
-    util::sptr<gfx::texture::Texture> texture = nullptr;
+    gfx::texture::Texture *texture = nullptr;
 };
 
 /**

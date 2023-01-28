@@ -32,10 +32,10 @@ class Texture {
      * @param max_filter type of filter for maximizing the texture
      * @return a new Texture
      */
-    static util::sptr<Texture> create_from_surface(SDL_Surface *surf, GLenum min_filter = GL_NEAREST, GLenum mag_filter = GL_NEAREST) {
+    static util::uptr<Texture> create_from_surface(SDL_Surface *surf, GLenum min_filter = GL_NEAREST, GLenum mag_filter = GL_NEAREST) {
         Texture *tex = new Texture(surf->w, surf->h, min_filter, mag_filter);
         tex->load((uint32_t *)surf->pixels);
-        return util::sptr<Texture>(tex);
+        return util::uptr<Texture>(tex);
     }
 
     /**
@@ -44,13 +44,13 @@ class Texture {
      * @param min_filter (default = GL_NEAREST)
      * @param mag_filter (default = GL_NEAREST)
      */
-    static util::sptr<Texture> create_from_file(const std::string &filepath, GLenum min_filter = GL_NEAREST, GLenum mag_filter = GL_NEAREST) {
+    static util::uptr<Texture> create_from_file(const std::string &filepath, GLenum min_filter = GL_NEAREST, GLenum mag_filter = GL_NEAREST) {
         int width, height, nrChannels;
         stbi_uc* data = stbi_load(filepath.c_str(), &width, &height, &nrChannels, 0);
         if (data == nullptr) {
             util::error("STB Error: Error loading '", filepath, "'");
         }
-        util::sptr<Texture> texture = util::sptr<Texture>(new Texture(width, height, min_filter, mag_filter));
+        util::uptr<Texture> texture = util::uptr<Texture>(new Texture(width, height, min_filter, mag_filter));
         texture->load((uint32_t *)data);
         return texture;
     }
@@ -62,9 +62,9 @@ class Texture {
      * @param min_filter (default = GL_NEAREST)
      * @param mag_filter (default = GL_NEAREST)
      */
-    static util::sptr<Texture> create_empty(uint32_t width, uint32_t height, GLenum min_filter = GL_NEAREST, GLenum mag_filter = GL_NEAREST) {
+    static util::uptr<Texture> create_empty(uint32_t width, uint32_t height, GLenum min_filter = GL_NEAREST, GLenum mag_filter = GL_NEAREST) {
         // must construct using new because constructor is private and not accessible by sptr
-        return util::sptr<Texture>(new Texture(width, height, min_filter, mag_filter));
+        return util::uptr<Texture>(new Texture(width, height, min_filter, mag_filter));
     }
     ~Texture();
 
@@ -185,8 +185,8 @@ class TextureManager {
      * @param id look-up id
      * @return the texture
      */
-    util::sptr<Texture> get(const K &id) {
-        return textures[id];
+    Texture* get(const K &id) {
+        return textures[id].get();
     }
 
     /**
@@ -202,12 +202,12 @@ class TextureManager {
      * Another easy look-up method
      * Same as sptr<Texture> Get(const K& id);
      */
-    util::sptr<Texture> operator[](const K &id) {
+    util::uptr<Texture> operator[](const K &id) {
         return get(id);
     }
 
   private:
-    std::unordered_map<K, util::sptr<Texture>> textures;
+    std::unordered_map<K, util::uptr<Texture>> textures;
 };
 
 } // namespace omega::gfx::texture

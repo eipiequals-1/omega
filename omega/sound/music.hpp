@@ -7,6 +7,8 @@
 
 namespace omega::sound {
 
+using MusicID = size_t;
+
 class Music {
   public:
     Music(const std::string &filepath);

@@ -31,21 +31,6 @@ cc_library(
     ]
 )
 
-cc_library(
-    name = "sound_manager",
-    srcs = ["sound_manager.cpp"],
-    hdrs = ["sound_manager.hpp"],
-    copts = DEFAULT_COPTS,
-    linkopts = DEFAULT_LINKOPTS,
-    deps = [
-        "@SDL2//:SDL2",
-        "//omega/util:std",
-        "//omega/util:log",
-        ":music",
-        ":sound_effect",
-    ]
-)
-
 
 cc_library(
     name = "sound",
@@ -55,6 +40,5 @@ cc_library(
     deps = [
         ":music",
         ":sound_effect",
-        ":sound_manager",
     ]
 )

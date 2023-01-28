@@ -7,6 +7,8 @@
 
 namespace omega::sound {
 
+using SoundEffectID = size_t;
+
 class SoundEffect {
   public:
     SoundEffect(const std::string &filepath);

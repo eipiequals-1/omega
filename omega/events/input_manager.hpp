@@ -19,14 +19,8 @@ namespace omega::events {
  */
 class InputManager {
   public:
-    InputManager(const InputManager &) = delete;
-    InputManager operator=(const InputManager &) = delete;
-
-    static InputManager* instance() {
-        static util::uptr<InputManager> input = util::uptr<InputManager>(new InputManager());
-        return input.get();
-    }
-
+    InputManager();
+    
     /**
      * Prepares data for updating.
      * IMPORTANT: must be called before PollEvents
@@ -101,7 +95,6 @@ class InputManager {
     }
 
   private:
-    InputManager();
     // keys
     util::uptr<KeyManager> key_manager = nullptr;
     glm::vec2 mouse_pos{0.0f}, prev_mouse_pos{0.0f}; // mouse_pos relative to bottom left

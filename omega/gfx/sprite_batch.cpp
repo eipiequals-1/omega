@@ -8,7 +8,7 @@
 
 namespace omega::gfx {
 
-SpriteBatch::SpriteBatch() : quads_rendered(0), tex_bind_slot(0) {
+SpriteBatch::SpriteBatch() {
     // indices will never change so set them now
     uint32_t indices[index_buffer_capacity];
     uint32_t offset = 0;
@@ -101,7 +101,7 @@ SpriteBatch::SpriteBatch() : quads_rendered(0), tex_bind_slot(0) {
     }
     sprite_shader->bind();
     sprite_shader->set_uniform_1iv("u_Textures", (int *)texture_binds.data(), max_textures);
-    sprite_shader->unbind();
+    Shader::unbind();
 }
 
 void SpriteBatch::begin_render() {

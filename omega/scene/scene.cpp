@@ -1,7 +1,6 @@
 #include "scene.hpp"
 
 #include "omega/gfx/gl.hpp"
-#include "omega/gfx/sprite_batch.hpp"
 #include "omega/scene/components.hpp"
 #include "omega/scene/entity.hpp"
 #include "omega/util/color.hpp"
@@ -9,8 +8,7 @@
 
 namespace omega::scene {
 
-Scene::Scene(const std::string &name) : name(name),
-                                        viewport(core::ViewportType::fit, 1280, 720) {
+Scene::Scene(const core::Viewport &viewport, const std::string &name) : name(name), viewport(viewport) {
 }
 
 Scene::~Scene() {
@@ -22,12 +20,9 @@ Entity Scene::create_entity(const std::string &tag_name) {
     return ent;
 }
 
-void Scene::render(float dt) {
+void Scene::render(float dt, gfx::SpriteBatch &sprite_batch) {
     (void)dt;
-    gfx::set_clear_color(util::color::black);
-    gfx::clear_buffer(GL_COLOR_BUFFER_BIT);
-
-    // get camera for rendering
+   // get camera for rendering
     Camera *scene_camera = nullptr;
     auto view = registry.view<CameraComponent>();
     for (auto entity : view) {
@@ -45,7 +40,6 @@ void Scene::render(float dt) {
 
     // obtain sprite batch instance and render every entity with a sprite and transform component
     scene_camera->recalculate_view_matrix();
-    auto &sprite_batch = gfx::SpriteBatch::instance();
 
     sprite_batch.set_view_projection_matrix(scene_camera->get_view_projection_matrix());
     sprite_batch.begin_render();
@@ -62,7 +56,7 @@ void Scene::render(float dt) {
         glm::rectf dest(transform.position.x - transform.scale.x * 0.5f, transform.position.y - transform.scale.y * 0.5f, transform.scale.x, transform.scale.y);
 
         sprite_batch.render_texture(
-            sprite.texture.get(),
+            sprite.texture,
             glm::rectf(0.0f, 0.0f, sprite.texture->get_width(), sprite.texture->get_height()),
             dest,
             transform.rotation.z,

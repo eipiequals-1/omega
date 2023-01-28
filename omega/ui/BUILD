@@ -29,7 +29,7 @@ cc_library(
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
-        "//omega/events:input_processor",
+        "//omega/events:input_manager",
         "//omega/util:math",
         "//omega/ui/button:button",
     ]

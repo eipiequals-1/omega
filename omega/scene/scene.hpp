@@ -6,18 +6,15 @@
 #include "lib/entt/entt.hpp"
 
 #include "omega/core/viewport.hpp"
+#include "omega/gfx/sprite_batch.hpp"
 
-namespace omega {
-
-class SceneHierarchy;
-
-namespace scene {
+namespace omega::scene {
 
 class Entity;
 
 class Scene {
   public:
-    Scene(const std::string &name = "Main Scene");
+    Scene(const core::Viewport &viewport, const std::string &name = "Main Scene");
     ~Scene();
 
     /**
@@ -26,7 +23,7 @@ class Scene {
      */
     Entity create_entity(const std::string &tag_name = "New Entity");
 
-    void render(float dt);
+    void render(float dt, gfx::SpriteBatch &sprite_batch);
     void update(float dt);
 
     // getters and setters
@@ -51,10 +48,8 @@ class Scene {
     core::Viewport viewport;
 
     friend class Entity;
-    friend class SceneHierarchy;
 };
-} // namespace scene
 
-} // namespace omega
+} // namespace omega::scene
 
 #endif // OMEGA_SCENE_SCENE_H

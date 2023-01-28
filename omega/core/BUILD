@@ -7,14 +7,17 @@ load(
 
 package(default_visibility= ["//visibility:public"])
 
-
 cc_library(
-    name = "sdl",
-    hdrs = ["sdl.hpp"],
+    name = "globals",
+    hdrs = ["globals.hpp"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
-        "@SDL2//:SDL2",
+        "//omega/gfx:sprite_batch",
+        "//omega/gfx:shape_renderer",
+        "//omega/scene:scene",
+        "//omega/util:asset_manager",
+        ":viewport",
     ]
 )
 
@@ -35,9 +38,9 @@ cc_library(
 )
 
 cc_library(
-    name = "application",
-    srcs = ["application.cpp"],
-    hdrs = ["application.hpp"],
+    name = "app",
+    srcs = ["app.cpp"],
+    hdrs = ["app.hpp"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
@@ -47,9 +50,7 @@ cc_library(
         "//omega/util:std",
         "//omega/util:time",
         ":window",
-        "//omega/scene:layer",
-        "//omega/scene:layer_stack",
-        "//omega/scene:imgui_layer",
+        ":globals",
         "//omega/events:events",
     ]
 )
@@ -82,7 +83,8 @@ cc_library(
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
-        ":application",
+        ":app",
+        ":globals",
         ":sdl2",
         ":viewport",
         ":window",

@@ -3,9 +3,9 @@
 
 #include <vector>
 
-#include "omega/events/input_processor.hpp"
 #include "omega/ui/button/button.hpp"
 #include "omega/util/math.hpp"
+#include "omega/events/input_manager.hpp"
 
 namespace omega::ui {
 
@@ -16,7 +16,7 @@ class UIScreen {
 
     void update(const glm::vec2 &mouse_pos);
     void push_button(button::Button *button);
-    void handle_buttons();
+    void handle_buttons(events::InputManager &input);
 
   protected:
     std::vector<button::Button *> buttons;
