@@ -63,6 +63,8 @@ void App::run() {
                 break;
             case events::EventType::window_event:
                 if (event.window.event == (uint32_t)events::WindowEvents::window_resized) {
+                    // change window width, height data
+                    Window::instance()->on_resize(event.window.data1, event.window.data2);
                     if (on_resize != nullptr) { on_resize(event.window.data1, event.window.data2, globals.get()); }
                 }
                 break;

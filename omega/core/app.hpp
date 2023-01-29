@@ -34,7 +34,7 @@ struct AppConfig {
  * game.setup = [](Globals *globals) { // code }
  * game.run();
  */
-class App {
+class App final {
   public:
     std::function<void(Globals*)> setup = nullptr;
     std::function<bool(float, Globals*)> update = nullptr;
