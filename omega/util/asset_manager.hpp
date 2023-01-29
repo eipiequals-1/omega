@@ -5,6 +5,7 @@
 #include <unordered_map>
 
 #include "omega/gfx/texture/texture.hpp"
+#include "omega/gfx/shader.hpp"
 #include "omega/sound/sound_effect.hpp"
 #include "omega/sound/music.hpp"
 
@@ -14,7 +15,8 @@ class AssetManager {
   public:
     AssetManager();
     ~AssetManager();
-
+    
+    // textures
     gfx::texture::Texture* load_texture(
         const std::string &key,
         const std::string &filepath,
@@ -38,7 +40,8 @@ class AssetManager {
     gfx::texture::Texture* get_texture(const std::string &key) {
         return textures[key].get();
     }
-
+    
+    // sound effects
     sound::SoundEffectID load_sound_effect(const std::string &filepath);
     sound::MusicID load_music(const std::string &filepath);
 
@@ -47,8 +50,19 @@ class AssetManager {
     void set_music_volume(sound::MusicID m, float volume);
     void set_sound_effect_volume(sound::SoundEffectID sound, float volume);
 
+    // shaders
+    gfx::Shader *load_shader(const std::string &key, const std::string &filepath) {
+        shaders[key] = util::create_uptr<gfx::Shader>(filepath);
+        return shaders[key].get();
+    }
+
+    gfx::Shader *get_shader(const std::string &key) { 
+        return shaders[key].get();
+    }
+
   private:
     std::unordered_map<std::string, util::uptr<gfx::texture::Texture>> textures;
+    std::unordered_map<std::string, util::uptr<gfx::Shader>> shaders;
 
     std::vector<util::uptr<sound::Music>> music;
     std::vector<util::uptr<sound::SoundEffect>> sound_effects;

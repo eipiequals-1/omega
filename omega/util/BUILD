@@ -18,6 +18,7 @@ cc_library(
         "//omega/sound:music",
         "//omega/sound:sound_effect",
         "//omega/gfx/texture:texture",
+        "//omega/gfx:shader",
         "@SDL2//:SDL2",
     ]
 )
