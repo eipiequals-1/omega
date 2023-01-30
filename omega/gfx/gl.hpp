@@ -8,7 +8,42 @@
 
 #include <iostream>
 
+// rename OpenGL macros
+// clear screen macros
+#define OMEGA_GL_COLOR_BUFFER_BIT GL_COLOR_BUFFER_BIT
+#define OMEGA_GL_DEPTH_BUFFER_BIT GL_DEPTH_BUFFER_BIT
+#define OMEGA_GL_STENCIL_BUFFER_BIT GL_STENCIL_BUFFER_BIT
+
+#define OMEGA_GL_DEPTH_TEST GL_DEPTH_TEST
+#define OMEGA_GL_SRC_ALPHA GL_SRC_ALPHA
+#define OMEGA_GL_BLEND GL_BLEND
+#define OMEGA_GL_ONE_MINUS_SRC_ALPHA GL_ONE_MINUS_SRC_ALPHA
+
+// render modes
+#define OMEGA_GL_TRIANGLES GL_TRIANGLES
+#define OMEGA_GL_LINES GL_LINES
+#define OMEGA_GL_TRIANGLE_STRIP GL_TRIANGLE_STRIP
+#define OMEGA_GL_TRIANGLE_FAN GL_TRIANGLE_FAN
+
+// rendering
+#define OMEGA_GL_FALSE GL_FALSE
+#define OMEGA_GL_TRUE GL_TRUE
+
+// buffer information
+#define OMEGA_GL_UNSIGNED_BYTE GL_UNSIGNED_BYTE
+#define OMEGA_GL_UNSIGNED_SHORT GL_UNSIGNED_SHORT
+#define OMEGA_GL_UNSIGNED_INT GL_UNSIGNED_INT
+#define OMEGA_GL_FLOAT GL_FLOAT
+#define OMEGA_GL_INT GL_INT
+
+// textures
+#define OMEGA_GL_NEAREST GL_NEAREST
+#define OMEGA_GL_LINEAR GL_LINEAR
+
 namespace omega::gfx {
+
+using bitfield = GLbitfield;
+using macro = GLenum;
 
 /**
  * Creates the glViewport on the current framebuffer
@@ -40,7 +75,7 @@ inline bool check_error() {
  * Clear the current frame buffer with the current clear color
  * @param mask
  */
-inline void clear_buffer(GLbitfield mask = GL_COLOR_BUFFER_BIT) {
+inline void clear_buffer(bitfield mask = OMEGA_GL_COLOR_BUFFER_BIT) {
     glClear(mask);
 }
 
@@ -74,7 +109,7 @@ inline void set_depth_test(bool b) {
  * @param sfactor (default = GL_SRC_ALPHA)
  * @param dfactor (default = GL_ONE_MINUS_SRC_ALPHA)
  */
-inline void enable_blending(GLenum sfactor = GL_SRC_ALPHA, GLenum dfactor = GL_ONE_MINUS_SRC_ALPHA) {
+inline void enable_blending(macro sfactor = OMEGA_GL_SRC_ALPHA, macro dfactor = OMEGA_GL_ONE_MINUS_SRC_ALPHA) {
     glEnable(GL_BLEND);
     glBlendFunc(sfactor, dfactor);
 }
@@ -85,18 +120,18 @@ inline void enable_blending(GLenum sfactor = GL_SRC_ALPHA, GLenum dfactor = GL_O
  * @param start
  * @param count
  */
-inline void draw_arrays(GLenum render_type, uint32_t start, uint32_t count) {
+inline void draw_arrays(macro render_type, uint32_t start, uint32_t count) {
     glDrawArrays(render_type, start, count);
 }
 
 /**
  * Calss glDrawElements
- * @param mode render mode (i.e. GL_TRIANGLES)
+ * @param mode render mode (i.e. OMEGA_GL_TRIANGLES)
  * @param count number of indices from index buffer
- * @param type type of indices (i.e. GL_UNSIGNED_INT)
+ * @param type type of indices (i.e. OMEGA_GL_UNSIGNED_INT)
  * @param indices pointer to the indices or if using IndexBuffer (nullptr)
  */
-inline void draw_elements(GLenum mode, int32_t count, uint32_t type, const void *indices) {
+inline void draw_elements(macro mode, int32_t count, uint32_t type, const void *indices) {
     glDrawElements(mode, count, type, indices);
 }
 

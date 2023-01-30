@@ -15,9 +15,13 @@ SLIB = $(BIN)/static/libomega.a
 # < is first dep, ^ is all dependencies, @ is left of colon
 LIBS += lib/imgui/bin/libimgui.so lib/map/bin/libtmxparser.so lib/stb/bin/libstb.so
 
-.PHONY: all clean
+.PHONY: clean
 
-all: deps lib static_lib
+all:
+	@echo "Available targets:"
+	@echo "clean                 Clean all intermediate files."
+	@echo "static_lib            Build - static library"
+	@echo "lib                   Build - shared object file"
 
 static_lib: $(SLIB)
 lib: $(DLIB)
