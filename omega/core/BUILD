@@ -29,7 +29,7 @@ cc_library(
     linkopts = DEFAULT_LINKOPTS,
     deps = [
         "@SDL2//:SDL2",
-        "@GL//:GL",
+        "//omega/gfx:gl",
         "//omega/util:std",
         "//omega/util:log",
         ":viewport",
@@ -72,7 +72,7 @@ cc_library(
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
-        "@GL//:GL",
+        "//omega/gfx:gl",
         "//omega/util:math"
     ]
 )

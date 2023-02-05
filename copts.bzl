@@ -20,7 +20,8 @@ GCC_FLAGS = [
     "-fno-omit-frame-pointer ",
     "-pg",
     "-g",
-    "-I."
+    "-I.",
+    "-I./lib/glad/include"
 ]
 
 DEFAULT_COPTS = select({

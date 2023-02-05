@@ -1,12 +1,13 @@
 #ifndef OMEGA_GFX_GL_H
 #define OMEGA_GFX_GL_H
 
-#include <GL/gl.h>
-#include <GL/glu.h>
-
-#include "omega/util/math.hpp"
+#include "lib/glad/include/glad/glad.h"
+/* #include <GL/gl.h> */
+/* #include <GL/glu.h> */
 
 #include <iostream>
+
+#include "omega/util/math.hpp"
 
 // rename OpenGL macros
 // clear screen macros
@@ -62,10 +63,17 @@ inline void viewport(int x, int y, uint32_t width, uint32_t height) {
  */
 inline bool check_error() {
     int count = 0;
-    GLenum error = glGetError();
-    while (error != GL_NO_ERROR) {
-        std::cout << "[OpenGL Error] (" << error << ": " << gluErrorString(error) << ")" << std::endl;
-        error = glGetError();
+    GLenum error;
+    while ((error = glGetError()) != GL_NO_ERROR) {
+        std::string error_string;
+        switch (error) {
+            case GL_INVALID_ENUM: error_string = "INVALID_ENUM"; break;
+            case GL_INVALID_VALUE: error_string = "INVALID_VALUE"; break;
+            case GL_INVALID_OPERATION: error_string = "INVALID_OPERATION"; break;
+            case GL_INVALID_FRAMEBUFFER_OPERATION: error_string = "INVALID_FRAMEBUFFER_OPERATION"; break;
+            case GL_INVALID_INDEX: error_string = "INVALID_INDEX"; break;
+        }
+        std::cout << "[OpenGL Error] (" << error << ": " << error_string << ")\n";
         count++;
     }
     return count > 0;

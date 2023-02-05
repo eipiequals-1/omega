@@ -1,7 +1,5 @@
 #include "sprite_batch.hpp"
 
-#include <GL/gl.h>
-
 #include <algorithm>
 #include <iostream>
 #include <memory>

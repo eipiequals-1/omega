@@ -1,7 +1,7 @@
 #ifndef OMEGA_GFX_FRAMEBUFFER_H
 #define OMEGA_GFX_FRAMEBUFFER_H
 
-#include <GL/gl.h>
+#include "omega/gfx/gl.hpp"
 
 #include <cstdint>
 #include <vector>

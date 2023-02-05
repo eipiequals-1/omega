@@ -18,8 +18,11 @@ struct AppConfig {
     uint32_t width = 900, height = 450;
     std::string title = "Omega App";
     bool resizable = true;
+    // viewport settings
     ViewportType viewport_type = ViewportType::stretch;
     uint32_t viewport_width = 900, viewport_height = 450;
+    // fps
+    uint32_t fps = 60;
 };
 
 /**

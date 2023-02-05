@@ -6,7 +6,7 @@ cc_library(
     linkopts = [
         "-lGL -lGLU"
     ],
-    defines = ['GL_GLEXT_PROTOTYPES'],
+    #defines = ['GL_GLEXT_PROTOTYPES'],
 
     strip_include_prefix = "include/GL",
     visibility = ["//visibility:public"],

@@ -1,8 +1,6 @@
 #ifndef OMEGA_GFX_SHADER_H
 #define OMEGA_GFX_SHADER_H
 
-#include <GL/gl.h>
-
 #include <cstdint>
 #include <string>
 #include <unordered_map>
@@ -32,9 +30,7 @@ class Shader {
     /**
      * Unbinds the shader in the OpenGL state machine
      */
-    static void unbind() {
-        glUseProgram(0);
-    }
+    static void unbind();
 
     // set uniforms
     void set_uniform_4f(const std::string &name, float v0, float v1, float v2, float v3);

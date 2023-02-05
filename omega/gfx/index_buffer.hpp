@@ -2,8 +2,7 @@
 #define OMEGA_GFX_INDEXBUFFER_H
 
 #include <cstdint>
-
-#include <GL/gl.h>
+#include <cstddef>
 
 namespace omega::gfx {
 
@@ -25,9 +24,7 @@ class IndexBuffer {
     /**
      * Unbinds the Index Buffer in the OpenGl state machine
      */
-    static void unbind() {
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-    }
+    static void unbind();
 
     /**
      * Returns the number of indices that are stored
@@ -43,7 +40,7 @@ class IndexBuffer {
      * @param size in bytes
      * @param data data
      */
-    void sub_data(GLintptr offset, GLsizeiptr size, const GLvoid *data);
+    void sub_data(size_t offset, size_t size, const void *data);
 
   private:
     uint32_t id;

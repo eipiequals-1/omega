@@ -1,7 +1,6 @@
 #ifndef OMEGA_GFX_TEXTURE_TEXTURE_H
 #define OMEGA_GFX_TEXTURE_TEXTURE_H
 
-#include <GL/gl.h>
 #include <SDL2/SDL_image.h>
 
 #include <cstring>
@@ -9,6 +8,7 @@
 #include <string>
 #include <unordered_map>
 
+#include "omega/gfx/gl.hpp"
 #include "omega/util/log.hpp"
 #include "omega/util/std.hpp"
 
@@ -22,7 +22,7 @@ namespace omega::gfx::texture {
  */
 class Texture {
   private:
-    Texture(uint32_t width, uint32_t height, GLenum min_filter = GL_NEAREST, GLenum mag_filter = GL_NEAREST);
+    Texture(uint32_t width, uint32_t height, GLenum min_filter = OMEGA_GL_NEAREST, GLenum mag_filter = OMEGA_GL_NEAREST);
 
   public:
     /**
@@ -32,7 +32,7 @@ class Texture {
      * @param max_filter type of filter for maximizing the texture
      * @return a new Texture
      */
-    static util::uptr<Texture> create_from_surface(SDL_Surface *surf, GLenum min_filter = GL_NEAREST, GLenum mag_filter = GL_NEAREST) {
+    static util::uptr<Texture> create_from_surface(SDL_Surface *surf, GLenum min_filter = OMEGA_GL_NEAREST, GLenum mag_filter = OMEGA_GL_NEAREST) {
         Texture *tex = new Texture(surf->w, surf->h, min_filter, mag_filter);
         tex->load((uint32_t *)surf->pixels);
         return util::uptr<Texture>(tex);

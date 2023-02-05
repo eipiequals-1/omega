@@ -2,8 +2,7 @@
 #define OMEGA_GFX_VERTEXBUFFER_H
 
 #include <cstdint>
-
-#include <GL/gl.h>
+#include <cstddef>
 
 namespace omega::gfx {
 
@@ -14,7 +13,7 @@ namespace omega::gfx {
 class VertexBuffer {
   public:
     VertexBuffer(const void *data, uint32_t size);
-    explicit VertexBuffer(GLsizeiptr size);
+    explicit VertexBuffer(size_t size);
     ~VertexBuffer();
 
     /**
@@ -25,9 +24,7 @@ class VertexBuffer {
     /**
      * Unbinds the Vertex Buffer in the OpenGL state machine
      */
-    static void unbind() {
-        glBindBuffer(GL_ARRAY_BUFFER, 0);
-    }
+    static void unbind();
 
     /**
      * Changes the buffer's data.
@@ -36,7 +33,7 @@ class VertexBuffer {
      * @param size in bytes
      * @param data data
      */
-    void sub_data(GLintptr offset, GLsizeiptr size, const GLvoid *data);
+    void sub_data(size_t offset, size_t size, const void *data);
 
   private:
     uint32_t id;

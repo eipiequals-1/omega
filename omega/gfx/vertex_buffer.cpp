@@ -1,6 +1,6 @@
 #include "vertex_buffer.hpp"
 
-#include <GL/gl.h>
+#include "omega/gfx/gl.hpp"
 
 namespace omega::gfx {
 
@@ -10,7 +10,7 @@ VertexBuffer::VertexBuffer(const void *data, uint32_t size) {
     glBufferData(GL_ARRAY_BUFFER, size, data, GL_STATIC_DRAW);
 }
 
-VertexBuffer::VertexBuffer(GLsizeiptr size) {
+VertexBuffer::VertexBuffer(size_t size) {
     glGenBuffers(1, &id);
     bind();
     glBufferData(GL_ARRAY_BUFFER, size, nullptr, GL_DYNAMIC_DRAW);
@@ -24,7 +24,11 @@ void VertexBuffer::bind() const {
     glBindBuffer(GL_ARRAY_BUFFER, id);
 }
 
-void VertexBuffer::sub_data(GLintptr offset, GLsizeiptr size, const GLvoid *data) {
+void VertexBuffer::unbind() {
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+}
+
+void VertexBuffer::sub_data(size_t offset, size_t size, const void *data) {
     glBufferSubData(GL_ARRAY_BUFFER, offset, size, data);
 }
 

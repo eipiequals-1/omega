@@ -1,10 +1,10 @@
 #include "shader.hpp"
 
-#include <GL/gl.h>
-
 #include <fstream>
 #include <iostream>
 #include <sstream>
+
+#include "omega/gfx/gl.hpp"
 
 namespace omega::gfx {
 
@@ -23,6 +23,10 @@ Shader::~Shader() {
 
 void Shader::bind() const {
     glUseProgram(id);
+}
+
+void Shader::unbind() {
+    glUseProgram(0);
 }
 
 void Shader::set_uniform_1i(const std::string &name, int value) {

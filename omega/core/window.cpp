@@ -8,7 +8,10 @@
 namespace omega::core {
 
 Window::~Window() {
-    SDL_GL_DeleteContext(context);
+    if (context != nullptr) {
+        SDL_GL_DeleteContext(context);
+    }
+    context = nullptr;
     if (window != nullptr) {
         SDL_DestroyWindow(window);
     }
@@ -39,19 +42,24 @@ bool Window::init(uint32_t width, uint32_t height, bool resizable, const std::st
     SDL_GL_SetAttribute(SDL_GL_ACCELERATED_VISUAL, 1);
 
     WindowFlags window_flags = resizable ? WindowFlags::opengl_resizable : WindowFlags::opengl;
-
     window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, (uint32_t)window_flags);
     if (window == nullptr) {
         util::error("Failed to create window: '", SDL_GetError(), "'");
-        SDL_Quit();
         return false;
     }
 
     context = SDL_GL_CreateContext(window);
     if (context == nullptr) {
         util::error("Failed to create GL Context: '", SDL_GetError(), "'");
-        SDL_DestroyWindow(window);
-        SDL_Quit();
+        return false;
+    }
+    if (SDL_GL_SetSwapInterval(0) == -1) {
+        util::error("Failed to disable Vsync: '", SDL_GetError(), "'");
+        return false;
+    }
+    // initialize glad
+    if (gladLoadGLLoader(SDL_GL_GetProcAddress) == 0) {
+        util::error("Failed to initialize Glad");
         return false;
     }
     return true;

@@ -23,6 +23,7 @@ App::App(const AppConfig &config) {
     }
     util::Time::init();
     last_time = util::Time::get_time<float>();
+    fps = config.fps;
     globals = util::create_uptr<Globals>(Viewport(config.viewport_type, config.viewport_width, config.viewport_height), "Main Scene");
 }
 

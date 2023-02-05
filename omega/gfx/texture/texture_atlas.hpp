@@ -1,8 +1,6 @@
 #ifndef OMEGA_GFX_TEXTURE_TEXTUREATLAS_H
 #define OMEGA_GFX_TEXTURE_TEXTUREATLAS_H
 
-#include <GL/gl.h>
-
 #include <string>
 #include <unordered_map>
 

@@ -72,7 +72,7 @@ class Time {
      */
     template <typename T>
     static void sleep(T time) {
-        std::this_thread::sleep_for(std::chrono::microseconds((int64_t)(time / 1000.0f / 1000.0f)));
+        std::this_thread::sleep_for(std::chrono::microseconds((int64_t)(time * 1000.0 * 1000.0)));
     }
 
     /**

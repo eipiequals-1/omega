@@ -1,6 +1,6 @@
 #include "vertex_array.hpp"
 
-#include <GL/gl.h>
+#include "omega/gfx/gl.hpp"
 
 namespace omega::gfx {
 
@@ -30,6 +30,10 @@ void VertexArray::add_buffer(const VertexBuffer &vb, const VertexBufferLayout &l
 
 void VertexArray::bind() const {
     glBindVertexArray(id);
+}
+
+void VertexArray::unbind() {
+    glBindVertexArray(0);
 }
 
 } // namespace omega

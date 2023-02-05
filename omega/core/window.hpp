@@ -1,13 +1,12 @@
 #ifndef OMEGA_CORE_WINDOW_H
 #define OMEGA_CORE_WINDOW_H
 
-#include <GL/gl.h>
 #include <SDL2/SDL.h>
-#include <SDL2/SDL_opengl.h>
 
 #include <cstdint>
 #include <string>
 
+#include "omega/gfx/gl.hpp"
 #include "omega/core/viewport.hpp"
 #include "omega/util/std.hpp"
 

@@ -1,7 +1,7 @@
 #ifndef OMEGA_CORE_VIEWPORT_H
 #define OMEGA_CORE_VIEWPORT_H
 
-#include <GL/gl.h>
+#include "omega/gfx/gl.hpp"
 
 #include "omega/util/math.hpp"
 

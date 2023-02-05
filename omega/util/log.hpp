@@ -28,9 +28,14 @@ static inline void do_for(F f) {
     (void)f;
 }
 template <typename... Args>
-static inline void print(const std::string &color, const std::string &level, Args &&...args) {
-    std::cout << color << "[" << level << "]: "
-              << "\033[0m";
+static inline void print_(
+    const std::string &color,
+    const std::string &level,
+    const char* file,
+    int line,
+    Args &&...args) {
+    std::cout << color << "[" << level << "]" << "\033[0m";
+    std::cout << "[" << file << ":" << line << "]: ";
     do_for([&](auto arg) {
         std::cout << arg << ' ';
     },
@@ -43,8 +48,8 @@ static inline void print(const std::string &color, const std::string &level, Arg
  * @param args any errors to print
  */
 template <typename... Args>
-inline void error(Args &&...args) {
-    print(log_color::red, "ERROR", args...);
+static inline void error_(const char *file, int line, Args &&...args) {
+    print_(log_color::red, "ERROR", file, line, args...);
 }
 
 /**
@@ -52,8 +57,8 @@ inline void error(Args &&...args) {
  * @param args any logs to print
  */
 template <typename... Args>
-inline void log(Args &&...args) {
-    print(log_color::green, "LOG", args...);
+static inline void log_(const char *file, int line, Args &&...args) {
+    print_(log_color::green, "LOG", file, line, args...);
 }
 
 /**
@@ -61,9 +66,13 @@ inline void log(Args &&...args) {
  * @param args any debug values to print
  */
 template <typename... Args>
-inline void debug(Args &&...args) {
-    print(log_color::yellow, "DEBUG", args...);
+static inline void debug_(const char *file, int line, Args &&...args) {
+    print_(log_color::yellow, "DEBUG", file, line, args...);
 }
+
+#define error(...) error_(__FILE__, __LINE__, __VA_ARGS__)
+#define print(...) log_(__FILE__, __LINE__, __VA_ARGS__)
+#define debug(...) debug_(__FILE__, __LINE__, __VA_ARGS__)
 
 } // namespace omega::util
 

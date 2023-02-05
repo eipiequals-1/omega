@@ -1,8 +1,6 @@
 #ifndef OMEGA_GFX_VERTEXBUFFERLAYOUT_H
 #define OMEGA_GFX_VERTEXBUFFERLAYOUT_H
 
-#include <GL/gl.h>
-
 #include <cstdint>
 #include <vector>
 
@@ -21,19 +19,7 @@ struct VertexBufferAttrib {
      * @param type the GLenum type of data
      * @return the size of the data in bytes
      */
-    static uint32_t get_size_of_type(uint32_t type) {
-        switch (type) {
-        case GL_FLOAT:
-            return 4;
-        case GL_UNSIGNED_INT:
-            return 4;
-        case GL_INT:
-            return 4;
-        case GL_UNSIGNED_BYTE:
-            return 1;
-        }
-        return 0;
-    }
+    static uint32_t get_size_of_type(uint32_t type);
 };
 
 /**
@@ -50,7 +36,7 @@ class VertexBufferLayout {
      * @param count number of data to push
      */
     void push(uint32_t attrib_type, uint32_t count) {
-        attributes.push_back({attrib_type, count, GL_FALSE});
+        attributes.push_back({attrib_type, count, 0});
         stride += VertexBufferAttrib::get_size_of_type(attrib_type) * count;
     }
 

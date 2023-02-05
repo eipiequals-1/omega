@@ -16,7 +16,7 @@ cc_library(
     linkopts = DEFAULT_LINKOPTS,
     deps = [
         "@SDL2//:SDL2",
-        "@GL//:GL",
+        "//omega/gfx:gl",
         "//omega/util:std",
         "//omega/util:log",
         "//lib/stb:stb_image"
@@ -29,7 +29,7 @@ cc_library(
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
-        "texture",
+        ":texture",
         "//omega/util:math",
     ]
 )
@@ -41,9 +41,8 @@ cc_library(
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
-        "@GL//:GL",
-        "texture",
-        "texture_region",
+        ":texture",
+        ":texture_region",
         "//omega/util:util",
     ]
 )

@@ -2,6 +2,8 @@
 
 #include <string>
 
+#include "omega/gfx/gl.hpp"
+
 namespace omega::gfx {
 
 ShapeRenderer::ShapeRenderer() : view_proj_matrix_name("u_ViewProjMatrix") {

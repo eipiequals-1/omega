@@ -1,13 +1,12 @@
 #ifndef OMEGA_GFX_SPRITEBATCH_H
 #define OMEGA_GFX_SPRITEBATCH_H
 
-#include <GL/gl.h>
-
 #include <array>
 #include <cstring>
 #include <memory>
 #include <vector>
 
+/* #include "omega/gfx/gl.hpp" */
 #include "omega/gfx/index_buffer.hpp"
 #include "omega/gfx/shader.hpp"
 #include "omega/gfx/texture/texture.hpp"

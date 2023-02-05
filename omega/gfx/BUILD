@@ -14,7 +14,6 @@ cc_library(
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
-        "@GL//:GL",
         "//omega/util:util",
         "//omega/gfx/texture:texture",
         ":gl",
@@ -27,7 +26,7 @@ cc_library(
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
-        "@GL//:GL",
+        "//lib/glad:glad",
         "//omega/util:math",
     ]
 )
@@ -39,7 +38,7 @@ cc_library(
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
-        "@GL//:GL",
+        ":gl",
     ]
 )
 
@@ -50,7 +49,7 @@ cc_library(
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
-        "@GL//:GL",
+        ":gl",
         "//omega/util:std",
         "//omega/util:math",
         "//omega/util:log",
@@ -64,7 +63,7 @@ cc_library(
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
-        "@GL//:GL",
+        ":gl",
         ":shader",
         ":vertex_buffer",
         ":vertex_buffer_layout",
@@ -81,7 +80,7 @@ cc_library(
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
-        "@GL//:GL",
+        ":gl",
         ":shader",
         "//omega/gfx/texture:texture",
         "//omega/gfx/texture:texture_region",
@@ -101,7 +100,7 @@ cc_library(
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
-        "@GL//:GL",
+        ":gl",
         ":vertex_buffer",
         ":vertex_buffer_layout",
     ]
@@ -114,17 +113,18 @@ cc_library(
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
-        "@GL//:GL",
+        ":gl",
     ]
 )
 
 cc_library(
     name = "vertex_buffer_layout",
     hdrs = ["vertex_buffer_layout.hpp"],
+    srcs = ["vertex_buffer_layout.cpp"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
-        "@GL//:GL",
+        ":gl",
     ]
 )
 

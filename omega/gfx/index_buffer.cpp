@@ -1,6 +1,6 @@
 #include "index_buffer.hpp"
 
-#include <GL/gl.h>
+#include "omega/gfx/gl.hpp"
 
 namespace omega::gfx {
 
@@ -24,7 +24,11 @@ void IndexBuffer::bind() const {
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id);
 }
 
-void IndexBuffer::sub_data(GLintptr offset, GLsizeiptr size, const GLvoid *data) {
+void IndexBuffer::unbind() {
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+}
+
+void IndexBuffer::sub_data(size_t offset, size_t size, const void *data) {
     bind();
     glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, offset, size, data);
 }
