@@ -6,7 +6,6 @@
 #include <memory>
 #include <vector>
 
-/* #include "omega/gfx/gl.hpp" */
 #include "omega/gfx/index_buffer.hpp"
 #include "omega/gfx/shader.hpp"
 #include "omega/gfx/texture/texture.hpp"
