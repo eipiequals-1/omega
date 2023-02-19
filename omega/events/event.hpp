@@ -25,8 +25,8 @@ enum class EventType {
  */
 enum class MouseButton {
     mouse_left = SDL_BUTTON_LEFT,
-    mouse_right = SDL_BUTTON_RIGHT,
-    mouse_center = SDL_BUTTON_MIDDLE
+    mouse_center = SDL_BUTTON_MIDDLE,
+    mouse_right = SDL_BUTTON_RIGHT
 };
 
 /**

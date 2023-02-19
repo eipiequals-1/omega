@@ -64,7 +64,7 @@ class InputManager {
      * @return if the button passes the test
      */
     bool mouse_button_down(MouseButton button) const {
-        return (buttons & SDL_BUTTON((int)button)) == 1;
+        return (SDL_BUTTON((int)button) & buttons) != 0;
     }
 
     /**
@@ -73,7 +73,7 @@ class InputManager {
      * @return if the button passes the test
      */
     bool mouse_button_up(MouseButton button) const {
-        return (buttons & SDL_BUTTON((int)button)) == 0;
+        return (SDL_BUTTON((int)button) & buttons) == 0;
     }
 
     /**
@@ -82,7 +82,7 @@ class InputManager {
      * @return if the button passes the test
      */
     bool mouse_button_just_pressed(MouseButton button) const {
-        return mouse_button_down(button) && (prev_buttons & SDL_BUTTON((int)button)) == 0;
+        return mouse_button_down(button) && ((SDL_BUTTON((int)button) & prev_buttons) == 0);
     }
 
     /**
@@ -91,7 +91,7 @@ class InputManager {
      * @return if the button passes the test
      */
     bool mouse_button_just_released(MouseButton button) const {
-        return mouse_button_up(button) && (prev_buttons & SDL_BUTTON((int)button)) == 1;
+        return mouse_button_up(button) && ((SDL_BUTTON((int)button) & prev_buttons) != 0);
     }
 
   private:
