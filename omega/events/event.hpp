@@ -17,7 +17,8 @@ enum class EventType {
     key_down = SDL_KEYDOWN,
     key_up = SDL_KEYUP,
     mouse_button_down = SDL_MOUSEBUTTONDOWN,
-    mouse_button_up = SDL_MOUSEBUTTONUP
+    mouse_button_up = SDL_MOUSEBUTTONUP,
+    mouse_wheel = SDL_MOUSEWHEEL
 };
 
 /**

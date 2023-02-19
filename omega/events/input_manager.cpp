@@ -5,11 +5,12 @@
 namespace omega::events {
 
 InputManager::InputManager() {
-    key_manager = util::create_uptr<KeyManager>();
 }
 
 void InputManager::prepare_for_update() {
-    key_manager->prepare_for_update();
+    key_manager.prepare_for_update();
+    // reset scroll wheel status
+    scroll_wheel = glm::vec2(0.0f);
 }
 
 bool InputManager::poll_events(Event &event) {
@@ -17,7 +18,7 @@ bool InputManager::poll_events(Event &event) {
 }
 
 void InputManager::update() {
-    key_manager->update();
+    key_manager.update();
     // get the mouse state and store the previous frame's state
     int x, y;
     prev_buttons = buttons;

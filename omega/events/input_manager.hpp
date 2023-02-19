@@ -11,6 +11,8 @@
 #include "omega/util/math.hpp"
 #include "omega/util/std.hpp"
 
+namespace omega::core {class App;} // namespace omega::core
+
 namespace omega::events {
 
 /**
@@ -41,7 +43,7 @@ class InputManager {
      */
     void update();
 
-    KeyManager* get_key_manager() { return key_manager.get(); }
+    KeyManager& get_key_manager() { return key_manager; }
     const glm::vec2 &get_mouse_pos() const { return mouse_pos; }
     glm::vec2 get_mouse_move() const { return relative_mode ? mouse_pos : mouse_pos - prev_mouse_pos; }
 
@@ -94,10 +96,16 @@ class InputManager {
         return mouse_button_up(button) && ((SDL_BUTTON((int)button) & prev_buttons) != 0);
     }
 
+    const glm::vec2 &get_scroll_wheel() const {
+        return scroll_wheel;
+    }
+
   private:
+    friend class omega::core::App;
+
     // keys
-    util::uptr<KeyManager> key_manager = nullptr;
-    glm::vec2 mouse_pos{0.0f}, prev_mouse_pos{0.0f}; // mouse_pos relative to bottom left
+    KeyManager key_manager;
+    glm::vec2 mouse_pos{0.0f}, prev_mouse_pos{0.0f}, scroll_wheel{0.0f}; // mouse_pos relative to bottom left
 
     // mouse
     uint32_t buttons = 0;
