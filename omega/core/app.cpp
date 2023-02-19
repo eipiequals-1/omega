@@ -117,6 +117,8 @@ void App::run() {
                     if (on_resize != nullptr) { on_resize(event.window.data1, event.window.data2, globals.get()); }
                 }
                 break;
+            case events::EventType::mouse_wheel:
+                input.scroll_wheel = glm::vec2((float)event.wheel.x, (float)event.wheel.y);
             default:
                 break;
             }
