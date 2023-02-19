@@ -23,6 +23,8 @@ struct AppConfig {
     uint32_t viewport_width = 900, viewport_height = 450;
     // fps
     uint32_t fps = 60;
+    // imgui
+    bool imgui = false;
 };
 
 /**
@@ -79,6 +81,7 @@ class App final {
     bool running = true;
     Window* window = nullptr;
     util::uptr<Globals> globals = nullptr;
+    bool imgui = false;
 
     // clock and timing
     float fps = 60.0f;

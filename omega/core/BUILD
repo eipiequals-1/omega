@@ -17,6 +17,7 @@ cc_library(
         "//omega/gfx:shape_renderer",
         "//omega/scene:scene",
         "//omega/util:asset_manager",
+        "//omega/events:input_manager",
         ":viewport",
     ]
 )
@@ -52,6 +53,7 @@ cc_library(
         ":window",
         ":globals",
         "//omega/events:events",
+        "//lib/imgui:imgui",
     ]
 )
 
