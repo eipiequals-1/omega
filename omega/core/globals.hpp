@@ -1,5 +1,5 @@
-#ifndef OMEGA_CORE_GLOBALS_H
-#define OMEGA_CORE_GLOBALS_H
+#ifndef OMEGA_CORE_GLOBALS_HPP
+#define OMEGA_CORE_GLOBALS_HPP
 
 #include "omega/core/viewport.hpp"
 #include "omega/gfx/sprite_batch.hpp"
@@ -29,4 +29,4 @@ struct Globals {
 
 } // namespace omega::core
 
-#endif // OMEGA_CORE_GLOBALS_H
+#endif // OMEGA_CORE_GLOBALS_HPP

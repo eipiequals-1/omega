@@ -1,5 +1,5 @@
-#ifndef OMEGA_EVENT_KEYMANAGER_H
-#define OMEGA_EVENT_KEYMANAGER_H
+#ifndef OMEGA_EVENT_KEYMANAGER_HPP
+#define OMEGA_EVENT_KEYMANAGER_HPP
 
 #include <SDL2/SDL.h>
 
@@ -64,4 +64,4 @@ class KeyManager {
 
 } // namespace omega::events
 
-#endif // OMEGA_EVENT_KEYMANAGER_H
+#endif // OMEGA_EVENT_KEYMANAGER_HPP

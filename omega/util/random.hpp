@@ -1,5 +1,5 @@
-#ifndef OMEGA_UTIL_RANDOM_H
-#define OMEGA_UTIL_RANDOM_H
+#ifndef OMEGA_UTIL_RANDOM_HPP
+#define OMEGA_UTIL_RANDOM_HPP
 
 #include <cstdlib>
 #include <vector>
@@ -36,4 +36,4 @@ T &random_choice(std::span<T> &vec) {
 }
 } // namespace omega::util
 
-#endif // OMEGA_UTIL_RANDOM_H
+#endif // OMEGA_UTIL_RANDOM_HPP

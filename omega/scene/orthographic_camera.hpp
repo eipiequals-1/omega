@@ -1,5 +1,5 @@
-#ifndef OMEGA_CORE_ORTHOGRAPHICCAMERA_H
-#define OMEGA_CORE_ORTHOGRAPHICCAMERA_H
+#ifndef OMEGA_CORE_ORTHOGRAPHICCAMERA_HPP
+#define OMEGA_CORE_ORTHOGRAPHICCAMERA_HPP
 
 #include "omega/scene/camera.hpp"
 #include "omega/util/math.hpp"
@@ -51,4 +51,4 @@ class OrthographicCamera : public Camera {
 };
 } // namespace omega::scene
 
-#endif // OMEGA_CORE_ORTHOGRAPHICCAMERA_H
+#endif // OMEGA_CORE_ORTHOGRAPHICCAMERA_HPP

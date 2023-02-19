@@ -1,5 +1,5 @@
-#ifndef OMEGA_GFX_VERTEXARRAY_H
-#define OMEGA_GFX_VERTEXARRAY_H
+#ifndef OMEGA_GFX_VERTEXARRAY_HPP
+#define OMEGA_GFX_VERTEXARRAY_HPP
 
 #include <cstdint>
 #include <vector>
@@ -40,4 +40,4 @@ class VertexArray {
 
 } // namespace omega::gfx
 
-#endif // OMEGA_GFX_VERTEXARRAY_H
+#endif // OMEGA_GFX_VERTEXARRAY_HPP

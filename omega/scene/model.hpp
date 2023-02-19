@@ -1,5 +1,5 @@
-#ifndef OMEGA_SCENE_MODEL_H
-#define OMEGA_SCENE_MODEL_H
+#ifndef OMEGA_SCENE_MODEL_HPP
+#define OMEGA_SCENE_MODEL_HPP
 
 #include <assimp/postprocess.h>
 #include <assimp/scene.h>
@@ -33,4 +33,4 @@ class Model {
 
 } // namespace omega::scene
 
-#endif // OMEGA_SCENE_MODEL_H
+#endif // OMEGA_SCENE_MODEL_HPP

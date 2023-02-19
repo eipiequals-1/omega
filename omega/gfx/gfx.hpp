@@ -1,5 +1,5 @@
-#ifndef OMEGA_GFX_GFX_H
-#define OMEGA_GFX_GFX_H
+#ifndef OMEGA_GFX_GFX_HPP
+#define OMEGA_GFX_GFX_HPP
 
 #include "omega/gfx/frame_buffer.hpp"
 #include "omega/gfx/gl.hpp"
@@ -11,4 +11,4 @@
 #include "omega/gfx/vertex_buffer.hpp"
 #include "omega/gfx/vertex_buffer_layout.hpp"
 
-#endif // OMEGA_GFX_GFX_H
+#endif // OMEGA_GFX_GFX_HPP

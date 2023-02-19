@@ -1,5 +1,5 @@
-#ifndef OMEGA_PHYSICS_BODY_H
-#define OMEGA_PHYSICS_BODY_H
+#ifndef OMEGA_PHYSICS_BODY_HPP
+#define OMEGA_PHYSICS_BODY_HPP
 
 #include <box2d/box2d.h>
 
@@ -51,4 +51,4 @@ class CircleBody {
 };
 } // namespace omega::physics
 
-#endif // OMEGA_PHYSICS_BODY_H
+#endif // OMEGA_PHYSICS_BODY_HPP

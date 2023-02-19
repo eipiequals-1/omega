@@ -1,5 +1,5 @@
-#ifndef OMEGA_PHYSICS_PHYSICSDEFINES_H
-#define OMEGA_PHYSICS_PHYSICSDEFINES_H
+#ifndef OMEGA_PHYSICS_PHYSICSDEFINES_HPP
+#define OMEGA_PHYSICS_PHYSICSDEFINES_HPP
 
 #include <box2d/box2d.h>
 
@@ -27,4 +27,4 @@ enum class BodyType {
 
 } // namespace omega::physics
 
-#endif // OMEGA_PHYSICS_PHYSICSDEFINES_H
+#endif // OMEGA_PHYSICS_PHYSICSDEFINES_HPP

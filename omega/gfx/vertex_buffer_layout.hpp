@@ -1,5 +1,5 @@
-#ifndef OMEGA_GFX_VERTEXBUFFERLAYOUT_H
-#define OMEGA_GFX_VERTEXBUFFERLAYOUT_H
+#ifndef OMEGA_GFX_VERTEXBUFFERLAYOUT_HPP
+#define OMEGA_GFX_VERTEXBUFFERLAYOUT_HPP
 
 #include <cstdint>
 #include <vector>
@@ -57,4 +57,4 @@ class VertexBufferLayout {
 
 } // namespace omega::gfx
 
-#endif // OMEGA_GFX_VERTEXBUFFERLAYOUT_H
+#endif // OMEGA_GFX_VERTEXBUFFERLAYOUT_HPP

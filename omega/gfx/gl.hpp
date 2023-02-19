@@ -1,5 +1,5 @@
-#ifndef OMEGA_GFX_GL_H
-#define OMEGA_GFX_GL_H
+#ifndef OMEGA_GFX_GL_HPP
+#define OMEGA_GFX_GL_HPP
 
 #include "lib/glad/include/glad/glad.h"
 /* #include <GL/gl.h> */
@@ -145,4 +145,4 @@ inline void draw_elements(macro mode, int32_t count, uint32_t type, const void *
 
 } // namespace omega::gfx
 
-#endif // OMEGA_GFX_GL_H
+#endif // OMEGA_GFX_GL_HPP

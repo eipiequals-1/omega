@@ -1,5 +1,5 @@
-#ifndef OMEGA_SOUND_MUSIC_H
-#define OMEGA_SOUND_MUSIC_H
+#ifndef OMEGA_SOUND_MUSIC_HPP
+#define OMEGA_SOUND_MUSIC_HPP
 
 #include <SDL2/SDL_mixer.h>
 
@@ -23,4 +23,4 @@ class Music {
 
 } // namespace omega::sound
 
-#endif // OMEGA_SOUND_MUSIC_H
+#endif // OMEGA_SOUND_MUSIC_HPP

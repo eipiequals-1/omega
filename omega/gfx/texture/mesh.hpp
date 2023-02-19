@@ -1,5 +1,5 @@
-#ifndef OMEGA_GFX_TEXTURE_MESH_H
-#define OMEGA_GFX_TEXTURE_MESH_H
+#ifndef OMEGA_GFX_TEXTURE_MESH_HPP
+#define OMEGA_GFX_TEXTURE_MESH_HPP
 
 #include <GL/gl.h>
 
@@ -50,4 +50,4 @@ class Mesh {
 
 } // namespace omega::gfx::texture
 
-#endif // OMEGA_GFX_TEXTURE_MESH_H
+#endif // OMEGA_GFX_TEXTURE_MESH_HPP

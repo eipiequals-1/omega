@@ -1,5 +1,5 @@
-#ifndef OMEGA_GFX_TEXTURE_TEXTURE_H
-#define OMEGA_GFX_TEXTURE_TEXTURE_H
+#ifndef OMEGA_GFX_TEXTURE_TEXTURE_HPP
+#define OMEGA_GFX_TEXTURE_TEXTURE_HPP
 
 #include <SDL2/SDL_image.h>
 
@@ -212,4 +212,4 @@ class TextureManager {
 
 } // namespace omega::gfx::texture
 
-#endif // OMEGA_GFX_TEXTURE_TEXTURE_H
+#endif // OMEGA_GFX_TEXTURE_TEXTURE_HPP

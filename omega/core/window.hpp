@@ -1,5 +1,5 @@
-#ifndef OMEGA_CORE_WINDOW_H
-#define OMEGA_CORE_WINDOW_H
+#ifndef OMEGA_CORE_WINDOW_HPP
+#define OMEGA_CORE_WINDOW_HPP
 
 #include <SDL2/SDL.h>
 
@@ -90,4 +90,4 @@ class Window {
 
 } // namespace omega::core
 
-#endif // OMEGA_CORE_WINDOW_H
+#endif // OMEGA_CORE_WINDOW_HPP

@@ -1,5 +1,5 @@
-#ifndef OMEGA_UI_BUTTON_IMAGEBUTTON_H
-#define OMEGA_UI_BUTTON_IMAGEBUTTON_H
+#ifndef OMEGA_UI_BUTTON_IMAGEBUTTON_HPP
+#define OMEGA_UI_BUTTON_IMAGEBUTTON_HPP
 
 #include "omega/gfx/texture/texture.hpp"
 #include "omega/ui/button/button.hpp"
@@ -23,4 +23,4 @@ class ImageButton : public Button {
 
 } // namespace omega::ui::button
 
-#endif // OMEGA_UI_BUTTON_IMAGEBUTTON_H
+#endif // OMEGA_UI_BUTTON_IMAGEBUTTON_HPP

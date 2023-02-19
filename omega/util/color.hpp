@@ -1,5 +1,5 @@
-#ifndef OMEGA_UTIL_COLOR_H
-#define OMEGA_UTIL_COLOR_H
+#ifndef OMEGA_UTIL_COLOR_HPP
+#define OMEGA_UTIL_COLOR_HPP
 
 #include <glm/glm.hpp>
 
@@ -42,4 +42,4 @@ const glm::vec4 yellow(1.0f, 1.0f, 0.0f, 1.0f);
 
 } // namespace omega::util::color
 
-#endif // OMEGA_UTIL_COLOR_H
+#endif // OMEGA_UTIL_COLOR_HPP

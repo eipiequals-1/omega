@@ -1,5 +1,5 @@
-#ifndef OMEGA_UTIL_STD_H
-#define OMEGA_UTIL_STD_H
+#ifndef OMEGA_UTIL_STD_HPP
+#define OMEGA_UTIL_STD_HPP
 
 #include <string.h>
 
@@ -59,4 +59,4 @@ void swap_ref(T &a, T &b) {
 
 } // namespace omega::util
 
-#endif // OMEGA_UTIL_STD_H
+#endif // OMEGA_UTIL_STD_HPP

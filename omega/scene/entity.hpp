@@ -1,5 +1,5 @@
-#ifndef OMEGA_SCENE_ENTITY_H
-#define OMEGA_SCENE_ENTITY_H
+#ifndef OMEGA_SCENE_ENTITY_HPP
+#define OMEGA_SCENE_ENTITY_HPP
 
 #include <vector>
 
@@ -81,4 +81,4 @@ class Entity {
 
 } // namespace omega::scene
 
-#endif // OMEGA_SCENE_ENTITY_H
+#endif // OMEGA_SCENE_ENTITY_HPP

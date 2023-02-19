@@ -1,5 +1,5 @@
-#ifndef OMEGA_GFX_FONT_H
-#define OMEGA_GFX_FONT_H
+#ifndef OMEGA_UI_FONT_HPP
+#define OMEGA_UI_FONT_HPP
 
 #include <SDL2/SDL_ttf.h>
 
@@ -69,4 +69,4 @@ class FontManager {
 
 } // namespace omega::ui
 
-#endif // OMEGA_GFX_FONT_H
+#endif // OMEGA_UI_FONT_HPP

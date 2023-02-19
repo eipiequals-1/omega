@@ -1,5 +1,5 @@
-#ifndef OMEGA_UI_UISCREEN_H
-#define OMEGA_UI_UISCREEN_H
+#ifndef OMEGA_UI_UISCREEN_HPP
+#define OMEGA_UI_UISCREEN_HPP
 
 #include <vector>
 
@@ -24,4 +24,4 @@ class UIScreen {
 
 } // namespace omega::ui
 
-#endif // OMEGA_UI_UISCREEN_H
+#endif // OMEGA_UI_UISCREEN_HPP

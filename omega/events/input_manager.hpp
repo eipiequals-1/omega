@@ -1,5 +1,5 @@
-#ifndef OMEGA_EVENTS_INPUTMANAGER_H
-#define OMEGA_EVENTS_INPUTMANAGER_H
+#ifndef OMEGA_EVENTS_INPUTMANAGER_HPP
+#define OMEGA_EVENTS_INPUTMANAGER_HPP
 
 #include <cstdint>
 
@@ -107,4 +107,4 @@ class InputManager {
 
 } // namespace omega::events
 
-#endif // OMEGA_EVENTS_INPUTMANAGER_H
+#endif // OMEGA_EVENTS_INPUTMANAGER_HPP

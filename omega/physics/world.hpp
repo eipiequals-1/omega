@@ -1,5 +1,5 @@
-#ifndef OMEGA_PHYSICS_WORLD_H
-#define OMEGA_PHYSICS_WORLD_H
+#ifndef OMEGA_PHYSICS_WORLD_HPP
+#define OMEGA_PHYSICS_WORLD_HPP
 
 #include <box2d/box2d.h>
 
@@ -55,4 +55,4 @@ class World {
 
 } // namespace omega::physics
 
-#endif // OMEGA_PHYSICS_WORLD_H
+#endif // OMEGA_PHYSICS_WORLD_HPP

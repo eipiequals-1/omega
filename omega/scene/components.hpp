@@ -1,5 +1,5 @@
-#ifndef OMEGA_SCENE_COMPONENTS_H
-#define OMEGA_SCENE_COMPONENTS_H
+#ifndef OMEGA_SCENE_COMPONENTS_HPP
+#define OMEGA_SCENE_COMPONENTS_HPP
 
 #include <array>
 #include <string>
@@ -61,4 +61,4 @@ struct CameraComponent {
 
 } // namespace omega::scene
 
-#endif // OMEGA_SCENE_COMPONENTS_H
+#endif // OMEGA_SCENE_COMPONENTS_HPP

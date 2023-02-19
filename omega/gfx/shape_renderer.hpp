@@ -1,5 +1,5 @@
-#ifndef OMEGA_GFX_SHAPERENDERER_H
-#define OMEGA_GFX_SHAPERENDERER_H
+#ifndef OMEGA_GFX_SHAPERENDERER_HPP
+#define OMEGA_GFX_SHAPERENDERER_HPP
 
 #include <array>
 #include <cstdint>
@@ -177,4 +177,4 @@ class ShapeRenderer {
 };
 } // namespace omega::gfx
 
-#endif // OMEGA_GFX_SHAPERENDERER_H
+#endif // OMEGA_GFX_SHAPERENDERER_HPP

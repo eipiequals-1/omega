@@ -1,5 +1,5 @@
-#ifndef OMEGA_GFX_TEXTURE_TEXTUREATLAS_H
-#define OMEGA_GFX_TEXTURE_TEXTUREATLAS_H
+#ifndef OMEGA_GFX_TEXTURE_TEXTUREATLAS_HPP
+#define OMEGA_GFX_TEXTURE_TEXTUREATLAS_HPP
 
 #include <string>
 #include <unordered_map>
@@ -39,4 +39,4 @@ class TextureAtlas {
 };
 } // namespace omega::gfx::texture
 
-#endif // OMEGA_GFX_TEXTURE_TEXTUREATLAS_H
+#endif // OMEGA_GFX_TEXTURE_TEXTUREATLAS_HPP

@@ -1,5 +1,5 @@
-#ifndef OMEGA_GFX_VERTEXBUFFER_H
-#define OMEGA_GFX_VERTEXBUFFER_H
+#ifndef OMEGA_GFX_VERTEXBUFFER_HPP
+#define OMEGA_GFX_VERTEXBUFFER_HPP
 
 #include <cstdint>
 #include <cstddef>
@@ -40,4 +40,4 @@ class VertexBuffer {
 };
 } // namespace omega::gfx
 
-#endif // OMEGA_GFX_VERTEXBUFFER_H
+#endif // OMEGA_GFX_VERTEXBUFFER_HPP

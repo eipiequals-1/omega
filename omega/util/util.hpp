@@ -1,5 +1,5 @@
-#ifndef OMEGA_UTIL_UTIL_H
-#define OMEGA_UTIL_UTIL_H
+#ifndef OMEGA_UTIL_UTIL_HPP
+#define OMEGA_UTIL_UTIL_HPP
 
 #include "omega/util/color.hpp"
 #include "omega/util/log.hpp"
@@ -8,4 +8,4 @@
 #include "omega/util/std.hpp"
 #include "omega/util/time.hpp"
 
-#endif // OMEGA_UTIL_UTIL_H
+#endif // OMEGA_UTIL_UTIL_HPP

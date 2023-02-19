@@ -1,5 +1,5 @@
-#ifndef OMEGA_GFX_SPRITEBATCH_H
-#define OMEGA_GFX_SPRITEBATCH_H
+#ifndef OMEGA_GFX_SPRITEBATCH_HPP
+#define OMEGA_GFX_SPRITEBATCH_HPP
 
 #include <array>
 #include <cstring>
@@ -151,4 +151,4 @@ class SpriteBatch {
 
 } // namespace omega::gfx
 
-#endif // OMEGA_GFX_SPRITEBATCH_H
+#endif // OMEGA_GFX_SPRITEBATCH_HPP

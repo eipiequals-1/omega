@@ -1,5 +1,5 @@
-#ifndef OMEGA_GFX_INDEXBUFFER_H
-#define OMEGA_GFX_INDEXBUFFER_H
+#ifndef OMEGA_GFX_INDEXBUFFER_HPP
+#define OMEGA_GFX_INDEXBUFFER_HPP
 
 #include <cstdint>
 #include <cstddef>
@@ -49,4 +49,4 @@ class IndexBuffer {
 
 } // namespace omega::gfx
 
-#endif // OMEGA_GFX_INDEXBUFFER_H
+#endif // OMEGA_GFX_INDEXBUFFER_HPP

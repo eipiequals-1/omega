@@ -1,5 +1,5 @@
-#ifndef OMEGA_CORE_APPLICATION_H
-#define OMEGA_CORE_APPLICATION_H
+#ifndef OMEGA_CORE_APPLICATION_HPP
+#define OMEGA_CORE_APPLICATION_HPP
 
 #include <functional>
 
@@ -92,4 +92,4 @@ class App final {
 };
 } // namespace omega::core
 
-#endif // OMEGA_CORE_APPLICATION_H
+#endif // OMEGA_CORE_APPLICATION_HPP

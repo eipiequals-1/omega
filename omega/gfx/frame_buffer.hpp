@@ -1,5 +1,5 @@
-#ifndef OMEGA_GFX_FRAMEBUFFER_H
-#define OMEGA_GFX_FRAMEBUFFER_H
+#ifndef OMEGA_GFX_FRAMEBUFFER_HPP
+#define OMEGA_GFX_FRAMEBUFFER_HPP
 
 #include "omega/gfx/gl.hpp"
 
@@ -88,4 +88,4 @@ class FrameBuffer {
 
 } // namespace omega::gfx
 
-#endif // OMEGA_GFX_FRAMEBUFFER_H
+#endif // OMEGA_GFX_FRAMEBUFFER_HPP

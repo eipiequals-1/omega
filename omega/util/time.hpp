@@ -1,5 +1,5 @@
-#ifndef OMEGA_UTIL_TIME_H
-#define OMEGA_UTIL_TIME_H
+#ifndef OMEGA_UTIL_TIME_HPP
+#define OMEGA_UTIL_TIME_HPP
 
 #include <SDL2/SDL.h>
 #include <chrono>
@@ -97,4 +97,4 @@ class Time {
 
 } // namespace omega::util
 
-#endif // OMEGA_UTIL_TIME_H
+#endif // OMEGA_UTIL_TIME_HPP

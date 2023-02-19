@@ -1,5 +1,5 @@
-#ifndef OMEGA_SCENE_TILED_MAPRENDERER_H
-#define OMEGA_SCENE_TILED_MAPRENDERER_H
+#ifndef OMEGA_SCENE_TILED_MAPRENDERER_HPP
+#define OMEGA_SCENE_TILED_MAPRENDERER_HPP
 
 #include <cstdint>
 #include <string>
@@ -84,4 +84,4 @@ class MapRenderer {
 };
 } // namespace omega::scene::tiled
 
-#endif // OMEGA_SCENE_TILED_MAPRENDERER_H
+#endif // OMEGA_SCENE_TILED_MAPRENDERER_HPP

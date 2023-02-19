@@ -1,5 +1,5 @@
-#ifndef OMEGA_SCENE_TILED_MAP_H
-#define OMEGA_SCENE_TILED_MAP_H
+#ifndef OMEGA_SCENE_TILED_MAP_HPP
+#define OMEGA_SCENE_TILED_MAP_HPP
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
@@ -65,4 +65,4 @@ class Map : public TmxMap {
 };
 } // namespace omega::scene::tiled
 
-#endif // OMEGA_SCENE_TILED_MAP_H
+#endif // OMEGA_SCENE_TILED_MAP_HPP

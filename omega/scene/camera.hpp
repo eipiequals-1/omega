@@ -1,5 +1,5 @@
-#ifndef OMEGA_SCENE_CAMERA_H
-#define OMEGA_SCENE_CAMERA_H
+#ifndef OMEGA_SCENE_CAMERA_HPP
+#define OMEGA_SCENE_CAMERA_HPP
 
 #include "omega/util/util.hpp"
 
@@ -39,4 +39,4 @@ class Camera {
 
 } // namespace omega::scene
 
-#endif // OMEGA_SCENE_CAMERA_H
+#endif // OMEGA_SCENE_CAMERA_HPP

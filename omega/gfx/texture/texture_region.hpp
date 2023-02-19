@@ -1,5 +1,5 @@
-#ifndef OMEGA_GFX_TEXTURE_TEXTUREREGION_H
-#define OMEGA_GFX_TEXTURE_TEXTUREREGION_H
+#ifndef OMEGA_GFX_TEXTURE_TEXTUREREGION_HPP
+#define OMEGA_GFX_TEXTURE_TEXTUREREGION_HPP
 
 #include <string>
 
@@ -27,4 +27,4 @@ class TextureRegion {
 };
 } // namespace omega::gfx::texture
 
-#endif // OMEGA_GFX_TEXTURE_TEXTUREREGION_H
+#endif // OMEGA_GFX_TEXTURE_TEXTUREREGION_HPP

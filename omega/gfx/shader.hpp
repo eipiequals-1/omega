@@ -1,5 +1,5 @@
-#ifndef OMEGA_GFX_SHADER_H
-#define OMEGA_GFX_SHADER_H
+#ifndef OMEGA_GFX_SHADER_HPP
+#define OMEGA_GFX_SHADER_HPP
 
 #include <cstdint>
 #include <string>
@@ -121,4 +121,4 @@ class ShaderManager {
 
 } // namespace omega::gfx
 
-#endif // OMEGA_GFX_SHADER_H
+#endif // OMEGA_GFX_SHADER_HPP

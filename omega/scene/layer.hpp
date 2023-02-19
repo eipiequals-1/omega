@@ -1,5 +1,5 @@
-#ifndef OMEGA_SCENE_LAYER_H
-#define OMEGA_SCENE_LAYER_H
+#ifndef OMEGA_SCENE_LAYER_HPP
+#define OMEGA_SCENE_LAYER_HPP
 
 #include <string>
 
@@ -24,4 +24,4 @@ class Layer {
 
 } // namespace omega::scene
 
-#endif // OMEGA_SCENE_LAYER_H
+#endif // OMEGA_SCENE_LAYER_HPP

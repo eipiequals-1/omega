@@ -1,5 +1,5 @@
-#ifndef OMEGA_SOUND_SOUNDEFFECT_H
-#define OMEGA_SOUND_SOUNDEFFECT_H
+#ifndef OMEGA_SOUND_SOUNDEFFECT_HPP
+#define OMEGA_SOUND_SOUNDEFFECT_HPP
 
 #include <SDL2/SDL_mixer.h>
 
@@ -23,4 +23,4 @@ class SoundEffect {
 
 } // namespace omega::sound
 
-#endif // OMEGA_SOUND_SOUNDEFFECT_H
+#endif // OMEGA_SOUND_SOUNDEFFECT_HPP

@@ -1,5 +1,5 @@
-#ifndef OMEGA_PHYSICS_PARTICLE_PARTICLE_H
-#define OMEGA_PHYSICS_PARTICLE_PARTICLE_H
+#ifndef OMEGA_PHYSICS_PARTICLE_PARTICLE_HPP
+#define OMEGA_PHYSICS_PARTICLE_PARTICLE_HPP
 
 #include "omega/util/math.hpp"
 #include "omega/util/random.hpp"
@@ -53,4 +53,4 @@ struct Particle {
 };
 } // namespace omega::physics::particle
 
-#endif // OMEGA_PHYSICS_PARTICLE_PARTICLE_H
+#endif // OMEGA_PHYSICS_PARTICLE_PARTICLE_HPP

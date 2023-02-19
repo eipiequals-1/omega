@@ -1,5 +1,5 @@
-#ifndef OMEGA_CORE_VIEWPORT_H
-#define OMEGA_CORE_VIEWPORT_H
+#ifndef OMEGA_CORE_VIEWPORT_HPP
+#define OMEGA_CORE_VIEWPORT_HPP
 
 #include "omega/gfx/gl.hpp"
 
@@ -57,4 +57,4 @@ class Viewport {
 
 } // namespace omega::core
 
-#endif // OMEGA_CORE_VIEWPORT_H
+#endif // OMEGA_CORE_VIEWPORT_HPP

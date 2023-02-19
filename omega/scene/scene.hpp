@@ -1,5 +1,5 @@
-#ifndef OMEGA_SCENE_SCENE_H
-#define OMEGA_SCENE_SCENE_H
+#ifndef OMEGA_SCENE_SCENE_HPP
+#define OMEGA_SCENE_SCENE_HPP
 
 #include <string>
 
@@ -52,4 +52,4 @@ class Scene {
 
 } // namespace omega::scene
 
-#endif // OMEGA_SCENE_SCENE_H
+#endif // OMEGA_SCENE_SCENE_HPP

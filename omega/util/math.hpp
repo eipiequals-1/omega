@@ -1,5 +1,5 @@
-#ifndef OMEGA_UTIL_MATH_H
-#define OMEGA_UTIL_MATH_H
+#ifndef OMEGA_UTIL_MATH_HPP
+#define OMEGA_UTIL_MATH_HPP
 
 // enable glm hash
 #define GLM_ENABLE_EXPERIMENTAL
@@ -239,4 +239,4 @@ T map_range(const T& min1, const T& max1, const T& min2, const T& max2, const T&
 
 } // namespace glm
 
-#endif // OMEGA_UTIL_MATH_H
+#endif // OMEGA_UTIL_MATH_HPP

@@ -1,5 +1,5 @@
-#ifndef OMEGA_SCENE_LAYERSTACK_H
-#define OMEGA_SCENE_LAYERSTACK_H
+#ifndef OMEGA_SCENE_LAYERSTACK_HPP
+#define OMEGA_SCENE_LAYERSTACK_HPP
 
 #include <vector>
 
@@ -25,4 +25,4 @@ class LayerStack {
 
 } // namespace omega::scene
 
-#endif // OMEGA_SCENE_LAYERSTACK_H
+#endif // OMEGA_SCENE_LAYERSTACK_HPP

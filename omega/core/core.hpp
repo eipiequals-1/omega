@@ -1,5 +1,5 @@
-#ifndef OMEGA_CORE_CORE_H
-#define OMEGA_CORE_CORE_H
+#ifndef OMEGA_CORE_CORE_HPP
+#define OMEGA_CORE_CORE_HPP
 
 #include "omega/core/app.hpp"
 #include "omega/core/globals.hpp"
@@ -7,4 +7,4 @@
 #include "omega/core/viewport.hpp"
 #include "omega/core/window.hpp"
 
-#endif // OMEGA_CORE_CORE_H
+#endif // OMEGA_CORE_CORE_HPP

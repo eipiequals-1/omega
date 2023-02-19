@@ -1,5 +1,5 @@
-#ifndef OMEGA_SCENE_IMGUILAYER_H
-#define OMEGA_SCENE_IMGUILAYER_H
+#ifndef OMEGA_SCENE_IMGUILAYER_HPP
+#define OMEGA_SCENE_IMGUILAYER_HPP
 
 #include "omega/core/window.hpp"
 #include "omega/events/event.hpp"
@@ -31,4 +31,4 @@ class ImGuiLayer : public Layer {
 
 } // namespace omega::scene
 
-#endif // OMEGA_SCENE_IMGUILAYER_H
+#endif // OMEGA_SCENE_IMGUILAYER_HPP

@@ -1,5 +1,5 @@
-#ifndef OMEGA_UI_BUTTON_BUTTON_H
-#define OMEGA_UI_BUTTON_BUTTON_H
+#ifndef OMEGA_UI_BUTTON_BUTTON_HPP
+#define OMEGA_UI_BUTTON_BUTTON_HPP
 
 #include <functional>
 
@@ -35,4 +35,4 @@ class Button {
 
 } // namespace omega::ui::button
 
-#endif // OMEGA_UI_BUTTON_BUTTON_H
+#endif // OMEGA_UI_BUTTON_BUTTON_HPP

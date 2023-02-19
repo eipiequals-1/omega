@@ -1,5 +1,5 @@
-#ifndef OMEGA_EVENTS_EVENT_H
-#define OMEGA_EVENTS_EVENT_H
+#ifndef OMEGA_EVENTS_EVENT_HPP
+#define OMEGA_EVENTS_EVENT_HPP
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_events.h>
@@ -91,4 +91,4 @@ enum class WindowEvents {
 
 } // namespace omega::events
 
-#endif // OMEGA_EVENTS_EVENT_H
+#endif // OMEGA_EVENTS_EVENT_HPP

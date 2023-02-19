@@ -1,5 +1,5 @@
-#ifndef OMEGA_UTIL_LOG_H
-#define OMEGA_UTIL_LOG_H
+#ifndef OMEGA_UTIL_LOG_HPP
+#define OMEGA_UTIL_LOG_HPP
 
 #include <iostream>
 
@@ -76,4 +76,4 @@ static inline void debug_(const char *file, int line, Args &&...args) {
 
 } // namespace omega::util
 
-#endif // OMEGA_UTIL_LOG_H
+#endif // OMEGA_UTIL_LOG_HPP
