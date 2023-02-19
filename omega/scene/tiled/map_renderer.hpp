@@ -78,8 +78,8 @@ class MapRenderer {
             tile_start += layer_width_pix;
         }
     }
-    Map *map;
-    uptr<TextureManager<uint32_t>> tex_manager;
+    Map *map = nullptr;
+    uptr<TextureManager<uint32_t>> tex_manager = nullptr;
     std::vector<sptr<Texture>> layer_texture;
 };
 } // namespace omega::scene::tiled
