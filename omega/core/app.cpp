@@ -58,7 +58,7 @@ App::App(const AppConfig &config) {
     running = window->init(config.width, config.height, config.resizable, config.title);
     // init TTF_Font
     if (TTF_Init() != 0) {
-        util::error("Unable to initialize SDL_ttf: '", SDL_GetError(), "'");
+        util::error("Unable to initialize SDL_ttf: '{}'", SDL_GetError());
         running = false;
     }
     util::Time::init();

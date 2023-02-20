@@ -23,7 +23,7 @@ bool Window::init(uint32_t width, uint32_t height, bool resizable, const std::st
     this->width = width;
     this->height = height;
     if (SDL_Init((uint32_t)InitFlags::everything) != 0) {
-        util::error("Failed to initialize SDL: '", SDL_GetError(), "'");
+        util::error("Failed to initialize SDL: '{}'", SDL_GetError());
         return false;
     }
     // use the core OpenGL profile
@@ -44,17 +44,17 @@ bool Window::init(uint32_t width, uint32_t height, bool resizable, const std::st
     WindowFlags window_flags = resizable ? WindowFlags::opengl_resizable : WindowFlags::opengl;
     window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, (uint32_t)window_flags);
     if (window == nullptr) {
-        util::error("Failed to create window: '", SDL_GetError(), "'");
+        util::error("Failed to create window: '{}'", SDL_GetError()); 
         return false;
     }
 
     context = SDL_GL_CreateContext(window);
     if (context == nullptr) {
-        util::error("Failed to create GL Context: '", SDL_GetError(), "'");
+        util::error("Failed to create GL Context: '{}'", SDL_GetError());
         return false;
     }
     if (SDL_GL_SetSwapInterval(0) == -1) {
-        util::error("Failed to disable Vsync: '", SDL_GetError(), "'");
+        util::error("Failed to disable Vsync: '{}'", SDL_GetError());
         return false;
     }
     // initialize glad

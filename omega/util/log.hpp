@@ -2,6 +2,7 @@
 #define OMEGA_UTIL_LOG_HPP
 
 #include <iostream>
+#include <sstream>
 
 namespace omega::util {
 
@@ -18,29 +19,37 @@ const std::string white = "\033[37m";
 
 } // namespace log_color
 
-template <typename F, typename First, typename... Rest>
-static inline void do_for(F func, First first, Rest &&...rest) {
-    func(first);
-    do_for(func, rest...);
+static inline void format(std::stringstream &stream, const std::string &str) {
+    stream << str;
 }
-template <typename F>
-static inline void do_for(F f) {
-    (void)f;
+
+template <typename T, typename... Args>
+static inline void format(std::stringstream &stream, const std::string &str, T t, Args &&...args) {
+    size_t first_bracket = str.find("{}", 0);
+    if (first_bracket != std::string::npos) {
+        stream << str.substr(0, first_bracket);
+        stream << t;
+        format(stream, str.substr(first_bracket + 2), args...);
+        return;
+    }
+    stream << str;
 }
+
 template <typename... Args>
 static inline void print_(
-    const std::string &color,
-    const std::string &level,
-    const char* file,
-    int line,
-    Args &&...args) {
-    std::cout << color << "[" << level << "]" << "\033[0m";
-    std::cout << "[" << file << ":" << line << "]: ";
-    do_for([&](auto arg) {
-        std::cout << arg << ' ';
-    },
-           args...);
-    std::cout << '\n';
+        const std::string &color,
+        const std::string &level,
+        const char* file,
+        int line,
+        const std::string &str,
+        Args &&...args) {
+    std::stringstream stream;
+    stream << color << "[" << level << "]" << "\033[0m";
+    stream << "[" << file << ":" << line << "]: ";
+
+    format(stream, str, args...);
+
+    std::cout << stream.str() << '\n';
 }
 
 /**
@@ -70,8 +79,8 @@ static inline void debug_(const char *file, int line, Args &&...args) {
     print_(log_color::yellow, "DEBUG", file, line, args...);
 }
 
-#define error(...) error_(__FILE__, __LINE__, __VA_ARGS__)
-#define print(...) log_(__FILE__, __LINE__, __VA_ARGS__)
+#define error(...) error_(__FILE__, __LINE__,  __VA_ARGS__)
+#define print(...) log_(__FILE__, __LINE__,  __VA_ARGS__)
 #define debug(...) debug_(__FILE__, __LINE__, __VA_ARGS__)
 
 } // namespace omega::util

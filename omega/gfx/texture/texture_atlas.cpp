@@ -55,7 +55,7 @@ TextureAtlas::TextureAtlas(const std::string &atlas_file_path, GLenum min_filter
             w = std::stoi(words[3]);
             h = std::stoi(words[4]);
             // create TextureRegion
-            tex_regions[tex_region_key] = util::create_sptr<TextureRegion>(tex.get(), x, y, w, h);
+            tex_regions[tex_region_key] = util::create_uptr<TextureRegion>(tex.get(), x, y, w, h);
         }
     }
 }
@@ -63,8 +63,8 @@ TextureAtlas::TextureAtlas(const std::string &atlas_file_path, GLenum min_filter
 TextureAtlas::~TextureAtlas() {
 }
 
-util::sptr<TextureRegion> TextureAtlas::get(const std::string &texture_name) {
-    return tex_regions[texture_name];
+TextureRegion& TextureAtlas::get(const std::string &texture_name) {
+    return *tex_regions[texture_name];
 }
 
 } // namespace omega::gfx::texture

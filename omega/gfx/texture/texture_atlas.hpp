@@ -13,7 +13,7 @@ namespace omega::gfx::texture {
 /**
  * Represents every "sub-texture" or TextureRegion of a larger texture
  * for faster rendering both on CPU and GPU side.
- * A TextureAtlas can only be created from a libgl atlas file
+ * A TextureAtlas can only be created from a omega atlas file
  * made with the tools/texture_packer package.
  */
 class TextureAtlas {
