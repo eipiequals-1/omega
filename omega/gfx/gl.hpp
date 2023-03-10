@@ -114,11 +114,11 @@ inline void set_depth_test(bool b) {
 
 /**
  * Enables blending for OpenGL
- * @param sfactor (default = GL_SRC_ALPHA)
- * @param dfactor (default = GL_ONE_MINUS_SRC_ALPHA)
+ * @param sfactor (default = OMEGA_GL_SRC_ALPHA)
+ * @param dfactor (default = OMEGA_GL_ONE_MINUS_SRC_ALPHA)
  */
 inline void enable_blending(macro sfactor = OMEGA_GL_SRC_ALPHA, macro dfactor = OMEGA_GL_ONE_MINUS_SRC_ALPHA) {
-    glEnable(GL_BLEND);
+    glEnable(OMEGA_GL_BLEND);
     glBlendFunc(sfactor, dfactor);
 }
 

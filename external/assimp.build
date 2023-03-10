@@ -1,0 +1,11 @@
+load("@rules_cc//cc:defs.bzl", "cc_library")
+
+cc_library(
+    name = "assimp",
+    hdrs = glob(["include/assimp/*.h"]),
+    linkopts = [
+        "-lassimp"
+    ],
+    strip_include_prefix = "include/assimp",
+    visibility = ["//visibility:public"],
+)

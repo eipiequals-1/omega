@@ -57,6 +57,12 @@ void swap_ref(T &a, T &b) {
     b = std::move(tmp);
 }
 
+// https://stackoverflow.com/questions/26351587/how-to-create-stdarray-with-initialization-list-without-providing-size-directl
+template <typename T, typename... Args>
+constexpr auto make_array(Args &&...args) -> std::array<T, sizeof...(args)> {
+    return {std::forward<Args>(args)...};
+}
+
 } // namespace omega::util
 
 #endif // OMEGA_UTIL_STD_HPP

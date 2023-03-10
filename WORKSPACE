@@ -15,3 +15,9 @@ new_local_repository(
     path = "/usr",
     build_file = "external/box2d.build",
 )
+
+new_local_repository(
+    name = "assimp",
+    path = "/usr",
+    build_file = "external/assimp.build",
+)

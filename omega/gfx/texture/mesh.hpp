@@ -1,8 +1,6 @@
 #ifndef OMEGA_GFX_TEXTURE_MESH_HPP
 #define OMEGA_GFX_TEXTURE_MESH_HPP
 
-#include <GL/gl.h>
-
 #include <string>
 #include <vector>
 #include <cstdint>
@@ -32,7 +30,7 @@ struct MeshTexture {
 
 class Mesh {
   public:
-    Mesh(std::vector<MeshVertex> vertices, std::vector<uint32_t> indices, std::vector<MeshTexture> textures);
+    Mesh(const std::vector<MeshVertex>& vertices, const std::vector<uint32_t>& indices, const std::vector<MeshTexture>& textures);
 
     void render(Shader &shader);
 
@@ -43,9 +41,9 @@ class Mesh {
     std::vector<uint32_t> indices;
     std::vector<MeshTexture> textures;
 
-    util::uptr<VertexArray> vao;
-    util::uptr<VertexBuffer> vbo;
-    util::uptr<IndexBuffer> ibo;
+    util::uptr<VertexArray> vao = nullptr;
+    util::uptr<VertexBuffer> vbo = nullptr;
+    util::uptr<IndexBuffer> ibo = nullptr;
 };
 
 } // namespace omega::gfx::texture

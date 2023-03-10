@@ -3,13 +3,15 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 
+#include "omega/gfx/gl.hpp"
+
 namespace omega::scene {
 
 static uint32_t texture_from_file(const std::string &filepath) {
     uint32_t id = 0;
     SDL_Surface *surf = IMG_Load(filepath.c_str());
     if (surf == nullptr) {
-        util::error("IMG error: Error loading '", filepath, "': ", IMG_GetError());
+        util::error("IMG error: Error loading '{}'\n IMG Error: '{}'", filepath, IMG_GetError());
         return id;
     }
     glGenTextures(1, &id);
@@ -26,12 +28,14 @@ static uint32_t texture_from_file(const std::string &filepath) {
     return id;
 }
 
+static Assimp::Importer importer;
+
 Model::Model(const std::string &filepath) {
-    Assimp::Importer importer;
     const aiScene *scene = importer.ReadFile(filepath, aiProcess_Triangulate | aiProcess_FlipUVs);
 
     if (scene == nullptr || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || scene->mRootNode == nullptr) {
-        util::error("Error: Assimp: ", importer.GetErrorString());
+        util::error("Error: Assimp: '{}'", importer.GetErrorString());
+        return;
     }
     directory = filepath.substr(0, filepath.find_last_of('/'));
     process_node(scene->mRootNode, scene);
@@ -55,42 +59,31 @@ void Model::process_node(aiNode *node, const aiScene *scene) {
     }
 }
 
+static glm::vec3 to_vec3(const aiVector3D& v) {
+    return glm::vec3(v.x, v.y, v.z);
+}
+
 Mesh Model::process_mesh(aiMesh *mesh, const aiScene *scene) {
     std::vector<MeshVertex> vertices;
     std::vector<uint32_t> indices;
     std::vector<MeshTexture> textures;
 
-    glm::vec3 vec;
     // process vertices
     for (uint32_t i = 0; i < mesh->mNumVertices; ++i) {
         MeshVertex vertex;
         // positions
-        vec.x = mesh->mVertices[i].x;
-        vec.y = mesh->mVertices[i].y;
-        vec.z = mesh->mVertices[i].z;
-        vertex.position = vec;
+        vertex.position = to_vec3(mesh->mVertices[i]);
         // normals
         if (mesh->HasNormals()) {
-            vec.x = mesh->mNormals[i].x;
-            vec.y = mesh->mNormals[i].y;
-            vec.z = mesh->mNormals[i].z;
-            vertex.normal = vec;
+            vertex.normal = to_vec3(mesh->mNormals[i]);
         }
         if (mesh->mTextureCoords[0]) {
             // tex coords
-            vec.x = mesh->mTextureCoords[0][i].x;
-            vec.y = mesh->mTextureCoords[0][i].y;
-            vertex.tex_coords = glm::vec2(vec.x, vec.y);
-            // tangent
-            vec.x = mesh->mTangents[i].x;
-            vec.y = mesh->mTangents[i].y;
-            vec.z = mesh->mTangents[i].z;
-            vertex.tangent = vec;
-            // bitangent
-            vec.x = mesh->mBitangents[i].x;
-            vec.y = mesh->mBitangents[i].y;
-            vec.z = mesh->mBitangents[i].z;
-            vertex.bitangent = vec;
+            vertex.tex_coords = to_vec3(mesh->mTextureCoords[0][i]);
+            /* // tangent */
+            /* vertex.tangent = to_vec3(mesh->mTangents[i]); */
+            /* // bitangent */
+            /* vertex.bitangent = to_vec3(mesh->mBitangents[i]); */
         } else {
             vertex.tex_coords = glm::vec2(0.0f, 0.0f);
         }
@@ -105,20 +98,23 @@ Mesh Model::process_mesh(aiMesh *mesh, const aiScene *scene) {
         }
     }
     // process materials
-    aiMaterial *material = scene->mMaterials[mesh->mMaterialIndex];
-    // diffuse
-    std::vector<MeshTexture> diffuse_maps = load_material_textures(material, aiTextureType_DIFFUSE, "textureDiffuse");
-    textures.insert(textures.end(), diffuse_maps.begin(), diffuse_maps.end());
-    // specular
-    std::vector<MeshTexture> specular_maps = load_material_textures(material, aiTextureType_SPECULAR, "textureDiffuse");
-    textures.insert(textures.end(), specular_maps.begin(), specular_maps.end());
-    // normal
-    std::vector<MeshTexture> normal_maps = load_material_textures(material, aiTextureType_HEIGHT, "textureNormal");
-    textures.insert(textures.end(), normal_maps.begin(), normal_maps.end());
-    // height
-    std::vector<MeshTexture> height_maps = load_material_textures(material, aiTextureType_AMBIENT, "textureHeight");
-    textures.insert(textures.end(), height_maps.begin(), height_maps.end());
+    if (mesh->mMaterialIndex >= 0) {
+        aiMaterial *material = scene->mMaterials[mesh->mMaterialIndex];
+        // diffuse
+        std::vector<MeshTexture> diffuse_maps = load_material_textures(material, aiTextureType_DIFFUSE, "texture_diffuse");
+        textures.insert(textures.end(), diffuse_maps.begin(), diffuse_maps.end());
+        // specular
+        std::vector<MeshTexture> specular_maps = load_material_textures(material, aiTextureType_SPECULAR, "texture_specular");
+        textures.insert(textures.end(), specular_maps.begin(), specular_maps.end());
+        /* // normal */
+        /* std::vector<MeshTexture> normal_maps = load_material_textures(material, aiTextureType_HEIGHT, "texture_normal"); */
+        /* textures.insert(textures.end(), normal_maps.begin(), normal_maps.end()); */
+        /* // height */
+        /* std::vector<MeshTexture> height_maps = load_material_textures(material, aiTextureType_AMBIENT, "texture_height"); */
+        /* textures.insert(textures.end(), height_maps.begin(), height_maps.end()); */
+    }
     // return mesh object
+    omega::util::print("{}", __LINE__);
     return Mesh(vertices, indices, textures);
 }
 
@@ -129,22 +125,24 @@ std::vector<MeshTexture> Model::load_material_textures(aiMaterial *mat, aiTextur
         mat->GetTexture(type, i, &str);
         // check if the texture was not already loaded
         bool skip = false;
-        for (uint32_t j = 0; j < textures.size(); ++j) {
-            if (std::strcmp(textures[j].path.c_str(), str.C_Str()) == 0) {
-                textures.push_back(textures[j]);
+        for (uint32_t j = 0; j < this->textures.size(); ++j) {
+            if (std::strcmp(this->textures[j].path.c_str(), str.C_Str()) == 0) {
+                textures.push_back(this->textures[j]);
                 skip = true;
                 break;
             }
         }
         if (!skip) {
             MeshTexture texture;
-            texture.id = texture_from_file(std::string(str.C_Str()));
+            std::string path = directory + "/" + std::string(str.C_Str());
+            texture.id = texture_from_file(path);
             texture.type = type_name;
-            texture.path = str.C_Str();
+            texture.path = path;
             textures.push_back(texture);
-            textures.push_back(texture);
+            this->textures.push_back(texture);
         }
     }
+    omega::util::print("{}", __LINE__);
     return textures;
 }
 

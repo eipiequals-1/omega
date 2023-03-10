@@ -56,6 +56,11 @@ class AssetManager {
         return shaders[key].get();
     }
 
+    gfx::Shader *load_shader(const std::string &key, const std::string &vert, const std::string &frag) {
+        shaders[key] = util::create_uptr<gfx::Shader>(vert, frag);
+        return shaders[key].get();
+    }
+
     gfx::Shader *get_shader(const std::string &key) { 
         return shaders[key].get();
     }
