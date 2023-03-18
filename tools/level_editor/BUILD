@@ -14,6 +14,7 @@ cc_binary(
     linkopts = DEFAULT_LINKOPTS,
     deps = [
         "//lib/entt:entt",
+        "//lib/imgui:imgui",
         "//omega/core:core",
         "//omega/gfx:gfx",
         "//omega/gfx:gl",
