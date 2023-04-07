@@ -18,12 +18,15 @@ namespace omega::gfx::texture {
  */
 class TextureAtlas {
   public:
-    explicit TextureAtlas(const std::string &atlas_file_path, GLenum min_filter = GL_NEAREST, GLenum mag_filter = GL_NEAREST);
+    explicit TextureAtlas(const std::string &atlas_file_path,
+                          GLenum min_filter = GL_NEAREST,
+                          GLenum mag_filter = GL_NEAREST);
     ~TextureAtlas();
 
     /**
      * Returns the texture with the given look-up string
-     * @param texture_name name of the texture region as defined by the atlas file
+     * @param texture_name name of the texture region as defined by the atlas 
+     * file
      * @return reference to the TextureRegion
      */
     TextureRegion& get(const std::string &texture_name);

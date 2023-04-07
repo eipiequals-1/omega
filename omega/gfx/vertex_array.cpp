@@ -12,7 +12,8 @@ VertexArray::~VertexArray() {
     glDeleteVertexArrays(1, &id);
 }
 
-void VertexArray::add_buffer(const VertexBuffer &vb, const VertexBufferLayout &layout) {
+void VertexArray::add_buffer(const VertexBuffer &vb,
+                             const VertexBufferLayout &layout) {
     bind();
     vb.bind();
     const auto &elements = layout.get_attributes();
@@ -22,9 +23,13 @@ void VertexArray::add_buffer(const VertexBuffer &vb, const VertexBufferLayout &l
         // initialize attribute
         glEnableVertexAttribArray(i);
         // set pointer to data
-        glVertexAttribPointer(i, element.count, element.type, element.normalized, layout.get_stride(), (const void *)offset);
+        glVertexAttribPointer(
+            i, element.count, element.type, element.normalized,
+            layout.get_stride(), (const void *)offset);
+
         // increase offset for pointer value
-        offset += element.count * VertexBufferAttrib::get_size_of_type(element.type);
+        offset +=
+            element.count * VertexBufferAttrib::get_size_of_type(element.type);
     }
 }
 

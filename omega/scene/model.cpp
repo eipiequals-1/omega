@@ -11,16 +11,20 @@ static uint32_t texture_from_file(const std::string &filepath) {
     uint32_t id = 0;
     SDL_Surface *surf = IMG_Load(filepath.c_str());
     if (surf == nullptr) {
-        util::error("IMG error: Error loading '{}'\n IMG Error: '{}'", filepath, IMG_GetError());
+        util::error("IMG error: Error loading '{}'\n IMG Error: '{}'",
+                    filepath,
+                    IMG_GetError());
         return id;
     }
     glGenTextures(1, &id);
     glBindTexture(GL_TEXTURE_2D, id);
 
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, surf->w, surf->h, 0, GL_RGBA, GL_UNSIGNED_BYTE, surf->pixels);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR); // if rendered smaller, use given filter
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);               // if rendered larger, use given filter
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);                   // continue closest color to edge
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, surf->w, surf->h,
+                 0, GL_RGBA, GL_UNSIGNED_BYTE, surf->pixels);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,
+                    GL_LINEAR_MIPMAP_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
     // free SDL surface
     SDL_FreeSurface(surf);
@@ -31,9 +35,13 @@ static uint32_t texture_from_file(const std::string &filepath) {
 static Assimp::Importer importer;
 
 Model::Model(const std::string &filepath) {
-    const aiScene *scene = importer.ReadFile(filepath, aiProcess_Triangulate | aiProcess_FlipUVs);
+    const aiScene *scene =
+        importer.ReadFile(filepath, aiProcess_Triangulate | aiProcess_FlipUVs);
 
-    if (scene == nullptr || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || scene->mRootNode == nullptr) {
+    if (scene == nullptr ||
+        scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE ||
+        scene->mRootNode == nullptr) {
+        
         util::error("Error: Assimp: '{}'", importer.GetErrorString());
         return;
     }
@@ -101,11 +109,19 @@ Mesh Model::process_mesh(aiMesh *mesh, const aiScene *scene) {
     if (mesh->mMaterialIndex >= 0) {
         aiMaterial *material = scene->mMaterials[mesh->mMaterialIndex];
         // diffuse
-        std::vector<MeshTexture> diffuse_maps = load_material_textures(material, aiTextureType_DIFFUSE, "texture_diffuse");
-        textures.insert(textures.end(), diffuse_maps.begin(), diffuse_maps.end());
+        std::vector<MeshTexture> diffuse_maps =
+            load_material_textures(material,
+                                   aiTextureType_DIFFUSE,
+                                   "texture_diffuse");
+        textures.insert(
+            textures.end(), diffuse_maps.begin(), diffuse_maps.end());
         // specular
-        std::vector<MeshTexture> specular_maps = load_material_textures(material, aiTextureType_SPECULAR, "texture_specular");
-        textures.insert(textures.end(), specular_maps.begin(), specular_maps.end());
+        std::vector<MeshTexture> specular_maps =
+            load_material_textures(material,
+                                   aiTextureType_SPECULAR,
+                                   "texture_specular");
+        textures.insert(
+            textures.end(), specular_maps.begin(), specular_maps.end());
         /* // normal */
         /* std::vector<MeshTexture> normal_maps = load_material_textures(material, aiTextureType_HEIGHT, "texture_normal"); */
         /* textures.insert(textures.end(), normal_maps.begin(), normal_maps.end()); */
@@ -118,7 +134,11 @@ Mesh Model::process_mesh(aiMesh *mesh, const aiScene *scene) {
     return Mesh(vertices, indices, textures);
 }
 
-std::vector<MeshTexture> Model::load_material_textures(aiMaterial *mat, aiTextureType type, const std::string &type_name) {
+std::vector<MeshTexture> Model::load_material_textures(
+    aiMaterial *mat,
+    aiTextureType type,
+    const std::string &type_name) {
+    
     std::vector<MeshTexture> textures;
     for (uint32_t i = 0; i < mat->GetTextureCount(type); ++i) {
         aiString str;

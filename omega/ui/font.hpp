@@ -26,14 +26,16 @@ class Font {
      * @param color to draw it
      * @return a Texture
      */
-    util::sptr<gfx::texture::Texture> render_text(const std::string &text, const glm::vec4 &color = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
+    util::sptr<gfx::texture::Texture>
+        render_text(const std::string &text,
+                    const glm::vec4 &color = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
 
   private:
     TTF_Font *font;
 };
 
 /**
- * Stores multiple fonts to avoid memory leaks and for easier-to-read / cleaner code
+ * Stores multiple fonts to avoid memory leaks
  */
 class FontManager {
   public:
@@ -42,12 +44,14 @@ class FontManager {
      * @param filepath the path to the font
      * @param ptsize the size in pixels of the font
      */
-    void load(const std::string &font_name, const std::string &filepath, uint32_t ptsize);
+    void load(const std::string &font_name,
+              const std::string &filepath,
+              uint32_t ptsize);
 
     /**
      * @param font_name the key representing the font
      * @return a sptr<Font> containing the font
-     * IMPORTANT: the font name must be loaded, since the other case is not handled
+     * IMPORTANT: the font name must be loaded
      */
     util::sptr<Font> get(const std::string &font_name);
 

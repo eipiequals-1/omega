@@ -6,7 +6,8 @@ namespace omega::physics::particle {
 
 uptr<Shader> ParticleEmitter::shader;
 
-ParticleEmitter::ParticleEmitter(EmitterBuilder &builder) : particles(nullptr), num_particles(0), data(builder) {
+ParticleEmitter::ParticleEmitter(EmitterBuilder &builder) : 
+    particles(nullptr), num_particles(0), data(builder) {
     reset();
     if (shader == nullptr) {
         const char vertex[] = R"glsl(
@@ -51,10 +52,13 @@ ParticleEmitter::ParticleEmitter(EmitterBuilder &builder) : particles(nullptr), 
 				}
 			}
 		)glsl";
-        shader = create_uptr<Shader>(std::string(vertex), std::string(fragment));
+        shader =
+            create_uptr<Shader>(std::string(vertex), std::string(fragment));
     }
 
-    vbo = create_uptr<VertexBuffer>(sizeof(ParticleVertex) * 4 * data.max_particles);
+    vbo = create_uptr<VertexBuffer>(
+        sizeof(ParticleVertex) * 4 * data.max_particles);
+    
     const uint32_t index_buffer_capacity = 6 * data.max_particles;
     uint32_t *indices = new uint32_t[index_buffer_capacity];
     uint32_t offset = 0;
@@ -92,16 +96,22 @@ void ParticleEmitter::emit() {
     Particle &particle = particles[num_particles];
     particle.color = Particle::random_color(data.begin_color, 0.2f, 0.1f);
 
-    particle.pos.x = data.pos.x + util::random<float>(data.emit_rect.x, data.emit_rect.x + data.emit_rect.w);
-    particle.pos.y = data.pos.y + util::random<float>(data.emit_rect.y, data.emit_rect.y + data.emit_rect.h);
+    particle.pos.x = data.pos.x + util::random<float>(
+        data.emit_rect.x, data.emit_rect.x + data.emit_rect.w);
+    particle.pos.y = data.pos.y + util::random<float>(
+        data.emit_rect.y, data.emit_rect.y + data.emit_rect.h);
 
-    particle.radius = util::random<float>(data.radius.first, data.radius.second);
+    particle.radius = util::random<float>(
+        data.radius.first, data.radius.second);
 
     particle.life_remaining = data.particle_lifespan;
-    float rotation = glm::radians(util::random<float>(data.rot_range.first, data.rot_range.second));
-    float speed = util::random<float>(data.speed.first, data.speed.second);
+    float rotation = glm::radians(
+        util::random<float>(data.rot_range.first, data.rot_range.second));
+    float speed = util::random<float>(
+        data.speed.first, data.speed.second);
 
-    particle.vel = glm::vec2(glm::cos(-rotation) * speed, glm::sin(-rotation) * speed);
+    particle.vel = glm::vec2(
+        glm::cos(-rotation) * speed, glm::sin(-rotation) * speed);
     num_particles++; // increment num particles
 }
 
@@ -120,7 +130,8 @@ void ParticleEmitter::update(float dt) {
         p.vel += data.accel * dt;
 
         // color change / time = color change / particle_lifespan
-        glm::vec4 diff_color = (data.end_color - data.begin_color) / data.particle_lifespan;
+        glm::vec4 diff_color = 
+            (data.end_color - data.begin_color) / data.particle_lifespan;
         p.color += diff_color * dt;
 
         if (p.is_dead()) {
@@ -160,7 +171,9 @@ void ParticleEmitter::render(const glm::mat4 &view_proj_matrix) {
             {center.x, center.y},
             p.radius,
             {color.r, color.g, color.b, color.a}};
-        vbo->sub_data(i * sizeof(ParticleVertex) * 4, sizeof(ParticleVertex) * 4, quad);
+        
+        vbo->sub_data(
+            i * sizeof(ParticleVertex) * 4, sizeof(ParticleVertex) * 4, quad);
     }
     shader->bind();
     shader->set_uniform_mat4f("u_ViewProjMatrix", view_proj_matrix);

@@ -14,7 +14,8 @@ class Entity;
 
 class Scene {
   public:
-    Scene(const core::Viewport &viewport, const std::string &name = "Main Scene");
+    Scene(const core::Viewport &viewport,
+          const std::string &name = "Main Scene");
     ~Scene();
 
     /**

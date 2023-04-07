@@ -50,7 +50,8 @@ class SpriteBatch {
     void begin_render();
 
     /**
-     * Ends the rendering process and draws every quad from Beginrender() to the screen
+     * Ends the rendering process and draws every quad from begin_render()
+     * to the screen
      * in one draw call
      */
     void end_render();
@@ -62,7 +63,9 @@ class SpriteBatch {
      * @param y coord in world units
      * @param color tint of the texture
      */
-    void render_texture(const Texture *texture, const float x, const float y, const glm::vec4 &color = glm::vec4(1.0f));
+    void render_texture(const Texture *texture,
+                        const float x, const float y,
+                        const glm::vec4 &color = glm::vec4(1.0f));
 
     /**
      * draw the given texture at the x, y, w, h coords and may resize as necessary
@@ -73,7 +76,10 @@ class SpriteBatch {
      * @param h size in world units
      * @param color tint of the texture
      */
-    void render_texture(const Texture *texture, const float x, const float y, const float w, const float h, const glm::vec4 &color = glm::vec4(1.0f));
+    void render_texture(const Texture *texture,
+                        const float x, const float y,
+                        const float w, const float h,
+                        const glm::vec4 &color = glm::vec4(1.0f));
 
     /**
      * draw the given part of the texture to the destination
@@ -82,7 +88,10 @@ class SpriteBatch {
      * @param dest the model matrix of the object
      * @param color tint of the texture
      */
-    void render_texture(const Texture *texture, const glm::rectf &src, const glm::rectf &dest, const glm::vec4 &color = glm::vec4(1.0f));
+    void render_texture(const Texture *texture,
+                        const glm::rectf &src,
+                        const glm::rectf &dest,
+                        const glm::vec4 &color = glm::vec4(1.0f));
 
     /**
      * draw the given part of the texture to the destination
@@ -93,11 +102,24 @@ class SpriteBatch {
      * @param center center of rotation in world coordinates
      * @param color tint of the texture
      */
-    void render_texture(const Texture *texture, glm::rectf src, const glm::rectf &dest, float rotation, const glm::vec2 &center, const glm::vec4 &color = glm::vec4(1.0f));
+    void render_texture(const Texture *texture,
+                        glm::rectf src,
+                        const glm::rectf &dest,
+                        float rotation,
+                        const glm::vec2 &center,
+                        const glm::vec4 &color = glm::vec4(1.0f));
 
-    void render_texture(const Texture *texture, glm::rectf src, const glm::rectf &dest, const glm::vec3 rotation_axis, float rotation, const glm::vec3 &center_of_rotation, const glm::vec4 &color = glm::vec4(1.0f));
+    void render_texture(const Texture *texture,
+                        glm::rectf src,
+                        const glm::rectf &dest,
+                        const glm::vec3 rotation_axis,
+                        float rotation,
+                        const glm::vec3 &center_of_rotation,
+                        const glm::vec4 &color = glm::vec4(1.0f));
 
-    void render_texture_region(const TextureRegion *texture_region, const glm::rectf &dest, const glm::vec4 &color = glm::vec4(1.0f));
+    void render_texture_region(const TextureRegion *texture_region,
+                               const glm::rectf &dest,
+                               const glm::vec4 &color = glm::vec4(1.0f));
 
   private:
     uptr<Shader> sprite_shader = nullptr;

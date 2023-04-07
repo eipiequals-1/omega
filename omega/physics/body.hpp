@@ -15,7 +15,13 @@ using Body = b2Body;
  */
 class BoxBody {
   public:
-    BoxBody(const glm::rectf &rect, BodyType type, b2FixtureDef &fixture_def, float gravity_scale, float angle, b2World *world);
+    BoxBody(const glm::rectf &rect,
+            BodyType type,
+            b2FixtureDef &fixture_def,
+            float gravity_scale,
+            float angle,
+            b2World *world);
+    
     virtual ~BoxBody() = default;
 
     const glm::vec2 &get_dimensions() const { return dimensions; }
@@ -23,7 +29,10 @@ class BoxBody {
      * @returns the rectangle containing the box
      */
     glm::rectf get_rect() const {
-        return glm::rectf(body->GetPosition().x - dimensions.x / 2.0f, body->GetPosition().y - dimensions.y / 2.0f, dimensions.x, dimensions.y);
+        return glm::rectf(body->GetPosition().x - dimensions.x / 2.0f,
+                          body->GetPosition().y - dimensions.y / 2.0f,
+                          dimensions.x,
+                          dimensions.y);
     }
     Body *get_body() { return body; }
 
@@ -37,7 +46,13 @@ class BoxBody {
  */
 class CircleBody {
   public:
-    CircleBody(const glm::vec2 &center, float radius, BodyType type, b2FixtureDef &fixture_def, float gravity_scale, b2World *world);
+    CircleBody(const glm::vec2 &center,
+               float radius,
+               BodyType type,
+               b2FixtureDef &fixture_def,
+               float gravity_scale,
+               b2World *world);
+
     virtual ~CircleBody() = default;
 
     const glm::vec2 &get_center() const { return center; }

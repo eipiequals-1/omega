@@ -143,7 +143,9 @@ class ShapeRenderer {
     /**
      * Renders a line in the same way as
      *
-     * ShapeRenderer::line(const glm::vec2 &p1, const glm::vec2 &p2, float thickness);
+     * ShapeRenderer::line(const glm::vec2 &p1,
+     *                     const glm::vec2 &p2,
+     *                     float thickness);
      */
     void line(float x1, float y1, float x2, float y2, float thickness = 1.0f);
 

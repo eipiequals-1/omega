@@ -20,7 +20,10 @@ struct TextButtonBuilder {
 
 class TextButton : public ImageButton {
   public:
-    TextButton(float x, float y, float w, float h, std::function<void()> on_click, const TextButtonBuilder &builder);
+    TextButton(float x, float y, float w, float h,
+               std::function<void()> on_click,
+               const TextButtonBuilder &builder);
+    
     virtual ~TextButton() override = default;
 
     virtual void render() override;

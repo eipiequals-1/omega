@@ -58,8 +58,10 @@ class KeyManager {
     bool key_pressed(Key keycode) const;
 
   private:
-    uint8_t keys_last_frame[SDL_NUM_SCANCODES]; // copy of the key state for the last frame
-    const uint8_t *keys_current_frame;          // where SDL stores the keys
+    // copy of the key state for the last frame
+    uint8_t keys_last_frame[SDL_NUM_SCANCODES];
+    // where SDL stores the keys
+    const uint8_t *keys_current_frame;
 };
 
 } // namespace omega::events

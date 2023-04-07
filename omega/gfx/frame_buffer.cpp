@@ -4,7 +4,8 @@
 
 namespace omega::gfx {
 
-FrameBuffer::FrameBuffer(uint32_t width, uint32_t height) : width(width), height(height) {
+FrameBuffer::FrameBuffer(uint32_t width, uint32_t height) :
+    width(width), height(height) {
     resize(width, height);
 }
 
@@ -28,12 +29,19 @@ void FrameBuffer::resize(uint32_t width, uint32_t height) {
     // create color buffer
     color_buffer = Texture::create_empty(width, height, GL_LINEAR, GL_LINEAR);
     // attach to frame buffer
-    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, color_buffer->get_renderer_id(), 0);
+    glFramebufferTexture2D(GL_FRAMEBUFFER,
+                           GL_COLOR_ATTACHMENT0,
+                           GL_TEXTURE_2D,
+                           color_buffer->get_renderer_id(),
+                           0);
     // create depth and stencil buffer in render buffer
     glCreateRenderbuffers(1, &rbo_depth_stencil);
     glBindRenderbuffer(GL_RENDERBUFFER, rbo_depth_stencil);
     glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, width, height);
-    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, rbo_depth_stencil);
+    glFramebufferRenderbuffer(GL_FRAMEBUFFER,
+                              GL_DEPTH_STENCIL_ATTACHMENT,
+                              GL_RENDERBUFFER,
+                              rbo_depth_stencil);
 
     // check if it was successful
     if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {

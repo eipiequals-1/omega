@@ -10,7 +10,9 @@
 namespace omega::gfx {
 
 /**
- * A Vertex Array stores all of the data to supply a vertex. This implementation holds Vertex Buffers as a wrapper for the vertex attributes
+ * A Vertex Array stores all of the data to supply a vertex.
+ * This implementation holds Vertex Buffers as a wrapper for
+ * the vertex attributes
  */
 class VertexArray {
   public:

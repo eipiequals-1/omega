@@ -9,12 +9,18 @@ namespace omega::ui::button {
 
 class ImageButton : public Button {
   public:
-    ImageButton(float x, float y, float w, float h, std::function<void()> on_click);
+    ImageButton(float x, float y, float w, float h,
+                std::function<void()> on_click);
     virtual ~ImageButton() override;
 
     virtual void render() override;
-    virtual void set_focus_texture(gfx::texture::Texture *focus) { this->focus = focus; }
-    virtual void set_unfocus_texture(gfx::texture::Texture *un_focus) { this->un_focus = un_focus; }
+    virtual void set_focus_texture(gfx::texture::Texture *focus) {
+        this->focus = focus;
+    }
+
+    virtual void set_unfocus_texture(gfx::texture::Texture *un_focus) {
+        this->un_focus = un_focus;
+    }
 
   protected:
     gfx::texture::Texture *focus;

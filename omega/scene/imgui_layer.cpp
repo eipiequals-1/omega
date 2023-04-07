@@ -6,7 +6,8 @@
 
 namespace omega::scene {
 
-ImGuiLayer::ImGuiLayer(Window *window) : Layer("ImGuiLayer", true), window(window) {
+ImGuiLayer::ImGuiLayer(Window *window) : Layer("ImGuiLayer", true),
+                                         window(window) {
     // setup imgui
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
@@ -17,7 +18,8 @@ ImGuiLayer::ImGuiLayer(Window *window) : Layer("ImGuiLayer", true), window(windo
 
     ImGui::StyleColorsDark();
 
-    ImGui_ImplSDL2_InitForOpenGL(window->get_native_window(), window->get_gl_context());
+    ImGui_ImplSDL2_InitForOpenGL(window->get_native_window(),
+                                 window->get_gl_context());
     const char version[] = "#version 450";
     ImGui_ImplOpenGL3_Init(version);
 }
@@ -72,7 +74,8 @@ void ImGuiLayer::begin() {
 
 void ImGuiLayer::end() {
     ImGuiIO &io = ImGui::GetIO();
-    io.DisplaySize = ImVec2((float)window->get_width(), (float)window->get_height());
+    io.DisplaySize = ImVec2((float)window->get_width(),
+                            (float)window->get_height());
 
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());

@@ -23,7 +23,9 @@ class AssetManager {
         GLenum min_filter = GL_NEAREST,
         GLenum mag_filter = GL_NEAREST)
     {
-        textures[key] = gfx::texture::Texture::create_from_file(filepath, min_filter, mag_filter);
+        textures[key] = gfx::texture::Texture::create_from_file(filepath,
+                                                                min_filter,
+                                                                mag_filter);
         return textures[key].get();
     }
 
@@ -34,7 +36,10 @@ class AssetManager {
         GLenum min_filter = GL_NEAREST,
         GLenum mag_filter = GL_NEAREST)
     {
-        textures[key] = gfx::texture::Texture::create_empty(width, height, min_filter, mag_filter);
+        textures[key] = gfx::texture::Texture::create_empty(width,
+                                                            height,
+                                                            min_filter,
+                                                            mag_filter);
         return textures[key].get();
     }
     gfx::texture::Texture* get_texture(const std::string &key) {
@@ -51,12 +56,15 @@ class AssetManager {
     void set_sound_effect_volume(sound::SoundEffectID sound, float volume);
 
     // shaders
-    gfx::Shader *load_shader(const std::string &key, const std::string &filepath) {
+    gfx::Shader *load_shader(const std::string &key,
+                             const std::string &filepath) {
         shaders[key] = util::create_uptr<gfx::Shader>(filepath);
         return shaders[key].get();
     }
 
-    gfx::Shader *load_shader(const std::string &key, const std::string &vert, const std::string &frag) {
+    gfx::Shader *load_shader(const std::string &key,
+                             const std::string &vert,
+                             const std::string &frag) {
         shaders[key] = util::create_uptr<gfx::Shader>(vert, frag);
         return shaders[key].get();
     }

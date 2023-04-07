@@ -11,7 +11,8 @@
 namespace omega::core {
 
 struct Globals {
-    Globals(const core::Viewport &vp, const std::string &scene_name = "Scene") : scene(vp, scene_name) {
+    Globals(const core::Viewport &vp,
+            const std::string &scene_name = "Scene") : scene(vp, scene_name) {
     }
     // renderer globals
     gfx::SpriteBatch sprite_batch;

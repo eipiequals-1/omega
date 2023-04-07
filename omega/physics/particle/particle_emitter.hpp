@@ -27,7 +27,8 @@ using range = std::pair<float, float>;
 
 /**
  * Handles setting the settings of the particle emitters
- * including lifespan, starting and ending size, emittion frequency, rotations, accelerations, randomness, etc
+ * including lifespan, starting and ending size, emittion frequency,
+ * rotations, accelerations, randomness, etc
  */
 struct EmitterBuilder {
     float lifespan;
@@ -58,7 +59,7 @@ class ParticleEmitter {
 
     /**
      * Resets the particle data if the life is over
-     * @param del_particles if the remaining particles should be kept or all deleted
+     * @param del_particles if the remaining particles should be kept or deleted
      */
     virtual void reset(bool del_particles = false) {
         timer = 0.0f;

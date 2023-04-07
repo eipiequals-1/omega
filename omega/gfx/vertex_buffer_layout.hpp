@@ -43,7 +43,9 @@ class VertexBufferLayout {
     /**
      * @returns the vector of vertex attributes
      */
-    const std::vector<VertexBufferAttrib> &get_attributes() const { return attributes; }
+    const std::vector<VertexBufferAttrib> &get_attributes() const {
+        return attributes;
+    }
 
     /**
      * @returns the stride of each vertex

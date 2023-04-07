@@ -7,7 +7,8 @@
 namespace omega::gfx {
 
 /**
- * A Vertex Buffer provides methods for adding / storing vertex data such as position, normal, vector, color, etc to the GPU.
+ * A Vertex Buffer provides methods for adding / storing vertex data
+ * such as position, normal, vector, color, etc to the GPU.
  * Holds a vertex attribute in the buffer
  */
 class VertexBuffer {

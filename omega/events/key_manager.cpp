@@ -18,7 +18,8 @@ void KeyManager::prepare_for_update() {
 }
 
 void KeyManager::update() {
-    keys_current_frame = SDL_GetKeyboardState(nullptr); // get current state of keyboard
+    // get current state of keyboard
+    keys_current_frame = SDL_GetKeyboardState(nullptr);
 }
 
 bool KeyManager::key_just_pressed(Key keycode) const {

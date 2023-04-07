@@ -13,7 +13,8 @@ namespace omega::core {
 enum class WindowFlags {
     opengl = SDL_WINDOW_OPENGL,
     opengl_resizable = SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE,
-    opengl_resizable_fullscreen = SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE | SDL_WINDOW_FULLSCREEN,
+    opengl_resizable_fullscreen = SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE | 
+    SDL_WINDOW_FULLSCREEN,
     none = 0
 };
 

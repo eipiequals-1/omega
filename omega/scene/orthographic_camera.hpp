@@ -22,9 +22,13 @@ namespace omega::scene {
  */
 class OrthographicCamera : public Camera {
   public:
-    OrthographicCamera(float left, float right, float bottom, float top, float near = -1.0f, float far = 1.0f);
+    OrthographicCamera(float left, float right,
+                       float bottom, float top,
+                       float near = -1.0f, float far = 1.0f);
 
-    void set_projection(float left, float right, float bottom, float top, float near = -1.0f, float far = 1.0f);
+    void set_projection(float left, float right,
+                        float bottom, float top,
+                        float near = -1.0f, float far = 1.0f);
 
     float get_rotation() const { return rotation; }
     void set_rotation(float rotation) { this->rotation = rotation; }
@@ -39,7 +43,7 @@ class OrthographicCamera : public Camera {
      */
     glm::vec2 project(const glm::vec2 &vec, const glm::vec2 &screen_res) const;
     /**
-     * Updates the view projection matrix if position, rotation, and/or size have changed
+     * Updates the view & projection matrix
      *
      * IMPORTANT: must be called before rendering if the camera has changed
      */

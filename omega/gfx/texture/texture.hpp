@@ -22,17 +22,24 @@ namespace omega::gfx::texture {
  */
 class Texture {
   private:
-    Texture(uint32_t width, uint32_t height, GLenum min_filter = OMEGA_GL_NEAREST, GLenum mag_filter = OMEGA_GL_NEAREST);
+    Texture(uint32_t width,
+            uint32_t height,
+            GLenum min_filter = OMEGA_GL_NEAREST,
+            GLenum mag_filter = OMEGA_GL_NEAREST);
 
   public:
     /**
-     * Static factory method that creates a texture from an SDL_Surface which is not destroyed
+     * Static factory method that creates a texture from an SDL_Surface which 
+     * is not destroyed
      * @param surf pointer to SDL_Surface
      * @param min_filter type of filter for minimizing the texture
      * @param max_filter type of filter for maximizing the texture
      * @return a new Texture
      */
-    static util::uptr<Texture> create_from_surface(SDL_Surface *surf, GLenum min_filter = OMEGA_GL_NEAREST, GLenum mag_filter = OMEGA_GL_NEAREST) {
+    static util::uptr<Texture> create_from_surface(
+        SDL_Surface *surf,
+        GLenum min_filter = OMEGA_GL_NEAREST,
+        GLenum mag_filter = OMEGA_GL_NEAREST) {
         Texture *tex = new Texture(surf->w, surf->h, min_filter, mag_filter);
         tex->load((uint32_t *)surf->pixels);
         return util::uptr<Texture>(tex);
@@ -44,27 +51,39 @@ class Texture {
      * @param min_filter (default = GL_NEAREST)
      * @param mag_filter (default = GL_NEAREST)
      */
-    static util::uptr<Texture> create_from_file(const std::string &filepath, GLenum min_filter = GL_NEAREST, GLenum mag_filter = GL_NEAREST) {
+    static util::uptr<Texture> create_from_file(
+        const std::string &filepath,
+        GLenum min_filter = GL_NEAREST,
+        GLenum mag_filter = GL_NEAREST) {
         int width, height, nrChannels;
-        stbi_uc* data = stbi_load(filepath.c_str(), &width, &height, &nrChannels, 0);
+        stbi_uc* data = stbi_load(filepath.c_str(), &width, &height,
+                                  &nrChannels, 0);
         if (data == nullptr) {
             util::error("STB Error: Error loading '", filepath, "'");
         }
-        util::uptr<Texture> texture = util::uptr<Texture>(new Texture(width, height, min_filter, mag_filter));
+        util::uptr<Texture> texture = util::uptr<Texture>(
+            new Texture(width, height, min_filter, mag_filter));
         texture->load((uint32_t *)data);
         return texture;
     }
 
     /**
-     * Construct a new gl texture object with the given dimensions and min/mag filters
+     * Construct a new gl texture object with the given dimensions
+     * and min/mag filters
      * @param width
      * @param height
      * @param min_filter (default = GL_NEAREST)
      * @param mag_filter (default = GL_NEAREST)
      */
-    static util::uptr<Texture> create_empty(uint32_t width, uint32_t height, GLenum min_filter = GL_NEAREST, GLenum mag_filter = GL_NEAREST) {
-        // must construct using new because constructor is private and not accessible by sptr
-        return util::uptr<Texture>(new Texture(width, height, min_filter, mag_filter));
+    static util::uptr<Texture> create_empty(
+        uint32_t width,
+        uint32_t height,
+        GLenum min_filter = GL_NEAREST,
+        GLenum mag_filter = GL_NEAREST) {
+        // must construct using new because constructor is private
+        // and not accessible by sptr
+        return util::uptr<Texture>(
+            new Texture(width, height, min_filter, mag_filter));
     }
     ~Texture();
 
@@ -101,7 +120,8 @@ class Texture {
      */
     void set_data(uint32_t *data) {
         glBindTexture(GL_TEXTURE_2D, id); // bind without setting active texture
-        glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, data);
+        glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, width, height,
+                        GL_RGBA, GL_UNSIGNED_BYTE, data);
         unbind();
     }
 
@@ -117,7 +137,8 @@ class Texture {
      * @param width
      * @param height
      */
-    static void save_to_file(const std::string &file_name, uint32_t *pixels, uint32_t width, uint32_t height) {
+    static void save_to_file(const std::string &file_name, uint32_t *pixels,
+                             uint32_t width, uint32_t height) {
         uint32_t rmask, gmask, bmask, amask;
         if (SDL_BYTEORDER == SDL_BIG_ENDIAN) {
             rmask = 0xff000000;
@@ -130,7 +151,9 @@ class Texture {
             bmask = 0x00ff0000;
             amask = 0xff000000;
         }
-        SDL_Surface *surf = SDL_CreateRGBSurfaceFrom(pixels, width, height, 32, 4 * width, rmask, gmask, bmask, amask);
+        SDL_Surface *surf =
+            SDL_CreateRGBSurfaceFrom(pixels, width, height, 32, 4 * width, 
+                                     rmask, gmask, bmask, amask);
         // save in current working directory
         SDL_SaveBMP(surf, file_name.c_str());
         SDL_FreeSurface(surf);
@@ -160,9 +183,11 @@ class TextureManager {
      * @param min_filter type of filter for minimizing the texture
      * @param max_filter type of filter for maximizing the texture
      */
-    void load(const K &id, const std::string &filepath, GLenum min_filter = GL_NEAREST, GLenum mag_filter = GL_NEAREST) {
+    void load(const K &id, const std::string &filepath,
+              GLenum min_filter = GL_NEAREST, GLenum mag_filter = GL_NEAREST) {
         if (!contains(id)) {
-            textures[id] = Texture::create_from_file(filepath, min_filter, mag_filter);
+            textures[id] = 
+                Texture::create_from_file(filepath, min_filter, mag_filter);
         }
     }
 
@@ -173,9 +198,11 @@ class TextureManager {
      * @param min_filter type of filter for minimizing the texture
      * @param max_filter type of filter for maximizing the texture
      */
-    void load(const K &id, SDL_Surface *surface, GLenum min_filter = GL_NEAREST, GLenum mag_filter = GL_NEAREST) {
+    void load(const K &id, SDL_Surface *surface,
+              GLenum min_filter = GL_NEAREST, GLenum mag_filter = GL_NEAREST) {
         if (!contains(id)) {
-            textures[id] = Texture::create_from_surface(surface, min_filter, mag_filter);
+            textures[id] =
+                Texture::create_from_surface(surface, min_filter, mag_filter);
         }
     }
 

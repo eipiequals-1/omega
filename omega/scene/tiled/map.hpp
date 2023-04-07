@@ -24,10 +24,15 @@ class Map : public TmxMap {
     /**
      * Returns if there is a collision between the surrounding rects
      * @param rect intersection test rect
-     * @param collided_tiles vector of pointers to tiles that intersect with the given rect
-     * @param collided_tile_indices vector of ints containing the location of the collided tiles in the layer vector
+     * @param collided_tiles vector of pointers to tiles that intersect
+     * with the given rect
+     * @param collided_tile_indices vector of ints containing the location
+     * of the collided tiles in the layer vector
      */
-    virtual void get_intersect_rects(const glm::rectf &rect, std::vector<Tile *> &collided_tiles, std::vector<uint32_t> &collided_tile_indices);
+    virtual void get_intersect_rects(
+        const glm::rectf &rect,
+        std::vector<Tile *> &collided_tiles,
+        std::vector<uint32_t> &collided_tile_indices);
 
     /**
      * Sets the tile rectangle based off of the tileIdx
@@ -43,7 +48,9 @@ class Map : public TmxMap {
      * @return out value in property map
      * @return if the tile has the given property
      */
-    virtual bool contains_property(const Tile &tile, const std::string &property, std::string &out);
+    virtual bool contains_property(const Tile &tile,
+                                   const std::string &property,
+                                   std::string &out);
 
     /**
      * Finds all the tiles on the map with given property
@@ -51,7 +58,10 @@ class Map : public TmxMap {
      * @returns tiles_properties the vector of the tiles with that property
      * @returns tiles_properties_idx the vector of the indices of those tiles
      */
-    virtual void get_tiles_with_property(const std::string &property, std::vector<Tile *> &tiles_properties, std::vector<int> &tiles_properties_idx);
+    virtual void get_tiles_with_property(
+        const std::string &property,
+        std::vector<Tile *> &tiles_properties,
+        std::vector<int> &tiles_properties_idx);
 
     /**
      * @param x coord in tile units

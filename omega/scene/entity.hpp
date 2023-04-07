@@ -14,8 +14,9 @@ class Entity {
   public:
     Entity() = default;
 
-    Entity(entt::entity handle, entt::registry *registry) : entity(handle),
-                                                            registry(registry) {}
+    Entity(entt::entity handle,
+           entt::registry *registry) : entity(handle),
+                                       registry(registry) {}
 
     Entity(const Entity &other) = default;
 

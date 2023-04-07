@@ -18,7 +18,9 @@ class Camera {
     /**
      * @return the projection matrix
      */
-    const glm::mat4 &get_projection_matrix() const { return projection_matrix; }
+    const glm::mat4 &get_projection_matrix() const {
+        return projection_matrix;
+    }
 
     /**
      * @return the view matrix
@@ -28,7 +30,9 @@ class Camera {
     /**
      * @return the combined view projection matrix
      */
-    glm::mat4 get_view_projection_matrix() const { return projection_matrix * view_matrix; }
+    glm::mat4 get_view_projection_matrix() const {
+        return projection_matrix * view_matrix;
+    }
 
     virtual void recalculate_view_matrix() = 0;
 

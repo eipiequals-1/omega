@@ -7,11 +7,14 @@
 namespace omega::scene {
 
 /**
- * Perspective Camera represents a 3D projection of a scene, as well as its position, forward, and up vectors
+ * Perspective Camera represents a 3D projection of a scene,
+ * as well as its position, forward, and up vectors
  */
 class PerspectiveCamera : public Camera {
   public:
-    PerspectiveCamera(const glm::vec3 &position = glm::vec3(0.0f), float yaw = -90.0f, float pitch = 0.0f);
+    PerspectiveCamera(const glm::vec3 &position = glm::vec3(0.0f),
+                      float yaw = -90.0f,
+                      float pitch = 0.0f);
     ~PerspectiveCamera() = default;
 
     /**
@@ -21,7 +24,9 @@ class PerspectiveCamera : public Camera {
      * @param near the near clip plane / distance
      * @param far the far clip plane / distance
      */
-    void set_projection(float fov = 45.0f, float aspect = 16.0f / 9.0f, float near = 0.1f, float far = 100.0f);
+    void set_projection(float fov = 45.0f,
+                        float aspect = 16.0f / 9.0f,
+                        float near = 0.1f, float far = 100.0f);
 
     /**
      * @return the camera front vector
@@ -38,7 +43,8 @@ class PerspectiveCamera : public Camera {
     void set_yaw(float yaw) { this->yaw = yaw; }
 
     /**
-     * Updates the view projection matrix if position, fov, near, or far plane have changed
+     * Updates the view projection matrix if position, fov, near,
+     * or far plane have changed
      *
      * IMPORTANT: must be called before rendering if the camera has changed
      */

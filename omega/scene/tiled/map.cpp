@@ -11,7 +11,9 @@ Map::Map(const std::string &file_path, const std::string &tileset_path) {
     }
 }
 
-void Map::get_intersect_rects(const glm::rectf &rect, std::vector<Tile *> &collided_tiles, std::vector<uint32_t> &collided_tile_indices) {
+void Map::get_intersect_rects(const glm::rectf &rect,
+                              std::vector<Tile *> &collided_tiles,
+                              std::vector<uint32_t> &collided_tile_indices) {
     // reset the output vectors
     collided_tiles.clear();
     collided_tile_indices.clear();
@@ -50,7 +52,9 @@ void Map::set_tile_rect(glm::rectf &rect, uint32_t tile_idx) {
     rect.h = tileHeight;
 }
 
-bool Map::contains_property(const Tile &tile, const std::string &property, std::string &out) {
+bool Map::contains_property(const Tile &tile,
+                            const std::string &property,
+                            std::string &out) {
     const Tileset &tileset = tilesetCollection[tile.tilesetIndex];
     const TileDefinitionMap_t &tile_def_map = tileset.tileDefinitions;
     // check if there is a definition for the tile in the tileset
@@ -65,7 +69,9 @@ bool Map::contains_property(const Tile &tile, const std::string &property, std::
     return true;
 }
 
-void Map::get_tiles_with_property(const std::string &property, std::vector<Tile *> &tiles_properties, std::vector<int> &tiles_properties_idx) {
+void Map::get_tiles_with_property(const std::string &property,
+                                  std::vector<Tile *> &tiles_properties,
+                                  std::vector<int> &tiles_properties_idx) {
     tiles_properties.clear();
     tiles_properties_idx.clear();
     for (auto &layer : layerCollection) {

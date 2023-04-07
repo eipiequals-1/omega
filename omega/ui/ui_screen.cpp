@@ -21,7 +21,9 @@ void UIScreen::update(const glm::vec2 &mouse_pos) {
     }
 }
 
-void UIScreen::push_button(button::Button *button) { buttons.push_back(button); }
+void UIScreen::push_button(button::Button *button) {
+    buttons.push_back(button);
+}
 
 void UIScreen::handle_buttons(events::InputManager &input) {
     if (input.mouse_button_just_released(

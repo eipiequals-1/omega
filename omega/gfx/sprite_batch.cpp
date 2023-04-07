@@ -47,8 +47,8 @@ SpriteBatch::SpriteBatch() {
             float c = cos(angle);
             float oc = 1.0 - c;
             
-            return mat4(oc * axis.x * axis.x + c,           oc * axis.x * axis.y - axis.z * s,  oc * axis.z * axis.x + axis.y * s,  0.0,
-                        oc * axis.x * axis.y + axis.z * s,  oc * axis.y * axis.y + c,           oc * axis.y * axis.z - axis.x * s,  0.0,
+            return mat4(oc * axis.x * axis.x + c, oc * axis.x * axis.y - axis.z * s, oc * axis.z * axis.x + axis.y * s,  0.0,
+        oc * axis.x * axis.y + axis.z * s,  oc * axis.y * axis.y + c, oc * axis.y * axis.z - axis.x * s,  0.0,
                         oc * axis.z * axis.x - axis.y * s,  oc * axis.y * axis.z + axis.x * s,  oc * axis.z * axis.z + c,           0.0,
                         0.0,                                0.0,                                0.0,                                1.0);
         }
@@ -81,9 +81,12 @@ SpriteBatch::SpriteBatch() {
 		}
 	)glsl";
 
-    sprite_shader = create_uptr<Shader>(std::string(vertex), std::string(fragment));
+    sprite_shader = create_uptr<Shader>(std::string(vertex),
+                                        std::string(fragment));
     vao = create_uptr<VertexArray>();
-    vbo = create_uptr<VertexBuffer>(vertex_buffer_capacity * vertex_count * sizeof(float));
+    vbo = create_uptr<VertexBuffer>(
+        vertex_buffer_capacity * vertex_count * sizeof(float));
+
     VertexBufferLayout layout;
     layout.push(GL_FLOAT, 3); // world coords
     layout.push(GL_FLOAT, 4); // color
@@ -98,7 +101,9 @@ SpriteBatch::SpriteBatch() {
         texture_binds[i] = i;
     }
     sprite_shader->bind();
-    sprite_shader->set_uniform_1iv("u_Textures", (int *)texture_binds.data(), max_textures);
+    sprite_shader->set_uniform_1iv("u_Textures",
+                                   (int *)texture_binds.data(),
+                                   max_textures);
     Shader::unbind();
 }
 
@@ -111,25 +116,50 @@ void SpriteBatch::begin_render() {
     }
 }
 
-void SpriteBatch::render_texture(const Texture *texture, const float x, const float y, const glm::vec4 &color) {
-    render_texture(texture, x, y, texture->get_width(), texture->get_height(), color);
+void SpriteBatch::render_texture(const Texture *texture,
+                                 const float x,
+                                 const float y,
+                                 const glm::vec4 &color) {
+    render_texture(
+        texture, x, y, texture->get_width(), texture->get_height(), color);
 }
 
-void SpriteBatch::render_texture(const Texture *texture, const float x, const float y, const float w, const float h, const glm::vec4 &color) {
+void SpriteBatch::render_texture(const Texture *texture,
+                                 const float x,
+                                 const float y,
+                                 const float w,
+                                 const float h,
+                                 const glm::vec4 &color) {
     // set tex coords
-    glm::rectf tex_coords(0.0f, 0.0f, texture->get_width(), texture->get_height());
+    glm::rectf tex_coords(
+        0.0f, 0.0f, texture->get_width(), texture->get_height());
     render_texture(texture, tex_coords, glm::rectf(x, y, w, h), color);
 }
 
-void SpriteBatch::render_texture(const Texture *texture, const glm::rectf &src, const glm::rectf &dest, const glm::vec4 &color) {
+void SpriteBatch::render_texture(const Texture *texture,
+                                 const glm::rectf &src,
+                                 const glm::rectf &dest,
+                                 const glm::vec4 &color) {
     render_texture(texture, src, dest, 0.0f, dest.center(), color);
 }
 
-void SpriteBatch::render_texture(const Texture *texture, glm::rectf src, const glm::rectf &dest, float rotation, const glm::vec2 &center, const glm::vec4 &color) {
-    render_texture(texture, src, dest, glm::vec3(0.0f, 0.0f, -1.0f), rotation, glm::vec3(center, 0.0f), color);
+void SpriteBatch::render_texture(const Texture *texture,
+                                 glm::rectf src,
+                                 const glm::rectf &dest,
+                                 float rotation,
+                                 const glm::vec2 &center,
+                                 const glm::vec4 &color) {
+    render_texture(texture, src, dest, glm::vec3(0.0f, 0.0f, -1.0f), rotation,
+                   glm::vec3(center, 0.0f), color);
 }
 
-void SpriteBatch::render_texture(const Texture *texture, glm::rectf src, const glm::rectf &dest, const glm::vec3 rotation_axis, float rotation, const glm::vec3 &center_of_rotation, const glm::vec4 &color) {
+void SpriteBatch::render_texture(const Texture *texture,
+                                 glm::rectf src,
+                                 const glm::rectf &dest,
+                                 const glm::vec3 rotation_axis,
+                                 float rotation,
+                                 const glm::vec3 &center_of_rotation,
+                                 const glm::vec4 &color) {
     if (quads_rendered == quad_capacity) {
         end_render();
         begin_render();
@@ -204,15 +234,24 @@ void SpriteBatch::render_texture(const Texture *texture, glm::rectf src, const g
     quads_rendered++;
 }
 
-void SpriteBatch::render_texture_region(const TextureRegion *texture_region, const glm::rectf &dest, const glm::vec4 &color) {
-    render_texture(texture_region->get_texture(), texture_region->get_rect().convert_type<float>(), dest, color);
+void SpriteBatch::render_texture_region(const TextureRegion *texture_region,
+                                        const glm::rectf &dest,
+                                        const glm::vec4 &color) {
+    render_texture(texture_region->get_texture(),
+                   texture_region->get_rect().convert_type<float>(),
+                   dest,
+                   color);
 }
 
 void SpriteBatch::end_render() {
     sprite_shader->bind();
     vao->bind();
     ibo->bind();
-    glDrawElements(GL_TRIANGLES, quads_rendered * index_count, GL_UNSIGNED_INT, nullptr);
+    glDrawElements(GL_TRIANGLES,
+                   quads_rendered * index_count,
+                   GL_UNSIGNED_INT,
+                   nullptr);
+
     VertexArray::unbind();
     IndexBuffer::unbind();
     Shader::unbind();

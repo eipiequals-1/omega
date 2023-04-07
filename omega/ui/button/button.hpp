@@ -9,8 +9,9 @@ namespace omega::ui::button {
 
 class Button {
   public:
-    Button(float x, float y, float w, float h, std::function<void()> on_click) : rect(x, y, w, h),
-                                                                                 on_click_listener(on_click) {}
+    Button(float x, float y, float w, float h,
+           std::function<void()> on_click) : rect(x, y, w, h),
+                                             on_click_listener(on_click) {}
     virtual ~Button() = default;
 
     virtual void render() = 0;

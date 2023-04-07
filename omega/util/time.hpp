@@ -20,7 +20,10 @@ class Time {
      */
     template <typename T>
     static T get_time_millis() {
-        return static_cast<T>(std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::high_resolution_clock::now() - start).count() * 0.001 * 0.001);
+        return static_cast<T>(
+            std::chrono::duration_cast<std::chrono::nanoseconds>(
+                std::chrono::high_resolution_clock::now() - start)
+                .count() * 0.001 * 0.001);
     }
 
     /**
@@ -34,7 +37,8 @@ class Time {
     /**
      * Add a time event to be tracked
      * @param seconds
-     * @param callback is called when the timer completes, passes the elapsed time since the timer ended as arg
+     * @param callback is called when the timer completes,
+     * passes the elapsed time since the timer ended
      */
     static void add_timer(float seconds, std::function<void(float)> callback) {
         // create new event
@@ -46,7 +50,8 @@ class Time {
     }
 
     /**
-     * Step the timers, call the callback if the timer is complete, and delete the timer event
+     * Step the timers, call the callback if the timer is complete,
+     * and delete the timer event
      * @param dt delta time
      */
     static void tick(float dt) {
@@ -72,14 +77,16 @@ class Time {
      */
     template <typename T>
     static void sleep(T time) {
-        std::this_thread::sleep_for(std::chrono::microseconds((int64_t)(time * 1000.0 * 1000.0)));
+        std::this_thread::sleep_for(
+            std::chrono::microseconds((int64_t)(time * 1000.0 * 1000.0)));
     }
 
     /**
      * @return the current time formatted as such: Day-of-week Month Day hr:min:sec yr
      */
     static std::string get_current_time() {
-        std::time_t current_time = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
+        std::time_t current_time = std::chrono::system_clock::to_time_t(
+            std::chrono::system_clock::now());
         return std::string(
             std::ctime(&current_time));
     }

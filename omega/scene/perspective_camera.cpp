@@ -2,13 +2,20 @@
 
 namespace omega::scene {
 
-PerspectiveCamera::PerspectiveCamera(const glm::vec3 &position, float yaw, float pitch) : Camera::Camera(), front(0.0f, 0.0f, -1.0f), world_up(0.0f, 1.0f, 0.0f), yaw(yaw), pitch(pitch) {
+PerspectiveCamera::PerspectiveCamera(const glm::vec3 &position,
+                                     float yaw,
+                                     float pitch) : Camera::Camera(),
+                                                    front(0.0f, 0.0f, -1.0f),
+                                                    world_up(0.0f, 1.0f, 0.0f),
+                                                    yaw(yaw),
+                                                    pitch(pitch) {
     this->position = position;
     set_projection();
     update_view_vectors();
 }
 
-void PerspectiveCamera::set_projection(float fov, float aspect, float near, float far) {
+void PerspectiveCamera::set_projection(float fov, float aspect,
+                                       float near, float far) {
     projection_matrix = glm::perspective(glm::radians(fov), aspect, near, far);
 }
 
@@ -16,7 +23,8 @@ void PerspectiveCamera::recalculate_view_matrix() {
     view_matrix = glm::lookAt(position, position + front, up);
 }
 
-void PerspectiveCamera::mouse_movement(float dx, float dy, float mouse_sensitivity) {
+void PerspectiveCamera::mouse_movement(float dx, float dy,
+                                       float mouse_sensitivity) {
     dx *= mouse_sensitivity;
     dy *= mouse_sensitivity;
     yaw += dx;

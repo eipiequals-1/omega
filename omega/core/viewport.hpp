@@ -16,7 +16,8 @@ enum class ViewportType {
 };
 
 /**
- * Abstraction and management of glViewport handling resizing in different ViewportType configurations
+ * Abstraction and management of glViewport handling resizing in different 
+ * ViewportType configurations
  */
 class Viewport {
   public:
@@ -26,11 +27,15 @@ class Viewport {
      * @param initial_width
      * @param initial_height
      */
-    Viewport(ViewportType viewport_type, uint32_t initial_width, uint32_t initial_height);
+    Viewport(
+        ViewportType viewport_type,
+        uint32_t initial_width,
+        uint32_t initial_height);
     ~Viewport() = default;
 
     /**
-     * Performs glViewport to maintain the ViewportType using the new width and height
+     * Performs glViewport to maintain the ViewportType using the new width and
+     * height
      * @param new_width
      * @param new_height
      * @return the glViewport params

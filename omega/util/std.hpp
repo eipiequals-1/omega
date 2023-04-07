@@ -40,7 +40,9 @@ constexpr sptr<T> create_sptr(Args &&...args) {
  * @param ret_vec out vector<string> of the split string
  * @param del the delimeter to split the string with
  */
-inline void split(std::string str, std::vector<std::string> &ret_vec, const std::string &del = " ") {
+inline void split(std::string str,
+                  std::vector<std::string> &ret_vec,
+                  const std::string &del = " ") {
     char *s = &str[0]; // get pointer to string
     // start splitting string
     char *piece = strtok(s, del.c_str());

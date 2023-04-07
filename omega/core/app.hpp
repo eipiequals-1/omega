@@ -12,7 +12,8 @@
 namespace omega::core {
 
 /**
- * Configuration for the application including width, height, title, window settings, etc
+ * Configuration for the application including width, height, title, window
+ * settings, etc
  */
 struct AppConfig {
     uint32_t width = 900, height = 450;
@@ -28,7 +29,8 @@ struct AppConfig {
 };
 
 /**
- * Application class that handles everything from updating, rendering, handling input, etc
+ * Application class that handles everything from updating, rendering, handling
+ * input, etc
  *
  * @example
  *
@@ -55,7 +57,8 @@ class App final {
     ~App();
 
     /**
-     * Abstraction of the application loop. Calls the Tick, Update, Input, and Render methods
+     * Abstraction of the application loop. Calls the tick, update, input, and 
+     * render methods
      */
     void run();
 

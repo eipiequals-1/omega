@@ -13,7 +13,8 @@
 namespace omega::core {
 
 /**
- * Window abstraction of SDL_Window, SDL_SwapBuffers, and OpenGL window functions
+ * Window abstraction of SDL_Window, SDL_SwapBuffers, and OpenGL window
+ * functions
  */
 class Window {
   public:
@@ -36,7 +37,8 @@ class Window {
      * @param resizable if it can be resized
      * @param title the window title
      */
-    bool init(uint32_t width, uint32_t height, bool resizable, const std::string &title);
+    bool init(uint32_t width, uint32_t height, bool resizable,
+        const std::string &title);
 
     /**
      * Specify the framebuffer clear color and abstracts it

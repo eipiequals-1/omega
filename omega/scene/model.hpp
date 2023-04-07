@@ -16,15 +16,18 @@ namespace omega::scene {
 using namespace omega::gfx::texture;
 
 class Model {
-  public:
+public:
     Model(const std::string &filepath);
 
     void render(gfx::Shader &shader);
 
-  private:
+private:
     void process_node(aiNode *node, const aiScene *scene);
     Mesh process_mesh(aiMesh *mesh, const aiScene *scene);
-    std::vector<MeshTexture> load_material_textures(aiMaterial *mat, aiTextureType type, const std::string &type_name);
+    std::vector<MeshTexture> load_material_textures(
+        aiMaterial *mat,
+        aiTextureType type,
+        const std::string &type_name);
 
     std::vector<Mesh> meshes;
     std::vector<MeshTexture> textures;

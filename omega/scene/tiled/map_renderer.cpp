@@ -28,7 +28,8 @@ void MapRenderer::load_layer(const Layer &layer) {
     uint32_t layer_height_pix = tile_height * layer.height;
     // use uint32_t for each pixel
     // 1 byte / color component
-    uint32_t num_pixels = layer_width_pix * layer_height_pix; // allocate area of all pixels
+    // allocate area of all pixels
+    uint32_t num_pixels = layer_width_pix * layer_height_pix;
     std::vector<uint32_t> pixels;
     pixels.resize(num_pixels);
     // for every tile copy the respective tile section to the pixel buffer
@@ -44,7 +45,10 @@ void MapRenderer::load_layer(const Layer &layer) {
         uint32_t *pix = &pixels[start_y * layer_width_pix + start_x];
         set_tile_pixels(pix, tile, layer_width_pix, layer_height_pix);
     }
-    layer_texture.push_back(Texture::create_empty(layer_width_pix, layer_height_pix, GL_NEAREST, GL_NEAREST));
+    layer_texture.push_back(Texture::create_empty(layer_width_pix,
+                                                  layer_height_pix,
+                                                  GL_NEAREST,
+                                                  GL_NEAREST));
     (layer_texture.end() - 1)->get()->set_data(pixels.data());
 }
 

@@ -8,7 +8,9 @@
 
 namespace omega::scene {
 
-Scene::Scene(const core::Viewport &viewport, const std::string &name) : name(name), viewport(viewport) {
+Scene::Scene(const core::Viewport &viewport,
+             const std::string &name) : name(name),
+                                        viewport(viewport) {
 }
 
 Scene::~Scene() {
@@ -26,9 +28,13 @@ void Scene::render(float dt, gfx::SpriteBatch &sprite_batch) {
     Camera *scene_camera = nullptr;
     auto view = registry.view<CameraComponent>();
     for (auto entity : view) {
-        auto &camera = Entity(entity, &registry).get_component<CameraComponent>();
+        auto &camera = Entity(entity, &registry)
+            .get_component<CameraComponent>();
+
         if (camera.primary) {
-            scene_camera = (camera.get_projection_type() == CameraComponent::ProjectionType::orthographic ? (Camera *)&camera.ortho : (Camera *)&camera.perspective);
+            scene_camera = (camera.get_projection_type() ==
+                CameraComponent::ProjectionType::orthographic ?
+                (Camera *)&camera.ortho : (Camera *)&camera.perspective);
             break;
         }
     }
@@ -38,26 +44,36 @@ void Scene::render(float dt, gfx::SpriteBatch &sprite_batch) {
         return;
     }
 
-    // obtain sprite batch instance and render every entity with a sprite and transform component
+    // obtain sprite batch instance and render every entity
+    // with a sprite & transform component
     scene_camera->recalculate_view_matrix();
 
-    sprite_batch.set_view_projection_matrix(scene_camera->get_view_projection_matrix());
+    sprite_batch.set_view_projection_matrix(
+        scene_camera->get_view_projection_matrix());
     sprite_batch.begin_render();
 
     auto group = registry.group<TransformComponent>(entt::get<SpriteComponent>);
     for (auto entity : group) {
-        auto [transform, sprite] = group.get<TransformComponent, SpriteComponent>(entity);
+        auto [transform, sprite] =
+            group.get<TransformComponent, SpriteComponent>(entity);
 
         // make sure that there is a valid texture
         if (sprite.texture == nullptr)
             continue;
 
         // construct necessary rectangles for rendering
-        glm::rectf dest(transform.position.x - transform.scale.x * 0.5f, transform.position.y - transform.scale.y * 0.5f, transform.scale.x, transform.scale.y);
+        glm::rectf dest(
+            transform.position.x - transform.scale.x * 0.5f,
+            transform.position.y - transform.scale.y * 0.5f,
+            transform.scale.x,
+            transform.scale.y);
 
         sprite_batch.render_texture(
             sprite.texture,
-            glm::rectf(0.0f, 0.0f, sprite.texture->get_width(), sprite.texture->get_height()),
+            glm::rectf(0.0f,
+                       0.0f,
+                       sprite.texture->get_width(),
+                       sprite.texture->get_height()),
             dest,
             transform.rotation.z,
             dest.center(),

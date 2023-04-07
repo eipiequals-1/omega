@@ -13,7 +13,9 @@ namespace omega::gfx::texture {
  */
 class TextureRegion {
   public:
-    TextureRegion(Texture *tex, uint32_t x, uint32_t y, uint32_t w, uint32_t h) : texture(tex), rect(x, y, w, h) {}
+    TextureRegion(Texture *tex, uint32_t x, uint32_t y, uint32_t w, uint32_t h)
+    : texture(tex), rect(x, y, w, h) {}
+
     uint32_t get_x() const { return rect.x; }
     uint32_t get_y() const { return rect.y; }
     uint32_t get_w() const { return rect.w; }

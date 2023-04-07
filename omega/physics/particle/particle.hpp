@@ -15,7 +15,7 @@ struct Particle {
     virtual ~Particle() = default;
 
     /**
-     * Handles updating Particle Emitter independent data such as position and life
+     * Handles updating Particle Emitter independent data such as position, life
      * @param dt the timestep
      */
     virtual void update(float dt);
@@ -26,16 +26,22 @@ struct Particle {
 
     /**
      * @param src_color the base color
-     * @param rgb_diff_factor 0.0f - 1.0f random offset
-     * @param a_diff_factor 0.0f - 1.0f random offset since alpha is usually max
-     * @return a random color similar to the src_color and off by the given factors
+     * @param rgb_diff_factor 0.0f-1.0f random offset
+     * @param a_diff_factor 0.0f-1.0f random offset since alpha is usually max
+     * @return a random color similar to the src_color
      */
-    static glm::vec4 random_color(const glm::vec4 &src_color, float rgb_diff_factor, float a_diff_factor) {
+    static glm::vec4 random_color(const glm::vec4 &src_color,
+                                  float rgb_diff_factor,
+                                  float a_diff_factor) {
         glm::vec4 color;
-        color.r = src_color.r + util::random<float>(-rgb_diff_factor / 2.0f, rgb_diff_factor / 2.0f);
-        color.g = src_color.g + util::random<float>(-rgb_diff_factor / 2.0f, rgb_diff_factor / 2.0f);
-        color.b = src_color.b + util::random<float>(-rgb_diff_factor / 2.0f, rgb_diff_factor / 2.0f);
-        color.a = src_color.a + util::random<float>(-a_diff_factor / 2.0f, a_diff_factor / 2.0f);
+        color.r = src_color.r +
+            util::random<float>(-rgb_diff_factor / 2.0f, rgb_diff_factor / 2.0f);
+        color.g = src_color.g +
+            util::random<float>(-rgb_diff_factor / 2.0f, rgb_diff_factor / 2.0f);
+        color.b = src_color.b +
+            util::random<float>(-rgb_diff_factor / 2.0f, rgb_diff_factor / 2.0f);
+        color.a = src_color.a +
+            util::random<float>(-a_diff_factor / 2.0f, a_diff_factor / 2.0f);
 
         glm::clamp(color.r, 0.0f, 1.0f);
         glm::clamp(color.g, 0.0f, 1.0f);

@@ -22,7 +22,10 @@ static void setup_imgui(omega::core::Window *window) {
 
     /* ImGui::StyleColorsDark(); */
 
-    ImGui_ImplSDL2_InitForOpenGL(window->get_native_window(), window->get_gl_context());
+    ImGui_ImplSDL2_InitForOpenGL(
+        window->get_native_window(),
+        window->get_gl_context()
+    );
     const char version[] = "#version 450";
     ImGui_ImplOpenGL3_Init(version);
 }
@@ -41,7 +44,10 @@ static void begin_imgui_frame() {
 
 static void end_imgui_frame(omega::core::Window *window) {
     ImGuiIO &io = ImGui::GetIO();
-    io.DisplaySize = ImVec2((float)window->get_width(), (float)window->get_height());
+    io.DisplaySize = ImVec2(
+        (float)window->get_width(),
+        (float)window->get_height()
+    );
 
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
@@ -55,7 +61,13 @@ App *App::current_instance = nullptr;
 App::App(const AppConfig &config) {
     current_instance = this;
     window = Window::instance();
-    running = window->init(config.width, config.height, config.resizable, config.title);
+    running = window->init(
+        config.width,
+        config.height,
+        config.resizable,
+        config.title
+    );
+
     // init TTF_Font
     if (TTF_Init() != 0) {
         util::error("Unable to initialize SDL_ttf: '{}'", SDL_GetError());
@@ -64,7 +76,11 @@ App::App(const AppConfig &config) {
     util::Time::init();
     last_time = util::Time::get_time<float>();
     fps = config.fps;
-    globals = util::create_uptr<Globals>(Viewport(config.viewport_type, config.viewport_width, config.viewport_height), "Main Scene");
+    globals = util::create_uptr<Globals>(Viewport(
+        config.viewport_type,
+        config.viewport_width,
+        config.viewport_height
+    ), "Main Scene");
 
     // init imgui
     imgui = config.imgui;
@@ -111,14 +127,20 @@ void App::run() {
                 running = false;
                 break;
             case events::EventType::window_event:
-                if (event.window.event == (uint32_t)events::WindowEvents::window_resized) {
+                if (event.window.event == 
+                        (uint32_t)events::WindowEvents::window_resized) {
                     // change window width, height data
-                    Window::instance()->on_resize(event.window.data1, event.window.data2);
-                    if (on_resize != nullptr) { on_resize(event.window.data1, event.window.data2, globals.get()); }
+                    Window::instance()->on_resize(event.window.data1,
+                                                  event.window.data2);
+                    if (on_resize != nullptr) {
+                        on_resize(event.window.data1, event.window.data2, 
+                                  globals.get());
+                    }
                 }
                 break;
             case events::EventType::mouse_wheel:
-                input.scroll_wheel = glm::vec2((float)event.wheel.x, (float)event.wheel.y);
+                input.scroll_wheel = glm::vec2((float)event.wheel.x,
+                                               (float)event.wheel.y);
             default:
                 break;
             }

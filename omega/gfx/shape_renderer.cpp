@@ -37,9 +37,12 @@ ShapeRenderer::ShapeRenderer() : view_proj_matrix_name("u_ViewProjMatrix") {
             color = v_Color;
         }
     )glsl";
-    triangle_shader = create_uptr<Shader>(std::string(vertex), std::string(fragment));
+    triangle_shader =
+        create_uptr<Shader>(std::string(vertex), std::string(fragment));
     // create vertex buffer
-    triangle_vbo = create_uptr<VertexBuffer>(sizeof(float) * num_triangles * num_vertices_per_triangle * num_attributes);
+    triangle_vbo = create_uptr<VertexBuffer>(
+        sizeof(float) * num_triangles *
+        num_vertices_per_triangle * num_attributes);
     // create vertex array
     triangle_vao = create_uptr<VertexArray>();
     // create vertex buffer layout
@@ -56,7 +59,8 @@ void ShapeRenderer::begin() {
 void ShapeRenderer::end() {
     triangle_shader->bind();
     triangle_vao->bind();
-    glDrawArrays(GL_TRIANGLES, 0, triangles_renderered * num_vertices_per_triangle);
+    glDrawArrays(GL_TRIANGLES, 0,
+                 triangles_renderered * num_vertices_per_triangle);
     // unbind all objects
     VertexArray::unbind();
     Shader::unbind();
@@ -99,27 +103,40 @@ void ShapeRenderer::rect(const glm::rectf &rect, float rotation) {
     triangle(points[2], points[3], points[0]);
 }
 
-void ShapeRenderer::triangle(float x1, float y1, float x2, float y2, float x3, float y3) {
+void ShapeRenderer::triangle(float x1, float y1,
+                             float x2, float y2,
+                             float x3, float y3) {
     if (triangles_renderered == num_triangles) {
         end();
         begin();
     }
 
     ShapeVertex v1, v2, v3;
-    v1 = {{x1, y1}, {current_color.r, current_color.g, current_color.b, current_color.a}};
-    v2 = {{x2, y2}, {current_color.r, current_color.g, current_color.b, current_color.a}};
-    v3 = {{x3, y3}, {current_color.r, current_color.g, current_color.b, current_color.a}};
+    v1 = {{x1, y1},
+        {current_color.r, current_color.g, current_color.b, current_color.a}};
+    v2 = {{x2, y2},
+        {current_color.r, current_color.g, current_color.b, current_color.a}};
+    v3 = {{x3, y3},
+        {current_color.r, current_color.g, current_color.b, current_color.a}};
+    
     ShapeTriangle triangle = {v1, v2, v3};
     triangle_vbo->bind();
-    triangle_vbo->sub_data(triangles_renderered * sizeof(ShapeTriangle), sizeof(ShapeTriangle), triangle.data());
+    triangle_vbo->sub_data(
+        triangles_renderered * sizeof(ShapeTriangle),
+        sizeof(ShapeTriangle),
+        triangle.data());
     triangles_renderered++;
 }
 
-void ShapeRenderer::triangle(const glm::vec2 &p1, const glm::vec2 &p2, const glm::vec2 &p3) {
+void ShapeRenderer::triangle(const glm::vec2 &p1,
+                             const glm::vec2 &p2,
+                             const glm::vec2 &p3) {
     triangle(p1.x, p1.y, p2.x, p2.y, p3.x, p3.y);
 }
 
-void ShapeRenderer::circle(const glm::vec2 &center, float radius, uint32_t segments) {
+void ShapeRenderer::circle(const glm::vec2 &center,
+                           float radius,
+                           uint32_t segments) {
     // estimate number of triangles
     float angle_incr = glm::pi<float>() * 2 / segments;
     glm::vec2 p2, p3;
@@ -135,7 +152,9 @@ void ShapeRenderer::circle(const glm::vec2 &center, float radius, uint32_t segme
     }
 }
 
-void ShapeRenderer::line(const glm::vec2 &p1, const glm::vec2 &p2, float thickness) {
+void ShapeRenderer::line(const glm::vec2 &p1,
+                         const glm::vec2 &p2,
+                         float thickness) {
     glm::vec2 slope = p2 - p1;
     glm::vec2 perpendicular = glm::vec2(-slope.y, slope.x);
     glm::vec2 norm_perp = glm::normalize(perpendicular);
@@ -151,7 +170,9 @@ void ShapeRenderer::line(const glm::vec2 &p1, const glm::vec2 &p2, float thickne
     triangle(r3, r4, r1);
 }
 
-void ShapeRenderer::line(float x1, float y1, float x2, float y2, float thickness) {
+void ShapeRenderer::line(float x1, float y1,
+                         float x2, float y2,
+                         float thickness) {
     line(glm::vec2(x1, y1), glm::vec2(x2, y2), thickness);
 }
 

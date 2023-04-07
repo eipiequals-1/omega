@@ -41,15 +41,20 @@ inline glm::vec3 intbound(glm::vec3 s, glm::vec3 ds) {
     return res;
 }
 
-// Direct copy of https://github.com/jdah/minecraft-again/blob/master/src/util/ray.hpp
+// Direct copy of 
+// https://github.com/jdah/minecraft-again/blob/master/src/util/ray.hpp
 struct Ray {
     glm::vec3 origin{0.0f};
     glm::vec3 direction{0.0f};
 
-    Ray(const glm::vec3& origin, const glm::vec3 &direction) : origin(origin),
-                                                               direction(direction) {}
+    Ray(const glm::vec3& origin,
+        const glm::vec3 &direction) : origin(origin),
+                                      direction(direction) {}
 
-    std::optional<std::tuple<glm::ivec3, glm::vec3>> intersect_block(std::function<bool(glm::ivec3)> f, float max_distance) {
+    std::optional<std::tuple<glm::ivec3, glm::vec3>>
+        intersect_block(std::function<bool(glm::ivec3)> f,
+                        float max_distance) {
+
         glm::ivec3 d{0};
         glm::ivec3 p, step;
         glm::vec3 t_max, t_delta;
@@ -168,7 +173,15 @@ struct rect {
      * Returns the {string} rectangle data for debugging purposes
      */
     std::string to_string() const {
-        return std::string("rect(") + std::to_string(x) + ", " + std::to_string(y) + ", " + std::to_string(w) + ", " + std::to_string(h) + ")";
+        return std::string("rect(") +
+               std::to_string(x) +
+               ", " +
+               std::to_string(y) +
+               ", " +
+               std::to_string(w) +
+               ", " +
+               std::to_string(h) +
+               ")";
     }
 
     /**
@@ -189,7 +202,10 @@ struct rect {
 
     template <typename C>
     rect<C> convert_type() const {
-        return rect<C>(static_cast<C>(x), static_cast<C>(y), static_cast<C>(w), static_cast<C>(h));
+        return rect<C>(static_cast<C>(x),
+                       static_cast<C>(y),
+                       static_cast<C>(w),
+                       static_cast<C>(h));
     }
 };
 
@@ -206,10 +222,11 @@ using rectd = rect<f64>;
  * @param radius2 circle2 radius
  * @return if they intersect
  */
-bool circle_vs_circle(const glm::vec2 &center1, float radius1, const glm::vec2 &center2, float radius2);
+bool circle_vs_circle(const glm::vec2 &center1, float radius1,
+                      const glm::vec2 &center2, float radius2);
 
 /**
- * Returns the distance squared between two points to avoid unnecessary and slow sqrts
+ * Returns the distance squared between two points to avoid sqrts
  * @param p1 point1
  * @param p2 point2
  * @return the distance squared
@@ -232,7 +249,9 @@ T lerp(const T& min, const T& max, float t) {
  * @param p the point mapped in the initial range
  */
 template <typename T>
-T map_range(const T& min1, const T& max1, const T& min2, const T& max2, const T& p) {
+T map_range(const T& min1, const T& max1,
+            const T& min2, const T& max2,
+            const T& p) {
     T t = (p - min1) / (max1 - min1);
     return min2 + (max2 - min2) * t;
 }

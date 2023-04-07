@@ -44,7 +44,10 @@ class MapRenderer {
      * @param layer_width_pix width of the layer in pixels
      * @param layer_height_pix height of the layer in pixels
      */
-    void set_tile_pixels(uint32_t *tile_start, const Tile &tile, uint32_t layer_width_pix, uint32_t layer_height_pix) {
+    void set_tile_pixels(uint32_t *tile_start,
+                         const Tile &tile,
+                         uint32_t layer_width_pix,
+                         uint32_t layer_height_pix) {
         (void)layer_height_pix;
         // get tileset image and pixels
         const Tileset &tileset = map->tilesetCollection[tile.tilesetIndex];
@@ -68,7 +71,9 @@ class MapRenderer {
         }
         // copy pixels from tileset to tile
         for (uint32_t y = 0; y < src_h; ++y) {
-            const uint32_t *tileset_pixel_row = &tileset_pixels[(src_y + y) * tileset_img->get_width() + src_x];
+            const uint32_t *tileset_pixel_row =
+                &tileset_pixels[(src_y + y) * tileset_img->get_width() + src_x];
+            
             for (uint32_t x = 0; x < src_w; ++x) {
                 uint32_t tileset_pix_data = tileset_pixel_row[x];
                 // copy r, g, b, a

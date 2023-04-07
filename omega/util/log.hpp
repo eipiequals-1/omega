@@ -24,7 +24,10 @@ static inline void format(std::stringstream &stream, const std::string &str) {
 }
 
 template <typename T, typename... Args>
-static inline void format(std::stringstream &stream, const std::string &str, T t, Args &&...args) {
+static inline void format(std::stringstream &stream,
+                          const std::string &str,
+                          T t,
+                          Args &&...args) {
     size_t first_bracket = str.find("{}", 0);
     if (first_bracket != std::string::npos) {
         stream << str.substr(0, first_bracket);

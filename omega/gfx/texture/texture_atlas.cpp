@@ -8,7 +8,8 @@
 
 namespace omega::gfx::texture {
 
-TextureAtlas::TextureAtlas(const std::string &atlas_file_path, GLenum min_filter, GLenum mag_filter) {
+TextureAtlas::TextureAtlas(const std::string &atlas_file_path,
+                           GLenum min_filter, GLenum mag_filter) {
     // open file
     FILE *atlas_file = fopen(atlas_file_path.c_str(), "r");
     if (atlas_file == nullptr) {
@@ -37,7 +38,8 @@ TextureAtlas::TextureAtlas(const std::string &atlas_file_path, GLenum min_filter
         // must be line 1 -> contains image
         if (i == 0) {
             // get full path to image file
-            std::string path = atlas_file_path.substr(0, atlas_file_path.size() - 5);
+            std::string path = 
+                atlas_file_path.substr(0, atlas_file_path.size() - 5);
             path += "png";
             tex = Texture::create_from_file(path, min_filter, mag_filter);
             continue;
@@ -55,7 +57,8 @@ TextureAtlas::TextureAtlas(const std::string &atlas_file_path, GLenum min_filter
             w = std::stoi(words[3]);
             h = std::stoi(words[4]);
             // create TextureRegion
-            tex_regions[tex_region_key] = util::create_uptr<TextureRegion>(tex.get(), x, y, w, h);
+            tex_regions[tex_region_key] =
+                util::create_uptr<TextureRegion>(tex.get(), x, y, w, h);
         }
     }
 }

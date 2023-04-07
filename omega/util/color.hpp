@@ -6,13 +6,16 @@
 namespace omega::util::color {
 
 /**
- * Converts a 32 bit representation of a color to a normalized rgba color vector
+ * Converts a 32 bit representation of a color to a float rgba color vector
  * @param a the 32 bit color
  * @return the rgba color vector
  */
 inline glm::vec4 to_vec4(glm::uint32_t a) {
     unsigned char *vals = (unsigned char *)&a;
-    return glm::vec4(vals[0] / 0xff, vals[1] / 0xff, vals[2] / 0xff, vals[3] / 0xff);
+    return glm::vec4(vals[0] / 0xff,
+                     vals[1] / 0xff,
+                     vals[2] / 0xff,
+                     vals[3] / 0xff);
 }
 
 /**

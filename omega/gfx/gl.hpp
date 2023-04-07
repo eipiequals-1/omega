@@ -69,11 +69,17 @@ inline bool check_error() {
         switch (error) {
             case GL_INVALID_ENUM: error_string = "INVALID_ENUM"; break;
             case GL_INVALID_VALUE: error_string = "INVALID_VALUE"; break;
-            case GL_INVALID_OPERATION: error_string = "INVALID_OPERATION"; break;
-            case GL_INVALID_FRAMEBUFFER_OPERATION: error_string = "INVALID_FRAMEBUFFER_OPERATION"; break;
+            case GL_INVALID_OPERATION:
+                error_string = "INVALID_OPERATION"; break;
+            case GL_INVALID_FRAMEBUFFER_OPERATION:
+                error_string = "INVALID_FRAMEBUFFER_OPERATION"; break;
             case GL_INVALID_INDEX: error_string = "INVALID_INDEX"; break;
         }
-        std::cout << "[OpenGL Error] (" << error << ": " << error_string << ")\n";
+        std::cout << "[OpenGL Error] ("
+            << error
+            << ": "
+            << error_string
+            << ")\n";
         count++;
     }
     return count > 0;
@@ -117,7 +123,8 @@ inline void set_depth_test(bool b) {
  * @param sfactor (default = OMEGA_GL_SRC_ALPHA)
  * @param dfactor (default = OMEGA_GL_ONE_MINUS_SRC_ALPHA)
  */
-inline void enable_blending(macro sfactor = OMEGA_GL_SRC_ALPHA, macro dfactor = OMEGA_GL_ONE_MINUS_SRC_ALPHA) {
+inline void enable_blending(macro sfactor = OMEGA_GL_SRC_ALPHA,
+                            macro dfactor = OMEGA_GL_ONE_MINUS_SRC_ALPHA) {
     glEnable(OMEGA_GL_BLEND);
     glBlendFunc(sfactor, dfactor);
 }
@@ -139,7 +146,10 @@ inline void draw_arrays(macro render_type, uint32_t start, uint32_t count) {
  * @param type type of indices (i.e. OMEGA_GL_UNSIGNED_INT)
  * @param indices pointer to the indices or if using IndexBuffer (nullptr)
  */
-inline void draw_elements(macro mode, int32_t count, uint32_t type, const void *indices) {
+inline void draw_elements(macro mode,
+                          int32_t count,
+                          uint32_t type,
+                          const void *indices) {
     glDrawElements(mode, count, type, indices);
 }
 
