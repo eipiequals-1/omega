@@ -52,6 +52,17 @@ cc_library(
 )
 
 cc_library(
+    name = "imgui",
+    srcs = ["imgui.cpp"],
+    hdrs = ["imgui.hpp"],
+    copts = DEFAULT_COPTS,
+    linkopts = DEFAULT_LINKOPTS,
+    deps = [
+        "//lib/imgui:imgui",
+    ]
+)
+
+cc_library(
     name = "entity",
     hdrs = ["entity.hpp"],
     copts = DEFAULT_COPTS,

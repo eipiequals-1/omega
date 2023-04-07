@@ -14,11 +14,29 @@ cc_binary(
     linkopts = DEFAULT_LINKOPTS,
     deps = [
         "//lib/entt:entt",
-        "//lib/imgui:imgui",
         "//omega/core:core",
         "//omega/gfx:gfx",
         "//omega/gfx:gl",
         "//omega/util:color",
         "//omega/util:math",
+        "//omega/scene:imgui",
+
+        ":scene"
+    ]
+)
+
+cc_library(
+    name = "scene",
+    srcs = ["scene.cpp"],
+    hdrs = ["scene.hpp"],
+    copts = DEFAULT_COPTS,
+    linkopts = DEFAULT_LINKOPTS,
+    deps = [
+        "//omega/gfx:gfx",
+        "//omega/gfx:frame_buffer",
+        "//omega/gfx:gl",
+        "//omega/scene:orthographic_camera",
+        "//omega/scene:imgui",
+        "//omega/util:std"
     ]
 )
