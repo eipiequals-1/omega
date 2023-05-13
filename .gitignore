@@ -1,0 +1,10 @@
+bazel-*
+*.xcf
+*.o
+*.so
+*bin/
+tests
+*.txt
+TODO
+*.out
+*.ini
