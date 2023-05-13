@@ -105,13 +105,9 @@ float App::tick() {
 }
 
 void App::run() {
-    if (setup == nullptr) {
-        running = false;
-        util::error("App::setup not specified");
-    } else {
-        setup(globals.get());
-    }
-    while (running) {
+    setup();
+
+    auto frame = [&]() {
         float dt = tick();
         
         auto &input = globals->input;
@@ -132,10 +128,7 @@ void App::run() {
                     // change window width, height data
                     Window::instance()->on_resize(event.window.data1,
                                                   event.window.data2);
-                    if (on_resize != nullptr) {
-                        on_resize(event.window.data1, event.window.data2, 
-                                  globals.get());
-                    }
+                    on_resize(event.window.data1, event.window.data2); 
                 }
                 break;
             case events::EventType::mouse_wheel:
@@ -146,21 +139,19 @@ void App::run() {
             }
         }
         input.update();
-        // perform the input
-        if (this->input != nullptr) {
-            if (this->input(dt, globals.get(), &input)) { break; }
-        }
-        if (this->update != nullptr) {
-            if (this->update(dt, globals.get())) { break; }
-        }
+        // perform the input, update, and render
+        this->input(dt);
+        this->update(dt);
+
         begin_imgui_frame();
-        if (this->render != nullptr) {
-            this->render(dt, globals.get());
-        }
+        this->render(dt);
         end_imgui_frame(window);
 
         window->swap_buffers();
-    }
+
+    };
+
+    while (running) { frame(); }
 }
 
 } // namespace omega::core

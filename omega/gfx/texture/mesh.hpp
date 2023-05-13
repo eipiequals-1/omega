@@ -20,7 +20,7 @@ class Mesh {
     Mesh();
 
     template <typename T>
-    void set_vertices(const std::span<T> *data) {}
+    void set_vertices(const std::span<T> *data) { (void)data;}
     void render(Shader &shader);
 
   private:

@@ -34,21 +34,21 @@ struct AppConfig {
  *
  * @example
  *
- * omega::core::ApplicationConfig config;
+ * class MyGame : public App {}
+ *
+ * int main() {
+ *
+ * omega::core::AppConfig config;
+ *
  * // set application width, height, title, window settings etc
+ *
  * MyGame game(config);
- * // set the setup, update, render, input, on_resize functions
- * game.setup = [](Globals *globals) { // code }
+ *
  * game.run();
+ * }
  */
-class App final {
+class App {
   public:
-    std::function<void(Globals*)> setup = nullptr;
-    std::function<bool(float, Globals*)> update = nullptr;
-    std::function<void(float, Globals*)> render = nullptr;
-    std::function<bool(float, Globals*, events::InputManager*)> input = nullptr;
-    std::function<void(uint32_t, uint32_t, Globals*)> on_resize = nullptr;
-
     /**
      * Constructs an application given the configuration
      * @param config
@@ -72,7 +72,15 @@ class App final {
      */
     Window* get_window() { return window; }
 
-  private:
+    virtual void setup() {};
+    virtual void update(float dt) {(void)dt;};
+    virtual void input(float dt) { (void)dt;}
+    virtual void render(float dt) { (void)dt; }
+    virtual void on_resize(uint32_t width, uint32_t height) {
+        globals->scene.on_resize(width, height);
+    }
+
+  protected:
 
     /**
      * Clamps the application by sleeping the CPU to run at Application::fps
