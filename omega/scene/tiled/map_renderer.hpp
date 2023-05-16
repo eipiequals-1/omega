@@ -6,6 +6,7 @@
 #include <vector>
 
 #include "omega/gfx/sprite_batch.hpp"
+#include "omega/gfx/frame_buffer.hpp"
 #include "omega/gfx/texture/texture.hpp"
 #include "omega/util/util.hpp"
 #include "omega/scene/tiled/map.hpp"
@@ -23,6 +24,7 @@ using namespace omega::gfx::texture;
 class MapRenderer {
   public:
     explicit MapRenderer(Map *map, const std::string &tileset_path);
+    void setup(gfx::SpriteBatch &sprite_batch);
     virtual ~MapRenderer();
 
     /**
@@ -84,6 +86,7 @@ class MapRenderer {
         }
     }
     Map *map = nullptr;
+    std::vector<gfx::FrameBuffer> layers;
     uptr<TextureManager<uint32_t>> tex_manager = nullptr;
     std::vector<sptr<Texture>> layer_texture;
 };
