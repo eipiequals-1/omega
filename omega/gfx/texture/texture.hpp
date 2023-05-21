@@ -55,15 +55,28 @@ class Texture {
         const std::string &filepath,
         GLenum min_filter = GL_NEAREST,
         GLenum mag_filter = GL_NEAREST) {
+#ifdef EMSCRIPTEN
+        SDL_Surface * surface = IMG_Load(filepath.c_str());
+        if (surface == nullptr) {
+            util::error("IMG Error: Error loading '{}', IMG error: '{}'", 
+                        filepath, SDL_GetError());
+        }
+        util::uptr<Texture> texture = util::uptr<Texture>(new Texture(
+            surface->w, surface->h, min_filter, mag_filter));
+        texture->load((uint32_t *)surface->pixels);
+        SDL_FreeSurface(surface);
+#else
         int width, height, nrChannels;
         stbi_uc* data = stbi_load(filepath.c_str(), &width, &height,
                                   &nrChannels, 0);
         if (data == nullptr) {
-            util::error("STB Error: Error loading '", filepath, "'");
+            util::error("STB Error: Error loading '{}'", filepath);
         }
         util::uptr<Texture> texture = util::uptr<Texture>(
             new Texture(width, height, min_filter, mag_filter));
         texture->load((uint32_t *)data);
+#endif
+
         return texture;
     }
 

@@ -31,6 +31,8 @@ void VertexArray::add_buffer(const VertexBuffer &vb,
         offset +=
             element.count * VertexBufferAttrib::get_size_of_type(element.type);
     }
+    unbind();
+    vb.unbind();
 }
 
 void VertexArray::bind() const {

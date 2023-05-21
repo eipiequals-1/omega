@@ -26,7 +26,11 @@ static void setup_imgui(omega::core::Window *window) {
         window->get_native_window(),
         window->get_gl_context()
     );
+#ifdef EMSCRIPTEN
+    const char version[] = "#version 100";
+#else
     const char version[] = "#version 450";
+#endif
     ImGui_ImplOpenGL3_Init(version);
 }
 
@@ -88,7 +92,9 @@ App::App(const AppConfig &config) {
 }
 
 App::~App() {
-    quit_imgui();
+    if (imgui) {
+        quit_imgui();
+    }
     SDL_Quit();
     TTF_Quit();
 }
@@ -104,27 +110,24 @@ float App::tick() {
     return dt;
 }
 
-void App::run() {
-    setup();
+void App::frame() {
+    float dt = tick();
 
-    auto frame = [&]() {
-        float dt = tick();
-        
-        auto &input = globals->input;
-        input.prepare_for_update();
-        
-        events::Event event;
-        while (input.poll_events(event)) {
-            if (imgui) {
-                ImGui_ImplSDL2_ProcessEvent(&event);
-            }
-            switch ((events::EventType)event.type) {
+    auto &input = globals->input;
+    input.prepare_for_update();
+
+    events::Event event;
+    while (input.poll_events(event)) {
+        if (imgui) {
+            ImGui_ImplSDL2_ProcessEvent(&event);
+        }
+        switch ((events::EventType)event.type) {
             case events::EventType::quit:
                 running = false;
                 break;
             case events::EventType::window_event:
                 if (event.window.event == 
-                        (uint32_t)events::WindowEvents::window_resized) {
+                    (uint32_t)events::WindowEvents::window_resized) {
                     // change window width, height data
                     Window::instance()->on_resize(event.window.data1,
                                                   event.window.data2);
@@ -136,22 +139,33 @@ void App::run() {
                                                (float)event.wheel.y);
             default:
                 break;
-            }
         }
-        input.update();
-        // perform the input, update, and render
-        this->input(dt);
-        this->update(dt);
+    }
+    input.update();
+    // perform the input, update, and render
+    this->input(dt);
+    this->update(dt);
 
-        begin_imgui_frame();
-        this->render(dt);
-        end_imgui_frame(window);
+    begin_imgui_frame();
+    this->render(dt);
+    end_imgui_frame(window);
 
-        window->swap_buffers();
+    window->swap_buffers();
+}
 
-    };
+static void update_loop() {
+    auto &app = App::instance();
+    app.frame();
+}
 
-    while (running) { frame(); }
+void App::run() {
+    setup();
+
+#ifdef EMSCRIPTEN
+    emscripten_set_main_loop(update_loop, 0, 1);
+#else
+    while (running) { update_loop(); }
+#endif
 }
 
 } // namespace omega::core

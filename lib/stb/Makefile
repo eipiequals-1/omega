@@ -1,4 +1,4 @@
-CC = clang++
+CC = emcc
 CFLAGS = -std=c++20 -fPIC
 OPT = -O3
 

@@ -8,23 +8,6 @@ load(
 
 package(default_visibility= ["//visibility:public"])
 
-cc_library(
-    name = "mesh",
-    srcs = ["mesh.cpp"],
-    hdrs = ["mesh.hpp"],
-    copts = DEFAULT_COPTS,
-    linkopts = DEFAULT_LINKOPTS,
-    deps = [
-        "@SDL2//:SDL2",
-        "//omega/gfx:gl",
-        "//omega/gfx:shader",
-        "//omega/gfx:vertex_buffer",
-        "//omega/gfx:index_buffer",
-        "//omega/gfx:vertex_buffer_layout",
-        "//omega/gfx:vertex_array",
-        "//omega/util:std",
-    ]
-)
 
 cc_library(
     name = "texture",

@@ -1,9 +1,7 @@
 #ifndef OMEGA_GFX_GL_HPP
 #define OMEGA_GFX_GL_HPP
 
-#include "lib/glad/include/glad/glad.h"
-/* #include <GL/gl.h> */
-/* #include <GL/glu.h> */
+#include "omega/core/platform.hpp"
 
 #include <iostream>
 
@@ -73,7 +71,9 @@ inline bool check_error() {
                 error_string = "INVALID_OPERATION"; break;
             case GL_INVALID_FRAMEBUFFER_OPERATION:
                 error_string = "INVALID_FRAMEBUFFER_OPERATION"; break;
+#ifndef EMSCRIPTEN
             case GL_INVALID_INDEX: error_string = "INVALID_INDEX"; break;
+#endif
         }
         std::cout << "[OpenGL Error] ("
             << error

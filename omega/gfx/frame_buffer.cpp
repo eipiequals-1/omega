@@ -23,7 +23,11 @@ void FrameBuffer::resize(uint32_t width, uint32_t height) {
     }
     this->width = width;
     this->height = height;
+#ifdef EMSCRIPTEN
+    glGenFramebuffers(1, &id);
+#else
     glCreateFramebuffers(1, &id);
+#endif
     glBindFramebuffer(GL_FRAMEBUFFER, id);
     check_error();
     // create color buffer
@@ -35,13 +39,26 @@ void FrameBuffer::resize(uint32_t width, uint32_t height) {
                            color_buffer->get_renderer_id(),
                            0);
     // create depth and stencil buffer in render buffer
+#ifdef EMSCRIPTEN
+    glGenRenderbuffers(1, &rbo_depth_stencil);
+#else
     glCreateRenderbuffers(1, &rbo_depth_stencil);
+#endif
     glBindRenderbuffer(GL_RENDERBUFFER, rbo_depth_stencil);
+
+#ifdef EMSCRIPTEN
+    glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT16, width, height);
+    glFramebufferRenderbuffer(GL_FRAMEBUFFER,
+                              GL_DEPTH_ATTACHMENT,
+                              GL_RENDERBUFFER,
+                              rbo_depth_stencil);
+#else
     glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, width, height);
     glFramebufferRenderbuffer(GL_FRAMEBUFFER,
                               GL_DEPTH_STENCIL_ATTACHMENT,
                               GL_RENDERBUFFER,
                               rbo_depth_stencil);
+#endif
 
     // check if it was successful
     if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {

@@ -5,6 +5,7 @@
 #include <cstdint>
 #include <string>
 
+#include "omega/gfx/gl.hpp"
 #include "omega/gfx/shader.hpp"
 #include "omega/gfx/vertex_array.hpp"
 #include "omega/gfx/vertex_buffer.hpp"
@@ -170,8 +171,8 @@ class ShapeRenderer {
      * color
      */
     struct ShapeVertex {
-        float pos[2];
-        float color[4];
+        glm::vec2 pos;
+        glm::vec4 color;
     };
 
     // Represent the shape in 3 vertices

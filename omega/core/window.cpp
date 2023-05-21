@@ -22,16 +22,28 @@ Window::~Window() {
 bool Window::init(uint32_t width, uint32_t height, bool resizable, const std::string &title) {
     this->width = width;
     this->height = height;
-    if (SDL_Init((uint32_t)InitFlags::everything) != 0) {
+    if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_EVENTS) != 0) {
         util::error("Failed to initialize SDL: '{}'", SDL_GetError());
         return false;
     }
+
+#ifdef EMSCRIPTEN
+    // use the core OpenGL profile
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_ES);
+    // specify version 4.5
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
+ 
+
+#else
     // use the core OpenGL profile
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
     // specify version 4.5
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 5);
-    // request a color buffer with 8-bits per RGBA channel
+ 
+#endif
+   // request a color buffer with 8-bits per RGBA channel
     SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 8);
     SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE, 8);
     SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE, 8);
@@ -57,11 +69,14 @@ bool Window::init(uint32_t width, uint32_t height, bool resizable, const std::st
         util::error("Failed to disable Vsync: '{}'", SDL_GetError());
         return false;
     }
+
+#ifndef EMSCRIPTEN
     // initialize glad
     if (gladLoadGLLoader(SDL_GL_GetProcAddress) == 0) {
         util::error("Failed to initialize Glad");
         return false;
     }
+#endif
     return true;
 }
 

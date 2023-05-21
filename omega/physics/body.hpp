@@ -1,7 +1,11 @@
 #ifndef OMEGA_PHYSICS_BODY_HPP
 #define OMEGA_PHYSICS_BODY_HPP
 
+#ifdef EMSCRIPTEN
+#include "lib/box2d/box2d.h"
+#else
 #include <box2d/box2d.h>
+#endif
 
 #include "omega/physics/physics_defines.hpp"
 #include "omega/util/math.hpp"

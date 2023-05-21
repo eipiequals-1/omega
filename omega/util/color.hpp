@@ -1,7 +1,7 @@
 #ifndef OMEGA_UTIL_COLOR_HPP
 #define OMEGA_UTIL_COLOR_HPP
 
-#include <glm/glm.hpp>
+#include "omega/util/math.hpp"
 
 namespace omega::util::color {
 

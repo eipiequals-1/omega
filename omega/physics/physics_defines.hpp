@@ -1,7 +1,12 @@
 #ifndef OMEGA_PHYSICS_PHYSICSDEFINES_HPP
 #define OMEGA_PHYSICS_PHYSICSDEFINES_HPP
 
+#ifdef EMSCRIPTEN
+#include "lib/box2d/box2d.h"
+#else
 #include <box2d/box2d.h>
+#endif
+
 
 namespace omega::physics {
 

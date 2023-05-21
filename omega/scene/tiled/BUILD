@@ -32,6 +32,8 @@ cc_library(
         "//omega/util:util",
         "//omega/gfx:sprite_batch",
         "//omega/gfx/texture:texture",
+        "//omega/gfx:frame_buffer",
+        "//omega/scene:orthographic_camera",
         ":map",
     ]
 )

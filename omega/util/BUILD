@@ -28,6 +28,9 @@ cc_library(
     hdrs = ["color.hpp"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
+    deps = [
+        ":math"
+    ]
 )
 
 cc_library(
@@ -43,6 +46,9 @@ cc_library(
     hdrs = ["math.hpp"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
+    deps = [
+        "//lib/glm:glm"
+    ]
 )
 
 cc_library(

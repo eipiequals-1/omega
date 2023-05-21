@@ -4,12 +4,24 @@
 // enable glm hash
 #define GLM_ENABLE_EXPERIMENTAL
 
+#ifndef EMSCRIPTEN
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtx/hash.hpp>
 #include <glm/gtx/string_cast.hpp>
 #include <glm/gtx/norm.hpp>
+
+#else
+
+#include "lib/glm/glm.hpp"
+#include "lib/glm/gtc/matrix_transform.hpp"
+#include "lib/glm/gtc/type_ptr.hpp"
+#include "lib/glm/gtx/hash.hpp"
+#include "lib/glm/gtx/string_cast.hpp"
+#include "lib/glm/gtx/norm.hpp"
+
+#endif
 
 #include <iostream>
 #include <optional>

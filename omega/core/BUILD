@@ -23,6 +23,17 @@ cc_library(
 )
 
 cc_library(
+    name = "platform",
+    hdrs = ["platform.hpp"],
+    copts = DEFAULT_COPTS,
+    linkopts = DEFAULT_LINKOPTS,
+    deps = [
+        "//lib/glad:glad"
+    ]
+)
+
+
+cc_library(
     name = "window",
     srcs = ["window.cpp"],
     hdrs = ["window.hpp"],
@@ -34,6 +45,7 @@ cc_library(
         "//omega/util:std",
         "//omega/util:log",
         ":viewport",
+        ":platform",
         ":sdl2"
     ]
 )

@@ -80,6 +80,8 @@ class App {
         globals->scene.on_resize(width, height);
     }
 
+    void frame();
+
   protected:
 
     /**

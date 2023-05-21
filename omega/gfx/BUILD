@@ -26,8 +26,8 @@ cc_library(
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
-        "//lib/glad:glad",
         "//omega/util:math",
+        "//omega/core:platform",
     ]
 )
 

@@ -42,7 +42,11 @@ util::uptr<uint32_t[]> Texture::get_pixels() {
     auto pixels = std::make_unique<uint32_t[]>(width * height);
 
     glBindTexture(GL_TEXTURE_2D, id);
+#ifdef EMSCRIPTEN
+    omega::util::error("Functionality not available for GLES2!");
+#else
     glGetTexImage(GL_TEXTURE_2D, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels.get());
+#endif
     glBindTexture(GL_TEXTURE_2D, 0);
     return pixels;
 }

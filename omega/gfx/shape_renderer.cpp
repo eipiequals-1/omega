@@ -11,6 +11,34 @@ ShapeRenderer::ShapeRenderer() : view_proj_matrix_name("u_ViewProjMatrix") {
     triangles_renderered = 0;
     current_color = glm::vec4(1.0f);
     // create shaders
+#ifdef EMSCRIPTEN
+    omega::util::print("emscripten is defined");
+    char vertex[] = R"glsl(
+
+        attribute vec2 a_Coord;
+        attribute vec4 a_Color;
+
+        varying vec4 v_Color;
+
+        uniform mat4 u_ViewProjMatrix;
+
+        void main() {
+            gl_Position = u_ViewProjMatrix * vec4(a_Coord.x, a_Coord.y, 0.0, 1.0);
+            v_Color = a_Color;
+        }
+    )glsl";
+
+    char fragment[] = R"glsl(
+        precision mediump float;
+
+        varying vec4 v_Color;
+
+        void main() {
+            gl_FragColor = v_Color;
+        }
+    )glsl";
+
+#else
     char vertex[] = R"glsl(
         #version 450
 
@@ -37,18 +65,21 @@ ShapeRenderer::ShapeRenderer() : view_proj_matrix_name("u_ViewProjMatrix") {
             color = v_Color;
         }
     )glsl";
+#endif
     triangle_shader =
         create_uptr<Shader>(std::string(vertex), std::string(fragment));
     // create vertex buffer
+    omega::util::print("ShapeRenderer vbo");
     triangle_vbo = create_uptr<VertexBuffer>(
         sizeof(float) * num_triangles *
         num_vertices_per_triangle * num_attributes);
-    // create vertex array
-    triangle_vao = create_uptr<VertexArray>();
+
     // create vertex buffer layout
     VertexBufferLayout layout;
     layout.push(GL_FLOAT, 2);
     layout.push(GL_FLOAT, 4);
+    // create vertex array
+    triangle_vao = create_uptr<VertexArray>();
     triangle_vao->add_buffer(*triangle_vbo, layout);
 }
 
@@ -57,12 +88,14 @@ void ShapeRenderer::begin() {
 }
 
 void ShapeRenderer::end() {
-    triangle_shader->bind();
     triangle_vao->bind();
-    glDrawArrays(GL_TRIANGLES, 0,
+    triangle_vbo->bind();
+    triangle_shader->bind();
+    draw_arrays(GL_TRIANGLES, 0,
                  triangles_renderered * num_vertices_per_triangle);
     // unbind all objects
     VertexArray::unbind();
+    VertexBuffer::unbind();
     Shader::unbind();
 }
 
@@ -110,14 +143,15 @@ void ShapeRenderer::triangle(float x1, float y1,
         end();
         begin();
     }
+    (void)x2;
+    (void)y2;
+    (void)x3;
+    (void)y3;
 
     ShapeVertex v1, v2, v3;
-    v1 = {{x1, y1},
-        {current_color.r, current_color.g, current_color.b, current_color.a}};
-    v2 = {{x2, y2},
-        {current_color.r, current_color.g, current_color.b, current_color.a}};
-    v3 = {{x3, y3},
-        {current_color.r, current_color.g, current_color.b, current_color.a}};
+    v1 = {{x1, y1}, current_color};
+    v2 = {{x2, y2}, current_color};
+    v3 = {{x3, y3}, current_color};
     
     ShapeTriangle triangle = {v1, v2, v3};
     triangle_vbo->bind();

@@ -41,7 +41,7 @@ struct Map {
 };
 #endif
 
-#include <tinyxml2.h>
+#include "tinyxml2.h"
 
 #include <vector>
 

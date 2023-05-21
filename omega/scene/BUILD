@@ -87,22 +87,6 @@ cc_library(
 )
 
 cc_library(
-    name = "model",
-    hdrs = ["model.hpp"],
-    srcs = ["model.cpp"],
-    copts = DEFAULT_COPTS,
-    linkopts = DEFAULT_LINKOPTS,
-    deps = [
-        "@assimp//:assimp",
-        "//omega/gfx/texture:texture",
-        "//omega/gfx/texture:mesh",
-        "//omega/gfx:shader",
-        "//omega/util:math",
-        "//omega/util:std",
-    ]
-)
-
-cc_library(
     name = "orthographic_camera",
     srcs = ["orthographic_camera.cpp"],
     hdrs = ["orthographic_camera.hpp"],

@@ -47,7 +47,12 @@ static inline void print_(
         const std::string &str,
         Args &&...args) {
     std::stringstream stream;
+#ifndef EMSCRIPTEN
     stream << color << "[" << level << "]" << "\033[0m";
+#else
+    (void)color;
+    stream << "[" << level << "]";
+#endif
     stream << "[" << file << ":" << line << "]: ";
 
     format(stream, str, args...);

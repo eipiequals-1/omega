@@ -1,4 +1,5 @@
 #include "sprite_batch.hpp"
+#include "omega/gfx/gl.hpp"
 
 #include <algorithm>
 #include <iostream>
@@ -24,6 +25,73 @@ SpriteBatch::SpriteBatch() {
     }
     ibo = create_uptr<IndexBuffer>(indices, index_buffer_capacity);
 
+#ifdef EMSCRIPTEN
+    const char vertex[] = R"glsl(
+
+		attribute vec3 a_Pos;
+		attribute vec4 a_Color;
+		attribute vec2 a_TexCoords;
+		attribute float a_TexIdx;
+		attribute vec3 a_RotationAxis;
+		attribute float a_RotationAngle;
+		attribute vec3 a_CenterOfRotation;
+
+		varying vec4 v_Color;
+		varying vec2 v_TexCoords;
+		varying float v_TexIdx;
+
+		uniform mat4 u_ViewProjMatrix;
+
+        mat4 rotationMatrix(vec3 axis, float angle) {
+            axis = normalize(axis);
+            float s = sin(angle);
+            float c = cos(angle);
+            float oc = 1.0 - c;
+            
+            return mat4(oc * axis.x * axis.x + c, oc * axis.x * axis.y - axis.z * s, oc * axis.z * axis.x + axis.y * s,  0.0,
+        oc * axis.x * axis.y + axis.z * s,  oc * axis.y * axis.y + c, oc * axis.y * axis.z - axis.x * s,  0.0,
+                        oc * axis.z * axis.x - axis.y * s,  oc * axis.y * axis.z + axis.x * s,  oc * axis.z * axis.z + c,           0.0,
+                        0.0,                                0.0,                                0.0,                                1.0);
+        }
+
+		void main() {
+            mat4 model = rotationMatrix(a_RotationAxis, a_RotationAngle * 3.14159265 / 180.0);
+            vec3 position = (model * vec4(a_Pos - a_CenterOfRotation, 1.0)).xyz;
+			position += a_CenterOfRotation;
+            gl_Position = u_ViewProjMatrix * vec4(position, 1.0);
+
+			v_Color = a_Color;
+			v_TexCoords = a_TexCoords;
+			v_TexIdx = a_TexIdx;
+		}
+	)glsl";
+
+    const char fragment[] = R"glsl(
+
+        precision mediump float;
+
+		varying vec4 v_Color;
+		varying vec2 v_TexCoords;
+		varying float v_TexIdx;
+
+		uniform sampler2D u_Textures[32];
+
+        vec4 getTextureColor(int id) {
+            for (int i = 0; i < 32; i++) {
+                if (i == id) {
+                    return texture2D(u_Textures[i], v_TexCoords);
+                }
+            }
+        }
+
+		void main() {
+			int idx = int(floor(v_TexIdx));
+            vec4 color = getTextureColor(0);
+            
+            gl_FragColor = color * v_Color;
+		}
+	)glsl";
+#else
     const char vertex[] = R"glsl(
 		#version 450
 		
@@ -80,6 +148,7 @@ SpriteBatch::SpriteBatch() {
 			color = texture(u_Textures[idx], v_TexCoords) * v_Color;
 		}
 	)glsl";
+#endif
 
     sprite_shader = create_uptr<Shader>(std::string(vertex),
                                         std::string(fragment));
@@ -114,6 +183,7 @@ void SpriteBatch::begin_render() {
     for (size_t i = 0; i < textures_to_render.size(); i++) {
         textures_to_render[i] = nullptr;
     }
+    sprite_shader->bind();
 }
 
 void SpriteBatch::render_texture(const Texture *texture,
@@ -231,6 +301,7 @@ void SpriteBatch::render_texture(const Texture *texture,
 
     vbo->bind();
     vbo->sub_data(sizeof(Quad) * quads_rendered, sizeof(Quad), quad);
+    vbo->unbind();
     quads_rendered++;
 }
 
@@ -246,13 +317,12 @@ void SpriteBatch::render_texture_region(const TextureRegion *texture_region,
 void SpriteBatch::end_render() {
     sprite_shader->bind();
     vao->bind();
+    vbo->bind();
     ibo->bind();
-    glDrawElements(GL_TRIANGLES,
-                   quads_rendered * index_count,
-                   GL_UNSIGNED_INT,
-                   nullptr);
+    draw_elements(OMEGA_GL_TRIANGLES, quads_rendered * index_count, OMEGA_GL_UNSIGNED_INT, nullptr);
 
     VertexArray::unbind();
+    VertexBuffer::unbind();
     IndexBuffer::unbind();
     Shader::unbind();
 }
