@@ -1,11 +1,15 @@
-CC = emcc
-CFLAGS = -g -Wall -Wextra -Wcast-qual -Wconversion-null -Wformat-security -Wmissing-declarations -Woverlength-strings -Wpointer-arith -Wundef -Wunused-local-typedefs -Wunused-result -Wvarargs -Wvla -Wwrite-strings -DNOMINMAX -Werror -fno-omit-frame-pointer -std=c++20 -fPIC
-PROFILE_FLAGS= -pg
+CC = clang++
+
+CFLAGS = -Wall -Wextra -Wcast-qual -Wconversion-null -Wformat-security
+CFLAGS += -Wmissing-declarations -Woverlength-strings -Wpointer-arith -Wundef
+CFLAGS += -Wunused-local-typedefs -Wunused-result -Wvarargs -Wvla
+CFLAGS += -Wwrite-strings -DNOMINMAX -Werror -fno-omit-frame-pointer
+CFLAGS += -std=c++20 -fPIC
+
+OPT = -O3
+
 LDFLAGS = -g
 INCLUDE = -I./include/ -I../../
-LIBS = 
-MACROS =
-OPT = -O3
 
 BIN = bin
 SRC = src/glad.cpp
