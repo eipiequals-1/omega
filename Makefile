@@ -6,6 +6,7 @@ EMCCFLAGS += -s USE_SDL_IMAGE=2
 EMCCFLAGS += -s SDL2_IMAGE_FORMATS='["png"]'
 EMCCFLAGS += -s USE_SDL_MIXER=2
 EMCCFLAGS += -s USE_SDL_TTF=2
+EMCCFLAGS += -s USE_FULL_ES3
 
 CFLAGS = -Wall -Wextra -Wcast-qual -Wconversion-null -Wformat-security
 CFLAGS += -Wmissing-declarations -Woverlength-strings -Wpointer-arith -Wundef
