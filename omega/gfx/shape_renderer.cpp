@@ -12,7 +12,6 @@ ShapeRenderer::ShapeRenderer() : view_proj_matrix_name("u_ViewProjMatrix") {
     current_color = glm::vec4(1.0f);
     // create shaders
 #ifdef EMSCRIPTEN
-    omega::util::print("emscripten is defined");
     char vertex[] = R"glsl(
 
         attribute vec2 a_Coord;
