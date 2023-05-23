@@ -28,10 +28,10 @@ bool Window::init(uint32_t width, uint32_t height, bool resizable, const std::st
     }
 
 #ifdef EMSCRIPTEN
-    // use the core OpenGL profile
+    // use the ES OpenGL profile
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_ES);
-    // specify version 4.5
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
+    // specify version 3.0
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
  
 
