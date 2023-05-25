@@ -22,11 +22,16 @@ void VertexArray::add_buffer(const VertexBuffer &vb,
         const auto &element = elements[i];
         // initialize attribute
         glEnableVertexAttribArray(i);
-        // set pointer to data
-        glVertexAttribPointer(
-            i, element.count, element.type, element.normalized,
-            layout.get_stride(), (const void *)offset);
 
+        // set pointer to data
+        if (element.type == GL_INT || element.type == GL_UNSIGNED_INT) {
+            glVertexAttribIPointer(i, element.count, element.type,
+                layout.get_stride(), (const void *)offset);
+        } else {
+            glVertexAttribPointer(
+                i, element.count, element.type, element.normalized,
+                layout.get_stride(), (const void *)offset);
+        }
         // increase offset for pointer value
         offset +=
             element.count * VertexBufferAttrib::get_size_of_type(element.type);

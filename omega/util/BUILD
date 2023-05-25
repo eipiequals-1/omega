@@ -41,6 +41,16 @@ cc_library(
 )
 
 cc_library(
+    name = "mask",
+    hdrs = ["mask.hpp"],
+    copts = DEFAULT_COPTS,
+    linkopts = DEFAULT_LINKOPTS,
+    deps = [
+        "//omega/gfx/texture:texture"
+    ]
+)
+
+cc_library(
     name = "math",
     srcs = ["math.cpp"],
     hdrs = ["math.hpp"],
