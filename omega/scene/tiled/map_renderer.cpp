@@ -53,7 +53,7 @@ void MapRenderer::setup(gfx::SpriteBatch &sprite_batch) {
             start_y = row * tile_height;  // y offset in pixels
             
             if (tile.gid == 0) {continue;}
-            uint32_t gid = tile.gid;
+            uint32_t gid = tile.tileFlatIndex;
             glm::rectf src(
                 (gid % tileset.colCount) * tileset.tileWidth,
                 ((int)(gid / tileset.colCount)) * tileset.tileHeight,
