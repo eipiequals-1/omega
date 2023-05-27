@@ -16,6 +16,10 @@ MapRenderer::MapRenderer(Map *map) : map(map) {
 }
 
 MapRenderer::~MapRenderer() {
+    for (auto &layer : layers) {
+        delete layer;
+        layer = nullptr;
+    }
 }
 
 void MapRenderer::setup(gfx::SpriteBatch &sprite_batch) {
@@ -29,29 +33,43 @@ void MapRenderer::setup(gfx::SpriteBatch &sprite_batch) {
     camera.recalculate_view_matrix();
     sprite_batch.set_view_projection_matrix(
         camera.get_view_projection_matrix());
+    
+    for (uint32_t i = 0; i < map->layerCollection.size(); ++i) {
+        layers.push_back(
+            new gfx::FrameBuffer(layer_width_pix, layer_height_pix));
+    }
 
-    for (Layer &layer : map->layerCollection) {
+    for (uint32_t z = 0; z < map->layerCollection.size(); ++z) {
+        Layer &layer = map->layerCollection[z];
+        sprite_batch.begin_render();
         for (size_t tile_idx = 0; tile_idx < layer.tiles.size(); ++tile_idx) {
             const Tile &tile = layer.tiles[tile_idx];
+            const Tileset &tileset = map->tilesetCollection[tile.tilesetIndex];
             // find location of first pixel of tile
             uint32_t row, col, start_x, start_y;
             col = tile_idx % layer.width; // col in tile units
             row = tile_idx / layer.width; // row in tile units
             start_x = col * tile_width;   // x offset in pixels
             start_y = row * tile_height;  // y offset in pixels
-            (void)start_y;
-            (void)start_x;
-            (void)col;
-            (void)row;
-            (void)tile;
+            
+            if (tile.gid == 0) {continue;}
+            uint32_t gid = tile.gid;
+            glm::rectf src(
+                (gid % tileset.colCount) * tileset.tileWidth,
+                ((int)(gid / tileset.colCount)) * tileset.tileHeight,
+                tileset.tileWidth,
+                tileset.tileHeight
+            );
+            glm::rectf dest(start_x, start_y, tile_width, tile_height);
+            sprite_batch.render_texture(tileset_textures[0].get(), src, dest);
         }
+        sprite_batch.end_render();
     }
-
 }
 
 void MapRenderer::render(gfx::SpriteBatch &batch) {
-    for (const auto &layer : tileset_textures) {
-        batch.render_texture(layer.get(), 0.0f, 0.0f);
+    for (auto &layer : layers) {
+        batch.render_texture(layer->get_color_buffer().get(), 0.0f, 0.0f);
     }
 }
 

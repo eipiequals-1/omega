@@ -32,7 +32,7 @@ class MapRenderer {
   protected:
 
     Map *map = nullptr;
-    std::vector<gfx::FrameBuffer> layers;
+    std::vector<gfx::FrameBuffer*> layers;
 
     std::vector<util::sptr<gfx::texture::Texture>> tileset_textures;
 };
