@@ -126,6 +126,63 @@ struct Ray {
     }
 };
 
+/**
+ * Checks collisions between two circles and returns if there is one
+ * @param center1 circle1 center
+ * @param radius1 circle1 radius
+ * @param center2 circle2 center
+ * @param radius2 circle2 radius
+ * @return if they intersect
+ */
+bool circle_vs_circle(const glm::vec2 &center1, float radius1,
+                      const glm::vec2 &center2, float radius2);
+
+/**
+ * Returns the distance squared between two points to avoid sqrts
+ * @param p1 point1
+ * @param p2 point2
+ * @return the distance squared
+ */
+float distance_sq(const glm::vec2 &p1, const glm::vec2 &p2);
+
+float distance_sq(const glm::vec3 &p1, const glm::vec3 &p2);
+
+template <typename T>
+T lerp(const T& min, const T& max, float t) {
+    return min + (max - min) * t;
+}
+
+/**
+ * Maps the a value from range 1 to range 2
+ * @param min1 the lower bound of the initial range
+ * @param max1 the upper bound of the initial range
+ * @param min2 the lower bound of the final range
+ * @param max2 the upper bound of the final range
+ * @param p the point mapped in the initial range
+ */
+template <typename T>
+T map_range(const T& min1, const T& max1,
+            const T& min2, const T& max2,
+            const T& p) {
+    T t = (p - min1) / (max1 - min1);
+    return min2 + (max2 - min2) * t;
+}
+
+template <typename T>
+T quadratic_bezier(const T& p0, const T& p1, const T& p2, float t) {
+    float one_minus_t = 1.0f - t;
+    return p1 + one_minus_t * one_minus_t * (p0 - p1) + t * t * (p2 - p1);
+}
+
+template <typename T>
+T cubic_bezier(const T &p0, const T &p1, const T& p2, const T& p3, float t) {
+    float one_minus_t = 1.0f - t;
+    return (one_minus_t * one_minus_t * one_minus_t * p0 +
+            3.0f * one_minus_t * one_minus_t * t * p1 +
+            3.0f * one_minus_t * t * t * p2 +
+            t * t * t * p3);
+}
+
 } // namespace omega::util
 
 namespace glm {
@@ -226,47 +283,7 @@ using recti = rect<int>;
 using rectl = rect<i64>;
 using rectd = rect<f64>;
 
-/**
- * Checks collisions between two circles and returns if there is one
- * @param center1 circle1 center
- * @param radius1 circle1 radius
- * @param center2 circle2 center
- * @param radius2 circle2 radius
- * @return if they intersect
- */
-bool circle_vs_circle(const glm::vec2 &center1, float radius1,
-                      const glm::vec2 &center2, float radius2);
 
-/**
- * Returns the distance squared between two points to avoid sqrts
- * @param p1 point1
- * @param p2 point2
- * @return the distance squared
- */
-float distance_sq(const glm::vec2 &p1, const glm::vec2 &p2);
-
-float distance_sq(const glm::vec3 &p1, const glm::vec3 &p2);
-
-template <typename T>
-T lerp(const T& min, const T& max, float t) {
-    return min + (max - min) * t;
-}
-
-/**
- * Maps the a value from range 1 to range 2
- * @param min1 the lower bound of the initial range
- * @param max1 the upper bound of the initial range
- * @param min2 the lower bound of the final range
- * @param max2 the upper bound of the final range
- * @param p the point mapped in the initial range
- */
-template <typename T>
-T map_range(const T& min1, const T& max1,
-            const T& min2, const T& max2,
-            const T& p) {
-    T t = (p - min1) / (max1 - min1);
-    return min2 + (max2 - min2) * t;
-}
 
 } // namespace glm
 

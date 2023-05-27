@@ -44,7 +44,10 @@ bool Mask::collide_with(const glm::rectf &rect, const glm::vec2 &mask_pos) {
     for (uint32_t y = start_y; y <= end_y; ++y) {
         for (uint32_t x = start_x; x <= end_x; ++x) {
             // if the pixel is not empty, return true
-            if (mask_data[y * width + x] != 0) {
+            int local_mask_x = x - mask_pos.x;
+            int local_mask_y = y - mask_pos.y;
+
+            if (mask_data[local_mask_y * width + local_mask_x] != 0) {
                 return true;
             }
         }
@@ -65,8 +68,14 @@ bool Mask::collide_with(const Mask& other, const glm::vec2 &other_pos,
     for (uint32_t y = start_y; y <= end_y; ++y) {
         for (uint32_t x = start_x; x <= end_x; ++x) {
             // if the both pixels are not empty, return true
-            if (mask_data[y * width + x] != 0 &&
-                other.mask_data[y * width + x] != 0) {
+            int local_mask_x = x - mask_pos.x;
+            int local_mask_y = y - mask_pos.y;
+
+            int local_other_x = x - other_pos.x;
+            int local_other_y = y - other_pos.y;
+
+            if (mask_data[local_mask_y * width + local_mask_x] != 0 &&
+                other.mask_data[local_other_y * width + local_other_x] != 0) {
                 return true;
             }
         }

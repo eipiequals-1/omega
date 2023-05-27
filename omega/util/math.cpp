@@ -1,6 +1,6 @@
 #include "math.hpp"
 
-namespace glm {
+namespace omega::util {
 
 bool circle_vs_circle(const glm::vec2 &center1, float radius1,
                       const glm::vec2 &center2, float radius2) {
