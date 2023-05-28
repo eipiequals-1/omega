@@ -73,7 +73,7 @@ void MapRenderer::setup(gfx::SpriteBatch &sprite_batch) {
 
 void MapRenderer::render(gfx::SpriteBatch &batch) {
     for (auto &layer : layers) {
-        batch.render_texture(layer->get_color_buffer().get(), 0.0f, map->tileHeight * map->height, map->tileWidth * map->width, -map->tileHeight * map->height);
+        batch.render_texture(layer->get_color_buffer().get(), 0.0f, 0.0f);
     }
 }
 
