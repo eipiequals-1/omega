@@ -41,6 +41,9 @@ void MapRenderer::setup(gfx::SpriteBatch &sprite_batch) {
 
     for (uint32_t z = 0; z < map->layerCollection.size(); ++z) {
         Layer &layer = map->layerCollection[z];
+        auto &framebuffer = layers[z];
+        framebuffer->bind();
+
         sprite_batch.begin_render();
         for (size_t tile_idx = 0; tile_idx < layer.tiles.size(); ++tile_idx) {
             const Tile &tile = layer.tiles[tile_idx];
@@ -64,6 +67,7 @@ void MapRenderer::setup(gfx::SpriteBatch &sprite_batch) {
             sprite_batch.render_texture(tileset_textures[0].get(), src, dest);
         }
         sprite_batch.end_render();
+        framebuffer->unbind();
     }
 }
 
