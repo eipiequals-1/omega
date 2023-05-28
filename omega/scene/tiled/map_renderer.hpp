@@ -19,7 +19,7 @@ namespace omega::scene::tiled {
  */
 class MapRenderer {
   public:
-    explicit MapRenderer(Map *map);
+    explicit MapRenderer(Map *map, const std::string &tileset_path);
     void setup(gfx::SpriteBatch &sprite_batch);
     virtual ~MapRenderer();
 

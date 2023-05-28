@@ -4,14 +4,14 @@
 
 namespace omega::scene::tiled {
 
-MapRenderer::MapRenderer(Map *map) : map(map) {
+MapRenderer::MapRenderer(Map *map, const std::string &tileset_path) : map(map) {
     std::string path;
 
     for (size_t i = 0; i < map->tilesetCollection.size(); ++i) {
         const auto &tileset = map->tilesetCollection[i];
         path = tileset.image.source;
         tileset_textures.push_back(
-            gfx::texture::Texture::create_from_file(path));
+            gfx::texture::Texture::create_from_file(tileset_path + "/" + path));
     }
 }
 
