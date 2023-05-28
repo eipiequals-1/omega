@@ -20,7 +20,10 @@ using namespace omega::gfx::texture;
  */
 class FrameBuffer {
   public:
-    FrameBuffer(uint32_t width, uint32_t height);
+    FrameBuffer(uint32_t width,
+                uint32_t height,
+                macro min_filter = OMEGA_GL_NEAREST,
+                macro mag_filter = OMEGA_GL_NEAREST);
     ~FrameBuffer();
 
     /**
@@ -52,7 +55,10 @@ class FrameBuffer {
      * @param width
      * @param height
      */
-    void resize(uint32_t width, uint32_t height);
+    void resize(uint32_t width,
+                uint32_t height,
+                macro min_filter = OMEGA_GL_NEAREST,
+                macro mag_filter = OMEGA_GL_NEAREST);
 
     /**
      * @returns the width
