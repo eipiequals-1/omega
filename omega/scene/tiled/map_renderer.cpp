@@ -59,9 +59,9 @@ void MapRenderer::setup(gfx::SpriteBatch &sprite_batch) {
             uint32_t gid = tile.tileFlatIndex;
             glm::rectf src(
                 (gid % tileset.colCount) * tileset.tileWidth,
-                ((int)(gid / tileset.colCount) + 1) * tileset.tileHeight,
+                ((int)(gid / tileset.colCount)) * tileset.tileHeight,
                 tileset.tileWidth,
-                -tileset.tileHeight
+                tileset.tileHeight
             );
             glm::rectf dest(start_x, start_y, tile_width, tile_height);
             sprite_batch.render_texture(tileset_textures[0].get(), src, dest);
@@ -73,7 +73,7 @@ void MapRenderer::setup(gfx::SpriteBatch &sprite_batch) {
 
 void MapRenderer::render(gfx::SpriteBatch &batch) {
     for (auto &layer : layers) {
-        batch.render_texture(layer->get_color_buffer().get(), 0.0f, 0.0f);
+        batch.render_texture(layer->get_color_buffer().get(), 0.0f, map->tileHeight * map->height, map->tileWidth * map->width, -map->tileHeight * map->height);
     }
 }
 
