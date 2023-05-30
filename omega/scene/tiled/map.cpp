@@ -17,6 +17,11 @@ void Map::get_intersect_rects(const glm::rectf &rect,
     // reset the output vectors
     collided_tiles.clear();
     collided_tile_indices.clear();
+    // make sure that the rectangle is not out of bounds
+    if (rect.x < 0.0f || rect.x + rect.w > (float)width * tileWidth ||
+        rect.y < 0.0f || rect.y + rect.h > (float)height * tileHeight) {
+        return;
+    }
     // find bounds to search
     uint32_t left, right, top, bottom;
     left = glm::max(glm::floor(rect.x / tileWidth), 0.0f);
