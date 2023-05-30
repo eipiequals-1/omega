@@ -19,10 +19,9 @@ class Scene {
     ~Scene();
 
     /**
-     * Create a new entity with a default tag "New Entity"
-     * @param tag_name
+     * Create a new entity
      */
-    Entity create_entity(const std::string &tag_name = "New Entity");
+    Entity create_entity();
 
     void render(float dt, gfx::SpriteBatch &sprite_batch);
     void update(float dt);

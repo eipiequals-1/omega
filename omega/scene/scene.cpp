@@ -16,9 +16,8 @@ Scene::Scene(const core::Viewport &viewport,
 Scene::~Scene() {
 }
 
-Entity Scene::create_entity(const std::string &tag_name) {
+Entity Scene::create_entity() {
     Entity ent(registry.create(), &registry);
-    ent.add_component<TagComponent>().tag = tag_name;
     return ent;
 }
 
