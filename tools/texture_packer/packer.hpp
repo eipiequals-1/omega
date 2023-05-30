@@ -1,13 +1,13 @@
-#ifndef _TEXTUREPACKER_PACKER_H_
-#define _TEXTUREPACKER_PACKER_H_
+#ifndef PACKER_HPP
+#define PACKER_HPP
 
 #include <cmath>
 #include <memory>
 #include <string>
 #include <vector>
 
-#include "texture_packer/pack_writer.h"
-#include "texture_packer/tex.h"
+#include "pack_writer.hpp"
+#include "tex.hpp"
 
 namespace packer {
 
@@ -78,4 +78,4 @@ inline void SortBySurfaceArea(std::vector<Tex *> &sorted) {
 }
 }  // namespace packer
 
-#endif  // _TEXTUREPACKER_PACKER_H_
+#endif // PACKER_HPP

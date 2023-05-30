@@ -4,7 +4,7 @@
 #include <iostream>
 #include <vector>
 
-#include "texture_packer/packer.h"
+#include "packer.hpp"
 
 static void Prompt(const std::string &p, std::string &s) {
 	std::cout << p;

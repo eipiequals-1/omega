@@ -1,4 +1,4 @@
-#include "texture_packer/pack_writer.h"
+#include "pack_writer.hpp"
 
 namespace packer {
 

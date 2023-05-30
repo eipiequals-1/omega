@@ -1,5 +1,5 @@
-#ifndef _TEXTUREPACKER_TEX_H_
-#define _TEXTUREPACKER_TEX_H_
+#ifndef TEX_HPP
+#define TEX_HPP
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
@@ -37,4 +37,4 @@ struct Tex {
 
 }  // namespace packer
 
-#endif  // _TEXTUREPACKER_TEX_H_
+#endif // TEX_HPP

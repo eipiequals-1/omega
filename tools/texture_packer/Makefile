@@ -1,7 +1,13 @@
 CC = clang++
-CFLAGS = -Wall -Wextra -Wcast-qual -Wconversion-null -Wformat-security -Wmissing-declarations -Woverlength-strings -Wpointer-arith -Wundef -Wunused-local-typedefs -Wunused-result -Wvarargs -Wvla -Wwrite-strings -DNOMINMAX -Werror -fno-omit-frame-pointer -std=c++17
+
+CFLAGS = -Wall -Wextra -Wcast-qual -Wconversion-null -Wformat-security
+CFLAGS += -Wmissing-declarations -Woverlength-strings -Wpointer-arith -Wundef
+CFLAGS += -Wunused-local-typedefs -Wunused-result -Wvarargs -Wvla
+CFLAGS += -Wwrite-strings -DNOMINMAX -Werror -fno-omit-frame-pointer
+CFLAGS += -std=c++20 -fPIC
+
 LIB_FLAGS = -lSDL2 -lSDL2_image
-INCLUDE = -I/usr/include/SDL2/ -I..
+INCLUDE = -I/usr/include/SDL2/
 SRC = ${wildcard *.cpp}
 OBJ = $(SRC:.cpp=.o)
 BIN = bin

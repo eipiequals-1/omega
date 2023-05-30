@@ -1,6 +1,7 @@
-#include "texture_packer/packer.h"
+#include "packer.hpp"
 
 namespace packer {
+
 void Pack(const std::string &input_dir, const std::string &output_dir, const std::string &atlas_name, const std::vector<std::string> &files) {
 	std::vector<Tex *> textures;
 	LoadTextures(textures, input_dir, files);
