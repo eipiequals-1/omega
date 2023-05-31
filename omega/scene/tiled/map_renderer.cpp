@@ -59,9 +59,9 @@ void MapRenderer::setup(gfx::SpriteBatch &sprite_batch) {
             u32 gid = tile.tileFlatIndex;
             glm::rectf src(
                 (gid % tileset.colCount) * tileset.tileWidth,
-                ((int)(gid / tileset.colCount)) * tileset.tileHeight,
+                ((int)(gid / tileset.colCount) + 1) * tileset.tileHeight,
                 tileset.tileWidth,
-                tileset.tileHeight
+                -(float)(tileset.tileHeight)
             );
             glm::rectf dest(start_x, start_y, tile_width, tile_height);
             sprite_batch.render_texture(tileset_textures[0].get(), src, dest);

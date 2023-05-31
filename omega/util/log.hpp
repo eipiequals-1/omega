@@ -60,9 +60,9 @@ static inline void print_(
     std::cout << stream.str() << '\n';
 }
 
-#define error(...) print_(log_color::red, "ERROR", __FILE__, __LINE__,  __VA_ARGS__)
-#define print(...) print_(log_color::green, "LOG", __FILE__, __LINE__,  __VA_ARGS__)
-#define debug(...) print_(log_color::yellow, "DEBUG", __FILE__, __LINE__, __VA_ARGS__)
+#define error(...) print_(omega::util::log_color::red, "ERROR", __FILE__, __LINE__,  __VA_ARGS__)
+#define print(...) print_(omega::util::log_color::green, "LOG", __FILE__, __LINE__,  __VA_ARGS__)
+#define debug(...) print_(omega::util::log_color::yellow, "DEBUG", __FILE__, __LINE__, __VA_ARGS__)
 
 } // namespace omega::util
 
