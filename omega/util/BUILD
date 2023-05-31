@@ -66,6 +66,9 @@ cc_library(
     hdrs = ["random.hpp"],
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
+    deps = [
+        ":types"
+    ]
 )
 
 cc_library(
@@ -83,9 +86,18 @@ cc_library(
     linkopts = DEFAULT_LINKOPTS,
     deps = [
         ":std",
+        ":types",
         "@SDL2//:SDL2",
     ]
 )
+
+cc_library(
+    name = "types",
+    hdrs = ["types.hpp"],
+    copts = DEFAULT_COPTS,
+    linkopts = DEFAULT_LINKOPTS,
+)
+
 
 cc_library(
     name = "util",

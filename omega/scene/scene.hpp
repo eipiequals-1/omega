@@ -7,6 +7,7 @@
 
 #include "omega/core/viewport.hpp"
 #include "omega/gfx/sprite_batch.hpp"
+#include "omega/util/types.hpp"
 
 namespace omega::scene {
 
@@ -23,8 +24,8 @@ class Scene {
      */
     Entity create_entity();
 
-    void render(float dt, gfx::SpriteBatch &sprite_batch);
-    void update(float dt);
+    void render(f32 dt, gfx::SpriteBatch &sprite_batch);
+    void update(f32 dt);
 
     // getters and setters
     const std::string &get_name() const { return name; }

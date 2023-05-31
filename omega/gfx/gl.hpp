@@ -6,6 +6,7 @@
 #include <iostream>
 
 #include "omega/util/math.hpp"
+#include "omega/util/types.hpp"
 
 // rename OpenGL macros
 // clear screen macros
@@ -51,7 +52,7 @@ using macro = GLenum;
  * @param width
  * @param height
  */
-inline void viewport(int x, int y, uint32_t width, uint32_t height) {
+inline void viewport(i32 x, i32 y, u32 width, u32 height) {
     glViewport(x, y, width, height);
 }
 
@@ -96,7 +97,7 @@ inline void clear_buffer(bitfield mask = OMEGA_GL_COLOR_BUFFER_BIT) {
 /**
  * Set the clear color with normalized rgba params
  */
-inline void set_clear_color(float r, float g, float b, float a) {
+inline void set_clear_color(f32 r, f32 g, f32 b, f32 a) {
     glClearColor(r, g, b, a);
 }
 
@@ -135,7 +136,7 @@ inline void enable_blending(macro sfactor = OMEGA_GL_SRC_ALPHA,
  * @param start
  * @param count
  */
-inline void draw_arrays(macro render_type, uint32_t start, uint32_t count) {
+inline void draw_arrays(macro render_type, u32 start, u32 count) {
     glDrawArrays(render_type, start, count);
 }
 
@@ -147,8 +148,8 @@ inline void draw_arrays(macro render_type, uint32_t start, uint32_t count) {
  * @param indices pointer to the indices or if using IndexBuffer (nullptr)
  */
 inline void draw_elements(macro mode,
-                          int32_t count,
-                          uint32_t type,
+                          i32 count,
+                          u32 type,
                           const void *indices) {
     glDrawElements(mode, count, type, indices);
 }

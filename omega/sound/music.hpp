@@ -5,6 +5,8 @@
 
 #include <string>
 
+#include "omega/util/types.hpp"
+
 namespace omega::sound {
 
 using MusicID = size_t;
@@ -14,8 +16,8 @@ class Music {
     Music(const std::string &filepath);
     ~Music();
 
-    void play(float volume);
-    void set_volume(float volume);
+    void play(f32 volume);
+    void set_volume(f32 volume);
 
   private:
     Mix_Music *music;

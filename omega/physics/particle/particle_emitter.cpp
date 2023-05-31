@@ -59,9 +59,9 @@ ParticleEmitter::ParticleEmitter(EmitterBuilder &builder) :
     vbo = create_uptr<VertexBuffer>(
         sizeof(ParticleVertex) * 4 * data.max_particles);
     
-    const uint32_t index_buffer_capacity = 6 * data.max_particles;
-    uint32_t *indices = new uint32_t[index_buffer_capacity];
-    uint32_t offset = 0;
+    const u32 index_buffer_capacity = 6 * data.max_particles;
+    u32 *indices = new u32[index_buffer_capacity];
+    u32 offset = 0;
     for (size_t i = 0; i < index_buffer_capacity; i += 6) {
         // triangle 1
         indices[i + 0] = 0 + offset;
@@ -96,18 +96,18 @@ void ParticleEmitter::emit() {
     Particle &particle = particles[num_particles];
     particle.color = Particle::random_color(data.begin_color, 0.2f, 0.1f);
 
-    particle.pos.x = data.pos.x + util::random<float>(
+    particle.pos.x = data.pos.x + util::random<f32>(
         data.emit_rect.x, data.emit_rect.x + data.emit_rect.w);
-    particle.pos.y = data.pos.y + util::random<float>(
+    particle.pos.y = data.pos.y + util::random<f32>(
         data.emit_rect.y, data.emit_rect.y + data.emit_rect.h);
 
-    particle.radius = util::random<float>(
+    particle.radius = util::random<f32>(
         data.radius.first, data.radius.second);
 
     particle.life_remaining = data.particle_lifespan;
-    float rotation = glm::radians(
-        util::random<float>(data.rot_range.first, data.rot_range.second));
-    float speed = util::random<float>(
+    f32 rotation = glm::radians(
+        util::random<f32>(data.rot_range.first, data.rot_range.second));
+    f32 speed = util::random<f32>(
         data.speed.first, data.speed.second);
 
     particle.vel = glm::vec2(
@@ -115,12 +115,12 @@ void ParticleEmitter::emit() {
     num_particles++; // increment num particles
 }
 
-void ParticleEmitter::update(float dt) {
+void ParticleEmitter::update(f32 dt) {
     timer += dt;
     emit_timer += dt;
     // add new particles if necessary
-    const uint32_t to_add = can_emit();
-    for (uint32_t i = 0; i < glm::min(to_add, (uint32_t)3); i++) {
+    const u32 to_add = can_emit();
+    for (u32 i = 0; i < glm::min(to_add, (u32)3); i++) {
         emit();
     }
 

@@ -8,6 +8,7 @@
 #include "omega/core/viewport.hpp"
 #include "omega/events/events.hpp"
 #include "omega/util/std.hpp"
+#include "omega/util/types.hpp"
 
 namespace omega::core {
 
@@ -16,14 +17,14 @@ namespace omega::core {
  * settings, etc
  */
 struct AppConfig {
-    uint32_t width = 900, height = 450;
+    u32 width = 900, height = 450;
     std::string title = "Omega App";
     bool resizable = true;
     // viewport settings
     ViewportType viewport_type = ViewportType::stretch;
-    uint32_t viewport_width = 900, viewport_height = 450;
+    u32 viewport_width = 900, viewport_height = 450;
     // fps
-    uint32_t fps = 60;
+    u32 fps = 60;
     // imgui
     bool imgui = false;
 };
@@ -73,10 +74,10 @@ class App {
     Window* get_window() { return window; }
 
     virtual void setup() {};
-    virtual void update(float dt) {(void)dt;};
-    virtual void input(float dt) { (void)dt;}
-    virtual void render(float dt) { (void)dt; }
-    virtual void on_resize(uint32_t width, uint32_t height) {
+    virtual void update(f32 dt) {(void)dt;};
+    virtual void input(f32 dt) { (void)dt;}
+    virtual void render(f32 dt) { (void)dt; }
+    virtual void on_resize(u32 width, u32 height) {
         globals->scene.on_resize(width, height);
     }
 
@@ -88,7 +89,7 @@ class App {
      * Clamps the application by sleeping the CPU to run at Application::fps
      * @return delta time in seconds from the last frame
      */
-    float tick();
+    f32 tick();
 
     // application state
     bool running = true;
@@ -97,8 +98,8 @@ class App {
     bool imgui = false;
 
     // clock and timing
-    float fps = 60.0f;
-    float last_time = 0.0f;
+    f32 fps = 60.0f;
+    f32 last_time = 0.0f;
 
     // singleton instance
     static App *current_instance;

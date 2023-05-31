@@ -10,6 +10,7 @@
 #include "omega/events/key_manager.hpp"
 #include "omega/util/math.hpp"
 #include "omega/util/std.hpp"
+#include "omega/util/types.hpp"
 
 namespace omega::core {class App;} // namespace omega::core
 
@@ -69,7 +70,7 @@ class InputManager {
      * @return if the button passes the test
      */
     bool mouse_button_down(MouseButton button) const {
-        return (SDL_BUTTON((int)button) & buttons) != 0;
+        return (SDL_BUTTON((i32)button) & buttons) != 0;
     }
 
     /**
@@ -78,7 +79,7 @@ class InputManager {
      * @return if the button passes the test
      */
     bool mouse_button_up(MouseButton button) const {
-        return (SDL_BUTTON((int)button) & buttons) == 0;
+        return (SDL_BUTTON((i32)button) & buttons) == 0;
     }
 
     /**
@@ -88,7 +89,7 @@ class InputManager {
      */
     bool mouse_button_just_pressed(MouseButton button) const {
         return mouse_button_down(button) &&
-            ((SDL_BUTTON((int)button) & prev_buttons) == 0);
+            ((SDL_BUTTON((i32)button) & prev_buttons) == 0);
     }
 
     /**
@@ -98,7 +99,7 @@ class InputManager {
      */
     bool mouse_button_just_released(MouseButton button) const {
         return mouse_button_up(button) &&
-            ((SDL_BUTTON((int)button) & prev_buttons) != 0);
+            ((SDL_BUTTON((i32)button) & prev_buttons) != 0);
     }
 
     const glm::vec2 &get_scroll_wheel() const {
@@ -114,8 +115,8 @@ class InputManager {
     glm::vec2 scroll_wheel{0.0f}; // mouse_pos relative to bottom left
 
     // mouse
-    uint32_t buttons = 0;
-    uint32_t prev_buttons = 0;
+    u32 buttons = 0;
+    u32 prev_buttons = 0;
     bool relative_mode = false;
 };
 

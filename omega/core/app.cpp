@@ -49,8 +49,8 @@ static void begin_imgui_frame() {
 static void end_imgui_frame(omega::core::Window *window) {
     ImGuiIO &io = ImGui::GetIO();
     io.DisplaySize = ImVec2(
-        (float)window->get_width(),
-        (float)window->get_height()
+        (f32)window->get_width(),
+        (f32)window->get_height()
     );
 
     ImGui::Render();
@@ -78,7 +78,7 @@ App::App(const AppConfig &config) {
         running = false;
     }
     util::Time::init();
-    last_time = util::Time::get_time<float>();
+    last_time = util::Time::get_time<f32>();
     fps = config.fps;
     globals = util::create_uptr<Globals>(Viewport(
         config.viewport_type,
@@ -99,19 +99,19 @@ App::~App() {
     TTF_Quit();
 }
 
-float App::tick() {
-    float to_sleep = glm::max(
-        1.0f / fps - (util::Time::get_time<float>() - last_time),
+f32 App::tick() {
+    f32 to_sleep = glm::max(
+        1.0f / fps - (util::Time::get_time<f32>() - last_time),
         0.0f);
     util::Time::sleep(to_sleep);
-    float current_time = util::Time::get_time<float>();
-    float dt = (current_time - last_time); // get delta time
+    f32 current_time = util::Time::get_time<f32>();
+    f32 dt = (current_time - last_time); // get delta time
     last_time = current_time;
     return dt;
 }
 
 void App::frame() {
-    float dt = tick();
+    f32 dt = tick();
 
     auto &input = globals->input;
     input.prepare_for_update();
@@ -135,8 +135,8 @@ void App::frame() {
                 }
                 break;
             case events::EventType::mouse_wheel:
-                input.scroll_wheel = glm::vec2((float)event.wheel.x,
-                                               (float)event.wheel.y);
+                input.scroll_wheel = glm::vec2((f32)event.wheel.x,
+                                               (f32)event.wheel.y);
             default:
                 break;
         }

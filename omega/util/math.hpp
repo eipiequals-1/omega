@@ -148,7 +148,7 @@ float distance_sq(const glm::vec2 &p1, const glm::vec2 &p2);
 float distance_sq(const glm::vec3 &p1, const glm::vec3 &p2);
 
 template <typename T>
-T lerp(const T& min, const T& max, float t) {
+T lerp(const T& min, const T& max, glm::f32 t) {
     return min + (max - min) * t;
 }
 
@@ -278,8 +278,8 @@ struct rect {
     }
 };
 
-using rectf = rect<float>;
-using recti = rect<int>;
+using rectf = rect<f32>;
+using recti = rect<i32>;
 using rectl = rect<i64>;
 using rectd = rect<f64>;
 

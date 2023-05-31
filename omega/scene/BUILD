@@ -23,6 +23,7 @@ cc_library(
     copts = DEFAULT_COPTS,
     linkopts = DEFAULT_LINKOPTS,
     deps = [
+        "//omega/util:types"
     ]
 )
 

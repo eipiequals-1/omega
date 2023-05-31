@@ -37,7 +37,7 @@ class Window {
      * @param resizable if it can be resized
      * @param title the window title
      */
-    bool init(uint32_t width, uint32_t height, bool resizable,
+    bool init(u32 width, u32 height, bool resizable,
         const std::string &title);
 
     /**
@@ -61,16 +61,16 @@ class Window {
     /**
      * When the window changes size
      */
-    void on_resize(uint32_t new_width, uint32_t new_height);
+    void on_resize(u32 new_width, u32 new_height);
 
     /**
      * @return width
      */
-    uint32_t get_width() const { return width; }
+    u32 get_width() const { return width; }
     /**
      * @return height
      */
-    uint32_t get_height() const { return height; }
+    u32 get_height() const { return height; }
     /**
      * @return native SDL_Window *
      */
@@ -83,8 +83,8 @@ class Window {
   private:
     Window() = default;
 
-    uint32_t width = 0;
-    uint32_t height = 0;
+    u32 width = 0;
+    u32 height = 0;
     // sdl
     SDL_Window *window = nullptr;
     SDL_GLContext context = nullptr;

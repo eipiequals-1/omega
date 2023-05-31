@@ -5,8 +5,8 @@ namespace omega::physics {
 BoxBody::BoxBody(const glm::rectf &rect,
                  BodyType type,
                  b2FixtureDef &fixture_def,
-                 float gravity_scale,
-                 float angle,
+                 f32 gravity_scale,
+                 f32 angle,
                  b2World *world) :
     dimensions(rect.w, rect.h) {
     
@@ -25,10 +25,10 @@ BoxBody::BoxBody(const glm::rectf &rect,
 }
 
 CircleBody::CircleBody(const glm::vec2 &center,
-                       float radius,
+                       f32 radius,
                        BodyType type,
                        b2FixtureDef &fixture_def,
-                       float gravity_scale,
+                       f32 gravity_scale,
                        b2World *world) :
     center(center), radius(radius) {
     

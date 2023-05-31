@@ -31,8 +31,8 @@ class AssetManager {
 
     gfx::texture::Texture* load_empty_texture(
         const std::string &key,
-        uint32_t width,
-        uint32_t height,
+        u32 width,
+        u32 height,
         GLenum min_filter = GL_NEAREST,
         GLenum mag_filter = GL_NEAREST)
     {
@@ -50,10 +50,10 @@ class AssetManager {
     sound::SoundEffectID load_sound_effect(const std::string &filepath);
     sound::MusicID load_music(const std::string &filepath);
 
-    void play_sound_effect(sound::SoundEffectID sound, float volume);
-    void play_music(sound::MusicID m, float volume);
-    void set_music_volume(sound::MusicID m, float volume);
-    void set_sound_effect_volume(sound::SoundEffectID sound, float volume);
+    void play_sound_effect(sound::SoundEffectID sound, f32 volume);
+    void play_music(sound::MusicID m, f32 volume);
+    void set_music_volume(sound::MusicID m, f32 volume);
+    void set_sound_effect_volume(sound::SoundEffectID sound, f32 volume);
 
     // shaders
     gfx::Shader *load_shader(const std::string &key,

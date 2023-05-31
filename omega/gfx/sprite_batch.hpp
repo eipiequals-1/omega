@@ -65,7 +65,7 @@ class SpriteBatch {
      * @param color tint of the texture
      */
     void render_texture(const Texture *texture,
-                        const float x, const float y,
+                        const f32 x, const f32 y,
                         const glm::vec4 &color = glm::vec4(1.0f));
 
     /**
@@ -78,8 +78,8 @@ class SpriteBatch {
      * @param color tint of the texture
      */
     void render_texture(const Texture *texture,
-                        const float x, const float y,
-                        const float w, const float h,
+                        const f32 x, const f32 y,
+                        const f32 w, const f32 h,
                         const glm::vec4 &color = glm::vec4(1.0f));
 
     /**
@@ -106,7 +106,7 @@ class SpriteBatch {
     void render_texture(const Texture *texture,
                         glm::rectf src,
                         const glm::rectf &dest,
-                        float rotation,
+                        f32 rotation,
                         const glm::vec2 &center,
                         const glm::vec4 &color = glm::vec4(1.0f));
 
@@ -114,7 +114,7 @@ class SpriteBatch {
                         glm::rectf src,
                         const glm::rectf &dest,
                         const glm::vec3 rotation_axis,
-                        float rotation,
+                        f32 rotation,
                         const glm::vec3 &center_of_rotation,
                         const glm::vec4 &color = glm::vec4(1.0f));
 
@@ -131,20 +131,20 @@ class SpriteBatch {
     uptr<IndexBuffer> ibo = nullptr;
 
     // buffer constants
-    static constexpr uint32_t quad_capacity = 1500;
-    static constexpr uint32_t index_buffer_capacity = quad_capacity * 6;
-    static constexpr uint32_t vertex_buffer_capacity = quad_capacity * 4;
-    static constexpr uint32_t vertex_count = 17;
-    static constexpr uint32_t index_count = 6;
+    static constexpr u32 quad_capacity = 1500;
+    static constexpr u32 index_buffer_capacity = quad_capacity * 6;
+    static constexpr u32 vertex_buffer_capacity = quad_capacity * 4;
+    static constexpr u32 vertex_count = 17;
+    static constexpr u32 index_count = 6;
 
     // texture data
-    static constexpr uint32_t max_textures = 32;
-    std::array<uint32_t, max_textures> texture_binds;
+    static constexpr u32 max_textures = 32;
+    std::array<u32, max_textures> texture_binds;
     std::array<const Texture *, max_textures> textures_to_render;
 
     // render attributes
-    uint32_t quads_rendered = 0;
-    uint32_t tex_bind_slot = 0;
+    u32 quads_rendered = 0;
+    u32 tex_bind_slot = 0;
 
     /**
      * Represents a SpriteBatch Vertex with:
@@ -160,9 +160,9 @@ class SpriteBatch {
         glm::vec3 position;
         glm::vec4 color;
         glm::vec2 tex_coords;
-        float tex_id;
+        f32 tex_id;
         glm::vec3 rotation_axis;
-        float rotation_angle;
+        f32 rotation_angle;
         glm::vec3 center_of_rot;
     };
 

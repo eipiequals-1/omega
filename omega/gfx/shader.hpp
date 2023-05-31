@@ -1,13 +1,13 @@
 #ifndef OMEGA_GFX_SHADER_HPP
 #define OMEGA_GFX_SHADER_HPP
 
-#include <cstdint>
 #include <string>
 #include <unordered_map>
 
 #include "omega/util/log.hpp"
 #include "omega/util/math.hpp"
 #include "omega/util/std.hpp"
+#include "omega/util/types.hpp"
 
 namespace omega::gfx {
 
@@ -35,16 +35,16 @@ class Shader {
 
     // set uniforms
     void set_uniform_4f(const std::string &name,
-                        float v0, float v1, float v2, float v3);
-    void set_uniform_3f(const std::string &name, float v0, float v1, float v2);
-    void set_uniform_2f(const std::string &name, float v0, float v1);
-    void set_uniform_1f(const std::string &name, float value);
-    void set_uniform_1i(const std::string &name, int value);
+                        f32 v0, f32 v1, f32 v2, f32 v3);
+    void set_uniform_3f(const std::string &name, f32 v0, f32 v1, f32 v2);
+    void set_uniform_2f(const std::string &name, f32 v0, f32 v1);
+    void set_uniform_1f(const std::string &name, f32 value);
+    void set_uniform_1i(const std::string &name, i32 value);
     void set_uniform_mat4f(const std::string &name, const glm::mat4 &matrix);
-    void set_uniform_1iv(const std::string &name, int *arr, uint32_t size);
+    void set_uniform_1iv(const std::string &name, i32 *arr, u32 size);
 
     void set_uniform_bool(const std::string &name, bool v0);
-    uint32_t get_id() const { return id; }
+    u32 get_id() const { return id; }
 
   private:
     /**
@@ -67,7 +67,7 @@ class Shader {
      * @param name of the uniform
      * @return the GL location of the uniform
      */
-    int get_uniform_location(const std::string &name);
+    i32 get_uniform_location(const std::string &name);
 
     /**
      * Compiles the shader based off the type of the shader
@@ -75,7 +75,7 @@ class Shader {
      * @param source the code
      * @return the GL shader object
      */
-    uint32_t compile_shader(uint32_t type, const std::string &source);
+    u32 compile_shader(u32 type, const std::string &source);
 
     /**
      * Compiles both shaders and links them to create THE GL shader object
@@ -83,11 +83,11 @@ class Shader {
      * @param fragment_shader the fragment source code
      * @return the GL shader object
      */
-    uint32_t create_shader(const std::string &vertex_shader,
+    u32 create_shader(const std::string &vertex_shader,
                            const std::string &fragment_shader);
 
-    uint32_t id;
-    std::unordered_map<std::string, int> uniform_loc_cache;
+    u32 id;
+    std::unordered_map<std::string, i32> uniform_loc_cache;
 };
 
 template <typename K>

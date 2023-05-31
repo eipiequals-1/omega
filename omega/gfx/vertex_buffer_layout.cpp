@@ -4,7 +4,7 @@
 
 namespace omega::gfx {
 
-uint32_t VertexBufferAttrib::get_size_of_type(uint32_t type) {
+u32 VertexBufferAttrib::get_size_of_type(u32 type) {
     switch (type) {
         case GL_FLOAT:
             return 4;

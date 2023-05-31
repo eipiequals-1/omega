@@ -2,8 +2,10 @@
 #define OMEGA_UTIL_RANDOM_HPP
 
 #include <cstdlib>
-#include <vector>
+#include <ctime>
 #include <span>
+
+#include "omega/util/types.hpp"
 
 namespace omega::util {
 
@@ -14,7 +16,7 @@ namespace omega::util {
  */
 template <typename T>
 T random(T min, T max) {
-    return min + (T)((float)rand() / (float)RAND_MAX * (float)(max - min));
+    return min + (T)((f32)rand() / (f32)RAND_MAX * (f32)(max - min));
 }
 
 /**
@@ -32,7 +34,7 @@ inline void seed_time() {
  */
 template <typename T>
 T &random_choice(std::span<T> &vec) {
-    return vec[random<int>(0, vec.size())];
+    return vec[random<i32>(0, vec.size())];
 }
 } // namespace omega::util
 

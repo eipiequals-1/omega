@@ -1,8 +1,9 @@
-#ifndef OMEGA_CORE_ORTHOGRAPHICCAMERA_HPP
-#define OMEGA_CORE_ORTHOGRAPHICCAMERA_HPP
+#ifndef OMEGA_SCENE_ORTHOGRAPHICCAMERA_HPP
+#define OMEGA_SCENE_ORTHOGRAPHICCAMERA_HPP
 
 #include "omega/scene/camera.hpp"
 #include "omega/util/math.hpp"
+#include "omega/util/types.hpp"
 
 namespace omega::scene {
 
@@ -22,20 +23,20 @@ namespace omega::scene {
  */
 class OrthographicCamera : public Camera {
   public:
-    OrthographicCamera(float left, float right,
-                       float bottom, float top,
-                       float near = -1.0f, float far = 1.0f);
+    OrthographicCamera(f32 left, f32 right,
+                       f32 bottom, f32 top,
+                       f32 near = -1.0f, f32 far = 1.0f);
 
-    void set_projection(float left, float right,
-                        float bottom, float top,
-                        float near = -1.0f, float far = 1.0f);
+    void set_projection(f32 left, f32 right,
+                        f32 bottom, f32 top,
+                        f32 near = -1.0f, f32 far = 1.0f);
 
-    float get_rotation() const { return rotation; }
-    void set_rotation(float rotation) { this->rotation = rotation; }
+    f32 get_rotation() const { return rotation; }
+    void set_rotation(f32 rotation) { this->rotation = rotation; }
 
-    float get_width() const { return width; }
-    float get_height() const { return height; }
-    float get_depth() const { return depth; }
+    f32 get_width() const { return width; }
+    f32 get_height() const { return height; }
+    f32 get_depth() const { return depth; }
 
     /**
      * Converts the screen/pixel coordianates to world coordinates
@@ -50,9 +51,9 @@ class OrthographicCamera : public Camera {
     void recalculate_view_matrix() override;
 
   private:
-    float width, height, depth;
-    float rotation = 0.0f;
+    f32 width, height, depth;
+    f32 rotation = 0.0f;
 };
 } // namespace omega::scene
 
-#endif // OMEGA_CORE_ORTHOGRAPHICCAMERA_HPP
+#endif // OMEGA_SCENE_ORTHOGRAPHICCAMERA_HPP

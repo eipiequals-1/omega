@@ -16,6 +16,7 @@ cc_library(
     deps = [
         "//omega/util:util",
         "//omega/gfx/texture:texture",
+        "//omega/util:types",
         ":gl",
     ]
 )
@@ -28,6 +29,7 @@ cc_library(
     deps = [
         "//omega/util:math",
         "//omega/core:platform",
+        "//omega/util:types"
     ]
 )
 
@@ -39,6 +41,7 @@ cc_library(
     linkopts = DEFAULT_LINKOPTS,
     deps = [
         ":gl",
+        "//omega/util:types"
     ]
 )
 
@@ -51,6 +54,7 @@ cc_library(
     deps = [
         ":gl",
         "//omega/util:std",
+        "//omega/util:types",
         "//omega/util:math",
         "//omega/util:log",
     ]
@@ -69,6 +73,7 @@ cc_library(
         ":vertex_buffer_layout",
         ":vertex_array",
         "//omega/util:std",
+        "//omega/util:types",
         "//omega/util:math",
     ]
 )
@@ -90,6 +95,7 @@ cc_library(
         ":index_buffer",
         "//omega/util:std",
         "//omega/util:math",
+        "//omega/util:types",
     ]
 )
 
@@ -103,6 +109,7 @@ cc_library(
         ":gl",
         ":vertex_buffer",
         ":vertex_buffer_layout",
+        "//omega/util:types"
     ]
 )
 
@@ -114,6 +121,7 @@ cc_library(
     linkopts = DEFAULT_LINKOPTS,
     deps = [
         ":gl",
+        "//omega/util:types"
     ]
 )
 
@@ -125,6 +133,7 @@ cc_library(
     linkopts = DEFAULT_LINKOPTS,
     deps = [
         ":gl",
+        "//omega/util:types"
     ]
 )
 

@@ -42,20 +42,20 @@ sound::MusicID AssetManager::load_music(const std::string &filepath) {
 }
 
 void AssetManager::play_sound_effect(sound::SoundEffectID sound,
-                                     float volume) {
+                                     f32 volume) {
     sound_effects[sound]->play(volume);
 }
 
-void AssetManager::play_music(sound::MusicID m, float volume) {
+void AssetManager::play_music(sound::MusicID m, f32 volume) {
     music[m]->play(volume);
 }
 
-void AssetManager::set_music_volume(sound::MusicID m, float volume) {
+void AssetManager::set_music_volume(sound::MusicID m, f32 volume) {
     music[m]->set_volume(volume);
 }
 
 void AssetManager::set_sound_effect_volume(sound::SoundEffectID sound,
-                                           float volume) {
+                                           f32 volume) {
     sound_effects[sound]->set_volume(volume);
 }
 

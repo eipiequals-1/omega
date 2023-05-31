@@ -4,17 +4,17 @@
 
 namespace omega::gfx {
 
-IndexBuffer::IndexBuffer(const uint32_t *data, uint32_t count) : count(count) {
+IndexBuffer::IndexBuffer(const u32 *data, u32 count) : count(count) {
     glGenBuffers(1, &id);
     bind();
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * sizeof(uint32_t),
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * sizeof(u32),
                  data, GL_STATIC_DRAW);
 }
 
-IndexBuffer::IndexBuffer(uint32_t count) : count(count) {
+IndexBuffer::IndexBuffer(u32 count) : count(count) {
     glGenBuffers(1, &id);
     bind();
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * sizeof(uint32_t),
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * sizeof(u32),
                  nullptr, GL_DYNAMIC_DRAW);
 }
 

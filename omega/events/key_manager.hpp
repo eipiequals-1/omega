@@ -4,6 +4,7 @@
 #include <SDL2/SDL.h>
 
 #include "omega/events/event.hpp"
+#include "omega/util/types.hpp"
 
 namespace omega::events {
 
@@ -59,9 +60,9 @@ class KeyManager {
 
   private:
     // copy of the key state for the last frame
-    uint8_t keys_last_frame[SDL_NUM_SCANCODES];
+    u8 keys_last_frame[SDL_NUM_SCANCODES];
     // where SDL stores the keys
-    const uint8_t *keys_current_frame;
+    const u8 *keys_current_frame;
 };
 
 } // namespace omega::events

@@ -24,26 +24,26 @@ void KeyManager::update() {
 
 bool KeyManager::key_just_pressed(Key keycode) const {
     // if not pressed last frame and pressed now
-    return !keys_last_frame[(int)keycode] && keys_current_frame[(int)keycode];
+    return !keys_last_frame[(i32)keycode] && keys_current_frame[(i32)keycode];
 }
 
 bool KeyManager::key_held(Key keycode) const {
     // if pressed last frame and now
-    return keys_last_frame[(int)keycode] && keys_current_frame[(int)keycode];
+    return keys_last_frame[(i32)keycode] && keys_current_frame[(i32)keycode];
 }
 
 bool KeyManager::key_just_released(Key keycode) const {
     // if pressed last frame and not now
-    return keys_last_frame[(int)keycode] && !keys_current_frame[(int)keycode];
+    return keys_last_frame[(i32)keycode] && !keys_current_frame[(i32)keycode];
 }
 
 bool KeyManager::key_never_pressed(Key keycode) const {
     // if not pressed last frame or this frame
-    return !keys_last_frame[(int)keycode] && keys_current_frame[(int)keycode];
+    return !keys_last_frame[(i32)keycode] && keys_current_frame[(i32)keycode];
 }
 
 bool KeyManager::key_pressed(Key keycode) const {
-    return keys_current_frame[(int)keycode];
+    return keys_current_frame[(i32)keycode];
 }
 
 } // namespace omega

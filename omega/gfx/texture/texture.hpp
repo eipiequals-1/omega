@@ -11,6 +11,7 @@
 #include "omega/gfx/gl.hpp"
 #include "omega/util/log.hpp"
 #include "omega/util/std.hpp"
+#include "omega/util/types.hpp"
 
 #include "lib/stb/stb_image.h"
 
@@ -22,8 +23,8 @@ namespace omega::gfx::texture {
  */
 class Texture {
   private:
-    Texture(uint32_t width,
-            uint32_t height,
+    Texture(u32 width,
+            u32 height,
             GLenum min_filter = OMEGA_GL_NEAREST,
             GLenum mag_filter = OMEGA_GL_NEAREST);
 
@@ -41,7 +42,7 @@ class Texture {
         GLenum min_filter = OMEGA_GL_NEAREST,
         GLenum mag_filter = OMEGA_GL_NEAREST) {
         Texture *tex = new Texture(surf->w, surf->h, min_filter, mag_filter);
-        tex->load((uint32_t *)surf->pixels);
+        tex->load((u32 *)surf->pixels);
         return util::uptr<Texture>(tex);
     }
 
@@ -63,7 +64,7 @@ class Texture {
         }
         util::uptr<Texture> texture = util::uptr<Texture>(new Texture(
             surface->w, surface->h, min_filter, mag_filter));
-        texture->load((uint32_t *)surface->pixels);
+        texture->load((u32 *)surface->pixels);
         SDL_FreeSurface(surface);
 #else
         int width, height, nrChannels;
@@ -74,7 +75,7 @@ class Texture {
         }
         util::uptr<Texture> texture = util::uptr<Texture>(
             new Texture(width, height, min_filter, mag_filter));
-        texture->load((uint32_t *)data);
+        texture->load((u32 *)data);
 #endif
 
         return texture;
@@ -89,8 +90,8 @@ class Texture {
      * @param mag_filter (default = GL_NEAREST)
      */
     static util::uptr<Texture> create_empty(
-        uint32_t width,
-        uint32_t height,
+        u32 width,
+        u32 height,
         GLenum min_filter = GL_NEAREST,
         GLenum mag_filter = GL_NEAREST) {
         // must construct using new because constructor is private
@@ -104,7 +105,7 @@ class Texture {
      * Bind this texture as the active OpenGL texture to the given slot
      * @param slot to bind to
      */
-    void bind(uint32_t slot = 0) const;
+    void bind(u32 slot = 0) const;
 
     /**
      * Unbind the texture in OpenGL
@@ -116,22 +117,22 @@ class Texture {
     /**
      * @return the texture object in OpenGL
      */
-    uint32_t get_renderer_id() const { return id; }
+    u32 get_renderer_id() const { return id; }
 
     /**
      * @return the width
      */
-    uint32_t get_width() const { return width; }
+    u32 get_width() const { return width; }
     /**
      * @return the height
      */
-    uint32_t get_height() const { return height; }
+    u32 get_height() const { return height; }
 
     /**
-     * Sets the texture data for RGBA textures using a uint32_t array
+     * Sets the texture data for RGBA textures using a u32 array
      * @param data with RGBA data
      */
-    void set_data(uint32_t *data) {
+    void set_data(u32 *data) {
         glBindTexture(GL_TEXTURE_2D, id); // bind without setting active texture
         glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, width, height,
                         GL_RGBA, GL_UNSIGNED_BYTE, data);
@@ -141,18 +142,18 @@ class Texture {
     /**
      * @returns the pixels of the texture
      */
-    util::uptr<uint32_t[]> get_pixels();
+    util::uptr<u32[]> get_pixels();
 
     /**
      * Save the pixels, at the given dimensions to the file
      * @param file_name path to the file
-     * @param pixels pointer to uint32_t/rgba pixels
+     * @param pixels pointer to u32/rgba pixels
      * @param width
      * @param height
      */
-    static void save_to_file(const std::string &file_name, uint32_t *pixels,
-                             uint32_t width, uint32_t height) {
-        uint32_t rmask, gmask, bmask, amask;
+    static void save_to_file(const std::string &file_name, u32 *pixels,
+                             u32 width, u32 height) {
+        u32 rmask, gmask, bmask, amask;
         if (SDL_BYTEORDER == SDL_BIG_ENDIAN) {
             rmask = 0xff000000;
             gmask = 0x00ff0000;
@@ -176,10 +177,10 @@ class Texture {
     /**
      * Creates the texture and sets the min, mag, and wrap filters
      */
-    void load(uint32_t *pixels);
+    void load(u32 *pixels);
 
-    GLuint id;
-    uint32_t width, height;
+    u32 id;
+    u32 width, height;
 };
 
 /**

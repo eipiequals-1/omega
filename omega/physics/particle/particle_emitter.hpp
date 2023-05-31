@@ -23,7 +23,7 @@ using namespace omega::util;
 /**
  * Represents a min and max value for varius Emitter properties
  */
-using range = std::pair<float, float>;
+using range = std::pair<f32, f32>;
 
 /**
  * Handles setting the settings of the particle emitters
@@ -31,12 +31,12 @@ using range = std::pair<float, float>;
  * rotations, accelerations, randomness, etc
  */
 struct EmitterBuilder {
-    float lifespan;
-    float particle_lifespan;
+    f32 lifespan;
+    f32 particle_lifespan;
     glm::vec4 begin_color;  // color that particles are to be at the beginning
     glm::vec4 end_color;    // color that particles are to be at the end
-    uint32_t max_particles; // max particles at a given instance
-    float emit_freq;        // time to emit particles
+    u32 max_particles; // max particles at a given instance
+    f32 emit_freq;        // time to emit particles
     glm::vec2 pos;          // pos in world coordinates
     range radius;           // radius
     range rot_range;        // range in degrees where particles spawn
@@ -76,7 +76,7 @@ class ParticleEmitter {
      * Updates every particle's size, color, etc
      * @param dt the timestep
      */
-    virtual void update(float dt);
+    virtual void update(f32 dt);
 
     /**
      * Renders the particle using a specially built shader
@@ -97,16 +97,16 @@ class ParticleEmitter {
      * color,
      */
     struct ParticleVertex {
-        float pos[2];
-        float center[2];
-        float radius;
-        float color[4];
+        f32 pos[2];
+        f32 center[2];
+        f32 radius;
+        f32 color[4];
     };
 
     /**
      * @return the number of particles that must be emitted
      */
-    uint32_t can_emit() {
+    u32 can_emit() {
         u_int32_t to_add = 0;
         while (emit_timer >= data.emit_freq) {
             emit_timer -= data.emit_freq;
@@ -119,18 +119,18 @@ class ParticleEmitter {
 
     /**
      * Emit's a new particle.
-     * Called by ParticleEmitter::update(float dt);
+     * Called by ParticleEmitter::update(f32 dt);
      */
     void emit();
 
     // particle data
     Particle *particles;
-    uint32_t num_particles;
+    u32 num_particles;
 
     // emission data
     EmitterBuilder data;
-    float timer;
-    float emit_timer;
+    f32 timer;
+    f32 emit_timer;
 
     // gl objections
     uptr<VertexArray> vao;

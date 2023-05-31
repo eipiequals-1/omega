@@ -15,7 +15,8 @@ cc_library(
     linkopts = DEFAULT_LINKOPTS,
     deps = [
         "@SDL2//:SDL2",
-        "//omega/util:log"
+        "//omega/util:log",
+        "//omega/util:types"
     ]
 )
 
@@ -27,7 +28,8 @@ cc_library(
     linkopts = DEFAULT_LINKOPTS,
     deps = [
         "@SDL2//:SDL2",
-        "//omega/util:log"
+        "//omega/util:log",
+        "//omega/util:types"
     ]
 )
 

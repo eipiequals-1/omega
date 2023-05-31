@@ -9,7 +9,9 @@
 #include <vector>
 
 #include "omega/gfx/sprite_batch.hpp"
-#include "omega/util/util.hpp"
+#include "omega/util/std.hpp"
+#include "omega/util/types.hpp"
+#include "omega/util/math.hpp"
 
 namespace omega::scene::tiled {
 
@@ -32,14 +34,14 @@ class Map : public TmxMap {
     virtual void get_intersect_rects(
         const glm::rectf &rect,
         std::vector<Tile *> &collided_tiles,
-        std::vector<uint32_t> &collided_tile_indices);
+        std::vector<u32> &collided_tile_indices);
 
     /**
      * Sets the tile rectangle based off of the tileIdx
      * @param rect reference to the rect to be changed
      * @param tile_idx index of the tile in the 1d tile vector
      */
-    virtual void set_tile_rect(glm::rectf &rect, uint32_t tile_idx);
+    virtual void set_tile_rect(glm::rectf &rect, u32 tile_idx);
 
     /**
      * Checks if a tile has the given property
@@ -61,7 +63,7 @@ class Map : public TmxMap {
     virtual void get_tiles_with_property(
         const std::string &property,
         std::vector<Tile *> &tiles_properties,
-        std::vector<int> &tiles_properties_idx);
+        std::vector<i32> &tiles_properties_idx);
 
     /**
      * @param x coord in tile units
@@ -69,7 +71,7 @@ class Map : public TmxMap {
      * @param layer coord in tile units
      * @returns the tile at the given position
      */
-    virtual Tile &get_tile_at(int x, int y, int layer) {
+    virtual Tile &get_tile_at(i32 x, i32 y, i32 layer) {
         return layerCollection[layer].tiles[y * width + x];
     }
 };

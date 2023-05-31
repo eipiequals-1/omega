@@ -68,9 +68,8 @@ ShapeRenderer::ShapeRenderer() : view_proj_matrix_name("u_ViewProjMatrix") {
     triangle_shader =
         create_uptr<Shader>(std::string(vertex), std::string(fragment));
     // create vertex buffer
-    omega::util::print("ShapeRenderer vbo");
     triangle_vbo = create_uptr<VertexBuffer>(
-        sizeof(float) * num_triangles *
+        sizeof(f32) * num_triangles *
         num_vertices_per_triangle * num_attributes);
 
     // create vertex buffer layout
@@ -111,7 +110,7 @@ void ShapeRenderer::rect(const glm::rectf &rect) {
     );
 }
 
-void ShapeRenderer::rect(const glm::rectf &rect, float rotation) {
+void ShapeRenderer::rect(const glm::rectf &rect, f32 rotation) {
     glm::vec2 center = rect.center();
     // center rect around origin/center
     glm::vec2 points[4] = {};
@@ -121,8 +120,8 @@ void ShapeRenderer::rect(const glm::rectf &rect, float rotation) {
     points[3] = glm::vec2(rect.x, rect.y + rect.h) - center;
 
     rotation = glm::radians(rotation);
-    float s = glm::sin(rotation);
-    float c = glm::cos(rotation);
+    f32 s = glm::sin(rotation);
+    f32 c = glm::cos(rotation);
     for (size_t i = 0; i < 4; ++i) {
         glm::vec2 &point = points[i];
         glm::vec2 point_old = point;
@@ -135,9 +134,9 @@ void ShapeRenderer::rect(const glm::rectf &rect, float rotation) {
     triangle(points[2], points[3], points[0]);
 }
 
-void ShapeRenderer::triangle(float x1, float y1,
-                             float x2, float y2,
-                             float x3, float y3) {
+void ShapeRenderer::triangle(f32 x1, f32 y1,
+                             f32 x2, f32 y2,
+                             f32 x3, f32 y3) {
     if (triangles_renderered == num_triangles) {
         end();
         begin();
@@ -168,12 +167,12 @@ void ShapeRenderer::triangle(const glm::vec2 &p1,
 }
 
 void ShapeRenderer::circle(const glm::vec2 &center,
-                           float radius,
+                           f32 radius,
                            uint32_t segments) {
     // estimate number of triangles
-    float angle_incr = glm::pi<float>() * 2 / segments;
+    f32 angle_incr = glm::pi<f32>() * 2 / segments;
     glm::vec2 p2, p3;
-    float s = 0.0f, c = 1.0f;
+    f32 s = 0.0f, c = 1.0f;
     for (uint32_t i = 0; i < segments; i++) {
         p2.x = radius * c + center.x;
         p2.y = radius * s + center.y;
@@ -187,7 +186,7 @@ void ShapeRenderer::circle(const glm::vec2 &center,
 
 void ShapeRenderer::line(const glm::vec2 &p1,
                          const glm::vec2 &p2,
-                         float thickness) {
+                         f32 thickness) {
     glm::vec2 slope = p2 - p1;
     glm::vec2 perpendicular = glm::vec2(-slope.y, slope.x);
     glm::vec2 norm_perp = glm::normalize(perpendicular);
@@ -203,9 +202,9 @@ void ShapeRenderer::line(const glm::vec2 &p1,
     triangle(r3, r4, r1);
 }
 
-void ShapeRenderer::line(float x1, float y1,
-                         float x2, float y2,
-                         float thickness) {
+void ShapeRenderer::line(f32 x1, f32 y1,
+                         f32 x2, f32 y2,
+                         f32 thickness) {
     line(glm::vec2(x1, y1), glm::vec2(x2, y2), thickness);
 }
 

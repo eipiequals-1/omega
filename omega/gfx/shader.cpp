@@ -30,7 +30,7 @@ void Shader::unbind() {
     glUseProgram(0);
 }
 
-void Shader::set_uniform_1i(const std::string &name, int value) {
+void Shader::set_uniform_1i(const std::string &name, i32 value) {
     glUniform1i(get_uniform_location(name), value);
 }
 
@@ -58,7 +58,7 @@ void Shader::set_uniform_mat4f(const std::string &name,
     glUniformMatrix4fv(get_uniform_location(name), 1, GL_FALSE, &matrix[0][0]);
 }
 
-void Shader::set_uniform_1iv(const std::string &name, int *arr, uint32_t size) {
+void Shader::set_uniform_1iv(const std::string &name, i32 *arr, u32 size) {
     glUniform1iv(get_uniform_location(name), size, arr);
 }
 
@@ -107,13 +107,13 @@ Shader::ShaderProgramSource Shader::parse_shader(const std::string &filepath) {
     return {shaderstream[0].str(), shaderstream[1].str()};
 }
 
-uint32_t Shader::compile_shader(uint32_t type, const std::string &source) {
+u32 Shader::compile_shader(u32 type, const std::string &source) {
     GLuint id = glCreateShader(type);
     const char *src = source.c_str();
     glShaderSource(id, 1, &src, nullptr);
     glCompileShader(id);
 
-    int res;
+    i32 res;
     glGetShaderiv(id, GL_COMPILE_STATUS, &res);
     if (res == GL_FALSE) {
         GLint length = 0;
@@ -135,7 +135,7 @@ uint32_t Shader::compile_shader(uint32_t type, const std::string &source) {
 /**
  * @return binding for shader
  */
-uint32_t Shader::create_shader(const std::string &vertex_shader,
+u32 Shader::create_shader(const std::string &vertex_shader,
                                const std::string &fragment_shader) {
     GLuint program = glCreateProgram();
 
@@ -147,10 +147,10 @@ uint32_t Shader::create_shader(const std::string &vertex_shader,
 
     glLinkProgram(program);
     glValidateProgram(program);
-    int success;
+    i32 success;
     glGetProgramiv(program, GL_LINK_STATUS, &success);
     if (success == GL_FALSE) {
-        int length = 0;
+        i32 length = 0;
         glGetProgramiv(program, GL_INFO_LOG_LENGTH, &length);
         char *message = (char *)malloc(sizeof(char) * length);
         glGetProgramInfoLog(program, 512, nullptr, message);

@@ -13,17 +13,17 @@ Map::Map(const std::string &file_path, const std::string &tileset_path) {
 
 void Map::get_intersect_rects(const glm::rectf &rect,
                               std::vector<Tile *> &collided_tiles,
-                              std::vector<uint32_t> &collided_tile_indices) {
+                              std::vector<u32> &collided_tile_indices) {
     // reset the output vectors
     collided_tiles.clear();
     collided_tile_indices.clear();
     // make sure that the rectangle is not out of bounds
-    if (rect.x < 0.0f || rect.x + rect.w > (float)width * tileWidth ||
-        rect.y < 0.0f || rect.y + rect.h > (float)height * tileHeight) {
+    if (rect.x < 0.0f || rect.x + rect.w > (f32)width * tileWidth ||
+        rect.y < 0.0f || rect.y + rect.h > (f32)height * tileHeight) {
         return;
     }
     // find bounds to search
-    uint32_t left, right, top, bottom;
+    u32 left, right, top, bottom;
     left = glm::max(glm::floor(rect.x / tileWidth), 0.0f);
     right = glm::min(glm::floor((rect.x + rect.w) / tileWidth), width - 1.0f);
     bottom = glm::max(glm::floor(rect.y / tileHeight), 0.0f);
@@ -32,10 +32,10 @@ void Map::get_intersect_rects(const glm::rectf &rect,
         if (!layer.visible)
             continue;
 
-        for (uint32_t y = bottom; y <= top; y++) {
-            for (uint32_t x = left; x <= right; x++) {
+        for (u32 y = bottom; y <= top; y++) {
+            for (u32 x = left; x <= right; x++) {
                 // need to flip tile_pos
-                uint32_t tile_pos = ((layer.height - y - 1) * layer.width) + x;
+                u32 tile_pos = ((layer.height - y - 1) * layer.width) + x;
                 Tile &tile = layer.tiles[tile_pos];
                 if (tile.gid != 0) {
                     collided_tiles.push_back(&tile);
@@ -46,10 +46,10 @@ void Map::get_intersect_rects(const glm::rectf &rect,
     }
 }
 
-void Map::set_tile_rect(glm::rectf &rect, uint32_t tile_idx) {
+void Map::set_tile_rect(glm::rectf &rect, u32 tile_idx) {
     // convert tile_idx to correct width and height
-    uint32_t actual_x = tile_idx % width;
-    uint32_t actual_y = height - (tile_idx / width) - 1;
+    u32 actual_x = tile_idx % width;
+    u32 actual_y = height - (tile_idx / width) - 1;
     // now turn into rect
     rect.x = actual_x * tileWidth;
     rect.y = actual_y * tileHeight;

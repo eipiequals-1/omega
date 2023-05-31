@@ -18,6 +18,7 @@ cc_library(
         "@box2d//:box2d",
         ":body",
         ":physics_defines",
+        "//omega/util:types",
     ]
 )
 
@@ -41,6 +42,7 @@ cc_library(
         "@box2d//:box2d",
         ":physics_defines",
         "//omega/util:math",
+        "//omega/util:types",
     ]
 )
 
@@ -53,5 +55,6 @@ cc_library(
         ":body",
         ":world",
         ":physics_defines",
+        "//omega/util:types",
     ]
 )

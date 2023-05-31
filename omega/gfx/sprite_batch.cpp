@@ -9,8 +9,8 @@ namespace omega::gfx {
 
 SpriteBatch::SpriteBatch() {
     // indices will never change so set them now
-    uint32_t indices[index_buffer_capacity];
-    uint32_t offset = 0;
+    u32 indices[index_buffer_capacity];
+    u32 offset = 0;
     for (size_t i = 0; i < index_buffer_capacity; i += 6) {
         // triangle 1
         indices[i + 0] = 0 + offset;
@@ -154,7 +154,7 @@ SpriteBatch::SpriteBatch() {
                                         std::string(fragment));
     vao = create_uptr<VertexArray>();
     vbo = create_uptr<VertexBuffer>(
-        vertex_buffer_capacity * vertex_count * sizeof(float));
+        vertex_buffer_capacity * vertex_count * sizeof(f32));
 
     VertexBufferLayout layout;
     layout.push(GL_FLOAT, 3); // world coords
@@ -166,7 +166,7 @@ SpriteBatch::SpriteBatch() {
     layout.push(GL_FLOAT, 3); // rotation center
     vao->add_buffer(*vbo, layout);
 
-    for (uint32_t i = 0; i < max_textures; ++i) {
+    for (u32 i = 0; i < max_textures; ++i) {
         texture_binds[i] = i;
     }
     sprite_shader->bind();
@@ -187,18 +187,18 @@ void SpriteBatch::begin_render() {
 }
 
 void SpriteBatch::render_texture(const Texture *texture,
-                                 const float x,
-                                 const float y,
+                                 const f32 x,
+                                 const f32 y,
                                  const glm::vec4 &color) {
     render_texture(
         texture, x, y, texture->get_width(), texture->get_height(), color);
 }
 
 void SpriteBatch::render_texture(const Texture *texture,
-                                 const float x,
-                                 const float y,
-                                 const float w,
-                                 const float h,
+                                 const f32 x,
+                                 const f32 y,
+                                 const f32 w,
+                                 const f32 h,
                                  const glm::vec4 &color) {
     // set tex coords
     glm::rectf tex_coords(
@@ -216,7 +216,7 @@ void SpriteBatch::render_texture(const Texture *texture,
 void SpriteBatch::render_texture(const Texture *texture,
                                  glm::rectf src,
                                  const glm::rectf &dest,
-                                 float rotation,
+                                 f32 rotation,
                                  const glm::vec2 &center,
                                  const glm::vec4 &color) {
     render_texture(texture, src, dest, glm::vec3(0.0f, 0.0f, -1.0f), rotation,
@@ -227,17 +227,17 @@ void SpriteBatch::render_texture(const Texture *texture,
                                  glm::rectf src,
                                  const glm::rectf &dest,
                                  const glm::vec3 rotation_axis,
-                                 float rotation,
+                                 f32 rotation,
                                  const glm::vec3 &center_of_rotation,
                                  const glm::vec4 &color) {
     if (quads_rendered == quad_capacity) {
         end_render();
         begin_render();
     }
-    float tex_id = tex_bind_slot;
+    f32 tex_id = tex_bind_slot;
     // check if texture has been used in this batch
     bool in_batch = false;
-    for (uint32_t i = 0; i < textures_to_render.size(); i++) {
+    for (u32 i = 0; i < textures_to_render.size(); i++) {
         if (textures_to_render[i] == texture) {
             in_batch = true;
             tex_id = i;
@@ -260,7 +260,7 @@ void SpriteBatch::render_texture(const Texture *texture,
     src.y = src.y / texture->get_height();
     src.w = src.w / texture->get_width();
     src.h = src.h / texture->get_height();
-    constexpr static float z = 0.0f;
+    constexpr static f32 z = 0.0f;
 
     // inverse texture to y up
     Vertex v0 = {
@@ -309,7 +309,7 @@ void SpriteBatch::render_texture_region(const TextureRegion *texture_region,
                                         const glm::rectf &dest,
                                         const glm::vec4 &color) {
     render_texture(texture_region->get_texture(),
-                   texture_region->get_rect().convert_type<float>(),
+                   texture_region->get_rect().convert_type<f32>(),
                    dest,
                    color);
 }

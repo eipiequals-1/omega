@@ -13,19 +13,19 @@ namespace omega::gfx::texture {
  */
 class TextureRegion {
   public:
-    TextureRegion(Texture *tex, uint32_t x, uint32_t y, uint32_t w, uint32_t h)
+    TextureRegion(Texture *tex, u32 x, u32 y, u32 w, u32 h)
     : texture(tex), rect(x, y, w, h) {}
 
-    uint32_t get_x() const { return rect.x; }
-    uint32_t get_y() const { return rect.y; }
-    uint32_t get_w() const { return rect.w; }
-    uint32_t get_h() const { return rect.h; }
-    const glm::rect<uint32_t> &get_rect() const { return rect; }
+    u32 get_x() const { return rect.x; }
+    u32 get_y() const { return rect.y; }
+    u32 get_w() const { return rect.w; }
+    u32 get_h() const { return rect.h; }
+    const glm::rect<u32> &get_rect() const { return rect; }
     Texture *get_texture() const { return texture; }
 
   private:
     Texture *texture = nullptr;
-    glm::rect<uint32_t> rect;
+    glm::rect<u32> rect;
 };
 } // namespace omega::gfx::texture
 

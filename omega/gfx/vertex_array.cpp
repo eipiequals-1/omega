@@ -18,7 +18,7 @@ void VertexArray::add_buffer(const VertexBuffer &vb,
     vb.bind();
     const auto &elements = layout.get_attributes();
     uintptr_t offset = 0;
-    for (uint32_t i = 0; i < elements.size(); ++i) {
+    for (u32 i = 0; i < elements.size(); ++i) {
         const auto &element = elements[i];
         // initialize attribute
         glEnableVertexAttribArray(i);

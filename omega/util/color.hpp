@@ -10,7 +10,7 @@ namespace omega::util::color {
  * @param a the 32 bit color
  * @return the rgba color vector
  */
-inline glm::vec4 to_vec4(glm::uint32_t a) {
+inline glm::vec4 to_vec4(glm::u32 a) {
     unsigned char *vals = (unsigned char *)&a;
     return glm::vec4(vals[0] / 0xff,
                      vals[1] / 0xff,
@@ -23,8 +23,8 @@ inline glm::vec4 to_vec4(glm::uint32_t a) {
  * @param a the normalized color vector
  * @return 32 bit representation of color
  */
-inline glm::uint32_t to_uint32_t(const glm::vec4 &a) {
-    glm::uint32_t b;
+inline glm::u32 to_u32(const glm::vec4 &a) {
+    glm::u32 b;
     glm::u8 *ptr = (glm::u8 *)&b;
     ptr[0] = (glm::u8)(a.r * 0xff);
     ptr[1] = (glm::u8)(a.g * 0xff);

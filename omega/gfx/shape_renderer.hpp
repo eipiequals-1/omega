@@ -77,7 +77,7 @@ class ShapeRenderer {
      * @param g green
      * @param b blue
      */
-    void color(float r, float g, float b) {
+    void color(f32 r, f32 g, f32 b) {
         color(r, g, b, 1.0f);
     }
 
@@ -88,7 +88,7 @@ class ShapeRenderer {
      * @param b blue
      * @param a alpha
      */
-    void color(float r, float g, float b, float a) {
+    void color(f32 r, f32 g, f32 b, f32 a) {
         current_color.r = r;
         current_color.g = g;
         current_color.b = b;
@@ -106,7 +106,7 @@ class ShapeRenderer {
      * @param rect rect in world space coords
      * @param rotation in trigonometric direction & degrees
      */
-    void rect(const glm::rectf &rect, float rotation);
+    void rect(const glm::rectf &rect, f32 rotation);
 
     /**
      * Renders a triangle with the given points
@@ -121,7 +121,7 @@ class ShapeRenderer {
      * Renders a triangle with the given points
      * and the current ShapeRenderer::color
      */
-    void triangle(float x1, float y1, float x2, float y2, float x3, float y3);
+    void triangle(f32 x1, f32 y1, f32 x2, f32 y2, f32 x3, f32 y3);
 
     /**
      * Renders a Circle by approximating the number of triangle segments to draw
@@ -129,7 +129,7 @@ class ShapeRenderer {
      * @param center the center of the circle
      * @param radius the radius
      */
-    void circle(const glm::vec2 &center, float radius, uint32_t segments);
+    void circle(const glm::vec2 &center, f32 radius, u32 segments);
 
     /**
      * Renders a line with the specified points and thickness
@@ -139,22 +139,22 @@ class ShapeRenderer {
      * @param p2 point 2
      * @param thickness width of line
      */
-    void line(const glm::vec2 &p1, const glm::vec2 &p2, float thickness = 1.0f);
+    void line(const glm::vec2 &p1, const glm::vec2 &p2, f32 thickness = 1.0f);
 
     /**
      * Renders a line in the same way as
      *
      * ShapeRenderer::line(const glm::vec2 &p1,
      *                     const glm::vec2 &p2,
-     *                     float thickness);
+     *                     f32 thickness);
      */
-    void line(float x1, float y1, float x2, float y2, float thickness = 1.0f);
+    void line(f32 x1, f32 y1, f32 x2, f32 y2, f32 thickness = 1.0f);
 
   private:
     //
-    static const uint32_t num_triangles = 1000;
-    static const uint32_t num_vertices_per_triangle = 3;
-    static const uint32_t num_attributes = 6;
+    static const u32 num_triangles = 1000;
+    static const u32 num_vertices_per_triangle = 3;
+    static const u32 num_attributes = 6;
     const std::string view_proj_matrix_name;
 
     // OpenGL objects
@@ -162,7 +162,7 @@ class ShapeRenderer {
     uptr<VertexBuffer> triangle_vbo = nullptr;
     uptr<VertexArray> triangle_vao = nullptr;
 
-    uint32_t triangles_renderered = 0;
+    u32 triangles_renderered = 0;
     glm::vec4 current_color{1.0f}; // tracks current color
 
     /**

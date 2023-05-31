@@ -1,8 +1,9 @@
 #ifndef OMEGA_GFX_VERTEXBUFFERLAYOUT_HPP
 #define OMEGA_GFX_VERTEXBUFFERLAYOUT_HPP
 
-#include <cstdint>
 #include <vector>
+
+#include "omega/util/types.hpp"
 
 namespace omega::gfx {
 
@@ -11,15 +12,15 @@ namespace omega::gfx {
  * Holds easy access to data from the Vertex Buffer Layout
  */
 struct VertexBufferAttrib {
-    uint32_t type;  // data type: GL_FLOAT, GL_UNSIGNED_INT, etc
-    uint32_t count; // number of elements in this attribute
+    u32 type;  // data type: GL_FLOAT, GL_UNSIGNED_INT, etc
+    u32 count; // number of elements in this attribute
     unsigned char normalized;
 
     /**
      * @param type the GLenum type of data
      * @return the size of the data in bytes
      */
-    static uint32_t get_size_of_type(uint32_t type);
+    static u32 get_size_of_type(u32 type);
 };
 
 /**
@@ -35,7 +36,7 @@ class VertexBufferLayout {
      * @param attrib_type type of data GL_FLOAT, GL_UNSIGNED_INT, etc
      * @param count number of data to push
      */
-    void push(uint32_t attrib_type, uint32_t count) {
+    void push(u32 attrib_type, u32 count) {
         attributes.push_back({attrib_type, count, 0});
         stride += VertexBufferAttrib::get_size_of_type(attrib_type) * count;
     }
@@ -50,11 +51,11 @@ class VertexBufferLayout {
     /**
      * @returns the stride of each vertex
      */
-    uint32_t get_stride() const { return stride; }
+    u32 get_stride() const { return stride; }
 
   private:
     std::vector<VertexBufferAttrib> attributes;
-    uint32_t stride = 0; // space between this vertex and next vertex
+    u32 stride = 0; // space between this vertex and next vertex
 };
 
 } // namespace omega::gfx

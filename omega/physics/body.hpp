@@ -9,6 +9,7 @@
 
 #include "omega/physics/physics_defines.hpp"
 #include "omega/util/math.hpp"
+#include "omega/util/types.hpp"
 
 namespace omega::physics {
 
@@ -22,8 +23,8 @@ class BoxBody {
     BoxBody(const glm::rectf &rect,
             BodyType type,
             b2FixtureDef &fixture_def,
-            float gravity_scale,
-            float angle,
+            f32 gravity_scale,
+            f32 angle,
             b2World *world);
     
     virtual ~BoxBody() = default;
@@ -51,22 +52,22 @@ class BoxBody {
 class CircleBody {
   public:
     CircleBody(const glm::vec2 &center,
-               float radius,
+               f32 radius,
                BodyType type,
                b2FixtureDef &fixture_def,
-               float gravity_scale,
+               f32 gravity_scale,
                b2World *world);
 
     virtual ~CircleBody() = default;
 
     const glm::vec2 &get_center() const { return center; }
-    float get_radius() const { return radius; }
+    f32 get_radius() const { return radius; }
     Body *get_body() { return body; }
 
   protected:
     Body *body = nullptr;
     glm::vec2 center{0.0f};
-    float radius = 0.0f;
+    f32 radius = 0.0f;
 };
 } // namespace omega::physics
 

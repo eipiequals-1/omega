@@ -19,7 +19,7 @@ Window::~Window() {
     SDL_Quit();
 }
 
-bool Window::init(uint32_t width, uint32_t height, bool resizable, const std::string &title) {
+bool Window::init(u32 width, u32 height, bool resizable, const std::string &title) {
     this->width = width;
     this->height = height;
     if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_EVENTS) != 0) {
@@ -54,7 +54,7 @@ bool Window::init(uint32_t width, uint32_t height, bool resizable, const std::st
     SDL_GL_SetAttribute(SDL_GL_ACCELERATED_VISUAL, 1);
 
     WindowFlags window_flags = resizable ? WindowFlags::opengl_resizable : WindowFlags::opengl;
-    window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, (uint32_t)window_flags);
+    window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, (u32)window_flags);
     if (window == nullptr) {
         util::error("Failed to create window: '{}'", SDL_GetError()); 
         return false;
@@ -88,7 +88,7 @@ void Window::swap_buffers() {
     SDL_GL_SwapWindow(window);
 }
 
-void Window::on_resize(uint32_t new_width, uint32_t new_height) {
+void Window::on_resize(u32 new_width, u32 new_height) {
     width = new_width;
     height = new_height;
 }

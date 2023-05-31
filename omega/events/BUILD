@@ -42,6 +42,7 @@ cc_library(
     deps = [
         "@SDL2//:SDL2",
         ":event",
+        "//omega/util:types"
     ]
 )
 

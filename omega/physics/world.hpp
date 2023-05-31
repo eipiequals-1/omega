@@ -11,6 +11,7 @@
 #include "omega/physics/body.hpp"
 #include "omega/physics/physics_defines.hpp"
 #include "omega/util/std.hpp"
+#include "omega/util/types.hpp"
 
 namespace omega::physics {
 
@@ -21,7 +22,7 @@ using namespace omega::util;
  */
 class World {
   public:
-    World(float gravity_x = 0.0f, float gravity_y = -9.81f);
+    World(f32 gravity_x = 0.0f, f32 gravity_y = -9.81f);
     virtual ~World() = default;
 
     /**
@@ -30,9 +31,9 @@ class World {
      * @param velocity_iterations
      * @param position_iterations
      */
-    void step(float timestep = 1.0f / 60.0f,
-              uint32_t velocity_iteration = 8,
-              uint32_t position_iterations = 3);
+    void step(f32 timestep = 1.0f / 60.0f,
+              u32 velocity_iteration = 8,
+              u32 position_iterations = 3);
 
     /**
      * Add a box to the world with the following params
@@ -46,8 +47,8 @@ class World {
     uptr<BoxBody> add_box(const glm::rectf &rect,
                           BodyType type,
                           b2FixtureDef fixture_def,
-                          float gravity_scale,
-                          float angle);
+                          f32 gravity_scale,
+                          f32 angle);
 
     /**
      * Add a circle to the world with the following params
@@ -59,10 +60,10 @@ class World {
      * @return CircleBody
      */
     uptr<CircleBody> add_circle(const glm::vec2 &center,
-                                float radius,
+                                f32 radius,
                                 BodyType type,
                                 b2FixtureDef fixture_def,
-                                float gravity_scale);
+                                f32 gravity_scale);
 
   private:
     uptr<b2World> world = nullptr;

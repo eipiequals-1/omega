@@ -3,6 +3,7 @@
 
 #include "omega/util/math.hpp"
 #include "omega/util/random.hpp"
+#include "omega/util/types.hpp"
 
 namespace omega::physics::particle {
 
@@ -18,7 +19,7 @@ struct Particle {
      * Handles updating Particle Emitter independent data such as position, life
      * @param dt the timestep
      */
-    virtual void update(float dt);
+    virtual void update(f32 dt);
 
     bool is_dead() const {
         return life_remaining <= 0.0f;
@@ -31,17 +32,17 @@ struct Particle {
      * @return a random color similar to the src_color
      */
     static glm::vec4 random_color(const glm::vec4 &src_color,
-                                  float rgb_diff_factor,
-                                  float a_diff_factor) {
+                                  f32 rgb_diff_factor,
+                                  f32 a_diff_factor) {
         glm::vec4 color;
         color.r = src_color.r +
-            util::random<float>(-rgb_diff_factor / 2.0f, rgb_diff_factor / 2.0f);
+            util::random<f32>(-rgb_diff_factor / 2.0f, rgb_diff_factor / 2.0f);
         color.g = src_color.g +
-            util::random<float>(-rgb_diff_factor / 2.0f, rgb_diff_factor / 2.0f);
+            util::random<f32>(-rgb_diff_factor / 2.0f, rgb_diff_factor / 2.0f);
         color.b = src_color.b +
-            util::random<float>(-rgb_diff_factor / 2.0f, rgb_diff_factor / 2.0f);
+            util::random<f32>(-rgb_diff_factor / 2.0f, rgb_diff_factor / 2.0f);
         color.a = src_color.a +
-            util::random<float>(-a_diff_factor / 2.0f, a_diff_factor / 2.0f);
+            util::random<f32>(-a_diff_factor / 2.0f, a_diff_factor / 2.0f);
 
         glm::clamp(color.r, 0.0f, 1.0f);
         glm::clamp(color.g, 0.0f, 1.0f);
@@ -52,8 +53,8 @@ struct Particle {
 
     glm::vec2 pos{0.0f}; // bottom left of "rect"
     glm::vec2 vel{10.0f};
-    float life_remaining = 0.0f;
-    float radius = 0.0f;
+    f32 life_remaining = 0.0f;
+    f32 radius = 0.0f;
 
     glm::vec4 color{1.0f};
 };

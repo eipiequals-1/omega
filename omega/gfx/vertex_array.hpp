@@ -6,6 +6,7 @@
 
 #include "omega/gfx/vertex_buffer.hpp"
 #include "omega/gfx/vertex_buffer_layout.hpp"
+#include "omega/util/types.hpp"
 
 namespace omega::gfx {
 
@@ -37,7 +38,7 @@ class VertexArray {
     static void unbind();
 
   private:
-    uint32_t id;
+    u32 id;
 };
 
 } // namespace omega::gfx

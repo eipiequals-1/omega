@@ -1,8 +1,9 @@
 #ifndef OMEGA_GFX_INDEXBUFFER_HPP
 #define OMEGA_GFX_INDEXBUFFER_HPP
 
-#include <cstdint>
 #include <cstddef>
+
+#include "omega/util/types.hpp"
 
 namespace omega::gfx {
 
@@ -12,8 +13,8 @@ namespace omega::gfx {
  */
 class IndexBuffer {
   public:
-    IndexBuffer(const uint32_t *data, uint32_t count);
-    IndexBuffer(uint32_t count);
+    IndexBuffer(const u32 *data, u32 count);
+    IndexBuffer(u32 count);
     ~IndexBuffer();
 
     /**
@@ -31,7 +32,7 @@ class IndexBuffer {
      * which is passed as an argument to glDrawElements
      * @return the index count
      */
-    uint32_t get_count() const { return count; }
+    u32 get_count() const { return count; }
 
     /**
      * Changes the buffer's data.
@@ -43,8 +44,8 @@ class IndexBuffer {
     void sub_data(size_t offset, size_t size, const void *data);
 
   private:
-    uint32_t id;
-    uint32_t count;
+    u32 id;
+    u32 count;
 };
 
 } // namespace omega::gfx

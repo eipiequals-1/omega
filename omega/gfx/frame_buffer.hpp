@@ -8,6 +8,7 @@
 
 #include "omega/gfx/texture/texture.hpp"
 #include "omega/util/util.hpp"
+#include "omega/util/types.hpp"
 
 namespace omega::gfx {
 
@@ -20,8 +21,8 @@ using namespace omega::gfx::texture;
  */
 class FrameBuffer {
   public:
-    FrameBuffer(uint32_t width,
-                uint32_t height,
+    FrameBuffer(u32 width,
+                u32 height,
                 macro min_filter = OMEGA_GL_NEAREST,
                 macro mag_filter = OMEGA_GL_NEAREST);
     ~FrameBuffer();
@@ -43,7 +44,7 @@ class FrameBuffer {
      * Binds the texture and sets it to the "slot" active texture
      * @param slot to bind the texture to
      */
-    void bind_texture(uint32_t slot = 0) const;
+    void bind_texture(u32 slot = 0) const;
 
     /**
      * unbinds the texture
@@ -55,25 +56,25 @@ class FrameBuffer {
      * @param width
      * @param height
      */
-    void resize(uint32_t width,
-                uint32_t height,
+    void resize(u32 width,
+                u32 height,
                 macro min_filter = OMEGA_GL_NEAREST,
                 macro mag_filter = OMEGA_GL_NEAREST);
 
     /**
      * @returns the width
      */
-    uint32_t get_width() const { return width; }
+    u32 get_width() const { return width; }
 
     /**
      * @returns the height
      */
-    uint32_t get_height() const { return height; }
+    u32 get_height() const { return height; }
 
     /**
      * @returns the render buffer id (depth and stencil buffers)
      */
-    uint32_t get_render_buffer_id() const { return rbo_depth_stencil; }
+    u32 get_render_buffer_id() const { return rbo_depth_stencil; }
 
     /**
      * @returns the color buffer
@@ -82,14 +83,14 @@ class FrameBuffer {
 
   private:
     // dimensions
-    uint32_t width;
-    uint32_t height;
+    u32 width;
+    u32 height;
 
     // gl objects
-    uint32_t id = 0;
+    u32 id = 0;
 
     sptr<Texture> color_buffer = nullptr;
-    uint32_t rbo_depth_stencil = 0;
+    u32 rbo_depth_stencil = 0;
 };
 
 } // namespace omega::gfx

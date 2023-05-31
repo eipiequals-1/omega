@@ -1,8 +1,9 @@
 #ifndef OMEGA_GFX_VERTEXBUFFER_HPP
 #define OMEGA_GFX_VERTEXBUFFER_HPP
 
-#include <cstdint>
 #include <cstddef>
+
+#include "omega/util/types.hpp"
 
 namespace omega::gfx {
 
@@ -13,7 +14,7 @@ namespace omega::gfx {
  */
 class VertexBuffer {
   public:
-    VertexBuffer(const void *data, uint32_t size);
+    VertexBuffer(const void *data, u32 size);
     explicit VertexBuffer(size_t size);
     ~VertexBuffer();
 
@@ -37,7 +38,7 @@ class VertexBuffer {
     void sub_data(size_t offset, size_t size, const void *data);
 
   private:
-    uint32_t id;
+    u32 id;
 };
 } // namespace omega::gfx
 

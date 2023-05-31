@@ -28,7 +28,7 @@ TextureAtlas::TextureAtlas(const std::string &atlas_file_path,
     atlas_file = nullptr;
 
     // parse lines
-    uint32_t x, y, w, h;
+    u32 x, y, w, h;
     std::string tex_region_key;
     for (size_t i = 0; i < lines.size(); i++) {
         const auto &line = lines[i];

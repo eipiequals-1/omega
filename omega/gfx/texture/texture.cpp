@@ -5,7 +5,7 @@
 
 namespace omega::gfx::texture {
 
-Texture::Texture(uint32_t width, uint32_t height,
+Texture::Texture(u32 width, u32 height,
                  GLenum min_filter, GLenum mag_filter) :
 id(0), width(width), height(height) {
 
@@ -26,20 +26,20 @@ Texture::~Texture() {
     glDeleteTextures(1, &id);
 }
 
-void Texture::bind(uint32_t slot) const {
+void Texture::bind(u32 slot) const {
     glActiveTexture(GL_TEXTURE0 + slot); // which slot the next texture will use
     glBindTexture(GL_TEXTURE_2D, id);
 }
 
-void Texture::load(uint32_t *pixels) {
+void Texture::load(u32 *pixels) {
     glBindTexture(GL_TEXTURE_2D, id);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height,
                  0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
     unbind();
 }
 
-util::uptr<uint32_t[]> Texture::get_pixels() {
-    auto pixels = std::make_unique<uint32_t[]>(width * height);
+util::uptr<u32[]> Texture::get_pixels() {
+    auto pixels = std::make_unique<u32[]>(width * height);
 
     glBindTexture(GL_TEXTURE_2D, id);
 #ifdef EMSCRIPTEN

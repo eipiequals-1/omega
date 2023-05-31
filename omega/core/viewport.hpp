@@ -4,6 +4,7 @@
 #include "omega/gfx/gl.hpp"
 
 #include "omega/util/math.hpp"
+#include "omega/util/types.hpp"
 
 namespace omega::core {
 
@@ -29,8 +30,8 @@ class Viewport {
      */
     Viewport(
         ViewportType viewport_type,
-        uint32_t initial_width,
-        uint32_t initial_height);
+        u32 initial_width,
+        u32 initial_height);
     ~Viewport() = default;
 
     /**
@@ -40,24 +41,24 @@ class Viewport {
      * @param new_height
      * @return the glViewport params
      */
-    glm::rect<uint32_t> on_resize(uint32_t new_width, uint32_t new_height);
+    glm::rect<u32> on_resize(u32 new_width, u32 new_height);
     /**
      * @return the viewport width
      */
-    uint32_t get_width() const { return current_width; }
+    u32 get_width() const { return current_width; }
     /**
      * @return the viewport height
      */
-    uint32_t get_height() const { return current_height; }
+    u32 get_height() const { return current_height; }
 
   private:
     ViewportType viewport_type = ViewportType::stretch;
     // initial settings (for aspect ratio)
-    uint32_t initial_width;
-    uint32_t initial_height;
+    u32 initial_width;
+    u32 initial_height;
     // current settings
-    uint32_t current_width;
-    uint32_t current_height;
+    u32 current_width;
+    u32 current_height;
 };
 
 } // namespace omega::core

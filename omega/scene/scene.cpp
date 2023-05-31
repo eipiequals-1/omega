@@ -21,7 +21,7 @@ Entity Scene::create_entity() {
     return ent;
 }
 
-void Scene::render(float dt, gfx::SpriteBatch &sprite_batch) {
+void Scene::render(f32 dt, gfx::SpriteBatch &sprite_batch) {
     (void)dt;
    // get camera for rendering
     Camera *scene_camera = nullptr;
@@ -81,7 +81,7 @@ void Scene::render(float dt, gfx::SpriteBatch &sprite_batch) {
     sprite_batch.end_render();
 }
 
-void Scene::update(float dt) {
+void Scene::update(f32 dt) {
     (void)dt;
 }
 

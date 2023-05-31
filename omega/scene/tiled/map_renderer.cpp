@@ -23,10 +23,10 @@ MapRenderer::~MapRenderer() {
 }
 
 void MapRenderer::setup(gfx::SpriteBatch &sprite_batch) {
-    uint32_t tile_width = map->tileWidth;
-    uint32_t tile_height = map->tileHeight;
-    uint32_t layer_width_pix = tile_width * map->width;
-    uint32_t layer_height_pix = tile_height * map->height;
+    u32 tile_width = map->tileWidth;
+    u32 tile_height = map->tileHeight;
+    u32 layer_width_pix = tile_width * map->width;
+    u32 layer_height_pix = tile_height * map->height;
     OrthographicCamera camera(0.0f, layer_width_pix,
                               0.0f, layer_height_pix);
 
@@ -34,12 +34,12 @@ void MapRenderer::setup(gfx::SpriteBatch &sprite_batch) {
     sprite_batch.set_view_projection_matrix(
         camera.get_view_projection_matrix());
     
-    for (uint32_t i = 0; i < map->layerCollection.size(); ++i) {
+    for (u32 i = 0; i < map->layerCollection.size(); ++i) {
         layers.push_back(
             new gfx::FrameBuffer(layer_width_pix, layer_height_pix));
     }
 
-    for (uint32_t z = 0; z < map->layerCollection.size(); ++z) {
+    for (u32 z = 0; z < map->layerCollection.size(); ++z) {
         Layer &layer = map->layerCollection[z];
         auto &framebuffer = layers[z];
         framebuffer->bind();
@@ -49,14 +49,14 @@ void MapRenderer::setup(gfx::SpriteBatch &sprite_batch) {
             const Tile &tile = layer.tiles[tile_idx];
             const Tileset &tileset = map->tilesetCollection[tile.tilesetIndex];
             // find location of first pixel of tile
-            uint32_t row, col, start_x, start_y;
+            u32 row, col, start_x, start_y;
             col = tile_idx % layer.width; // col in tile units
             row = tile_idx / layer.width; // row in tile units
             start_x = col * tile_width;   // x offset in pixels
             start_y = row * tile_height;  // y offset in pixels
             
             if (tile.gid == 0) {continue;}
-            uint32_t gid = tile.tileFlatIndex;
+            u32 gid = tile.tileFlatIndex;
             glm::rectf src(
                 (gid % tileset.colCount) * tileset.tileWidth,
                 ((int)(gid / tileset.colCount)) * tileset.tileHeight,

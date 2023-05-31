@@ -20,14 +20,14 @@ Music::~Music() {
     music = nullptr;
 }
 
-void Music::play(float volume) {
+void Music::play(f32 volume) {
     Mix_HaltMusic();
-    Mix_VolumeMusic((int)(MIX_MAX_VOLUME * volume));
+    Mix_VolumeMusic((i32)(MIX_MAX_VOLUME * volume));
     Mix_PlayMusic(music, -1);
 }
 
-void Music::set_volume(float volume) {
-    Mix_VolumeMusic((int)(MIX_MAX_VOLUME * volume));
+void Music::set_volume(f32 volume) {
+    Mix_VolumeMusic((i32)(MIX_MAX_VOLUME * volume));
 }
 
 } // namespace omega::sound

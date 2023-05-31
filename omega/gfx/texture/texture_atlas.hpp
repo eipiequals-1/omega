@@ -4,6 +4,7 @@
 #include <string>
 #include <unordered_map>
 
+#include "omega/gfx/gl.hpp"
 #include "omega/gfx/texture/texture.hpp"
 #include "omega/gfx/texture/texture_region.hpp"
 #include "omega/util/std.hpp"
@@ -19,8 +20,8 @@ namespace omega::gfx::texture {
 class TextureAtlas {
   public:
     explicit TextureAtlas(const std::string &atlas_file_path,
-                          GLenum min_filter = GL_NEAREST,
-                          GLenum mag_filter = GL_NEAREST);
+                          macro min_filter = GL_NEAREST,
+                          macro mag_filter = GL_NEAREST);
     ~TextureAtlas();
 
     /**

@@ -2,18 +2,18 @@
 
 namespace omega::scene {
 
-OrthographicCamera::OrthographicCamera(float left, float right,
-                                       float bottom, float top,
-                                       float near, float far) :
+OrthographicCamera::OrthographicCamera(f32 left, f32 right,
+                                       f32 bottom, f32 top,
+                                       f32 near, f32 far) :
     Camera::Camera() {
 
     position = glm::vec3(0.0f);
     set_projection(left, right, bottom, top, near, far);
 }
 
-void OrthographicCamera::set_projection(float left, float right,
-                                        float bottom, float top,
-                                        float near, float far) {
+void OrthographicCamera::set_projection(f32 left, f32 right,
+                                        f32 bottom, f32 top,
+                                        f32 near, f32 far) {
     projection_matrix = glm::ortho(left, right, bottom, top, near, far);
     width = (right - left);
     height = (top - bottom);

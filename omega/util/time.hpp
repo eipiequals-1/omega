@@ -6,6 +6,7 @@
 #include <thread>
 
 #include "omega/util/std.hpp"
+#include "omega/util/types.hpp"
 
 namespace omega::util {
 
@@ -40,7 +41,7 @@ class Time {
      * @param callback is called when the timer completes,
      * passes the elapsed time since the timer ended
      */
-    static void add_timer(float seconds, std::function<void(float)> callback) {
+    static void add_timer(f32 seconds, std::function<void(f32)> callback) {
         // create new event
         uptr<TimeEvent> time_event = create_uptr<TimeEvent>();
         time_event->duration = seconds;
@@ -54,7 +55,7 @@ class Time {
      * and delete the timer event
      * @param dt delta time
      */
-    static void tick(float dt) {
+    static void tick(f32 dt) {
         // iterate in reverse all the events
         for (int i = timers.size() - 1; i >= 0; --i) {
             TimeEvent &event = *timers[(size_t)i];
@@ -78,7 +79,7 @@ class Time {
     template <typename T>
     static void sleep(T time) {
         std::this_thread::sleep_for(
-            std::chrono::microseconds((int64_t)(time * 1000.0 * 1000.0)));
+            std::chrono::microseconds((i64)(time * 1000.0 * 1000.0)));
     }
 
     /**
@@ -93,9 +94,9 @@ class Time {
 
   private:
     struct TimeEvent {
-        float timer = 0.0f;
-        float duration = 0.0f;
-        std::function<void(float)> callback = nullptr;
+        f32 timer = 0.0f;
+        f32 duration = 0.0f;
+        std::function<void(f32)> callback = nullptr;
     };
 
     static std::vector<uptr<TimeEvent>> timers;

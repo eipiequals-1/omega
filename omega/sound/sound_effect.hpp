@@ -5,6 +5,8 @@
 
 #include <string>
 
+#include "omega/util/types.hpp"
+
 namespace omega::sound {
 
 using SoundEffectID = size_t;
@@ -14,8 +16,8 @@ class SoundEffect {
     SoundEffect(const std::string &filepath);
     ~SoundEffect();
 
-    void play(float volume);
-    void set_volume(float volume);
+    void play(f32 volume);
+    void set_volume(f32 volume);
 
   private:
     Mix_Chunk *chunk;
