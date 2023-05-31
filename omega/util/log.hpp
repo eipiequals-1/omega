@@ -60,36 +60,9 @@ static inline void print_(
     std::cout << stream.str() << '\n';
 }
 
-/**
- * Output any errors in red
- * @param args any errors to print
- */
-template <typename... Args>
-static inline void error_(const char *file, int line, Args &&...args) {
-    print_(log_color::red, "ERROR", file, line, args...);
-}
-
-/**
- * Output any messages in white
- * @param args any logs to print
- */
-template <typename... Args>
-static inline void log_(const char *file, int line, Args &&...args) {
-    print_(log_color::green, "LOG", file, line, args...);
-}
-
-/**
- * Output any debugging values in yellow
- * @param args any debug values to print
- */
-template <typename... Args>
-static inline void debug_(const char *file, int line, Args &&...args) {
-    print_(log_color::yellow, "DEBUG", file, line, args...);
-}
-
-#define error(...) error_(__FILE__, __LINE__,  __VA_ARGS__)
-#define print(...) log_(__FILE__, __LINE__,  __VA_ARGS__)
-#define debug(...) debug_(__FILE__, __LINE__, __VA_ARGS__)
+#define error(...) print_(log_color::red, "ERROR", __FILE__, __LINE__,  __VA_ARGS__)
+#define print(...) print_(log_color::green, "LOG", __FILE__, __LINE__,  __VA_ARGS__)
+#define debug(...) print_(log_color::yellow, "DEBUG", __FILE__, __LINE__, __VA_ARGS__)
 
 } // namespace omega::util
 
