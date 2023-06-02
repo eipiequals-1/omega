@@ -4,7 +4,8 @@ bazel-*
 *.so
 *bin/
 tests
-*.txt
 TODO
 *.out
 *.ini
+build/
+compile_flags.txt
