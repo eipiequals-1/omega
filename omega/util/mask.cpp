@@ -27,7 +27,7 @@ Mask::~Mask() {
     mask_data = nullptr;
 }
 
-uptr<Mask> from_texture(gfx::texture::Texture *texture, i32 alpha_threshold) {
+uptr<Mask> Mask::from_texture(gfx::texture::Texture *texture, i32 alpha_threshold) {
     u32* pixels = texture->get_pixels().get();
     return create_uptr<Mask>(pixels, texture->get_width(),
                              texture->get_height(), alpha_threshold);
