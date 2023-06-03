@@ -24,21 +24,19 @@ set (CMAKE_CXX_STANDARD 20)
 
 add_library(${PROJECT_NAME} SHARED ${SRC})
 
-# SDL2
+# dependencies
 find_package(SDL2 REQUIRED)
 
-# box2d
 add_subdirectory(lib/box2d)
 add_subdirectory(lib/imgui)
 add_subdirectory(lib/glad)
 add_subdirectory(lib/stb)
-add_subdirectory(lib/map)
+add_subdirectory(lib/libtmx-parser)
 
 target_include_directories(${PROJECT_NAME}
     PUBLIC lib/box2d/include/
-    PUBLIC lib/imgui/
     PUBLIC lib/glad/include/
-    PUBLIC lib/stb/
+    PUBLIC lib/
 )
 
 target_link_libraries(${PROJECT_NAME}
@@ -50,13 +48,12 @@ target_link_libraries(${PROJECT_NAME}
     imgui
     glad
     stb
-    map
-    tinyxml2
+    libtmx-parser
 )
 target_link_directories(${PROJECT_NAME}
     PUBLIC lib/box2d/bin/
     PUBLIC lib/imgui/
     PUBLIC lib/glad/
     PUBLIC lib/stb/
-    PUBLIC lib/map/
+    PUBLIC lib/libtmx-parser/
 )
