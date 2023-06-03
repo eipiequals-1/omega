@@ -13,7 +13,7 @@
 #include "omega/util/std.hpp"
 #include "omega/util/types.hpp"
 
-#include "lib/stb/stb_image.h"
+#include <stb/stb_image.h>
 
 namespace omega::gfx::texture {
 
@@ -67,7 +67,7 @@ class Texture {
         texture->load((u32 *)surface->pixels);
         SDL_FreeSurface(surface);
 #else
-        int width, height, nrChannels;
+        i32 width, height, nrChannels;
         stbi_uc* data = stbi_load(filepath.c_str(), &width, &height,
                                   &nrChannels, 0);
         if (data == nullptr) {

@@ -40,14 +40,14 @@ void MapRenderer::setup(gfx::SpriteBatch &sprite_batch) {
     }
 
     for (u32 z = 0; z < map->layerCollection.size(); ++z) {
-        Layer &layer = map->layerCollection[z];
+        tmxparser::Layer &layer = map->layerCollection[z];
         auto &framebuffer = layers[z];
         framebuffer->bind();
 
         sprite_batch.begin_render();
         for (size_t tile_idx = 0; tile_idx < layer.tiles.size(); ++tile_idx) {
-            const Tile &tile = layer.tiles[tile_idx];
-            const Tileset &tileset = map->tilesetCollection[tile.tilesetIndex];
+            const tmxparser::Tile &tile = layer.tiles[tile_idx];
+            const tmxparser::Tileset &tileset = map->tilesetCollection[tile.tilesetIndex];
             // find location of first pixel of tile
             u32 row, col, start_x, start_y;
             col = tile_idx % layer.width; // col in tile units

@@ -3,7 +3,7 @@
 
 #include <string>
 
-#include "lib/entt/entt.hpp"
+#include <entt/entt.hpp>
 
 #include "omega/core/viewport.hpp"
 #include "omega/gfx/sprite_batch.hpp"

@@ -3,7 +3,8 @@
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
-#include "lib/map/tmxparser.h"
+
+#include <libtmx-parser/tmxparser.h>
 
 #include <string>
 #include <vector>
@@ -13,12 +14,13 @@
 #include "omega/util/types.hpp"
 #include "omega/util/math.hpp"
 
+
 namespace omega::scene::tiled {
 
 /**
  * Stores a tiled map
  */
-class Map : public TmxMap {
+class Map : public tmxparser::TmxMap {
   public:
     Map(const std::string &file_path, const std::string &tileset_path);
     virtual ~Map() = default;
@@ -33,7 +35,7 @@ class Map : public TmxMap {
      */
     virtual void get_intersect_rects(
         const glm::rectf &rect,
-        std::vector<Tile *> &collided_tiles,
+        std::vector<tmxparser::Tile *> &collided_tiles,
         std::vector<u32> &collided_tile_indices);
 
     /**
@@ -50,7 +52,7 @@ class Map : public TmxMap {
      * @return out value in property map
      * @return if the tile has the given property
      */
-    virtual bool contains_property(const Tile &tile,
+    virtual bool contains_property(const tmxparser::Tile &tile,
                                    const std::string &property,
                                    std::string &out);
 
@@ -62,7 +64,7 @@ class Map : public TmxMap {
      */
     virtual void get_tiles_with_property(
         const std::string &property,
-        std::vector<Tile *> &tiles_properties,
+        std::vector<tmxparser::Tile *> &tiles_properties,
         std::vector<i32> &tiles_properties_idx);
 
     /**
@@ -71,7 +73,7 @@ class Map : public TmxMap {
      * @param layer coord in tile units
      * @returns the tile at the given position
      */
-    virtual Tile &get_tile_at(i32 x, i32 y, i32 layer) {
+    virtual tmxparser::Tile &get_tile_at(i32 x, i32 y, i32 layer) {
         return layerCollection[layer].tiles[y * width + x];
     }
 };

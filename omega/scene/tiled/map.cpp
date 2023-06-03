@@ -5,14 +5,14 @@
 namespace omega::scene::tiled {
 
 Map::Map(const std::string &file_path, const std::string &tileset_path) {
-    TmxReturn ret = parseFromFile(file_path, this, tileset_path);
-    if (ret != TmxReturn::kSuccess) {
+    tmxparser::TmxReturn ret = parseFromFile(file_path, this, tileset_path);
+    if (ret != tmxparser::TmxReturn::kSuccess) {
         util::error("Failed to load file: '", file_path, ".'");
     }
 }
 
 void Map::get_intersect_rects(const glm::rectf &rect,
-                              std::vector<Tile *> &collided_tiles,
+                              std::vector<tmxparser::Tile *> &collided_tiles,
                               std::vector<u32> &collided_tile_indices) {
     // reset the output vectors
     collided_tiles.clear();
@@ -36,7 +36,7 @@ void Map::get_intersect_rects(const glm::rectf &rect,
             for (u32 x = left; x <= right; x++) {
                 // need to flip tile_pos
                 u32 tile_pos = ((layer.height - y - 1) * layer.width) + x;
-                Tile &tile = layer.tiles[tile_pos];
+                tmxparser::Tile &tile = layer.tiles[tile_pos];
                 if (tile.gid != 0) {
                     collided_tiles.push_back(&tile);
                     collided_tile_indices.push_back(tile_pos);
@@ -57,26 +57,28 @@ void Map::set_tile_rect(glm::rectf &rect, u32 tile_idx) {
     rect.h = tileHeight;
 }
 
-bool Map::contains_property(const Tile &tile,
+bool Map::contains_property(const tmxparser::Tile &tile,
                             const std::string &property,
                             std::string &out) {
-    const Tileset &tileset = tilesetCollection[tile.tilesetIndex];
-    const TileDefinitionMap_t &tile_def_map = tileset.tileDefinitions;
+    const tmxparser::Tileset &tileset = tilesetCollection[tile.tilesetIndex];
+    const tmxparser::TileDefinitionMap_t &tile_def_map
+        = tileset.tileDefinitions;
     // check if there is a definition for the tile in the tileset
     if (tile_def_map.count(tile.tileFlatIndex) == 0) {
         return false;
     }
     // check if one of the properties is the given property
-    const TileDefinition &def = tile_def_map.at(tile.tileFlatIndex);
+    const tmxparser::TileDefinition &def = tile_def_map.at(tile.tileFlatIndex);
     if (def.propertyMap.count(property) == 0)
         return false;
     out = def.propertyMap.at(property);
     return true;
 }
 
-void Map::get_tiles_with_property(const std::string &property,
-                                  std::vector<Tile *> &tiles_properties,
-                                  std::vector<int> &tiles_properties_idx) {
+void Map::get_tiles_with_property(
+    const std::string &property,
+    std::vector<tmxparser::Tile *> &tiles_properties,
+    std::vector<int> &tiles_properties_idx) {
     tiles_properties.clear();
     tiles_properties_idx.clear();
     for (auto &layer : layerCollection) {

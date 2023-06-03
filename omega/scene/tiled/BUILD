@@ -18,7 +18,7 @@ cc_library(
         "@SDL2//:SDL2",
         "//omega/util:util",
         "//omega/gfx:sprite_batch",
-        "//lib/map:tmxparser",
+        "//lib/libtmx-parser:tmxparser",
     ]
 )
 

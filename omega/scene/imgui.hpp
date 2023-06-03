@@ -3,7 +3,7 @@
 
 #include <functional>
 
-#include "lib/imgui/imgui.h"
+#include <imgui/imgui.h>
 
 namespace ImGui {
 

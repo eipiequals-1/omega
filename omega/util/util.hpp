@@ -7,5 +7,6 @@
 #include "omega/util/random.hpp"
 #include "omega/util/std.hpp"
 #include "omega/util/time.hpp"
+#include "omega/util/types.hpp"
 
 #endif // OMEGA_UTIL_UTIL_HPP

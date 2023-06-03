@@ -127,7 +127,7 @@ void App::frame() {
                 break;
             case events::EventType::window_event:
                 if (event.window.event == 
-                    (uint32_t)events::WindowEvents::window_resized) {
+                    (u32)events::WindowEvents::window_resized) {
                     // change window width, height data
                     Window::instance()->on_resize(event.window.data1,
                                                   event.window.data2);
