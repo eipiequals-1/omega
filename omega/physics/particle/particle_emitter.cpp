@@ -59,6 +59,7 @@ ParticleEmitter::ParticleEmitter(EmitterBuilder &builder) :
     vbo = create_uptr<VertexBuffer>(
         sizeof(ParticleVertex) * 4 * data.max_particles);
     
+    // create index buffer
     const u32 index_buffer_capacity = 6 * data.max_particles;
     u32 *indices = new u32[index_buffer_capacity];
     u32 offset = 0;
@@ -76,6 +77,8 @@ ParticleEmitter::ParticleEmitter(EmitterBuilder &builder) :
     ibo = create_uptr<IndexBuffer>(indices, index_buffer_capacity);
     delete[] indices;
     indices = nullptr;
+
+    // create vertex array object
     vao = create_uptr<VertexArray>();
     VertexBufferLayout layout;
     layout.push(GL_FLOAT, 2);
@@ -139,12 +142,13 @@ void ParticleEmitter::update(f32 dt) {
             Particle &last_particle = particles[num_particles - 1];
             p = last_particle; // copy last particles data to old particle
             num_particles--;
-            idx--;
+            if (idx > 0) idx--;
         }
     }
 }
 
 void ParticleEmitter::render(const glm::mat4 &view_proj_matrix) {
+    vbo->bind();
     for (size_t i = 0; i < num_particles; i++) {
         Particle &p = particles[i];
         const glm::vec2 &pos = p.pos;
@@ -183,6 +187,6 @@ void ParticleEmitter::render(const glm::mat4 &view_proj_matrix) {
     ibo->unbind();
     vao->unbind();
     shader->unbind();
+    vbo->unbind();
 }
-
 } // namespace omega

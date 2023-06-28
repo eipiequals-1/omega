@@ -72,8 +72,11 @@ void MapRenderer::setup(gfx::SpriteBatch &sprite_batch) {
 }
 
 void MapRenderer::render(gfx::SpriteBatch &batch) {
-    for (auto &layer : layers) {
-        batch.render_texture(layer->get_color_buffer().get(), 0.0f, 0.0f);
+    for (u32 z = 0; z < map->layerCollection.size(); ++z) {
+        auto &layer = map->layerCollection[z];
+        if (layer.visible) {
+            batch.render_texture(layers[z]->get_color_buffer().get(), 0.0f, 0.0f);
+        }
     }
 }
 

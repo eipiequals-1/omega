@@ -35,7 +35,7 @@ struct EmitterBuilder {
     f32 particle_lifespan;
     glm::vec4 begin_color;  // color that particles are to be at the beginning
     glm::vec4 end_color;    // color that particles are to be at the end
-    u32 max_particles; // max particles at a given instance
+    u32 max_particles = 1; // max particles at a given instance
     f32 emit_freq;        // time to emit particles
     glm::vec2 pos;          // pos in world coordinates
     range radius;           // radius
@@ -124,18 +124,18 @@ class ParticleEmitter {
     void emit();
 
     // particle data
-    Particle *particles;
-    u32 num_particles;
+    Particle *particles = nullptr;
+    u32 num_particles = 0;
 
     // emission data
     EmitterBuilder data;
-    f32 timer;
-    f32 emit_timer;
+    f32 timer = 0.0f;
+    f32 emit_timer = 0.0f;
 
     // gl objections
-    uptr<VertexArray> vao;
-    uptr<VertexBuffer> vbo;
-    uptr<IndexBuffer> ibo;
+    uptr<VertexArray> vao = nullptr;
+    uptr<VertexBuffer> vbo = nullptr;
+    uptr<IndexBuffer> ibo = nullptr;
     static uptr<Shader> shader;
 };
 

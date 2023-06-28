@@ -33,10 +33,27 @@ class Map : public tmxparser::TmxMap {
      * @param collided_tile_indices vector of ints containing the location
      * of the collided tiles in the layer vector
      */
-    virtual void get_intersect_rects(
+    void get_intersect_rects(
         const glm::rectf &rect,
         std::vector<tmxparser::Tile *> &collided_tiles,
         std::vector<u32> &collided_tile_indices);
+
+    /**
+     * Returns if there is a collision between the surrounding rects
+     * @param rect intersection test rect
+     * @param collided_tiles vector of pointers to tiles that intersect
+     * with the given rect
+     * @param collided_tile_indices vector of ints containing the location
+     * of the collided tiles in the layer vector
+     * @param func a function that returns whether or not the tile should be
+     * counted (i.e. return false if it should be passed through)
+     */
+
+    void get_intersect_rects(
+        const glm::rectf &rect,
+        std::vector<tmxparser::Tile *> &collided_tiles,
+        std::vector<u32> &collided_tile_indices,
+        std::function<bool(tmxparser::Tile *, u32)> func);
 
     /**
      * Sets the tile rectangle based off of the tileIdx

@@ -14,6 +14,21 @@ Map::Map(const std::string &file_path, const std::string &tileset_path) {
 void Map::get_intersect_rects(const glm::rectf &rect,
                               std::vector<tmxparser::Tile *> &collided_tiles,
                               std::vector<u32> &collided_tile_indices) {
+    get_intersect_rects(
+        rect,
+        collided_tiles,
+        collided_tile_indices,
+        [&](tmxparser::Tile *, u32) {
+            return false; 
+        }
+    );
+}
+
+void Map::get_intersect_rects(
+    const glm::rectf &rect,
+    std::vector<tmxparser::Tile *> &collided_tiles,
+    std::vector<u32> &collided_tile_indices,
+    std::function<bool(tmxparser::Tile *, u32)> func) {
     // reset the output vectors
     collided_tiles.clear();
     collided_tile_indices.clear();
@@ -37,7 +52,7 @@ void Map::get_intersect_rects(const glm::rectf &rect,
                 // need to flip tile_pos
                 u32 tile_pos = ((layer.height - y - 1) * layer.width) + x;
                 tmxparser::Tile &tile = layer.tiles[tile_pos];
-                if (tile.gid != 0) {
+                if (tile.gid != 0 && func(&tile, tile_pos)) {
                     collided_tiles.push_back(&tile);
                     collided_tile_indices.push_back(tile_pos);
                 }
