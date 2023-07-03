@@ -17,13 +17,15 @@ Omega uses OpenGL 4.5 as a rendering backend for desktop applications, and OpenG
 - [libtmx-parser](https://github.com/halsafar/libtmx-parser)
 
 ### Building
-Clone the repository
+
+Please install SDL2 before building. Refer to [SDL Docs](https://wiki.libsdl.org/SDL2/Installation) for step by step installation instructions.
+
+Clone the repository including all the submodules:
 
 `git clone https://www.github.com/eipiequals-1/omega --recursive`
 
 `cd omega/`
 
-Please install SDL2 before building. Refer to [SDL Docs](https://wiki.libsdl.org/SDL2/Installation) for step by step installation instructions.
 
 Using CMake
 
