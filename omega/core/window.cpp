@@ -53,22 +53,31 @@ bool Window::init(u32 width, u32 height, bool resizable, const std::string &titl
     // force hardware acceleration
     SDL_GL_SetAttribute(SDL_GL_ACCELERATED_VISUAL, 1);
 
-    WindowFlags window_flags = resizable ? WindowFlags::opengl_resizable : WindowFlags::opengl;
-    window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, (u32)window_flags);
+    auto window_flags = resizable ?
+        (WindowFlags::opengl | WindowFlags::resizable) : WindowFlags::opengl;
+    window = SDL_CreateWindow(title.c_str(),
+                              SDL_WINDOWPOS_CENTERED,
+                              SDL_WINDOWPOS_CENTERED,
+                              width,
+                              height,
+                              window_flags);
     if (window == nullptr) {
         util::error("Failed to create window: '{}'", SDL_GetError()); 
         return false;
     }
+    util::info("Window created successfully.");
 
     context = SDL_GL_CreateContext(window);
     if (context == nullptr) {
         util::error("Failed to create GL Context: '{}'", SDL_GetError());
         return false;
     }
+    util::info("OpenGL Context successfully created.");
     if (SDL_GL_SetSwapInterval(0) == -1) {
         util::error("Failed to disable Vsync: '{}'", SDL_GetError());
         return false;
     }
+    util::info("Disabled Vsync.");
 
 #ifndef EMSCRIPTEN
     // initialize glad
@@ -77,6 +86,7 @@ bool Window::init(u32 width, u32 height, bool resizable, const std::string &titl
         return false;
     }
 #endif
+    util::info("OpenGL API successfully loaded.");
     return true;
 }
 

@@ -22,10 +22,8 @@ static void setup_imgui(omega::core::Window *window) {
 
     /* ImGui::StyleColorsDark(); */
 
-    ImGui_ImplSDL2_InitForOpenGL(
-        window->get_native_window(),
-        window->get_gl_context()
-    );
+    ImGui_ImplSDL2_InitForOpenGL(window->get_native_window(),
+                                 window->get_gl_context());
 #ifdef EMSCRIPTEN
     const char version[] = "#version 100";
 #else
@@ -55,7 +53,6 @@ static void end_imgui_frame(omega::core::Window *window) {
 
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-
 }
 
 namespace omega::core {
@@ -89,6 +86,9 @@ App::App(const AppConfig &config) {
     // init imgui
     imgui = config.imgui;
     setup_imgui(window);
+    if (imgui) {
+        util::info("Dear Imgui successfully initialized");
+    }
 }
 
 App::~App() {

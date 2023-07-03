@@ -1,4 +1,5 @@
 #include "mesh.hpp"
+
 #include "omega/util/std.hpp"
 
 namespace omega::gfx {
@@ -14,10 +15,10 @@ void Mesh::render(Shader &shader, macro primitive) {
     vao->bind();
     if (ibo != nullptr) {
         ibo->bind();
-        glDrawElements(primitive, ibo->get_count(), GL_UNSIGNED_INT, nullptr);
+        draw_elements(primitive, ibo->get_count(), GL_UNSIGNED_INT, nullptr);
         IndexBuffer::unbind();
     } else {
-        glDrawArrays(primitive, 0, num_vertices);
+        draw_arrays(primitive, 0, num_vertices);
     }
 
     VertexArray::unbind();

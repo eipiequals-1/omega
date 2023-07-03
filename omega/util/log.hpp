@@ -61,7 +61,8 @@ static inline void print_(
 }
 
 #define error(...) print_(omega::util::log_color::red, "ERROR", __FILE__, __LINE__,  __VA_ARGS__)
-#define print(...) print_(omega::util::log_color::green, "LOG", __FILE__, __LINE__,  __VA_ARGS__)
+#define warn(...) print_(omega::util::log_color::red, "WARN", __FILE__, __LINE__,  __VA_ARGS__)
+#define info(...) print_(omega::util::log_color::cyan, "INFO", __FILE__, __LINE__,  __VA_ARGS__)
 #define debug(...) print_(omega::util::log_color::yellow, "DEBUG", __FILE__, __LINE__, __VA_ARGS__)
 
 } // namespace omega::util

@@ -58,6 +58,10 @@ class KeyManager {
      */
     bool key_pressed(Key keycode) const;
 
+    bool operator[](Key keycode) const {
+        return key_pressed(keycode);
+    }
+
   private:
     // copy of the key state for the last frame
     u8 keys_last_frame[SDL_NUM_SCANCODES];

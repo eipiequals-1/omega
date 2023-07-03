@@ -59,7 +59,7 @@ class Texture {
 #ifdef EMSCRIPTEN
         SDL_Surface * surface = IMG_Load(filepath.c_str());
         if (surface == nullptr) {
-            util::error("IMG Error: Error loading '{}', IMG error: '{}'", 
+            util::warn("IMG Error: Error loading '{}', IMG error: '{}'", 
                         filepath, SDL_GetError());
         }
         util::uptr<Texture> texture = util::uptr<Texture>(new Texture(
@@ -71,7 +71,7 @@ class Texture {
         stbi_uc* data = stbi_load(filepath.c_str(), &width, &height,
                                   &nrChannels, 0);
         if (data == nullptr) {
-            util::error("STB Error: Error loading '{}'", filepath);
+            util::warn("STB Error: Error loading '{}'", filepath);
         }
         util::uptr<Texture> texture = util::uptr<Texture>(
             new Texture(width, height, min_filter, mag_filter));

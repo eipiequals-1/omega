@@ -1,6 +1,8 @@
 #ifndef OMEGA_GFX_MESH_HPP
 #define OMEGA_GFX_MESH_HPP
 
+#include <span>
+
 #include "omega/gfx/gl.hpp"
 #include "omega/gfx/index_buffer.hpp"
 #include "omega/gfx/shader.hpp"
@@ -8,8 +10,7 @@
 #include "omega/gfx/vertex_buffer_layout.hpp"
 #include "omega/gfx/vertex_array.hpp"
 #include "omega/util/std.hpp"
-
-#include <span>
+#include "omega/util/types.hpp"
 
 namespace omega::gfx {
 
@@ -38,7 +39,7 @@ class Mesh {
     util::uptr<VertexBuffer> vbo = nullptr;
     util::uptr<VertexArray> vao = nullptr;
 
-    uint32_t num_vertices = 0;
+    u32 num_vertices = 0;
 };
 
 } // namespace omega::gfx

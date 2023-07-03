@@ -3,6 +3,8 @@
 
 #include <SDL2/SDL.h>
 
+#include "omega/util/types.hpp"
+
 namespace omega::core {
 
 /**
@@ -10,25 +12,14 @@ namespace omega::core {
  *
  * i.e. Fullscreen mode, Resizable, etc
  */
-enum class WindowFlags {
+namespace WindowFlags {
+enum : u32 {
     opengl = SDL_WINDOW_OPENGL,
-    opengl_resizable = SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE,
-    opengl_resizable_fullscreen = SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE | 
-    SDL_WINDOW_FULLSCREEN,
+    resizable = SDL_WINDOW_RESIZABLE,
+    fullscreen = SDL_WINDOW_FULLSCREEN,
     none = 0
 };
-
-/**
- * Specifies how the SDL window, events, audio, etc should be set up
- */
-enum class InitFlags {
-    timer = SDL_INIT_TIMER,
-    audio = SDL_INIT_AUDIO,
-    video = SDL_INIT_VIDEO,
-    joystick = SDL_INIT_JOYSTICK,
-    events = SDL_INIT_EVENTS,
-    everything = SDL_INIT_EVERYTHING
-};
+}
 
 } // namespace omega::core
 
