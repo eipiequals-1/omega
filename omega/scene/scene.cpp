@@ -8,16 +8,18 @@
 
 namespace omega::scene {
 
-Scene::Scene(const core::Viewport &viewport,
-             const std::string &name) : name(name),
-                                        viewport(viewport) {
+entt::registry Scene::registry;
+
+Scene::Scene(const core::Viewport &viewport, const std::string &name)
+ : name(name),
+   viewport(viewport) {
 }
 
 Scene::~Scene() {
 }
 
 Entity Scene::create_entity() {
-    Entity ent(registry.create(), &registry);
+    Entity ent(registry.create());
     return ent;
 }
 
@@ -27,8 +29,7 @@ void Scene::render(f32 dt, gfx::SpriteBatch &sprite_batch) {
     Camera *scene_camera = nullptr;
     auto view = registry.view<CameraComponent>();
     for (auto entity : view) {
-        auto &camera = Entity(entity, &registry)
-            .get_component<CameraComponent>();
+        auto &camera = Entity(entity).get_component<CameraComponent>();
 
         if (camera.primary) {
             scene_camera = (camera.get_projection_type() ==

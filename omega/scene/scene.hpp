@@ -15,6 +15,8 @@ class Entity;
 
 class Scene {
   public:
+    static entt::registry registry;
+
     Scene(const core::Viewport &viewport,
           const std::string &name = "Main Scene");
     ~Scene();
@@ -29,7 +31,6 @@ class Scene {
 
     // getters and setters
     const std::string &get_name() const { return name; }
-    entt::registry &get_registry() { return registry; }
 
     /**
      * Resizes the scene viewport
@@ -43,12 +44,7 @@ class Scene {
   private:
     std::string name;
 
-    // entities
-    entt::registry registry;
-
     core::Viewport viewport;
-
-    friend class Entity;
 };
 
 } // namespace omega::scene

@@ -59,6 +59,15 @@ struct CameraComponent {
     bool primary = true;
 };
 
+struct MoveComponent {
+    glm::vec3 velocity{0.0f};
+    glm::vec3 acceleration{0.0f};
+};
+
+struct RigidBody2DComponent {
+
+};
+
 } // namespace omega::scene
 
 #endif // OMEGA_SCENE_COMPONENTS_HPP

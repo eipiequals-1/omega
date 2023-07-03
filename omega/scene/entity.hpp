@@ -5,6 +5,8 @@
 
 #include <entt/entt.hpp>
 
+#include "omega/scene/scene.hpp"
+
 namespace omega::scene {
 
 /**
@@ -14,9 +16,7 @@ class Entity {
   public:
     Entity() = default;
 
-    Entity(entt::entity handle,
-           entt::registry *registry) : entity(handle),
-                                       registry(registry) {}
+    explicit Entity(entt::entity handle) : entity(handle) {}
 
     Entity(const Entity &other) = default;
 
@@ -28,7 +28,7 @@ class Entity {
      */
     template <typename T, typename... Args>
     T &add_component(Args &&...args) {
-        return registry->emplace<T>(entity, std::forward<Args>(args)...);
+        return Scene::registry.emplace<T>(entity, std::forward<Args>(args)...);
     }
 
     /**
@@ -36,7 +36,7 @@ class Entity {
      */
     template <typename T>
     T &get_component() {
-        return registry->get<T>(entity);
+        return Scene::registry.get<T>(entity);
     }
 
     /**
@@ -44,7 +44,7 @@ class Entity {
      */
     template <typename T>
     bool has_component() {
-        return registry->has<T>(entity);
+        return Scene::registry.has<T>(entity);
     }
 
     /**
@@ -52,7 +52,7 @@ class Entity {
      */
     template <typename T>
     void remove_component() {
-        registry->remove<T>(entity);
+        Scene::registry.remove<T>(entity);
     }
 
     /**
@@ -77,7 +77,6 @@ class Entity {
 
   protected:
     entt::entity entity{entt::null};
-    entt::registry *registry = nullptr;
 };
 
 } // namespace omega::scene
