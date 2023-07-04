@@ -17,6 +17,9 @@ class Scene {
   public:
     static entt::registry registry;
 
+    std::string name;
+    core::Viewport viewport;
+
     Scene(const core::Viewport &viewport,
           const std::string &name = "Main Scene");
     ~Scene();
@@ -29,22 +32,14 @@ class Scene {
     void render(f32 dt, gfx::SpriteBatch &sprite_batch);
     void update(f32 dt);
 
-    // getters and setters
-    const std::string &get_name() const { return name; }
-
     /**
      * Resizes the scene viewport
      * @param width
      * @param height
      */
-    void on_resize(uint32_t width, uint32_t height) {
+    void on_resize(u32 width, u32 height) {
         viewport.on_resize(width, height);
     }
-
-  private:
-    std::string name;
-
-    core::Viewport viewport;
 };
 
 } // namespace omega::scene

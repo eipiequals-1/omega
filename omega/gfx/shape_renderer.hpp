@@ -23,12 +23,13 @@ using namespace omega::util;
  * Example:
  *     shape_renderer.begin();
  *     shape_renderer.circle(glm::vec2(50.0f, 50.0f), 50.0f);
- *     shape_renderer.color(glm::vec4(0.0f, 1.0f, 1.0f, 1.0f));
+ *     shape_renderer.color = glm::vec4(1.0f, 1.0f, 0.0f, 1.0f);
  *     shape_renderer.rect(glm::rectf(0.0f, 0.0f, 100.0f, 100.0f));
  *     shape_renderer.end();
  */
 class ShapeRenderer {
   public:
+    glm::vec4 color{1.0f}; // tracks current color
     ShapeRenderer();
    ~ShapeRenderer() = default;
 
@@ -53,46 +54,6 @@ class ShapeRenderer {
         triangle_shader->bind();
         triangle_shader->set_uniform_mat4f(view_proj_matrix_name, mat);
         triangle_shader->unbind();
-    }
-
-    /**
-     * Set the next render call's color
-     * @param co color
-     */
-    void color(const glm::vec4 &co) {
-        color(co.r, co.g, co.b, co.a);
-    }
-
-    /**
-     * Set the next render call's color
-     * @param co color
-     */
-    void color(const glm::vec3 &co) {
-        color(co.r, co.g, co.b, 1.0f);
-    }
-
-    /**
-     * Set the next render call's color
-     * @param r red
-     * @param g green
-     * @param b blue
-     */
-    void color(f32 r, f32 g, f32 b) {
-        color(r, g, b, 1.0f);
-    }
-
-    /**
-     * Set the next render call's color
-     * @param r red
-     * @param g green
-     * @param b blue
-     * @param a alpha
-     */
-    void color(f32 r, f32 g, f32 b, f32 a) {
-        current_color.r = r;
-        current_color.g = g;
-        current_color.b = b;
-        current_color.a = a;
     }
 
     /**
@@ -163,7 +124,7 @@ class ShapeRenderer {
     uptr<VertexArray> triangle_vao = nullptr;
 
     u32 triangles_renderered = 0;
-    glm::vec4 current_color{1.0f}; // tracks current color
+    glm::vec4 color{1.0f}; // tracks current color
 
     /**
      * CPU representation of each Vertex for the ShapeRenderer with:

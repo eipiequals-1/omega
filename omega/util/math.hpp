@@ -32,7 +32,7 @@ namespace omega::util {
 /**
  * Abstraction of Direction for game logic
  */
-enum class Direction {
+enum class Direction : glm::u32 {
     LEFT = 0,
     RIGHT = 1,
     UP = 2,

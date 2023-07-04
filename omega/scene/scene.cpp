@@ -83,7 +83,17 @@ void Scene::render(f32 dt, gfx::SpriteBatch &sprite_batch) {
 }
 
 void Scene::update(f32 dt) {
-    (void)dt;
+    auto view = registry.view<TransformComponent, MoveComponent>();
+    view.each([&](TransformComponent &transform, MoveComponent &move) {
+        // v = at + v0
+        // => v += a * dt * 0.5f = avg (v on [t0, t1])
+        // => x += v * dt = intagral of v from t0 to t1
+        // update v
+        // v += a * dt * 0.5f
+        move.velocity += move.acceleration * dt * 0.5f;
+        transform.position += move.velocity * dt;
+        move.velocity += move.acceleration * dt * 0.5f;
+    });
 }
 
 } // namespace omega::scene

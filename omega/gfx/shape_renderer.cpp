@@ -141,15 +141,11 @@ void ShapeRenderer::triangle(f32 x1, f32 y1,
         end();
         begin();
     }
-    (void)x2;
-    (void)y2;
-    (void)x3;
-    (void)y3;
 
     ShapeVertex v1, v2, v3;
-    v1 = {{x1, y1}, current_color};
-    v2 = {{x2, y2}, current_color};
-    v3 = {{x3, y3}, current_color};
+    v1 = {{x1, y1}, color};
+    v2 = {{x2, y2}, color};
+    v3 = {{x3, y3}, color};
     
     ShapeTriangle triangle = {v1, v2, v3};
     triangle_vbo->bind();
