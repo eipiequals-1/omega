@@ -7,7 +7,7 @@
 #include "omega/gfx/texture/texture.hpp"
 #include "omega/scene/orthographic_camera.hpp"
 #include "omega/scene/perspective_camera.hpp"
-#include "omega/util/math.hpp"
+#include "omega/math/math.hpp"
 #include "omega/util/std.hpp"
 
 namespace omega::scene {
@@ -23,16 +23,16 @@ struct TagComponent {
  * Represents a model matrix or transform
  */
 struct TransformComponent {
-    glm::vec3 position{0.0f, 0.0f, 0.0f};
-    glm::vec3 rotation{0.0f, 0.0f, 0.0f};
-    glm::vec3 scale{0.0f, 0.0f, 0.0f};
+    math::vec3 position{0.0f, 0.0f, 0.0f};
+    math::vec3 rotation{0.0f, 0.0f, 0.0f};
+    math::vec3 scale{0.0f, 0.0f, 0.0f};
 };
 
 /**
  * Represents a rendering component through a texture
  */
 struct SpriteComponent {
-    glm::vec4 color{1.0f, 1.0f, 1.0f, 1.0f};
+    math::vec4 color{1.0f, 1.0f, 1.0f, 1.0f};
     gfx::texture::Texture *texture = nullptr;
 };
 
@@ -60,8 +60,8 @@ struct CameraComponent {
 };
 
 struct MoveComponent {
-    glm::vec3 velocity{0.0f};
-    glm::vec3 acceleration{0.0f};
+    math::vec3 velocity{0.0f};
+    math::vec3 acceleration{0.0f};
 };
 
 struct RigidBody2DComponent {

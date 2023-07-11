@@ -17,6 +17,7 @@ Window::~Window() {
     }
     window = nullptr;
     SDL_Quit();
+    util::info("Successfully quit application.");
 }
 
 bool Window::init(u32 width, u32 height, bool resizable, const std::string &title) {

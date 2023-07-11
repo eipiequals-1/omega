@@ -15,7 +15,7 @@ struct TextButtonBuilder {
     std::string text;
     Font *font;
     float width, height;
-    glm::vec4 color;
+    math::vec4 color;
 };
 
 class TextButton : public ImageButton {

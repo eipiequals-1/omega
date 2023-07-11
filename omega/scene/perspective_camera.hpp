@@ -2,7 +2,7 @@
 #define OMEGA_CORE_PERSPECTIVECAMERA_HPP
 
 #include "omega/scene/camera.hpp"
-#include "omega/util/math.hpp"
+#include "omega/math/math.hpp"
 #include "omega/util/types.hpp"
 
 namespace omega::scene {
@@ -13,7 +13,7 @@ namespace omega::scene {
  */
 class PerspectiveCamera : public Camera {
   public:
-    PerspectiveCamera(const glm::vec3 &position = glm::vec3(0.0f),
+    PerspectiveCamera(const math::vec3 &position = math::vec3(0.0f),
                       f32 yaw = -90.0f,
                       f32 pitch = 0.0f);
     ~PerspectiveCamera() = default;
@@ -32,11 +32,11 @@ class PerspectiveCamera : public Camera {
     /**
      * @return the camera front vector
      */
-    const glm::vec3 &get_front() const { return front; }
+    const math::vec3 &get_front() const { return front; }
     /**
      * @return the camera right vector
      */
-    const glm::vec3 &get_right() const { return right; }
+    const math::vec3 &get_right() const { return right; }
 
     f32 get_pitch() const { return pitch; }
     void set_pitch(f32 pitch) { this->pitch = pitch; }
@@ -55,10 +55,10 @@ class PerspectiveCamera : public Camera {
   private:
     void update_view_vectors();
     // view fields
-    glm::vec3 front;
-    glm::vec3 up;
-    glm::vec3 right;
-    glm::vec3 world_up;
+    math::vec3 front;
+    math::vec3 up;
+    math::vec3 right;
+    math::vec3 world_up;
     // euler angles
     f32 yaw;   // rotating left and right
     f32 pitch; // rotating up and down

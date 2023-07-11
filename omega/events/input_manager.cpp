@@ -10,7 +10,7 @@ InputManager::InputManager() {
 void InputManager::prepare_for_update() {
     key_manager.prepare_for_update();
     // reset scroll wheel status
-    scroll_wheel = glm::vec2(0.0f);
+    scroll_wheel = math::vec2(0.0f);
 }
 
 bool InputManager::poll_events(Event &event) {

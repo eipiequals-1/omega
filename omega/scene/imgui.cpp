@@ -2,7 +2,8 @@
 
 namespace ImGui {
 
-void EnableDockspace(bool open, std::function<void()> render) {
+void EnableDockspace(std::function<void()> render) {
+    static bool open = true;
     static bool opt_fullscreen = true;
     // static bool opt_padding = false;
     static ImGuiDockNodeFlags dockspace_flags = ImGuiDockNodeFlags_None;

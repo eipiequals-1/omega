@@ -2,8 +2,7 @@
 #define OMEGA_CORE_VIEWPORT_HPP
 
 #include "omega/gfx/gl.hpp"
-
-#include "omega/util/math.hpp"
+#include "omega/math/math.hpp"
 #include "omega/util/types.hpp"
 
 namespace omega::core {
@@ -41,7 +40,7 @@ class Viewport {
      * @param new_height
      * @return the glViewport params
      */
-    glm::rect<u32> on_resize(u32 new_width, u32 new_height);
+    math::rect<u32> on_resize(u32 new_width, u32 new_height);
     /**
      * @return the viewport width
      */

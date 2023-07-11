@@ -9,7 +9,7 @@ namespace omega::ui::button {
 
 class ImageButton : public Button {
   public:
-    ImageButton(float x, float y, float w, float h,
+    ImageButton(f32 x, f32 y, f32 w, f32 h,
                 std::function<void()> on_click);
     virtual ~ImageButton() override;
 

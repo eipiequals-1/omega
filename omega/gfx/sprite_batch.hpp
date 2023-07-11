@@ -14,7 +14,7 @@
 #include "omega/gfx/vertex_array.hpp"
 #include "omega/gfx/vertex_buffer.hpp"
 #include "omega/gfx/vertex_buffer_layout.hpp"
-#include "omega/util/math.hpp"
+#include "omega/math/math.hpp"
 #include "omega/util/std.hpp"
 
 namespace omega::gfx {
@@ -39,7 +39,7 @@ class SpriteBatch {
      * Must be called before rendering and on each frame if the camera changes
      * @param projection the view projection Matrix
      */
-    void set_view_projection_matrix(const glm::mat4 &view_proj) {
+    void set_view_projection_matrix(const math::mat4 &view_proj) {
         sprite_shader->bind();
         sprite_shader->set_uniform_mat4f("u_ViewProjMatrix", view_proj);
         sprite_shader->unbind();
@@ -66,7 +66,7 @@ class SpriteBatch {
      */
     void render_texture(const Texture *texture,
                         const f32 x, const f32 y,
-                        const glm::vec4 &color = glm::vec4(1.0f));
+                        const math::vec4 &color = math::vec4(1.0f));
 
     /**
      * draw the given texture at the x, y, w, h coords and may resize as necessary
@@ -80,7 +80,7 @@ class SpriteBatch {
     void render_texture(const Texture *texture,
                         const f32 x, const f32 y,
                         const f32 w, const f32 h,
-                        const glm::vec4 &color = glm::vec4(1.0f));
+                        const math::vec4 &color = math::vec4(1.0f));
 
     /**
      * draw the given part of the texture to the destination
@@ -90,9 +90,9 @@ class SpriteBatch {
      * @param color tint of the texture
      */
     void render_texture(const Texture *texture,
-                        const glm::rectf &src,
-                        const glm::rectf &dest,
-                        const glm::vec4 &color = glm::vec4(1.0f));
+                        const math::rectf &src,
+                        const math::rectf &dest,
+                        const math::vec4 &color = math::vec4(1.0f));
 
     /**
      * draw the given part of the texture to the destination
@@ -104,23 +104,23 @@ class SpriteBatch {
      * @param color tint of the texture
      */
     void render_texture(const Texture *texture,
-                        glm::rectf src,
-                        const glm::rectf &dest,
+                        math::rectf src,
+                        const math::rectf &dest,
                         f32 rotation,
-                        const glm::vec2 &center,
-                        const glm::vec4 &color = glm::vec4(1.0f));
+                        const math::vec2 &center,
+                        const math::vec4 &color = math::vec4(1.0f));
 
     void render_texture(const Texture *texture,
-                        glm::rectf src,
-                        const glm::rectf &dest,
-                        const glm::vec3 rotation_axis,
+                        math::rectf src,
+                        const math::rectf &dest,
+                        const math::vec3 rotation_axis,
                         f32 rotation,
-                        const glm::vec3 &center_of_rotation,
-                        const glm::vec4 &color = glm::vec4(1.0f));
+                        const math::vec3 &center_of_rotation,
+                        const math::vec4 &color = math::vec4(1.0f));
 
     void render_texture_region(const TextureRegion *texture_region,
-                               const glm::rectf &dest,
-                               const glm::vec4 &color = glm::vec4(1.0f));
+                               const math::rectf &dest,
+                               const math::vec4 &color = math::vec4(1.0f));
 
   private:
     uptr<Shader> sprite_shader = nullptr;
@@ -157,13 +157,13 @@ class SpriteBatch {
      * center of rotation
      */
     struct Vertex {
-        glm::vec3 position;
-        glm::vec4 color;
-        glm::vec2 tex_coords;
-        f32 tex_id;
-        glm::vec3 rotation_axis;
-        f32 rotation_angle;
-        glm::vec3 center_of_rot;
+        math::vec3 position{0.0f};
+        math::vec4 color{0.0f};
+        math::vec2 tex_coords{0.0f};
+        f32 tex_id = 0.0f;
+        math::vec3 rotation_axis{0.0f};
+        f32 rotation_angle = 0.0f;
+        math::vec3 center_of_rot{0.0f};
     };
 
     // represents one texture / rectangle that is passed to the sprite shader

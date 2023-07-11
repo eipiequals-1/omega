@@ -4,8 +4,8 @@
 #include <string>
 #include <unordered_map>
 
+#include "omega/math/math.hpp"
 #include "omega/util/log.hpp"
-#include "omega/util/math.hpp"
 #include "omega/util/std.hpp"
 #include "omega/util/types.hpp"
 
@@ -40,7 +40,7 @@ class Shader {
     void set_uniform_2f(const std::string &name, f32 v0, f32 v1);
     void set_uniform_1f(const std::string &name, f32 value);
     void set_uniform_1i(const std::string &name, i32 value);
-    void set_uniform_mat4f(const std::string &name, const glm::mat4 &matrix);
+    void set_uniform_mat4f(const std::string &name, const math::mat4 &matrix);
     void set_uniform_1iv(const std::string &name, i32 *arr, u32 size);
 
     void set_uniform_bool(const std::string &name, bool v0);

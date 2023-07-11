@@ -18,7 +18,7 @@ Font::~Font() {
 }
 
 util::sptr<gfx::texture::Texture> Font::render_text(const std::string &text,
-                                                    const glm::vec4 &color) {
+                                                    const math::vec4 &color) {
     SDL_Color sdl_color;
     // shift colors 2 right because of TTF_RenderText_Blended errors
     sdl_color.r = static_cast<uint8_t>(color.b * 255);

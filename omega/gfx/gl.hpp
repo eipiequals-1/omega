@@ -5,8 +5,9 @@
 
 #include <iostream>
 
-#include "omega/util/math.hpp"
+#include "omega/math/math.hpp"
 #include "omega/util/types.hpp"
+#include "omega/util/log.hpp"
 
 // rename OpenGL macros
 // clear screen macros
@@ -79,11 +80,7 @@ inline bool check_error() {
             case GL_INVALID_INDEX: error_string = "INVALID_INDEX"; break;
 #endif
         }
-        std::cout << "[OpenGL Error] ("
-            << error
-            << ": "
-            << error_string
-            << ")\n";
+        util::warn("[OpenGL Error] ({}: {})", error, error_string);
         count++;
     }
     return count > 0;

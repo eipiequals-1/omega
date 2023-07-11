@@ -3,70 +3,21 @@
 #include <string>
 
 #include "omega/gfx/gl.hpp"
+#include "omega/gfx/shaders/sr.hpp"
 
 namespace omega::gfx {
 
 ShapeRenderer::ShapeRenderer() : view_proj_matrix_name("u_ViewProjMatrix") {
     // initialize numerical data
     triangles_renderered = 0;
-    current_color = glm::vec4(1.0f);
+    color = math::vec4(1.0f);
     // create shaders
 #ifdef EMSCRIPTEN
-    char vertex[] = R"glsl(
-
-        attribute vec2 a_Coord;
-        attribute vec4 a_Color;
-
-        varying vec4 v_Color;
-
-        uniform mat4 u_ViewProjMatrix;
-
-        void main() {
-            gl_Position = u_ViewProjMatrix * vec4(a_Coord.x, a_Coord.y, 0.0, 1.0);
-            v_Color = a_Color;
-        }
-    )glsl";
-
-    char fragment[] = R"glsl(
-        precision mediump float;
-
-        varying vec4 v_Color;
-
-        void main() {
-            gl_FragColor = v_Color;
-        }
-    )glsl";
-
+    triangle_shader = create_uptr<Shader>(shaders::sr_vert_wasm,
+                                          shaders::sr_frag_wasm);
 #else
-    char vertex[] = R"glsl(
-        #version 450
-
-        layout(location=0) in vec2 a_Coord;
-        layout(location=1) in vec4 a_Color;
-
-        layout(location=0) out vec4 v_Color;
-
-        uniform mat4 u_ViewProjMatrix;
-
-        void main() {
-            gl_Position = u_ViewProjMatrix * vec4(a_Coord.x, a_Coord.y, 0.0, 1.0);
-            v_Color = a_Color;
-        }
-    )glsl";
-
-    char fragment[] = R"glsl(
-        #version 450
-
-        layout(location=0) in vec4 v_Color;
-        out vec4 color;
-
-        void main() {
-            color = v_Color;
-        }
-    )glsl";
+    triangle_shader = create_uptr<Shader>(shaders::sr_vert, shaders::sr_frag);
 #endif
-    triangle_shader =
-        create_uptr<Shader>(std::string(vertex), std::string(fragment));
     // create vertex buffer
     triangle_vbo = create_uptr<VertexBuffer>(
         sizeof(f32) * num_triangles *
@@ -97,7 +48,7 @@ void ShapeRenderer::end() {
     Shader::unbind();
 }
 
-void ShapeRenderer::rect(const glm::rectf &rect) {
+void ShapeRenderer::rect(const math::rectf &rect) {
     triangle(
         rect.x, rect.y,                  // bottom left
         rect.x + rect.w, rect.y,         // bottom right
@@ -110,21 +61,21 @@ void ShapeRenderer::rect(const glm::rectf &rect) {
     );
 }
 
-void ShapeRenderer::rect(const glm::rectf &rect, f32 rotation) {
-    glm::vec2 center = rect.center();
+void ShapeRenderer::rect(const math::rectf &rect, f32 rotation) {
+    math::vec2 center = rect.center();
     // center rect around origin/center
-    glm::vec2 points[4] = {};
-    points[0] = glm::vec2(rect.x, rect.y) - center;
-    points[1] = glm::vec2(rect.x + rect.w, rect.y) - center;
-    points[2] = glm::vec2(rect.x + rect.w, rect.y + rect.h) - center;
-    points[3] = glm::vec2(rect.x, rect.y + rect.h) - center;
+    math::vec2 points[4] = {};
+    points[0] = math::vec2(rect.x, rect.y) - center;
+    points[1] = math::vec2(rect.x + rect.w, rect.y) - center;
+    points[2] = math::vec2(rect.x + rect.w, rect.y + rect.h) - center;
+    points[3] = math::vec2(rect.x, rect.y + rect.h) - center;
 
-    rotation = glm::radians(rotation);
-    f32 s = glm::sin(rotation);
-    f32 c = glm::cos(rotation);
+    rotation = math::radians(rotation);
+    f32 s = math::sin(rotation);
+    f32 c = math::cos(rotation);
     for (size_t i = 0; i < 4; ++i) {
-        glm::vec2 &point = points[i];
-        glm::vec2 point_old = point;
+        math::vec2 &point = points[i];
+        math::vec2 point_old = point;
         point.x = point_old.x * c - point_old.y * s;
         point.y = point_old.y * c + point_old.x * s;
         // revert back to original center
@@ -156,39 +107,39 @@ void ShapeRenderer::triangle(f32 x1, f32 y1,
     triangles_renderered++;
 }
 
-void ShapeRenderer::triangle(const glm::vec2 &p1,
-                             const glm::vec2 &p2,
-                             const glm::vec2 &p3) {
+void ShapeRenderer::triangle(const math::vec2 &p1,
+                             const math::vec2 &p2,
+                             const math::vec2 &p3) {
     triangle(p1.x, p1.y, p2.x, p2.y, p3.x, p3.y);
 }
 
-void ShapeRenderer::circle(const glm::vec2 &center,
+void ShapeRenderer::circle(const math::vec2 &center,
                            f32 radius,
                            uint32_t segments) {
     // estimate number of triangles
-    f32 angle_incr = glm::pi<f32>() * 2 / segments;
-    glm::vec2 p2, p3;
+    f32 angle_incr = math::pi<f32>() * 2 / segments;
+    math::vec2 p2, p3;
     f32 s = 0.0f, c = 1.0f;
     for (uint32_t i = 0; i < segments; i++) {
         p2.x = radius * c + center.x;
         p2.y = radius * s + center.y;
-        c = glm::cos(angle_incr * (i + 1));
-        s = glm::sin(angle_incr * (i + 1));
+        c = math::cos(angle_incr * (i + 1));
+        s = math::sin(angle_incr * (i + 1));
         p3.x = radius * c + center.x;
         p3.y = radius * s + center.y;
         triangle(center, p2, p3);
     }
 }
 
-void ShapeRenderer::line(const glm::vec2 &p1,
-                         const glm::vec2 &p2,
+void ShapeRenderer::line(const math::vec2 &p1,
+                         const math::vec2 &p2,
                          f32 thickness) {
-    glm::vec2 slope = p2 - p1;
-    glm::vec2 perpendicular = glm::vec2(-slope.y, slope.x);
-    glm::vec2 norm_perp = glm::normalize(perpendicular);
-    glm::vec2 offset = norm_perp * thickness / 2.0f;
+    math::vec2 slope = p2 - p1;
+    math::vec2 perpendicular = math::vec2(-slope.y, slope.x);
+    math::vec2 norm_perp = math::normalize(perpendicular);
+    math::vec2 offset = norm_perp * thickness / 2.0f;
     // render like rotated rectangle
-    glm::vec2 r1, r2, r3, r4;
+    math::vec2 r1, r2, r3, r4;
     r1 = p1 - offset; // bottom left
     r2 = p2 - offset; // bottom right
     r3 = p2 + offset; // top right
@@ -201,7 +152,7 @@ void ShapeRenderer::line(const glm::vec2 &p1,
 void ShapeRenderer::line(f32 x1, f32 y1,
                          f32 x2, f32 y2,
                          f32 thickness) {
-    line(glm::vec2(x1, y1), glm::vec2(x2, y2), thickness);
+    line(math::vec2(x1, y1), math::vec2(x2, y2), thickness);
 }
 
 } // namespace omega::gfx

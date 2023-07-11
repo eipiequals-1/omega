@@ -8,7 +8,7 @@
 #include <unordered_map>
 
 #include "omega/gfx/texture/texture.hpp"
-#include "omega/util/math.hpp"
+#include "omega/math/math.hpp"
 #include "omega/util/std.hpp"
 
 namespace omega::ui {
@@ -28,7 +28,7 @@ class Font {
      */
     util::sptr<gfx::texture::Texture>
         render_text(const std::string &text,
-                    const glm::vec4 &color = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
+                    const math::vec4 &color = math::vec4(1.0f, 1.0f, 1.0f, 1.0f));
 
   private:
     TTF_Font *font;

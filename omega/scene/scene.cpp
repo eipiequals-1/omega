@@ -1,10 +1,10 @@
 #include "scene.hpp"
 
 #include "omega/gfx/gl.hpp"
+#include "omega/math/math.hpp"
 #include "omega/scene/components.hpp"
 #include "omega/scene/entity.hpp"
 #include "omega/util/color.hpp"
-#include "omega/util/math.hpp"
 
 namespace omega::scene {
 
@@ -62,7 +62,7 @@ void Scene::render(f32 dt, gfx::SpriteBatch &sprite_batch) {
             continue;
 
         // construct necessary rectangles for rendering
-        glm::rectf dest(
+        math::rectf dest(
             transform.position.x - transform.scale.x * 0.5f,
             transform.position.y - transform.scale.y * 0.5f,
             transform.scale.x,
@@ -70,7 +70,7 @@ void Scene::render(f32 dt, gfx::SpriteBatch &sprite_batch) {
 
         sprite_batch.render_texture(
             sprite.texture,
-            glm::rectf(0.0f,
+            math::rectf(0.0f,
                        0.0f,
                        sprite.texture->get_width(),
                        sprite.texture->get_height()),

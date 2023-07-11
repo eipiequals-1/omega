@@ -11,7 +11,7 @@ Map::Map(const std::string &file_path, const std::string &tileset_path) {
     }
 }
 
-void Map::get_intersect_rects(const glm::rectf &rect,
+void Map::get_intersect_rects(const math::rectf &rect,
                               std::vector<tmxparser::Tile *> &collided_tiles,
                               std::vector<u32> &collided_tile_indices) {
     get_intersect_rects(
@@ -25,7 +25,7 @@ void Map::get_intersect_rects(const glm::rectf &rect,
 }
 
 void Map::get_intersect_rects(
-    const glm::rectf &rect,
+    const math::rectf &rect,
     std::vector<tmxparser::Tile *> &collided_tiles,
     std::vector<u32> &collided_tile_indices,
     std::function<bool(tmxparser::Tile *, u32)> func) {
@@ -39,10 +39,10 @@ void Map::get_intersect_rects(
     }
     // find bounds to search
     u32 left, right, top, bottom;
-    left = glm::max(glm::floor(rect.x / tileWidth), 0.0f);
-    right = glm::min(glm::floor((rect.x + rect.w) / tileWidth), width - 1.0f);
-    bottom = glm::max(glm::floor(rect.y / tileHeight), 0.0f);
-    top = glm::min(glm::floor((rect.y + rect.h) / tileHeight), height - 1.0f);
+    left = math::max(math::floor(rect.x / tileWidth), 0.0f);
+    right = math::min(math::floor((rect.x + rect.w) / tileWidth), width - 1.0f);
+    bottom = math::max(math::floor(rect.y / tileHeight), 0.0f);
+    top = math::min(math::floor((rect.y + rect.h) / tileHeight), height - 1.0f);
     for (auto &layer : layerCollection) {
         if (!layer.visible)
             continue;
@@ -61,7 +61,7 @@ void Map::get_intersect_rects(
     }
 }
 
-void Map::set_tile_rect(glm::rectf &rect, u32 tile_idx) {
+void Map::set_tile_rect(math::rectf &rect, u32 tile_idx) {
     // convert tile_idx to correct width and height
     u32 actual_x = tile_idx % width;
     u32 actual_y = height - (tile_idx / width) - 1;

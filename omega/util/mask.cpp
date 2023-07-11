@@ -33,13 +33,13 @@ uptr<Mask> Mask::from_texture(gfx::texture::Texture *texture, i32 alpha_threshol
                              texture->get_height(), alpha_threshold);
 }
 
-bool Mask::collide_with(const glm::rectf &rect, const glm::vec2 &mask_pos) {
+bool Mask::collide_with(const math::rectf &rect, const math::vec2 &mask_pos) {
     // iterate through all pixels that intersect the rectangle
     u32 start_x = 0, start_y = 0, end_x = 0, end_y = 0;
-    start_x = glm::max(rect.x, mask_pos.x);
-    end_x = glm::min(rect.x + rect.w, mask_pos.x + width);
-    start_y = glm::max(rect.y, mask_pos.y);
-    end_y = glm::min(rect.y + rect.h, mask_pos.y + height);
+    start_x = math::max(rect.x, mask_pos.x);
+    end_x = math::min(rect.x + rect.w, mask_pos.x + width);
+    start_y = math::max(rect.y, mask_pos.y);
+    end_y = math::min(rect.y + rect.h, mask_pos.y + height);
 
     for (u32 y = start_y; y <= end_y; ++y) {
         for (u32 x = start_x; x <= end_x; ++x) {
@@ -56,14 +56,14 @@ bool Mask::collide_with(const glm::rectf &rect, const glm::vec2 &mask_pos) {
 }
 
 
-bool Mask::collide_with(const Mask& other, const glm::vec2 &other_pos,
-                        const glm::vec2 &mask_pos) {
+bool Mask::collide_with(const Mask& other, const math::vec2 &other_pos,
+                        const math::vec2 &mask_pos) {
      // iterate through all pixels that intersect the rectangle
     u32 start_x = 0, start_y = 0, end_x = 0, end_y = 0;
-    start_x = glm::max(other_pos.x, mask_pos.x);
-    end_x = glm::min(other_pos.x + other.width, mask_pos.x + width);
-    start_y = glm::max(other_pos.y, mask_pos.y);
-    end_y = glm::min(other_pos.y + other.height, mask_pos.y + height);
+    start_x = math::max(other_pos.x, mask_pos.x);
+    end_x = math::min(other_pos.x + other.width, mask_pos.x + width);
+    start_y = math::max(other_pos.y, mask_pos.y);
+    end_y = math::min(other_pos.y + other.height, mask_pos.y + height);
 
     for (u32 y = start_y; y <= end_y; ++y) {
         for (u32 x = start_x; x <= end_x; ++x) {

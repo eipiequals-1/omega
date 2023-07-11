@@ -2,7 +2,7 @@
 
 namespace omega::scene {
 
-PerspectiveCamera::PerspectiveCamera(const glm::vec3 &position,
+PerspectiveCamera::PerspectiveCamera(const math::vec3 &position,
                                      f32 yaw,
                                      f32 pitch) : Camera::Camera(),
                                                     front(0.0f, 0.0f, -1.0f),
@@ -16,11 +16,11 @@ PerspectiveCamera::PerspectiveCamera(const glm::vec3 &position,
 
 void PerspectiveCamera::set_projection(f32 fov, f32 aspect,
                                        f32 near, f32 far) {
-    projection_matrix = glm::perspective(glm::radians(fov), aspect, near, far);
+    projection_matrix = math::perspective(math::radians(fov), aspect, near, far);
 }
 
 void PerspectiveCamera::recalculate_view_matrix() {
-    view_matrix = glm::lookAt(position, position + front, up);
+    view_matrix = math::lookAt(position, position + front, up);
 }
 
 void PerspectiveCamera::mouse_movement(f32 dx, f32 dy,
@@ -39,13 +39,13 @@ void PerspectiveCamera::mouse_movement(f32 dx, f32 dy,
 }
 
 void PerspectiveCamera::update_view_vectors() {
-    glm::vec3 forward;
-    forward.x = glm::cos(glm::radians(yaw)) * glm::cos(glm::radians(pitch));
-    forward.y = glm::sin(glm::radians(pitch));
-    forward.z = glm::sin(glm::radians(yaw)) * glm::cos(glm::radians(pitch));
-    front = glm::normalize(forward);
-    right = glm::normalize(glm::cross(front, world_up));
-    up = glm::normalize(glm::cross(right, front));
+    math::vec3 forward;
+    forward.x = math::cos(math::radians(yaw)) * math::cos(math::radians(pitch));
+    forward.y = math::sin(math::radians(pitch));
+    forward.z = math::sin(math::radians(yaw)) * math::cos(math::radians(pitch));
+    front = math::normalize(forward);
+    right = math::normalize(math::cross(front, world_up));
+    up = math::normalize(math::cross(right, front));
 }
 
 } // namespace omega

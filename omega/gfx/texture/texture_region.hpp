@@ -4,7 +4,7 @@
 #include <string>
 
 #include "omega/gfx/texture/texture.hpp"
-#include "omega/util/math.hpp"
+#include "omega/math/math.hpp"
 
 namespace omega::gfx::texture {
 
@@ -16,12 +16,12 @@ class TextureRegion {
     TextureRegion(Texture *tex, u32 x, u32 y, u32 w, u32 h)
     : texture(tex), rect(x, y, w, h) {}
 
-    const glm::rect<u32> &get_rect() const { return rect; }
+    const math::rect<u32> &get_rect() const { return rect; }
     Texture *get_texture() const { return texture; }
 
   private:
     Texture *texture = nullptr;
-    glm::rect<u32> rect;
+    math::rect<u32> rect;
 };
 } // namespace omega::gfx::texture
 

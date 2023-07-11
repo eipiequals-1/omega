@@ -9,9 +9,10 @@ namespace ImGui {
 
 /**
  * Enable ImGui Dockspace mode
- * @param open if the dockspace is open
+ * @param render function that renders the Dockspace windows,
+ * essentially the default imgui rendering
 */
-void EnableDockspace(bool open, std::function<void()> render);
+void EnableDockspace(std::function<void()> render);
 
 } // namespace ImGui
 

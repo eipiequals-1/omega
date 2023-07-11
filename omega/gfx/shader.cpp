@@ -53,8 +53,8 @@ void Shader::set_uniform_2f(const std::string &name, float v0, float v1) {
 }
 
 void Shader::set_uniform_mat4f(const std::string &name,
-                               const glm::mat4 &matrix) {
-    // glm::mat4 stores data in columns which is OpenGL standard so no transpose needed
+                               const math::mat4 &matrix) {
+    // math::mat4 stores data in columns which is OpenGL standard so no transpose needed
     glUniformMatrix4fv(get_uniform_location(name), 1, GL_FALSE, &matrix[0][0]);
 }
 
@@ -162,7 +162,6 @@ u32 Shader::create_shader(const std::string &vertex_shader,
 
     glDeleteShader(vertexs);
     glDeleteShader(frags);
-
     return program;
 }
 

@@ -1,7 +1,7 @@
 #ifndef OMEGA_UTIL_COLOR_HPP
 #define OMEGA_UTIL_COLOR_HPP
 
-#include "omega/util/math.hpp"
+#include "omega/math/math.hpp"
 
 namespace omega::util::color {
 
@@ -10,9 +10,9 @@ namespace omega::util::color {
  * @param a the 32 bit color
  * @return the rgba color vector
  */
-inline glm::vec4 to_vec4(glm::u32 a) {
+inline math::vec4 to_vec4(math::u32 a) {
     unsigned char *vals = (unsigned char *)&a;
-    return glm::vec4(vals[0] / 0xff,
+    return math::vec4(vals[0] / 0xff,
                      vals[1] / 0xff,
                      vals[2] / 0xff,
                      vals[3] / 0xff);
@@ -23,25 +23,25 @@ inline glm::vec4 to_vec4(glm::u32 a) {
  * @param a the normalized color vector
  * @return 32 bit representation of color
  */
-inline glm::u32 to_u32(const glm::vec4 &a) {
-    glm::u32 b;
-    glm::u8 *ptr = (glm::u8 *)&b;
-    ptr[0] = (glm::u8)(a.r * 0xff);
-    ptr[1] = (glm::u8)(a.g * 0xff);
-    ptr[2] = (glm::u8)(a.b * 0xff);
-    ptr[3] = (glm::u8)(a.a * 0xff);
+inline math::u32 to_u32(const math::vec4 &a) {
+    math::u32 b;
+    math::u8 *ptr = (math::u8 *)&b;
+    ptr[0] = (math::u8)(a.r * 0xff);
+    ptr[1] = (math::u8)(a.g * 0xff);
+    ptr[2] = (math::u8)(a.b * 0xff);
+    ptr[3] = (math::u8)(a.a * 0xff);
     return b;
 }
 
 /**
  * Color constants for easier use
  */
-const glm::vec4 white(1.0f, 1.0f, 1.0f, 1.0f);
-const glm::vec4 black(0.0f, 0.0f, 0.0f, 1.0f);
-const glm::vec4 red(1.0f, 0.0f, 0.0f, 1.0f);
-const glm::vec4 green(0.0f, 1.0f, 0.0f, 1.0f);
-const glm::vec4 blue(0.0f, 0.0f, 1.0f, 1.0f);
-const glm::vec4 yellow(1.0f, 1.0f, 0.0f, 1.0f);
+const math::vec4 white(1.0f, 1.0f, 1.0f, 1.0f);
+const math::vec4 black(0.0f, 0.0f, 0.0f, 1.0f);
+const math::vec4 red(1.0f, 0.0f, 0.0f, 1.0f);
+const math::vec4 green(0.0f, 1.0f, 0.0f, 1.0f);
+const math::vec4 blue(0.0f, 0.0f, 1.0f, 1.0f);
+const math::vec4 yellow(1.0f, 1.0f, 0.0f, 1.0f);
 
 } // namespace omega::util::color
 

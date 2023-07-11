@@ -7,6 +7,7 @@
 #include "omega/core/window.hpp"
 #include "omega/core/viewport.hpp"
 #include "omega/events/events.hpp"
+#include "omega/math/math.hpp"
 #include "omega/util/std.hpp"
 #include "omega/util/types.hpp"
 

@@ -8,7 +8,7 @@
 
 #include "omega/events/event.hpp"
 #include "omega/events/key_manager.hpp"
-#include "omega/util/math.hpp"
+#include "omega/math/math.hpp"
 #include "omega/util/std.hpp"
 #include "omega/util/types.hpp"
 
@@ -45,8 +45,8 @@ class InputManager {
     void update();
 
     KeyManager& get_key_manager() { return key_manager; }
-    const glm::vec2 &get_mouse_pos() const { return mouse_pos; }
-    glm::vec2 get_mouse_move() const {
+    const math::vec2 &get_mouse_pos() const { return mouse_pos; }
+    math::vec2 get_mouse_move() const {
         return relative_mode ? mouse_pos : mouse_pos - prev_mouse_pos;
     }
 
@@ -102,7 +102,7 @@ class InputManager {
             ((SDL_BUTTON((i32)button) & prev_buttons) != 0);
     }
 
-    const glm::vec2 &get_scroll_wheel() const {
+    const math::vec2 &get_scroll_wheel() const {
         return scroll_wheel;
     }
 
@@ -111,8 +111,8 @@ class InputManager {
 
     // keys
     KeyManager key_manager;
-    glm::vec2 mouse_pos{0.0f}, prev_mouse_pos{0.0f};
-    glm::vec2 scroll_wheel{0.0f}; // mouse_pos relative to bottom left
+    math::vec2 mouse_pos{0.0f}, prev_mouse_pos{0.0f};
+    math::vec2 scroll_wheel{0.0f}; // mouse_pos relative to bottom left
 
     // mouse
     u32 buttons = 0;

@@ -1,8 +1,8 @@
 #ifndef OMEGA_SCENE_ORTHOGRAPHICCAMERA_HPP
 #define OMEGA_SCENE_ORTHOGRAPHICCAMERA_HPP
 
+#include "omega/math/math.hpp"
 #include "omega/scene/camera.hpp"
-#include "omega/util/math.hpp"
 #include "omega/util/types.hpp"
 
 namespace omega::scene {
@@ -42,7 +42,7 @@ class OrthographicCamera : public Camera {
      * Converts the screen/pixel coordianates to world coordinates
      * @param vec the coordinates to convert
      */
-    glm::vec2 project(const glm::vec2 &vec, const glm::vec2 &screen_res) const;
+    math::vec2 project(const math::vec2 &vec, const math::vec2 &screen_res) const;
     /**
      * Updates the view & projection matrix
      *

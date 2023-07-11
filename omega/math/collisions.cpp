@@ -1,6 +1,6 @@
-#include "math.hpp"
+#include "collisions.hpp"
 
-namespace omega::util {
+namespace glm {
 
 bool circle_vs_circle(const glm::vec2 &center1, float radius1,
                       const glm::vec2 &center2, float radius2) {

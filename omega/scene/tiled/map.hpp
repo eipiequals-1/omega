@@ -12,7 +12,7 @@
 #include "omega/gfx/sprite_batch.hpp"
 #include "omega/util/std.hpp"
 #include "omega/util/types.hpp"
-#include "omega/util/math.hpp"
+#include "omega/math/math.hpp"
 
 
 namespace omega::scene::tiled {
@@ -34,7 +34,7 @@ class Map : public tmxparser::TmxMap {
      * of the collided tiles in the layer vector
      */
     void get_intersect_rects(
-        const glm::rectf &rect,
+        const math::rectf &rect,
         std::vector<tmxparser::Tile *> &collided_tiles,
         std::vector<u32> &collided_tile_indices);
 
@@ -50,7 +50,7 @@ class Map : public tmxparser::TmxMap {
      */
 
     void get_intersect_rects(
-        const glm::rectf &rect,
+        const math::rectf &rect,
         std::vector<tmxparser::Tile *> &collided_tiles,
         std::vector<u32> &collided_tile_indices,
         std::function<bool(tmxparser::Tile *, u32)> func);
@@ -60,7 +60,7 @@ class Map : public tmxparser::TmxMap {
      * @param rect reference to the rect to be changed
      * @param tile_idx index of the tile in the 1d tile vector
      */
-    virtual void set_tile_rect(glm::rectf &rect, u32 tile_idx);
+    virtual void set_tile_rect(math::rectf &rect, u32 tile_idx);
 
     /**
      * Checks if a tile has the given property

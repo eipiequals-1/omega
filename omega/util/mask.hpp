@@ -13,9 +13,9 @@ class Mask {
     static uptr<Mask> from_texture(
         gfx::texture::Texture *texture, i32 alpha_threshold = 127);
 
-    bool collide_with(const glm::rectf &rect, const glm::vec2 &mask_pos);
-    bool collide_with(const Mask& other, const glm::vec2 &other_pos,
-                      const glm::vec2 &mask_pos);
+    bool collide_with(const math::rectf &rect, const math::vec2 &mask_pos);
+    bool collide_with(const Mask& other, const math::vec2 &other_pos,
+                      const math::vec2 &mask_pos);
     
 
   private:

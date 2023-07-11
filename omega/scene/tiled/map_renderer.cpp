@@ -1,5 +1,6 @@
 #include "map_renderer.hpp"
 
+#include "omega/math/math.hpp"
 #include "omega/scene/orthographic_camera.hpp"
 
 namespace omega::scene::tiled {
@@ -57,13 +58,13 @@ void MapRenderer::setup(gfx::SpriteBatch &sprite_batch) {
             
             if (tile.gid == 0) {continue;}
             u32 gid = tile.tileFlatIndex;
-            glm::rectf src(
+            math::rectf src(
                 (gid % tileset.colCount) * tileset.tileWidth,
                 ((int)(gid / tileset.colCount) + 1) * tileset.tileHeight,
                 tileset.tileWidth,
                 -(float)(tileset.tileHeight)
             );
-            glm::rectf dest(start_x, start_y, tile_width, tile_height);
+            math::rectf dest(start_x, start_y, tile_width, tile_height);
             sprite_batch.render_texture(tileset_textures[0].get(), src, dest);
         }
         sprite_batch.end_render();

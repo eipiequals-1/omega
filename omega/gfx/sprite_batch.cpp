@@ -1,5 +1,6 @@
 #include "sprite_batch.hpp"
 #include "omega/gfx/gl.hpp"
+#include "omega/gfx/shaders/sb.hpp"
 
 #include <algorithm>
 #include <iostream>
@@ -26,132 +27,12 @@ SpriteBatch::SpriteBatch() {
     ibo = create_uptr<IndexBuffer>(indices, index_buffer_capacity);
 
 #ifdef EMSCRIPTEN
-    const char vertex[] = R"glsl(
-
-		attribute vec3 a_Pos;
-		attribute vec4 a_Color;
-		attribute vec2 a_TexCoords;
-		attribute float a_TexIdx;
-		attribute vec3 a_RotationAxis;
-		attribute float a_RotationAngle;
-		attribute vec3 a_CenterOfRotation;
-
-		varying vec4 v_Color;
-		varying vec2 v_TexCoords;
-		varying float v_TexIdx;
-
-		uniform mat4 u_ViewProjMatrix;
-
-        mat4 rotationMatrix(vec3 axis, float angle) {
-            axis = normalize(axis);
-            float s = sin(angle);
-            float c = cos(angle);
-            float oc = 1.0 - c;
-            
-            return mat4(oc * axis.x * axis.x + c, oc * axis.x * axis.y - axis.z * s, oc * axis.z * axis.x + axis.y * s,  0.0,
-        oc * axis.x * axis.y + axis.z * s,  oc * axis.y * axis.y + c, oc * axis.y * axis.z - axis.x * s,  0.0,
-                        oc * axis.z * axis.x - axis.y * s,  oc * axis.y * axis.z + axis.x * s,  oc * axis.z * axis.z + c,           0.0,
-                        0.0,                                0.0,                                0.0,                                1.0);
-        }
-
-		void main() {
-            mat4 model = rotationMatrix(a_RotationAxis, a_RotationAngle * 3.14159265 / 180.0);
-            vec3 position = (model * vec4(a_Pos - a_CenterOfRotation, 1.0)).xyz;
-			position += a_CenterOfRotation;
-            gl_Position = u_ViewProjMatrix * vec4(position, 1.0);
-
-			v_Color = a_Color;
-			v_TexCoords = a_TexCoords;
-			v_TexIdx = a_TexIdx;
-		}
-	)glsl";
-
-    const char fragment[] = R"glsl(
-
-        precision mediump float;
-
-		varying vec4 v_Color;
-		varying vec2 v_TexCoords;
-		varying float v_TexIdx;
-
-		uniform sampler2D u_Textures[32];
-
-        vec4 getTextureColor(int id) {
-            for (int i = 0; i < 32; i++) {
-                if (i == id) {
-                    return texture2D(u_Textures[i], v_TexCoords);
-                }
-            }
-        }
-
-		void main() {
-			int idx = int(floor(v_TexIdx));
-            vec4 color = getTextureColor(0);
-            
-            gl_FragColor = color * v_Color;
-		}
-	)glsl";
+    sprite_shader = create_uptr<Shader>(shaders::sb_vert_wasm,
+                                        shaders::sb_frag_wasm);
 #else
-    const char vertex[] = R"glsl(
-		#version 450
-		
-		layout(location=0) in vec3 a_Pos;
-		layout(location=1) in vec4 a_Color;
-		layout(location=2) in vec2 a_TexCoords;
-		layout(location=3) in float a_TexIdx;
-		layout(location=4) in vec3 a_RotationAxis;
-		layout(location=5) in float a_RotationAngle;
-		layout(location=6) in vec3 a_CenterOfRotation;
+    sprite_shader = create_uptr<Shader>(shaders::sb_vert, shaders::sb_frag);
+#endif 
 
-		layout(location=0) out vec4 v_Color;
-		layout(location=1) out vec2 v_TexCoords;
-		layout(location=2) out float v_TexIdx;
-
-		uniform mat4 u_ViewProjMatrix;
-
-        mat4 rotationMatrix(vec3 axis, float angle) {
-            axis = normalize(axis);
-            float s = sin(angle);
-            float c = cos(angle);
-            float oc = 1.0 - c;
-            
-            return mat4(oc * axis.x * axis.x + c, oc * axis.x * axis.y - axis.z * s, oc * axis.z * axis.x + axis.y * s,  0.0,
-        oc * axis.x * axis.y + axis.z * s,  oc * axis.y * axis.y + c, oc * axis.y * axis.z - axis.x * s,  0.0,
-                        oc * axis.z * axis.x - axis.y * s,  oc * axis.y * axis.z + axis.x * s,  oc * axis.z * axis.z + c,           0.0,
-                        0.0,                                0.0,                                0.0,                                1.0);
-        }
-
-		void main() {
-            mat4 model = rotationMatrix(a_RotationAxis, a_RotationAngle * 3.14159265 / 180.0);
-            vec3 position = (model * vec4(a_Pos - a_CenterOfRotation, 1.0)).xyz;
-			position += a_CenterOfRotation;
-            gl_Position = u_ViewProjMatrix * vec4(position, 1.0);
-
-			v_Color = a_Color;
-			v_TexCoords = a_TexCoords;
-			v_TexIdx = a_TexIdx;
-		}
-	)glsl";
-
-    const char fragment[] = R"glsl(
-		#version 450
-
-		layout(location=0) in vec4 v_Color;
-		layout(location=1) in vec2 v_TexCoords;
-		layout(location=2) in float v_TexIdx;
-
-		uniform sampler2D u_Textures[32];
-		out vec4 color;
-
-		void main() {
-			int idx = int(v_TexIdx);
-			color = texture(u_Textures[idx], v_TexCoords) * v_Color;
-		}
-	)glsl";
-#endif
-
-    sprite_shader = create_uptr<Shader>(std::string(vertex),
-                                        std::string(fragment));
     vao = create_uptr<VertexArray>();
     vbo = create_uptr<VertexBuffer>(
         vertex_buffer_capacity * vertex_count * sizeof(f32));
@@ -189,7 +70,7 @@ void SpriteBatch::begin_render() {
 void SpriteBatch::render_texture(const Texture *texture,
                                  const f32 x,
                                  const f32 y,
-                                 const glm::vec4 &color) {
+                                 const math::vec4 &color) {
     render_texture(
         texture, x, y, texture->get_width(), texture->get_height(), color);
 }
@@ -199,37 +80,37 @@ void SpriteBatch::render_texture(const Texture *texture,
                                  const f32 y,
                                  const f32 w,
                                  const f32 h,
-                                 const glm::vec4 &color) {
+                                 const math::vec4 &color) {
     // set tex coords
-    glm::rectf tex_coords(
+    math::rectf tex_coords(
         0.0f, 0.0f, texture->get_width(), texture->get_height());
-    render_texture(texture, tex_coords, glm::rectf(x, y, w, h), color);
+    render_texture(texture, tex_coords, math::rectf(x, y, w, h), color);
 }
 
 void SpriteBatch::render_texture(const Texture *texture,
-                                 const glm::rectf &src,
-                                 const glm::rectf &dest,
-                                 const glm::vec4 &color) {
+                                 const math::rectf &src,
+                                 const math::rectf &dest,
+                                 const math::vec4 &color) {
     render_texture(texture, src, dest, 0.0f, dest.center(), color);
 }
 
 void SpriteBatch::render_texture(const Texture *texture,
-                                 glm::rectf src,
-                                 const glm::rectf &dest,
+                                 math::rectf src,
+                                 const math::rectf &dest,
                                  f32 rotation,
-                                 const glm::vec2 &center,
-                                 const glm::vec4 &color) {
-    render_texture(texture, src, dest, glm::vec3(0.0f, 0.0f, -1.0f), rotation,
-                   glm::vec3(center, 0.0f), color);
+                                 const math::vec2 &center,
+                                 const math::vec4 &color) {
+    render_texture(texture, src, dest, math::vec3(0.0f, 0.0f, -1.0f), rotation,
+                   math::vec3(center, 0.0f), color);
 }
 
 void SpriteBatch::render_texture(const Texture *texture,
-                                 glm::rectf src,
-                                 const glm::rectf &dest,
-                                 const glm::vec3 rotation_axis,
+                                 math::rectf src,
+                                 const math::rectf &dest,
+                                 const math::vec3 rotation_axis,
                                  f32 rotation,
-                                 const glm::vec3 &center_of_rotation,
-                                 const glm::vec4 &color) {
+                                 const math::vec3 &center_of_rotation,
+                                 const math::vec4 &color) {
     if (quads_rendered == quad_capacity) {
         end_render();
         begin_render();
@@ -306,8 +187,8 @@ void SpriteBatch::render_texture(const Texture *texture,
 }
 
 void SpriteBatch::render_texture_region(const TextureRegion *texture_region,
-                                        const glm::rectf &dest,
-                                        const glm::vec4 &color) {
+                                        const math::rectf &dest,
+                                        const math::vec4 &color) {
     render_texture(texture_region->get_texture(),
                    texture_region->get_rect().convert_type<f32>(),
                    dest,

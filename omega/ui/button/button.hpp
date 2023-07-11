@@ -3,7 +3,7 @@
 
 #include <functional>
 
-#include "omega/util/math.hpp"
+#include "omega/math/math.hpp"
 
 namespace omega::ui::button {
 
@@ -16,7 +16,7 @@ class Button {
 
     virtual void render() = 0;
 
-    bool contains_point(const glm::vec2 &p) const {
+    bool contains_point(const math::vec2 &p) const {
         return rect.point_in_rect(p);
     }
     bool get_hover() const { return hover; }
@@ -29,7 +29,7 @@ class Button {
     }
 
   protected:
-    glm::rectf rect;
+    math::rectf rect;
     std::function<void()> on_click_listener = nullptr;
     bool hover = false;
 };

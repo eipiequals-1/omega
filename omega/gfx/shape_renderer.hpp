@@ -10,7 +10,7 @@
 #include "omega/gfx/vertex_array.hpp"
 #include "omega/gfx/vertex_buffer.hpp"
 #include "omega/gfx/vertex_buffer_layout.hpp"
-#include "omega/util/math.hpp"
+#include "omega/math/math.hpp"
 #include "omega/util/std.hpp"
 
 namespace omega::gfx {
@@ -22,14 +22,14 @@ using namespace omega::util;
  * Uses batch rendering for better results
  * Example:
  *     shape_renderer.begin();
- *     shape_renderer.circle(glm::vec2(50.0f, 50.0f), 50.0f);
- *     shape_renderer.color = glm::vec4(1.0f, 1.0f, 0.0f, 1.0f);
- *     shape_renderer.rect(glm::rectf(0.0f, 0.0f, 100.0f, 100.0f));
+ *     shape_renderer.circle(math::vec2(50.0f, 50.0f), 50.0f);
+ *     shape_renderer.color = math::vec4(1.0f, 1.0f, 0.0f, 1.0f);
+ *     shape_renderer.rect(math::rectf(0.0f, 0.0f, 100.0f, 100.0f));
  *     shape_renderer.end();
  */
 class ShapeRenderer {
   public:
-    glm::vec4 color{1.0f}; // tracks current color
+    math::vec4 color{1.0f}; // tracks current color
     ShapeRenderer();
    ~ShapeRenderer() = default;
 
@@ -50,7 +50,7 @@ class ShapeRenderer {
      * i.e. ShapeRenderer::end();
      * @param mat the view projection matrix
      */
-    void set_view_projection_matrix(const glm::mat4 &mat) {
+    void set_view_projection_matrix(const math::mat4 &mat) {
         triangle_shader->bind();
         triangle_shader->set_uniform_mat4f(view_proj_matrix_name, mat);
         triangle_shader->unbind();
@@ -60,14 +60,14 @@ class ShapeRenderer {
      * Renders a rectangle with the current ShapeRenderer::color
      * @param rect rect in world space coords
      */
-    void rect(const glm::rectf &rect);
+    void rect(const math::rectf &rect);
 
     /**
      * Renders a rotated rectangle with the current ShapeRenderer::color
      * @param rect rect in world space coords
      * @param rotation in trigonometric direction & degrees
      */
-    void rect(const glm::rectf &rect, f32 rotation);
+    void rect(const math::rectf &rect, f32 rotation);
 
     /**
      * Renders a triangle with the given points
@@ -76,7 +76,7 @@ class ShapeRenderer {
      * @param p2 point 2
      * @param p3 point 3
      */
-    void triangle(const glm::vec2 &p1, const glm::vec2 &p2, const glm::vec2 &p3);
+    void triangle(const math::vec2 &p1, const math::vec2 &p2, const math::vec2 &p3);
 
     /**
      * Renders a triangle with the given points
@@ -90,7 +90,7 @@ class ShapeRenderer {
      * @param center the center of the circle
      * @param radius the radius
      */
-    void circle(const glm::vec2 &center, f32 radius, u32 segments);
+    void circle(const math::vec2 &center, f32 radius, u32 segments);
 
     /**
      * Renders a line with the specified points and thickness
@@ -100,13 +100,13 @@ class ShapeRenderer {
      * @param p2 point 2
      * @param thickness width of line
      */
-    void line(const glm::vec2 &p1, const glm::vec2 &p2, f32 thickness = 1.0f);
+    void line(const math::vec2 &p1, const math::vec2 &p2, f32 thickness = 1.0f);
 
     /**
      * Renders a line in the same way as
      *
-     * ShapeRenderer::line(const glm::vec2 &p1,
-     *                     const glm::vec2 &p2,
+     * ShapeRenderer::line(const math::vec2 &p1,
+     *                     const math::vec2 &p2,
      *                     f32 thickness);
      */
     void line(f32 x1, f32 y1, f32 x2, f32 y2, f32 thickness = 1.0f);
@@ -124,7 +124,6 @@ class ShapeRenderer {
     uptr<VertexArray> triangle_vao = nullptr;
 
     u32 triangles_renderered = 0;
-    glm::vec4 color{1.0f}; // tracks current color
 
     /**
      * CPU representation of each Vertex for the ShapeRenderer with:
@@ -132,8 +131,8 @@ class ShapeRenderer {
      * color
      */
     struct ShapeVertex {
-        glm::vec2 pos;
-        glm::vec4 color;
+        math::vec2 pos;
+        math::vec4 color;
     };
 
     // Represent the shape in 3 vertices

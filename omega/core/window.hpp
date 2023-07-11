@@ -8,6 +8,7 @@
 
 #include "omega/gfx/gl.hpp"
 #include "omega/core/viewport.hpp"
+#include "omega/math/math.hpp"
 #include "omega/util/std.hpp"
 
 namespace omega::core {
@@ -44,7 +45,7 @@ class Window {
      * Specify the framebuffer clear color and abstracts it
      * @param color of (r, g, b, a) components
      */
-    void set_clear_color(const glm::vec4 &color) const {
+    void set_clear_color(const math::vec4 &color) const {
         glClearColor(color.r, color.g, color.b, color.a);
     }
 
