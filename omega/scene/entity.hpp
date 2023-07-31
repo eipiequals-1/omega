@@ -55,6 +55,10 @@ class Entity {
         Scene::registry.remove<T>(entity);
     }
 
+    void destroy() {
+        Scene::registry.destroy(entity);
+    }
+
     /**
      * @return if the entity id's are equal
      */

@@ -2,7 +2,7 @@
 
 namespace omega::physics {
 
-BoxBody::BoxBody(const glm::rectf &rect,
+BoxBody::BoxBody(const math::rectf &rect,
                  BodyType type,
                  b2FixtureDef &fixture_def,
                  f32 gravity_scale,
@@ -13,7 +13,7 @@ BoxBody::BoxBody(const glm::rectf &rect,
     b2BodyDef body_def;
     body_def.type = (b2BodyType)type;
     body_def.position.Set(rect.x + rect.w / 2.0f, rect.y + rect.h / 2.0f);
-    body_def.angle = glm::radians(angle);
+    body_def.angle = math::radians(angle);
     body_def.gravityScale = gravity_scale;
     body = world->CreateBody(&body_def);
 
@@ -24,7 +24,7 @@ BoxBody::BoxBody(const glm::rectf &rect,
     body->CreateFixture(&fixture_def);
 }
 
-CircleBody::CircleBody(const glm::vec2 &center,
+CircleBody::CircleBody(const math::vec2 &center,
                        f32 radius,
                        BodyType type,
                        b2FixtureDef &fixture_def,

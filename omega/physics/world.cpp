@@ -12,7 +12,7 @@ void World::step(f32 timestep,
     world->Step(timestep, velocity_iteration, position_iterations);
 }
 
-uptr<BoxBody> World::add_box(const glm::rectf &rect,
+uptr<BoxBody> World::add_box(const math::rectf &rect,
                              BodyType type,
                              b2FixtureDef fixture_def,
                              f32 gravity_scale,
@@ -21,7 +21,7 @@ uptr<BoxBody> World::add_box(const glm::rectf &rect,
     return uptr<BoxBody>(body);
 }
 
-uptr<CircleBody> World::add_circle(const glm::vec2 &center,
+uptr<CircleBody> World::add_circle(const math::vec2 &center,
                                    f32 radius,
                                    BodyType type,
                                    b2FixtureDef fixture_def,

@@ -3,6 +3,7 @@
 
 #include <box2d/box2d.h>
 
+#include "omega/math/math.hpp"
 #include "omega/physics/body.hpp"
 #include "omega/physics/physics_defines.hpp"
 #include "omega/util/std.hpp"
@@ -39,7 +40,7 @@ class World {
      * @param angle
      * @return BoxBody
      */
-    uptr<BoxBody> add_box(const glm::rectf &rect,
+    uptr<BoxBody> add_box(const math::rectf &rect,
                           BodyType type,
                           b2FixtureDef fixture_def,
                           f32 gravity_scale,
@@ -54,7 +55,7 @@ class World {
      * @param gravity_scale
      * @return CircleBody
      */
-    uptr<CircleBody> add_circle(const glm::vec2 &center,
+    uptr<CircleBody> add_circle(const math::vec2 &center,
                                 f32 radius,
                                 BodyType type,
                                 b2FixtureDef fixture_def,
