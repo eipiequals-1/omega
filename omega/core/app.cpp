@@ -79,8 +79,8 @@ App::App(const AppConfig &config) {
         util::error("Unable to initialize SDL_ttf: '{}'", SDL_GetError());
         running = false;
     }
-    util::Time::init();
-    last_time = util::Time::get_time<f32>();
+    util::time::init();
+    last_time = util::time::get_time<f32>();
     fps = config.fps;
     globals = util::create_uptr<Globals>(Viewport(
         config.viewport_type,
@@ -108,10 +108,10 @@ App::~App() {
 
 f32 App::tick() {
     f32 to_sleep = math::max(
-        1.0f / fps - (util::Time::get_time<f32>() - last_time),
+        1.0f / fps - (util::time::get_time<f32>() - last_time),
         0.0f);
-    util::Time::sleep(to_sleep);
-    f32 current_time = util::Time::get_time<f32>();
+    util::time::sleep(to_sleep);
+    f32 current_time = util::time::get_time<f32>();
     f32 dt = (current_time - last_time); // get delta time
     last_time = current_time;
     return dt;

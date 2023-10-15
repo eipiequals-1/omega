@@ -18,8 +18,8 @@ using namespace omega::util;
  */
 class World {
   public:
-    World(f32 gravity_x = 0.0f, f32 gravity_y = -9.81f);
-    virtual ~World() = default;
+    World(const math::vec2& gravity);
+    virtual ~World();
 
     /**
      * Update the phyics model with the given params (default: suggested params)
@@ -62,7 +62,7 @@ class World {
                                 f32 gravity_scale);
 
   private:
-    uptr<b2World> world = nullptr;
+    b2World world;
 };
 
 } // namespace omega::physics

@@ -36,6 +36,8 @@ add_subdirectory(lib/libtmx-parser)
 target_include_directories(${PROJECT_NAME}
     PUBLIC lib/box2d/include/
     PUBLIC lib/glad/include/
+    PUBLIC lib/sol2/include/
+    PUBLIC lib/lua/src/
     PUBLIC lib/
 )
 
