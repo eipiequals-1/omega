@@ -37,6 +37,10 @@ class PerspectiveCamera : public Camera {
      * @return the camera right vector
      */
     const math::vec3 &get_right() const { return right; }
+   /**
+     * @return the camera up vector
+     */
+    const math::vec3 &get_up() const { return up; }
 
     f32 get_pitch() const { return pitch; }
     void set_pitch(f32 pitch) { this->pitch = pitch; }

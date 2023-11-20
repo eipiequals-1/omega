@@ -6,21 +6,26 @@
 namespace omega::gfx::texture {
 
 Texture::Texture(u32 width, u32 height,
-                 GLenum min_filter, GLenum mag_filter) :
+                 TextureParam min_filter, TextureParam mag_filter) :
 id(0), width(width), height(height) {
 
     glGenTextures(1, &id);
     glBindTexture(GL_TEXTURE_2D, id);
     // if rendered smaller, use giver filter
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, min_filter);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, (i32) min_filter);
     // if rendered larger, use given filter
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, mag_filter);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, (i32) mag_filter);
     // continue closest color to edge
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
     load(nullptr);
     unbind();
 }
+
+Texture::Texture(u32 id, u32 width, u32 height) :
+id(id), width(width), height(height) {
+}
+
 
 Texture::~Texture() {
     glDeleteTextures(1, &id);

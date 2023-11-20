@@ -37,7 +37,18 @@ void MapRenderer::setup(gfx::SpriteBatch &sprite_batch) {
     
     for (u32 i = 0; i < map->layerCollection.size(); ++i) {
         layers.push_back(
-            new gfx::FrameBuffer(layer_width_pix, layer_height_pix));
+            new gfx::FrameBuffer(
+                layer_width_pix, layer_height_pix,
+                {
+                    {
+                     .width = layer_width_pix,
+                     .height = layer_height_pix,
+                     .name = "color_buffer", 
+                     .min_filter = gfx::TextureParam::NEAREST,
+                     .mag_filter = gfx::TextureParam::NEAREST}
+                }
+            )
+        );
     }
 
     for (u32 z = 0; z < map->layerCollection.size(); ++z) {
@@ -76,7 +87,10 @@ void MapRenderer::render(gfx::SpriteBatch &batch) {
     for (u32 z = 0; z < map->layerCollection.size(); ++z) {
         auto &layer = map->layerCollection[z];
         if (layer.visible) {
-            batch.render_texture(layers[z]->get_color_buffer().get(), 0.0f, 0.0f);
+            auto &attach = layers[z]->get_attachment("color_buffer");
+            auto texture_wrapper = gfx::texture::Texture::create_wrapper(
+                attach.id, attach.width, attach.height);
+            batch.render_texture(texture_wrapper.get(), 0.0f, 0.0f);
         }
     }
 }

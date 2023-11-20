@@ -15,13 +15,15 @@ class AssetManager {
   public:
     AssetManager();
     ~AssetManager();
-    
+   
     // textures
     gfx::texture::Texture* load_texture(
         const std::string &key,
         const std::string &filepath,
-        GLenum min_filter = OMEGA_GL_NEAREST,
-        GLenum mag_filter = OMEGA_GL_NEAREST)
+        gfx::texture::TextureParam min_filter
+            = gfx::texture::TextureParam::NEAREST,
+        gfx::texture::TextureParam mag_filter
+            = gfx::texture::TextureParam::NEAREST)
     {
         textures[key] = gfx::texture::Texture::create_from_file(filepath,
                                                                 min_filter,
@@ -33,8 +35,10 @@ class AssetManager {
         const std::string &key,
         u32 width,
         u32 height,
-        GLenum min_filter = OMEGA_GL_NEAREST,
-        GLenum mag_filter = OMEGA_GL_NEAREST)
+        gfx::texture::TextureParam min_filter
+            = gfx::texture::TextureParam::NEAREST,
+        gfx::texture::TextureParam mag_filter
+            = gfx::texture::TextureParam::NEAREST)
     {
         textures[key] = gfx::texture::Texture::create_empty(width,
                                                             height,

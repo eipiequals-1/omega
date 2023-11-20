@@ -28,7 +28,7 @@ util::sptr<gfx::texture::Texture> Font::render_text(const std::string &text,
     // create surface
     SDL_Surface *surf = TTF_RenderText_Blended(font, text.c_str(), sdl_color);
     util::sptr<gfx::texture::Texture> tex =
-        gfx::texture::Texture::create_from_surface(surf, GL_LINEAR, GL_LINEAR);
+        gfx::texture::Texture::create_from_surface(surf, gfx::texture::TextureParam::LINEAR, gfx::texture::TextureParam::LINEAR);
 
     SDL_FreeSurface(surf);
     return tex;

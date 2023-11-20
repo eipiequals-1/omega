@@ -17,6 +17,22 @@
 
 namespace omega::gfx::texture {
 
+enum class TextureFormat : i32 {
+    RGBA = GL_RGBA,
+    RGB = GL_RGB,
+    RGBA_32F = GL_RGBA32F,
+    DEPTH_COMPONENT = GL_DEPTH_COMPONENT,
+};
+
+enum class TextureParam : i32 {
+    LINEAR = GL_LINEAR,
+    NEAREST = GL_NEAREST,
+    REPEAT = GL_REPEAT,
+    CLAMP_TO_EDGE = GL_CLAMP_TO_EDGE,
+    CLAMP_TO_BORDER = GL_CLAMP_TO_BORDER
+};
+
+
 /**
  * Abstraction of OpenGL texture to be used with a SpriteBatch
  * or a custom renderer.
@@ -25,8 +41,12 @@ class Texture {
   private:
     Texture(u32 width,
             u32 height,
-            GLenum min_filter = OMEGA_GL_NEAREST,
-            GLenum mag_filter = OMEGA_GL_NEAREST);
+            TextureParam min_filter = TextureParam::NEAREST,
+            TextureParam mag_filter = TextureParam::NEAREST);
+
+    Texture(u32 id,
+            u32 width,
+            u32 height);
 
   public:
     /**
@@ -39,8 +59,8 @@ class Texture {
      */
     static util::uptr<Texture> create_from_surface(
         SDL_Surface *surf,
-        GLenum min_filter = OMEGA_GL_NEAREST,
-        GLenum mag_filter = OMEGA_GL_NEAREST) {
+        TextureParam min_filter = TextureParam::NEAREST,
+        TextureParam mag_filter = TextureParam::NEAREST) {
         Texture *tex = new Texture(surf->w, surf->h, min_filter, mag_filter);
         tex->load((u32 *)surf->pixels);
         return util::uptr<Texture>(tex);
@@ -54,8 +74,8 @@ class Texture {
      */
     static util::uptr<Texture> create_from_file(
         const std::string &filepath,
-        GLenum min_filter = GL_NEAREST,
-        GLenum mag_filter = GL_NEAREST) {
+        TextureParam min_filter = TextureParam::NEAREST,
+        TextureParam mag_filter = TextureParam::NEAREST) {
 #ifdef EMSCRIPTEN
         SDL_Surface * surface = IMG_Load(filepath.c_str());
         if (surface == nullptr) {
@@ -92,13 +112,17 @@ class Texture {
     static util::uptr<Texture> create_empty(
         u32 width,
         u32 height,
-        GLenum min_filter = GL_NEAREST,
-        GLenum mag_filter = GL_NEAREST) {
-        // must construct using new because constructor is private
-        // and not accessible by sptr
+        TextureParam min_filter = TextureParam::NEAREST,
+        TextureParam mag_filter = TextureParam::NEAREST) {
         return util::uptr<Texture>(
             new Texture(width, height, min_filter, mag_filter));
     }
+
+    static util::uptr<Texture> create_wrapper(u32 id, u32 width, u32 height) {
+        Texture *texture = new Texture(id, width, height);
+        return util::uptr<Texture>(texture);
+    }
+
     ~Texture();
 
     /**
@@ -198,7 +222,7 @@ class TextureManager {
      * @param max_filter type of filter for maximizing the texture
      */
     void load(const K &id, const std::string &filepath,
-              GLenum min_filter = GL_NEAREST, GLenum mag_filter = GL_NEAREST) {
+              TextureParam min_filter = TextureParam::NEAREST, TextureParam mag_filter = TextureParam::NEAREST) {
         if (!contains(id)) {
             textures[id] = 
                 Texture::create_from_file(filepath, min_filter, mag_filter);
@@ -213,7 +237,7 @@ class TextureManager {
      * @param max_filter type of filter for maximizing the texture
      */
     void load(const K &id, SDL_Surface *surface,
-              GLenum min_filter = GL_NEAREST, GLenum mag_filter = GL_NEAREST) {
+              TextureParam min_filter = TextureParam::NEAREST, TextureParam mag_filter = TextureParam::NEAREST) {
         if (!contains(id)) {
             textures[id] =
                 Texture::create_from_surface(surface, min_filter, mag_filter);

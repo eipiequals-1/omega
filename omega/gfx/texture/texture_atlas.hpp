@@ -20,8 +20,8 @@ namespace omega::gfx::texture {
 class TextureAtlas {
   public:
     explicit TextureAtlas(const std::string &atlas_file_path,
-                          macro min_filter = GL_NEAREST,
-                          macro mag_filter = GL_NEAREST);
+                          TextureParam min_filter = TextureParam::NEAREST,
+                          TextureParam mag_filter = TextureParam::NEAREST);
     ~TextureAtlas();
 
     /**
