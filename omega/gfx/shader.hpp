@@ -21,6 +21,10 @@ class Shader {
     explicit Shader(const std::string &filepath);
     Shader(const std::string &vertex_source,
            const std::string &fragment_source);
+    Shader(const std::string &vertex_source,
+           const std::string &fragment_source,
+           const std::string &geometry_source);
+
     ~Shader();
 
     /**
@@ -36,8 +40,14 @@ class Shader {
     // set uniforms
     void set_uniform_4f(const std::string &name,
                         f32 v0, f32 v1, f32 v2, f32 v3);
+    void set_uniform_4f(const std::string &name, const math::vec4 &v);
+
     void set_uniform_3f(const std::string &name, f32 v0, f32 v1, f32 v2);
+    void set_uniform_3f(const std::string &name, const math::vec3 &v);
+
     void set_uniform_2f(const std::string &name, f32 v0, f32 v1);
+    void set_uniform_2f(const std::string &name, const math::vec2 &v);
+
     void set_uniform_1f(const std::string &name, f32 value);
     void set_uniform_1i(const std::string &name, i32 value);
     void set_uniform_mat4f(const std::string &name, const math::mat4 &matrix);
@@ -53,6 +63,7 @@ class Shader {
     struct ShaderProgramSource {
         std::string vertex_source;
         std::string fragment_source;
+        std::string geometry_source;
     };
 
     /**
@@ -84,7 +95,8 @@ class Shader {
      * @return the GL shader object
      */
     u32 create_shader(const std::string &vertex_shader,
-                           const std::string &fragment_shader);
+                      const std::string &fragment_shader,
+                      const std::string &geometry_shader);
 
     u32 id;
     std::unordered_map<std::string, i32> uniform_loc_cache;

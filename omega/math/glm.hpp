@@ -50,6 +50,12 @@ struct Range {
     T max;
 };
 
+inline vec3 get_normal(const vec3 &p0, const vec3 &p1, const vec3 &p2) {
+    auto tan1 = p1 - p0;
+    auto tan2 = p2 - p0;
+    return normalize(cross(tan1, tan2));
+}
+
 
 } // namespace glm
 

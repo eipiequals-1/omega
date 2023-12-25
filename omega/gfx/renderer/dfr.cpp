@@ -11,7 +11,7 @@ namespace omega::gfx::renderer {
 DeferredRenderer::DeferredRenderer(
     u32 width, u32 height,
     const std::vector<FrameBufferAttachment> &attachments) {
-    framebuffer = util::create_uptr<FrameBuffer>(width, height, attachments);
+    gbuffer = util::create_uptr<FrameBuffer>(width, height, attachments);
 
     // create composite quad
     const float vertices[] = {
@@ -32,15 +32,15 @@ DeferredRenderer::DeferredRenderer(
 }
 
 void DeferredRenderer::geometry_pass(
-    std::function<void (FrameBuffer *)> render) {
-    framebuffer->bind();
-    render(framebuffer.get());
-    framebuffer->unbind();
+    std::function<void ()> render) {
+    gbuffer->bind();
+    render();
+    gbuffer->unbind();
 }
 
-void DeferredRenderer::composite_pass(
-    std::function<void (FrameBuffer *)> render) {
-    render(framebuffer.get());
+void DeferredRenderer::quad_pass(
+    std::function<void ()> render) {
+    render();
 
     vbo->bind();
     vao->bind();

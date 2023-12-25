@@ -1,5 +1,5 @@
-#ifndef OMEGA_CORE_PERSPECTIVECAMERA_HPP
-#define OMEGA_CORE_PERSPECTIVECAMERA_HPP
+#ifndef OMEGA_SCENE_PERSPECTIVECAMERA_HPP
+#define OMEGA_SCENE_PERSPECTIVECAMERA_HPP
 
 #include "omega/scene/camera.hpp"
 #include "omega/math/math.hpp"
@@ -70,4 +70,4 @@ class PerspectiveCamera : public Camera {
 
 } // namespace omega::scene
 
-#endif // OMEGA_CORE_PERSPECTIVECAMERA_HPP
+#endif // OMEGA_SCENE_PERSPECTIVECAMERA_HPP

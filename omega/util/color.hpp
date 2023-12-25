@@ -33,6 +33,10 @@ inline math::u32 to_u32(const math::vec4 &a) {
     return b;
 }
 
+inline math::vec4 to_vec4(math::u8 r, math::u8 g, math::u8 b, math::u8 a) {
+    return math::vec4(r / 255.0f, g / 255.0f, b / 255.0f, a / 255.0f);
+}
+
 /**
  * Color constants for easier use
  */

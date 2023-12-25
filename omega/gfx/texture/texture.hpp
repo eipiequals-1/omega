@@ -20,6 +20,7 @@ namespace omega::gfx::texture {
 enum class TextureFormat : i32 {
     RGBA = GL_RGBA,
     RGB = GL_RGB,
+    RED = GL_RED,
     RGBA_32F = GL_RGBA32F,
     DEPTH_COMPONENT = GL_DEPTH_COMPONENT,
 };

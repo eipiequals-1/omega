@@ -19,15 +19,18 @@ class DeferredRenderer {
      * render the geometry to the framebuffer
      * @param render - shader/pass specific code
      * */
-    void geometry_pass(std::function<void (FrameBuffer *)> render);
+    void geometry_pass(std::function<void ()> render);
 
     /**
-     * shader specific code (uniforms, clearing buffer, binding attachments)
+     * shader specific that needs a quad
+     * i.e. lighting pass, SSAO pass, blur pass, bloom pass, composite pass
      * */
-    void composite_pass(std::function<void (FrameBuffer *)> render);
+    void quad_pass(std::function<void ()> render);
+
+    util::uptr<FrameBuffer> gbuffer = nullptr;
+    std::unordered_map<std::string, util::uptr<FrameBuffer>> framebuffers;
 
   private:
-    util::uptr<FrameBuffer> framebuffer = nullptr;
 
     // simple quad for lighting/composite pass
     util::uptr<VertexBuffer> vbo = nullptr;

@@ -10,13 +10,21 @@ namespace omega::gfx {
 
 Shader::Shader(const std::string &filepath) {
     ShaderProgramSource source = parse_shader(filepath);
-    id = create_shader(source.vertex_source, source.fragment_source);
+    id = create_shader(source.vertex_source, source.fragment_source,
+                       source.geometry_source);
 }
 
 Shader::Shader(const std::string &vertex_source,
                const std::string &fragment_source) {
-    id = create_shader(vertex_source, fragment_source);
+    id = create_shader(vertex_source, fragment_source, "");
 }
+
+Shader::Shader(const std::string &vertex_source,
+       const std::string &fragment_source,
+       const std::string &geometry_source) {
+    id = create_shader(vertex_source, fragment_source, geometry_source);
+}
+
 
 Shader::~Shader() {
     glDeleteProgram(id);
@@ -43,13 +51,25 @@ void Shader::set_uniform_4f(const std::string &name,
     glUniform4f(get_uniform_location(name), v0, v1, v2, v3);
 }
 
+void Shader::set_uniform_4f(const std::string &name, const math::vec4 &v) {
+    set_uniform_4f(name, v.x, v.y, v.z, v.w);
+}
+
 void Shader::set_uniform_3f(const std::string &name,
                             float v0, float v1, float v2) {
     glUniform3f(get_uniform_location(name), v0, v1, v2);
 }
 
+void Shader::set_uniform_3f(const std::string &name, const math::vec3 &v) {
+    set_uniform_3f(name, v.x, v.y, v.z);
+}
+
 void Shader::set_uniform_2f(const std::string &name, float v0, float v1) {
     glUniform2f(get_uniform_location(name), v0, v1);
+}
+
+void Shader::set_uniform_2f(const std::string &name, const math::vec2 &v) {
+    set_uniform_2f(name, v.x, v.y);
 }
 
 void Shader::set_uniform_mat4f(const std::string &name,
@@ -86,10 +106,11 @@ Shader::ShaderProgramSource Shader::parse_shader(const std::string &filepath) {
     enum class ShaderType {
         none = -1,
         vertex = 0,
-        fragment = 1
+        fragment = 1,
+        geometry = 2
     };
 
-    std::stringstream shaderstream[2];
+    std::stringstream shaderstream[3];
     ShaderType type = ShaderType::none;
     while (std::getline(stream, line)) {
         if (line.find("#shader") != std::string::npos) {
@@ -99,12 +120,19 @@ Shader::ShaderProgramSource Shader::parse_shader(const std::string &filepath) {
             } else if (line.find("fragment") != std::string::npos) {
                 // fragment shader
                 type = ShaderType::fragment;
+            } else if (line.find("geometry") != std::string::npos) {
+                // gemoetry shader
+                type = ShaderType::geometry;
             }
         } else {
             shaderstream[(int)type] << line << '\n';
         }
     }
-    return {shaderstream[0].str(), shaderstream[1].str()};
+    return {
+        shaderstream[0].str(),
+        shaderstream[1].str(),
+        shaderstream[2].str()
+    };
 }
 
 u32 Shader::compile_shader(u32 type, const std::string &source) {
@@ -122,7 +150,7 @@ u32 Shader::compile_shader(u32 type, const std::string &source) {
         glGetShaderInfoLog(id, length, nullptr, message);
         util::error(
             "Failed to compile: {} shader!",
-            (type == GL_VERTEX_SHADER ? "vertex" : "fragment"));
+            (type == GL_VERTEX_SHADER ? "vertex" : (type == GL_FRAGMENT_SHADER) ? "fragment" : "geometry"));
         util::error(message);
         free(message);
         glDeleteShader(id);
@@ -136,14 +164,22 @@ u32 Shader::compile_shader(u32 type, const std::string &source) {
  * @return binding for shader
  */
 u32 Shader::create_shader(const std::string &vertex_shader,
-                               const std::string &fragment_shader) {
+                          const std::string &fragment_shader,
+                          const std::string &geometry_shader) {
     GLuint program = glCreateProgram();
 
     GLuint vertexs = compile_shader(GL_VERTEX_SHADER, vertex_shader);
     GLuint frags = compile_shader(GL_FRAGMENT_SHADER, fragment_shader);
+    GLuint geometrys = 0;
+    if (geometry_shader != "") {
+        geometrys = compile_shader(GL_GEOMETRY_SHADER, geometry_shader);
+    }
 
     glAttachShader(program, vertexs);
     glAttachShader(program, frags);
+    if (geometrys != 0) {
+        glAttachShader(program, geometrys);
+    }
 
     glLinkProgram(program);
     glValidateProgram(program);
@@ -162,6 +198,9 @@ u32 Shader::create_shader(const std::string &vertex_shader,
 
     glDeleteShader(vertexs);
     glDeleteShader(frags);
+    if (geometrys != 0) {
+        glDeleteShader(geometrys);
+    }
     return program;
 }
 
