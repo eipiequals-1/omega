@@ -3,6 +3,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
+#include <fstream>
 
 #include "omega/math/math.hpp"
 #include "omega/util/log.hpp"
@@ -11,6 +12,9 @@
 #include "lib/imgui/implot.h"
 #include "lib/imgui/imgui_impl_sdl.h"
 #include "lib/imgui/imgui_impl_opengl3.h"
+
+#include "json/json.hpp"
+#include "tomlplusplus/toml.hpp"
 
 static void setup_imgui(omega::core::Window *window) {
     // setup imgui
@@ -62,6 +66,46 @@ static void end_imgui_frame(omega::core::Window *window) {
 
 namespace omega::core {
 
+AppConfig AppConfig::from_config(const std::string &config_file) {
+    if (config_file.ends_with("json")) {
+        using json = nlohmann::json;
+        std::ifstream f(config_file);
+        json data = json::parse(f);
+
+        AppConfig config;
+
+        config.width = data.contains("width") ? (u32) data["width"] : config.width;
+        config.height = data.contains("height") ? (u32) data["height"] : config.height;
+        config.title = data.contains("title") ? (std::string) data["title"] : config.title;
+        config.resizable = data.contains("resizable") ? (bool) data["resizable"] : config.resizable;
+        config.viewport_type = data.contains("viewport") ? data["viewport"] == "stretch" ? ViewportType::stretch : ViewportType::fit : ViewportType::fit;
+        config.viewport_width = data.contains("viewport_width") ? (u32) data["viewport_width"] : config.viewport_width;
+        config.viewport_height = data.contains("viewport_height") ? (u32) data["viewport_height"] : config.viewport_height;
+        config.fps = data.contains("fps") ? (u32) data["fps"] : config.fps;
+        config.imgui = data.contains("imgui") ? (bool) data["imgui"] : config.imgui;
+        config.mouse_sensitivity = data.contains("mouse_sensitivity") ? (f32) data["mouse_sensitivity"] : config.mouse_sensitivity;
+        return config;
+    }
+    // toml config file
+    auto data = toml::parse_file(config_file);
+    AppConfig config;
+
+    config.title = data["default"]["title"].value_or(config.title);
+
+    config.resizable = data["user"]["resizable"].value_or(config.resizable);
+    config.fps = data["user"]["fps"].value_or(config.fps);
+    config.mouse_sensitivity = data["user"]["sensitivity"].value_or(config.mouse_sensitivity);
+
+    config.imgui = data["gfx"]["imgui"].value_or(config.imgui);
+    config.width = data["gfx"]["width"].value_or(config.width);
+    config.height = data["gfx"]["height"].value_or(config.height);
+    config.viewport_type = data["gfx"]["viewport"].value_or("fit") ? ViewportType::fit : ViewportType::stretch;
+    config.viewport_width = data["gfx"]["viewport_width"].value_or(config.viewport_width);
+    config.viewport_height = data["gfx"]["viewport_height"].value_or(config.viewport_height);
+
+    return config;
+}
+
 App *App::current_instance = nullptr;
 
 App::App(const AppConfig &config) {
@@ -76,7 +120,7 @@ App::App(const AppConfig &config) {
 
     // init TTF_Font
     if (TTF_Init() != 0) {
-        util::error("Unable to initialize SDL_ttf: '{}'", SDL_GetError());
+        util::err("Unable to initialize SDL_ttf: '{}'", SDL_GetError());
         running = false;
     }
     util::time::init();
@@ -87,6 +131,7 @@ App::App(const AppConfig &config) {
         config.viewport_width,
         config.viewport_height
     ), "Main Scene");
+    globals->input.set_mouse_sensitivity(config.mouse_sensitivity);
 
     // init imgui
     imgui = config.imgui;
@@ -139,6 +184,7 @@ void App::frame() {
                     Window::instance()->on_resize(event.window.data1,
                                                   event.window.data2);
                     on_resize(event.window.data1, event.window.data2); 
+                    util::info("yoo");
                 }
                 break;
             case events::EventType::mouse_wheel:

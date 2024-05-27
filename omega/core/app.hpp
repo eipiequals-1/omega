@@ -28,6 +28,10 @@ struct AppConfig {
     u32 fps = 60;
     // imgui
     bool imgui = false;
+    
+    f32 mouse_sensitivity = 0.1f;
+
+    static AppConfig from_config(const std::string &config_file);
 };
 
 /**
