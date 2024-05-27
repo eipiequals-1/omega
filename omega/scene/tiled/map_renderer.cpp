@@ -1,5 +1,6 @@
 #include "map_renderer.hpp"
 
+#include "omega/gfx/gl.hpp"
 #include "omega/math/math.hpp"
 #include "omega/scene/orthographic_camera.hpp"
 
@@ -41,20 +42,28 @@ void MapRenderer::setup(gfx::SpriteBatch &sprite_batch) {
                 layer_width_pix, layer_height_pix,
                 {
                     {
-                     .width = layer_width_pix,
-                     .height = layer_height_pix,
-                     .name = "color_buffer", 
-                     .min_filter = gfx::TextureParam::NEAREST,
-                     .mag_filter = gfx::TextureParam::NEAREST}
+                        .width = layer_width_pix,
+                        .height = layer_height_pix,
+                        .name = "color_buffer", 
+                        .min_filter = gfx::TextureParam::NEAREST,
+                        .mag_filter = gfx::TextureParam::NEAREST}
                 }
             )
         );
+
+        layer_textures.push_back(gfx::texture::Texture::create_wrapper(
+            layers.back()->get_attachment("color_buffer").id,
+            layer_width_pix,
+            layer_height_pix
+        ));
     }
 
     for (u32 z = 0; z < map->layerCollection.size(); ++z) {
         tmxparser::Layer &layer = map->layerCollection[z];
         auto &framebuffer = layers[z];
         framebuffer->bind();
+        gfx::set_clear_color(0.0f, 0.0f, 0.0f, 0.0f);
+        gfx::clear_buffer(OMEGA_GL_COLOR_BUFFER_BIT);
 
         sprite_batch.begin_render();
         for (size_t tile_idx = 0; tile_idx < layer.tiles.size(); ++tile_idx) {
@@ -87,10 +96,11 @@ void MapRenderer::render(gfx::SpriteBatch &batch) {
     for (u32 z = 0; z < map->layerCollection.size(); ++z) {
         auto &layer = map->layerCollection[z];
         if (layer.visible) {
-            auto &attach = layers[z]->get_attachment("color_buffer");
-            auto texture_wrapper = gfx::texture::Texture::create_wrapper(
-                attach.id, attach.width, attach.height);
-            batch.render_texture(texture_wrapper.get(), 0.0f, 0.0f);
+            // auto &attach = layers[z]->get_attachment("color_buffer");
+            // auto texture_wrapper = gfx::texture::Texture::create_wrapper(
+            //     attach.id, attach.width, attach.height);
+            auto &tex = layer_textures[z];
+            batch.render_texture(tex.get(), 0.0f, 0.0f);
         }
     }
 }

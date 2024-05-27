@@ -7,7 +7,7 @@ namespace omega::scene::tiled {
 Map::Map(const std::string &file_path, const std::string &tileset_path) {
     tmxparser::TmxReturn ret = parseFromFile(file_path, this, tileset_path);
     if (ret != tmxparser::TmxReturn::kSuccess) {
-        util::error("Failed to load file: '", file_path, ".'");
+        util::err("Failed to load file: '", file_path, ".'");
     }
 }
 

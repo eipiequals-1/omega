@@ -14,7 +14,7 @@ namespace omega::scene {
 Model::Model(const std::string &file_path) {
     std::ifstream f(file_path);
     if (!f) {
-        util::error("Could not open file '{}'", file_path);
+        util::err("Could not open file '{}'", file_path);
     }
     using Line = std::vector<std::string>;
 

@@ -20,7 +20,7 @@ namespace omega::scene::tiled {
 class MapRenderer {
   public:
     explicit MapRenderer(Map *map, const std::string &tileset_path);
-    void setup(gfx::SpriteBatch &sprite_batch);
+    virtual void setup(gfx::SpriteBatch &sprite_batch);
     virtual ~MapRenderer();
 
     /**
@@ -33,6 +33,7 @@ class MapRenderer {
 
     Map *map = nullptr;
     std::vector<gfx::FrameBuffer*> layers;
+    std::vector<util::sptr<gfx::texture::Texture>> layer_textures;
 
     std::vector<util::sptr<gfx::texture::Texture>> tileset_textures;
 };

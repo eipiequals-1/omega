@@ -37,7 +37,7 @@ class PerspectiveCamera : public Camera {
      * @return the camera right vector
      */
     const math::vec3 &get_right() const { return right; }
-   /**
+    /**
      * @return the camera up vector
      */
     const math::vec3 &get_up() const { return up; }
@@ -54,7 +54,7 @@ class PerspectiveCamera : public Camera {
      * IMPORTANT: must be called before rendering if the camera has changed
      */
     void recalculate_view_matrix() override;
-    void mouse_movement(f32 dx, f32 dy, f32 mouse_sensitivity = 0.1f);
+    void mouse_movement(f32 dx, f32 dy);
 
   private:
     void update_view_vectors();

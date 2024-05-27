@@ -23,10 +23,7 @@ void PerspectiveCamera::recalculate_view_matrix() {
     view_matrix = math::lookAt(position, position + front, up);
 }
 
-void PerspectiveCamera::mouse_movement(f32 dx, f32 dy,
-                                       f32 mouse_sensitivity) {
-    dx *= mouse_sensitivity;
-    dy *= mouse_sensitivity;
+void PerspectiveCamera::mouse_movement(f32 dx, f32 dy) {
     yaw += dx;
     pitch += dy;
 

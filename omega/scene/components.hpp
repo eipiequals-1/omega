@@ -24,7 +24,8 @@ struct TagComponent {
  */
 struct TransformComponent {
     math::vec3 position{0.0f, 0.0f, 0.0f};
-    math::vec3 rotation{0.0f, 0.0f, 0.0f};
+    math::vec3 rotation_axis{0.0f, 0.0f, 1.0f};
+    f32 rotation = 0.0f;
     math::vec3 scale{0.0f, 0.0f, 0.0f};
 };
 
