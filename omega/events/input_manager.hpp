@@ -106,6 +106,14 @@ class InputManager {
         return scroll_wheel;
     }
 
+    void set_mouse_sensitivity(f32 s) {
+        mouse_sensitivity = s;
+    }
+
+    f32 get_mouse_sensitivity() const {
+        return mouse_sensitivity;
+    }
+
   private:
     friend class omega::core::App;
 
@@ -118,6 +126,8 @@ class InputManager {
     u32 buttons = 0;
     u32 prev_buttons = 0;
     bool relative_mode = false;
+
+    f32 mouse_sensitivity = 0.1f;
 };
 
 } // namespace omega::events
