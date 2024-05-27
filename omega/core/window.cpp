@@ -24,7 +24,7 @@ bool Window::init(u32 width, u32 height, bool resizable, const std::string &titl
     this->width = width;
     this->height = height;
     if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_EVENTS) != 0) {
-        util::error("Failed to initialize SDL: '{}'", SDL_GetError());
+        util::err("Failed to initialize SDL: '{}'", SDL_GetError());
         return false;
     }
 
@@ -63,19 +63,19 @@ bool Window::init(u32 width, u32 height, bool resizable, const std::string &titl
                               height,
                               window_flags);
     if (window == nullptr) {
-        util::error("Failed to create window: '{}'", SDL_GetError()); 
+        util::err("Failed to create window: '{}'", SDL_GetError()); 
         return false;
     }
     util::info("Window created successfully.");
 
     context = SDL_GL_CreateContext(window);
     if (context == nullptr) {
-        util::error("Failed to create GL Context: '{}'", SDL_GetError());
+        util::err("Failed to create GL Context: '{}'", SDL_GetError());
         return false;
     }
     util::info("OpenGL Context successfully created.");
     if (SDL_GL_SetSwapInterval(0) == -1) {
-        util::error("Failed to disable Vsync: '{}'", SDL_GetError());
+        util::err("Failed to disable Vsync: '{}'", SDL_GetError());
         return false;
     }
     util::info("Disabled Vsync.");
@@ -83,7 +83,7 @@ bool Window::init(u32 width, u32 height, bool resizable, const std::string &titl
 #ifndef EMSCRIPTEN
     // initialize glad
     if (gladLoadGLLoader(SDL_GL_GetProcAddress) == 0) {
-        util::error("Failed to initialize Glad");
+        util::err("Failed to initialize Glad");
         return false;
     }
 #endif
