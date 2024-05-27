@@ -22,7 +22,7 @@ include_directories(".")
 
 set (CMAKE_CXX_STANDARD 20)
 
-add_library(${PROJECT_NAME} SHARED ${SRC})
+add_library(${PROJECT_NAME} STATIC ${SRC})
 
 # dependencies
 find_package(SDL2 REQUIRED)
@@ -32,11 +32,13 @@ add_subdirectory(lib/imgui)
 add_subdirectory(lib/glad)
 add_subdirectory(lib/stb)
 add_subdirectory(lib/libtmx-parser)
+add_subdirectory(lib/tomlplusplus)
 
 target_include_directories(${PROJECT_NAME}
     PUBLIC lib/box2d/include/
     PUBLIC lib/glad/include/
     PUBLIC lib/sol2/include/
+    PUBLIC lib/tomlplusplus/
     PUBLIC lib/lua/src/
     PUBLIC lib/
 )
@@ -51,6 +53,7 @@ target_link_libraries(${PROJECT_NAME}
     glad
     stb
     libtmx-parser
+    tomlplusplus
 )
 target_link_directories(${PROJECT_NAME}
     PUBLIC lib/box2d/bin/
@@ -58,4 +61,5 @@ target_link_directories(${PROJECT_NAME}
     PUBLIC lib/glad/
     PUBLIC lib/stb/
     PUBLIC lib/libtmx-parser/
+    PUBLIC lib/tomlplusplus/
 )

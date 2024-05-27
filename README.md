@@ -1,9 +1,10 @@
 # Omega
 Omega is a lightweight game & multimedia framework.
 It has only been tested on Unix based platforms and browsers, but should work with few modifications on a Windows based machine.
-It is mainly intended to be used for 2D applications, but can be extended to 3D.
+It is a 2D framework with 3D support and a sprite, shape, deferred, and instance renderer.
 
 Omega uses OpenGL 4.5 as a rendering backend for desktop applications, and OpenGL ES 3.0 for web applications.
+Desktop applications have full geometry shader support, and web support is to be used for 2D game jams and demos.
 
 ### Dependencies
 - [SDL2](https://www.libsdl.org/)
@@ -27,11 +28,23 @@ Clone the repository including all the submodules:
 `cd omega/`
 
 
-Using CMake
+#### Unix
+Using CMake and GNU Make
 
 `./configure.sh && ./build.sh`
 
 This will create a shared object in __build/__
+
+#### Web
+Install the [emscripten SDK](https://emscripten.org/docs/getting_started/downloads.html) beforehand.
+
+Run from the __omega__ project root:
+
+`emconfigure ./configure.sh`
+
+`cd build/ && emmake make && cd ..`
+
+Next, see __jam/__ for a project setup example and the corresponding Makefile that can be modified.
 
 ### License
 Licensed under the MIT License. This means that no credit is required, but would be greatly appreciated!

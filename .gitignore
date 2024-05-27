@@ -9,3 +9,7 @@ TODO
 *.ini
 build/
 compile_flags.txt
+
+*.ogg
+*.wasm
+*.js
