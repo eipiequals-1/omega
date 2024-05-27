@@ -8,7 +8,7 @@ namespace omega::util {
 
 AssetManager::AssetManager() {
     if (Mix_Init(MIX_INIT_MP3 | MIX_INIT_FLAC | MIX_INIT_OGG) == 0) {
-        util::error("SDL_mixer error: Failed to initialize! '{}'",
+        util::err("SDL_mixer error: Failed to initialize! '{}'",
                     Mix_GetError());
     }
     // sound frequency,
@@ -16,7 +16,7 @@ AssetManager::AssetManager() {
     // # hardware channels,
     // sample size (2048 bytes)
     if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) != 0) {
-        util::error("SDL_mixer error: Failed to open mixer! '{}'",
+        util::err("SDL_mixer error: Failed to open mixer! '{}'",
                     Mix_GetError());
     }
 }
