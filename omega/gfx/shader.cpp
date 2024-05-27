@@ -93,7 +93,7 @@ int Shader::get_uniform_location(const std::string &name) {
     }
     GLint loc = glGetUniformLocation(id, name.c_str());
     if (loc == -1) {
-        util::error("Warning: uniform '{}' doesn't exist", name);
+        util::err("Warning: uniform '{}' doesn't exist", name);
     }
     uniform_loc_cache[name] = loc;
     return loc;
@@ -148,10 +148,10 @@ u32 Shader::compile_shader(u32 type, const std::string &source) {
         glGetShaderiv(id, GL_INFO_LOG_LENGTH, &length);
         char *message = (char *)malloc(sizeof(char) * length);
         glGetShaderInfoLog(id, length, nullptr, message);
-        util::error(
+        util::err(
             "Failed to compile: {} shader!",
             (type == GL_VERTEX_SHADER ? "vertex" : (type == GL_FRAGMENT_SHADER) ? "fragment" : "geometry"));
-        util::error(message);
+        util::err(message);
         free(message);
         glDeleteShader(id);
         return 0;
@@ -170,16 +170,21 @@ u32 Shader::create_shader(const std::string &vertex_shader,
 
     GLuint vertexs = compile_shader(GL_VERTEX_SHADER, vertex_shader);
     GLuint frags = compile_shader(GL_FRAGMENT_SHADER, fragment_shader);
+#ifndef EMSCRIPTEN
     GLuint geometrys = 0;
     if (geometry_shader != "") {
         geometrys = compile_shader(GL_GEOMETRY_SHADER, geometry_shader);
     }
+#endif
 
     glAttachShader(program, vertexs);
     glAttachShader(program, frags);
+
+#ifndef EMSCRIPTEN
     if (geometrys != 0) {
         glAttachShader(program, geometrys);
     }
+#endif
 
     glLinkProgram(program);
     glValidateProgram(program);
@@ -190,7 +195,7 @@ u32 Shader::create_shader(const std::string &vertex_shader,
         glGetProgramiv(program, GL_INFO_LOG_LENGTH, &length);
         char *message = (char *)malloc(sizeof(char) * length);
         glGetProgramInfoLog(program, 512, nullptr, message);
-        util::error("Failed to link shader: {}", message);
+        util::err("Failed to link shader: {}", message);
         free(message);
         glDeleteShader(program);
         return 0;
@@ -198,9 +203,11 @@ u32 Shader::create_shader(const std::string &vertex_shader,
 
     glDeleteShader(vertexs);
     glDeleteShader(frags);
+#ifndef EMSCRIPTEN
     if (geometrys != 0) {
         glDeleteShader(geometrys);
     }
+#endif
     return program;
 }
 

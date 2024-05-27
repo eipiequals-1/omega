@@ -53,7 +53,9 @@ void FrameBuffer::resize(u32 width, u32 height,
             // TODO: should be able to have both depth attachment and other buffers
             glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT,
                                    GL_TEXTURE_2D, attach.id, 0);
+#ifndef EMSCRIPTEN
             glDrawBuffer(GL_NONE);
+#endif
             glReadBuffer(GL_NONE);
         }
     }

@@ -13,7 +13,7 @@ TextureAtlas::TextureAtlas(const std::string &atlas_file_path,
     // open file
     FILE *atlas_file = fopen(atlas_file_path.c_str(), "r");
     if (atlas_file == nullptr) {
-        util::error("Unable to open texture atlas");
+        util::err("Unable to open texture atlas");
         return;
     }
     // load file data

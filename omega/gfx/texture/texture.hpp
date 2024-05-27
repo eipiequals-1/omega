@@ -30,7 +30,9 @@ enum class TextureParam : i32 {
     NEAREST = GL_NEAREST,
     REPEAT = GL_REPEAT,
     CLAMP_TO_EDGE = GL_CLAMP_TO_EDGE,
+#ifndef EMSCRIPTEN
     CLAMP_TO_BORDER = GL_CLAMP_TO_BORDER
+#endif
 };
 
 

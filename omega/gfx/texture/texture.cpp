@@ -48,7 +48,7 @@ util::uptr<u32[]> Texture::get_pixels() {
 
     glBindTexture(GL_TEXTURE_2D, id);
 #ifdef EMSCRIPTEN
-    omega::util::error("Functionality not available for GLES2!");
+    omega::util::err("Functionality not available for GLES2!");
 #else
     glGetTexImage(GL_TEXTURE_2D, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels.get());
 #endif
