@@ -1,0 +1,16 @@
+# config file
+[default]
+title = "GAME"
+
+[gfx]
+width = 1800
+height = 900
+viewport = "fit"
+viewport_width = 1600
+viewport_height = 900
+imgui = true
+
+[user]
+sensitivity = 0.1
+resizable = true
+fps = 60
