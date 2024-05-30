@@ -47,5 +47,8 @@ $(BIN)/%.o: %.cpp
 build-web: dirs $(OBJ)
 	$(CC) -o $(OUT_WEB) $(OBJ) $(LIBS) $(EMCCFLAGS)
 
+deploy-web: build-web
+	zip build.zip $(BIN)/index.*
+
 clean:
 	rm -rf $(BIN)

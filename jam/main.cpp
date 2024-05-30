@@ -3,7 +3,10 @@
 #include "omega/scene/imgui.hpp"
 #include "omega/gfx/gl.hpp"
 #include "omega/scene/orthographic_camera.hpp"
+#include "omega/ui/font.hpp"
+#include "omega/ui/font_characters.hpp"
 #include "omega/util/color.hpp"
+#include "omega/util/std.hpp"
 #include "omega/util/time.hpp"
 
 using namespace omega::core;
@@ -22,8 +25,8 @@ public:
         omega::gfx::enable_blending();
         globals->asset_manager.load_texture("tex", ASSET_PATH + "13.png");
         globals->asset_manager.load_texture("bg", ASSET_PATH + "bg.png");
-        id = globals->asset_manager.load_music(ASSET_PATH + "11-Everlong.ogg");
-        globals->asset_manager.play_music(id, 0.5f);
+
+        font = omega::util::create_uptr<omega::ui::Font>(ASSET_PATH + "font.png", omega::ui::font_characters::press_start_2p, 8, 8);
     }
 
     void render(f32 dt) override {
@@ -36,7 +39,7 @@ public:
         sr.set_view_projection_matrix(camera.get_view_projection_matrix());
         sr.begin();
 
-        sr.color = omega::util::color::white;
+        sr.color = omega::util::color::white * 0.8f;
         sr.rect(omega::math::rectf(0.0f, 0.0f, camera.get_width(), camera.get_height()));
         sr.color = omega::math::vec4(1.0f, 0.0f, 0.0f, 1.0f);
         f32 t = omega::util::time::get_time<f32>();
@@ -49,6 +52,10 @@ public:
 
         sb.render_texture(globals->asset_manager.get_texture("tex"), 500.0f, 500.0f, 300.0f, 200.0f);
         sb.render_texture(globals->asset_manager.get_texture("bg"), 100.0f, 500.0f, 300.0f, 200.0f);
+
+
+        font->render(sb, "A Big BAD WOLF!!!!", 15.0f, 15.0f, 60.0f, omega::util::color::blue);
+
         sb.end_render();
 
         ImGui::Begin("Test");
@@ -56,6 +63,7 @@ public:
         ImGui::End();
     }
     omega::scene::OrthographicCamera camera;
+    omega::util::uptr<omega::ui::Font> font = nullptr;
 };
 
 int main() {
