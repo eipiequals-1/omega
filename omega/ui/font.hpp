@@ -1,74 +1,44 @@
 #ifndef OMEGA_UI_FONT_HPP
 #define OMEGA_UI_FONT_HPP
 
-#include <SDL2/SDL_ttf.h>
-
-#include <cstdint>
 #include <string>
 #include <unordered_map>
 
+#include "omega/gfx/sprite_batch.hpp"
 #include "omega/gfx/texture/texture.hpp"
 #include "omega/math/math.hpp"
+#include "omega/util/color.hpp"
 #include "omega/util/std.hpp"
 
 namespace omega::ui {
 
 /**
- * Represents a ttf / SDL_ttf font at a given size
- */
+ * Represents a font with uniform width/height for each character
+ * */
 class Font {
   public:
-    Font(const std::string &path, uint32_t size);
-    ~Font();
-    /**
-     * Creates a Textre to draw
-     * @param text to render
-     * @param color to draw it
-     * @return a Texture
-     */
-    util::sptr<gfx::texture::Texture>
-        render_text(const std::string &text,
-                    const math::vec4 &color = math::vec4(1.0f, 1.0f, 1.0f, 1.0f));
+    Font(const std::string &path,
+         const std::string &font_characters,
+         u32 glyph_width = 8,
+         u32 glyph_height = 8,
+         gfx::texture::TextureParam filter
+            = gfx::texture::TextureParam::NEAREST);
+    ~Font() = default;
+
+    void render(gfx::SpriteBatch &batch,
+                const std::string &text,
+                f32 px, f32 py, f32 height,
+                const math::vec4& color = util::color::white);
+
+    u32 get_glyph_width() const { return glyph_width; }
+    u32 get_glyph_height() const { return glyph_height; }
 
   private:
-    TTF_Font *font;
-};
+    util::uptr<gfx::texture::Texture> texture = nullptr;
 
-/**
- * Stores multiple fonts to avoid memory leaks
- */
-class FontManager {
-  public:
-    /**
-     * @param font_name the key to represent the font
-     * @param filepath the path to the font
-     * @param ptsize the size in pixels of the font
-     */
-    void load(const std::string &font_name,
-              const std::string &filepath,
-              uint32_t ptsize);
+    std::unordered_map<char, u32> char_to_index;
 
-    /**
-     * @param font_name the key representing the font
-     * @return a sptr<Font> containing the font
-     * IMPORTANT: the font name must be loaded
-     */
-    util::sptr<Font> get(const std::string &font_name);
-
-    /**
-     * @param font_name
-     * @return if the font is already loaded
-     */
-    bool contains(const std::string &font_name);
-
-    /**
-     * Another easy access method to get the font
-     * Same as sptr<Font> Font::Get(const std::string &font_name);
-     */
-    util::sptr<Font> operator[](const std::string &font_name);
-
-  private:
-    std::unordered_map<std::string, util::sptr<Font>> fonts;
+    u32 glyph_width = 8, glyph_height = 8;
 };
 
 } // namespace omega::ui

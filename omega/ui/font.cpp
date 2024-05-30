@@ -1,55 +1,56 @@
 #include "font.hpp"
 
-#include "omega/util/log.hpp"
-
 namespace omega::ui {
 
-Font::Font(const std::string &path, uint32_t size) : font(nullptr) {
-    font = TTF_OpenFont(path.c_str(), size);
-    if (font == nullptr) {
-        util::error("TTF Error: Failed to load font '", path, "' at size ", size);
+Font::Font(const std::string &path,
+           const std::string &font_characters,
+           u32 glyph_width,
+           u32 glyph_height,
+           gfx::texture::TextureParam filter) {
+    this->glyph_height = glyph_height;
+    this->glyph_width = glyph_width;
+
+    texture = gfx::texture::Texture::create_from_file(path, filter, filter);
+
+    // prepare char_to_index map
+    for (u32 i = 0; i < font_characters.size(); ++i) {
+        char_to_index[font_characters[i]] = i;
     }
 }
 
-Font::~Font() {
-    if (font != nullptr)
-        TTF_CloseFont(font);
-    font = nullptr;
-}
+void Font::render(gfx::SpriteBatch &batch,
+                  const std::string &text,
+                  f32 px, f32 py, f32 height,
+                  const math::vec4& color) {
+    u32 rows, cols;
+    cols = texture->get_width() / glyph_width;
+    rows = texture->get_height() / glyph_height;
 
-util::sptr<gfx::texture::Texture> Font::render_text(const std::string &text,
-                                                    const math::vec4 &color) {
-    SDL_Color sdl_color;
-    // shift colors 2 right because of TTF_RenderText_Blended errors
-    sdl_color.r = static_cast<uint8_t>(color.b * 255);
-    sdl_color.g = static_cast<uint8_t>(color.r * 255);
-    sdl_color.b = static_cast<uint8_t>(color.g * 255);
-    sdl_color.a = static_cast<uint8_t>(color.a * 255);
-    // create surface
-    SDL_Surface *surf = TTF_RenderText_Blended(font, text.c_str(), sdl_color);
-    util::sptr<gfx::texture::Texture> tex =
-        gfx::texture::Texture::create_from_surface(surf, gfx::texture::TextureParam::LINEAR, gfx::texture::TextureParam::LINEAR);
+    f32 scale_factor = height / (f32) glyph_height;
 
-    SDL_FreeSurface(surf);
-    return tex;
-}
+    math::rectf src, dest;
+    for (u32 i = 0; i < text.size(); ++i) {
+        const char &c = text[i];
+        const u32 char_index = char_to_index[c];
 
-void FontManager::load(const std::string &font_name,
-                       const std::string &filepath,
-                       uint32_t ptsize) {
-    fonts[font_name] = util::create_sptr<Font>(filepath, ptsize);
-}
+        u32 x, y;
+        x = char_index % cols;
+        y = char_index / cols;
+        x *= glyph_width;
+        y *= glyph_height;
 
-util::sptr<Font> FontManager::get(const std::string &font_name) {
-    return fonts[font_name];
-}
+        src.x = x;
+        src.y = y;
+        src.w = glyph_width;
+        src.h = glyph_height;
 
-bool FontManager::contains(const std::string &font_name) {
-    return fonts.find(font_name) != fonts.end();
-}
+        dest.x = px + ((f32) glyph_width) * scale_factor * i;
+        dest.y = py;
+        dest.w = ((f32) glyph_width) * scale_factor;
+        dest.h = height;
 
-util::sptr<Font> FontManager::operator[](const std::string &font_name) {
-    return get(font_name);
+        batch.render_texture(texture.get(), src, dest, color);
+    }
 }
 
 } // namespace omega::ui
