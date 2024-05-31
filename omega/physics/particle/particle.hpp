@@ -1,7 +1,7 @@
 #ifndef OMEGA_PHYSICS_PARTICLE_PARTICLE_HPP
 #define OMEGA_PHYSICS_PARTICLE_PARTICLE_HPP
 
-#include "omega/util/math.hpp"
+#include "omega/math/math.hpp"
 #include "omega/util/random.hpp"
 #include "omega/util/types.hpp"
 
