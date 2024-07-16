@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.2)
+cmake_minimum_required(VERSION 3.5)
 
 project(omega)
 
@@ -22,7 +22,7 @@ include_directories(".")
 
 set (CMAKE_CXX_STANDARD 20)
 
-add_library(${PROJECT_NAME} STATIC ${SRC})
+add_library(${PROJECT_NAME} SHARED ${SRC})
 
 # dependencies
 find_package(SDL2 REQUIRED)
