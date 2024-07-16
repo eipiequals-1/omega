@@ -200,12 +200,12 @@ class Texture {
         SDL_FreeSurface(surf);
     }
 
-  private:
     /**
      * Creates the texture and sets the min, mag, and wrap filters
      */
     void load(u32 *pixels);
 
+  private:
     u32 id;
     u32 width, height;
 };
