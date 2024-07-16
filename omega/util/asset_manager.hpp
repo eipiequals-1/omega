@@ -8,6 +8,8 @@
 #include "omega/gfx/shader.hpp"
 #include "omega/sound/sound_effect.hpp"
 #include "omega/sound/music.hpp"
+#include "omega/ui/font.hpp"
+#include "omega/util/std.hpp"
 
 namespace omega::util {
 
@@ -77,9 +79,29 @@ class AssetManager {
         return shaders[key].get();
     }
 
+    // fonts
+    ui::Font *load_font(
+        const std::string &key,
+        const std::string &filepath,
+        const std::string &font_characters,
+        u32 glyph_height,
+        gfx::texture::TextureParam filter 
+            = gfx::texture::TextureParam::NEAREST) {
+        fonts[key] = util::create_uptr<ui::Font>(filepath,
+                                                 font_characters,
+                                                 glyph_height,
+                                                 filter);
+        return fonts[key].get();
+    }
+
+    ui::Font *get_font(const std::string &key) {
+        return fonts[key].get();
+    }
+
   private:
     std::unordered_map<std::string, util::uptr<gfx::texture::Texture>> textures;
     std::unordered_map<std::string, util::uptr<gfx::Shader>> shaders;
+    std::unordered_map<std::string, util::uptr<ui::Font>> fonts;
 
     std::vector<util::uptr<sound::Music>> music;
     std::vector<util::uptr<sound::SoundEffect>> sound_effects;

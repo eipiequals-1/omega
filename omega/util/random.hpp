@@ -24,7 +24,8 @@ T random(T min, T max) {
  * for truly random numbers
  */
 inline void seed_time() {
-    srand(time(nullptr));
+    // srand(time(nullptr));
+    srand(std::time(nullptr));
 }
 
 /**
@@ -33,7 +34,7 @@ inline void seed_time() {
  * @return reference to the random element
  */
 template <typename T>
-T &random_choice(std::span<T> &vec) {
+T &random_choice(const std::span<T> &vec) {
     return vec[random<i32>(0, vec.size())];
 }
 } // namespace omega::util
