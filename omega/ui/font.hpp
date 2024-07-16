@@ -12,14 +12,18 @@
 
 namespace omega::ui {
 
+struct Char {
+    u32 x = 0, y = 0;
+    u32 width = 0, height = 0;
+};
+
 /**
- * Represents a font with uniform width/height for each character
+ * Represents a font with uniform width/height for each character because it's just much simpler.
  * */
 class Font {
   public:
     Font(const std::string &path,
          const std::string &font_characters,
-         u32 glyph_width = 8,
          u32 glyph_height = 8,
          gfx::texture::TextureParam filter
             = gfx::texture::TextureParam::NEAREST);
@@ -30,15 +34,18 @@ class Font {
                 f32 px, f32 py, f32 height,
                 const math::vec4& color = util::color::white);
 
-    u32 get_glyph_width() const { return glyph_width; }
+    void render_centered(gfx::SpriteBatch &batch,
+                const std::string &text,
+                f32 px, f32 py, f32 height,
+                const math::vec4& color = util::color::white);
     u32 get_glyph_height() const { return glyph_height; }
 
   private:
     util::uptr<gfx::texture::Texture> texture = nullptr;
 
-    std::unordered_map<char, u32> char_to_index;
+    std::unordered_map<char, Char> char_to_pos;
 
-    u32 glyph_width = 8, glyph_height = 8;
+    u32 glyph_height = 8;
 };
 
 } // namespace omega::ui
