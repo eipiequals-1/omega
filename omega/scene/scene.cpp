@@ -11,12 +11,9 @@ namespace omega::scene {
 entt::registry Scene::registry;
 
 Scene::Scene(const core::Viewport &viewport, const std::string &name)
-    : name(name),
-    viewport(viewport) {
-}
+    : name(name), viewport(viewport) {}
 
-Scene::~Scene() {
-}
+Scene::~Scene() {}
 
 Entity Scene::create_entity() {
     Entity ent(registry.create());
@@ -32,9 +29,11 @@ void Scene::render(f32 dt, gfx::SpriteBatch &sprite_batch) {
         auto &camera = Entity(entity).get_component<CameraComponent>();
 
         if (camera.primary) {
-            scene_camera = (camera.get_projection_type() ==
-                CameraComponent::ProjectionType::orthographic ?
-                (Camera *)&camera.ortho : (Camera *)&camera.perspective);
+            scene_camera =
+                (camera.get_projection_type() ==
+                         CameraComponent::ProjectionType::orthographic
+                     ? (Camera *)&camera.ortho
+                     : (Camera *)&camera.perspective);
             break;
         }
     }
@@ -58,26 +57,23 @@ void Scene::render(f32 dt, gfx::SpriteBatch &sprite_batch) {
             group.get<TransformComponent, SpriteComponent>(entity);
 
         // make sure that there is a valid texture
-        if (sprite.texture == nullptr)
-            continue;
+        if (sprite.texture == nullptr) continue;
 
         // construct necessary rectangles for rendering
-        math::rectf dest(
-            transform.position.x - transform.scale.x * 0.5f,
-            transform.position.y - transform.scale.y * 0.5f,
-            transform.scale.x,
-            transform.scale.y);
+        math::rectf dest(transform.position.x - transform.scale.x * 0.5f,
+                         transform.position.y - transform.scale.y * 0.5f,
+                         transform.scale.x,
+                         transform.scale.y);
 
-        sprite_batch.render_texture(
-            sprite.texture,
-            math::rectf(0.0f,
-                        0.0f,
-                        sprite.texture->get_width(),
-                        sprite.texture->get_height()),
-            dest,
-            transform.rotation,
-            dest.center(),
-            sprite.color);
+        sprite_batch.render_texture(sprite.texture,
+                                    math::rectf(0.0f,
+                                                0.0f,
+                                                sprite.texture->get_width(),
+                                                sprite.texture->get_height()),
+                                    dest,
+                                    transform.rotation,
+                                    dest.center(),
+                                    sprite.color);
     }
     sprite_batch.end_render();
 }

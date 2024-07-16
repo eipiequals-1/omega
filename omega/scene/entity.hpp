@@ -1,9 +1,8 @@
 #ifndef OMEGA_SCENE_ENTITY_HPP
 #define OMEGA_SCENE_ENTITY_HPP
 
-#include <vector>
-
 #include <entt/entt.hpp>
+#include <vector>
 
 #include "omega/scene/scene.hpp"
 
@@ -72,12 +71,16 @@ class Entity {
     operator uint32_t() const {
         return (uint32_t)entity;
     }
-    operator entt::entity() const { return entity; }
+    operator entt::entity() const {
+        return entity;
+    }
 
     /**
      * @return if the entity is not null
      */
-    operator bool() const { return entity != entt::null; }
+    operator bool() const {
+        return entity != entt::null;
+    }
 
   protected:
     entt::entity entity{entt::null};

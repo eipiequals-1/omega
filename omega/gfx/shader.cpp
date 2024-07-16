@@ -10,8 +10,8 @@ namespace omega::gfx {
 
 Shader::Shader(const std::string &filepath) {
     ShaderProgramSource source = parse_shader(filepath);
-    id = create_shader(source.vertex_source, source.fragment_source,
-                       source.geometry_source);
+    id = create_shader(
+        source.vertex_source, source.fragment_source, source.geometry_source);
 }
 
 Shader::Shader(const std::string &vertex_source,
@@ -20,11 +20,10 @@ Shader::Shader(const std::string &vertex_source,
 }
 
 Shader::Shader(const std::string &vertex_source,
-       const std::string &fragment_source,
-       const std::string &geometry_source) {
+               const std::string &fragment_source,
+               const std::string &geometry_source) {
     id = create_shader(vertex_source, fragment_source, geometry_source);
 }
-
 
 Shader::~Shader() {
     glDeleteProgram(id);
@@ -47,7 +46,10 @@ void Shader::set_uniform_1f(const std::string &name, float value) {
 }
 
 void Shader::set_uniform_4f(const std::string &name,
-                            float v0, float v1, float v2, float v3) {
+                            float v0,
+                            float v1,
+                            float v2,
+                            float v3) {
     glUniform4f(get_uniform_location(name), v0, v1, v2, v3);
 }
 
@@ -56,7 +58,9 @@ void Shader::set_uniform_4f(const std::string &name, const math::vec4 &v) {
 }
 
 void Shader::set_uniform_3f(const std::string &name,
-                            float v0, float v1, float v2) {
+                            float v0,
+                            float v1,
+                            float v2) {
     glUniform3f(get_uniform_location(name), v0, v1, v2);
 }
 
@@ -74,7 +78,8 @@ void Shader::set_uniform_2f(const std::string &name, const math::vec2 &v) {
 
 void Shader::set_uniform_mat4f(const std::string &name,
                                const math::mat4 &matrix) {
-    // math::mat4 stores data in columns which is OpenGL standard so no transpose needed
+    // math::mat4 stores data in columns which is OpenGL standard so no
+    // transpose needed
     glUniformMatrix4fv(get_uniform_location(name), 1, GL_FALSE, &matrix[0][0]);
 }
 
@@ -103,12 +108,7 @@ Shader::ShaderProgramSource Shader::parse_shader(const std::string &filepath) {
     std::ifstream stream(filepath);
     std::string line;
 
-    enum class ShaderType {
-        none = -1,
-        vertex = 0,
-        fragment = 1,
-        geometry = 2
-    };
+    enum class ShaderType { none = -1, vertex = 0, fragment = 1, geometry = 2 };
 
     std::stringstream shaderstream[3];
     ShaderType type = ShaderType::none;
@@ -129,10 +129,7 @@ Shader::ShaderProgramSource Shader::parse_shader(const std::string &filepath) {
         }
     }
     return {
-        shaderstream[0].str(),
-        shaderstream[1].str(),
-        shaderstream[2].str()
-    };
+        shaderstream[0].str(), shaderstream[1].str(), shaderstream[2].str()};
 }
 
 u32 Shader::compile_shader(u32 type, const std::string &source) {
@@ -148,9 +145,10 @@ u32 Shader::compile_shader(u32 type, const std::string &source) {
         glGetShaderiv(id, GL_INFO_LOG_LENGTH, &length);
         char *message = (char *)malloc(sizeof(char) * length);
         glGetShaderInfoLog(id, length, nullptr, message);
-        util::err(
-            "Failed to compile: {} shader!",
-            (type == GL_VERTEX_SHADER ? "vertex" : (type == GL_FRAGMENT_SHADER) ? "fragment" : "geometry"));
+        util::err("Failed to compile: {} shader!",
+                  (type == GL_VERTEX_SHADER       ? "vertex"
+                   : (type == GL_FRAGMENT_SHADER) ? "fragment"
+                                                  : "geometry"));
         util::err(message);
         free(message);
         glDeleteShader(id);

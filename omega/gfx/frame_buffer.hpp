@@ -1,17 +1,16 @@
 #ifndef OMEGA_GFX_FRAMEBUFFER_HPP
 #define OMEGA_GFX_FRAMEBUFFER_HPP
 
-#include "omega/gfx/gl.hpp"
-
 #include <cstdint>
 #include <string>
 #include <unordered_map>
 #include <vector>
 
+#include "omega/gfx/gl.hpp"
 #include "omega/gfx/texture/texture.hpp"
 #include "omega/util/std.hpp"
-#include "omega/util/util.hpp"
 #include "omega/util/types.hpp"
+#include "omega/util/util.hpp"
 
 namespace omega::gfx {
 
@@ -26,11 +25,10 @@ struct FrameBufferAttachment {
 
     TextureFormat internal_fmt = TextureFormat::RGBA;
     TextureFormat external_fmt = TextureFormat::RGBA;
-    
+
     TextureParam min_filter = TextureParam::NEAREST,
-        mag_filter = TextureParam::NEAREST,
-        wrap_s = TextureParam::REPEAT,
-        wrap_t = TextureParam::REPEAT;
+                 mag_filter = TextureParam::NEAREST,
+                 wrap_s = TextureParam::REPEAT, wrap_t = TextureParam::REPEAT;
     bool draw_buffer = true;
 
     void init(u32 width, u32 height) {
@@ -40,14 +38,20 @@ struct FrameBufferAttachment {
         }
         glGenTextures(1, &id);
         glBindTexture(GL_TEXTURE_2D, id);
-        glTexImage2D(
-            GL_TEXTURE_2D, 0, (i32) internal_fmt,
-            width, height, 0, (i32) external_fmt, GL_FLOAT, nullptr);
+        glTexImage2D(GL_TEXTURE_2D,
+                     0,
+                     (i32)internal_fmt,
+                     width,
+                     height,
+                     0,
+                     (i32)external_fmt,
+                     GL_FLOAT,
+                     nullptr);
 
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, (i32) min_filter);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, (i32) mag_filter);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, (i32) wrap_s);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, (i32) wrap_t);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, (i32)min_filter);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, (i32)mag_filter);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, (i32)wrap_s);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, (i32)wrap_t);
     }
 
     void bind(u32 position) {
@@ -61,15 +65,15 @@ struct FrameBufferAttachment {
     }
 };
 
-
 /**
  * Wrapper for OpenGL frame buffers
  */
 class FrameBuffer {
   public:
-    FrameBuffer(u32 width, u32 height,
+    FrameBuffer(u32 width,
+                u32 height,
                 const std::vector<FrameBufferAttachment> &attachments);
-                
+
     ~FrameBuffer();
 
     /**
@@ -85,8 +89,12 @@ class FrameBuffer {
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
     }
 
-    u32 get_width() const {return width;}
-    u32 get_height() const {return height;}
+    u32 get_width() const {
+        return width;
+    }
+    u32 get_height() const {
+        return height;
+    }
 
     /**
      * Resizes the frame buffer with the new parameters
@@ -94,15 +102,18 @@ class FrameBuffer {
      * @param width
      * @param height
      */
-    void resize(u32 width, u32 height,
+    void resize(u32 width,
+                u32 height,
                 const std::vector<std::string> &attachments);
 
     /**
      * @returns the render buffer id (depth and stencil buffers)
      */
-    u32 get_render_buffer_id() const { return rbo_depth_stencil; }
+    u32 get_render_buffer_id() const {
+        return rbo_depth_stencil;
+    }
 
-    FrameBufferAttachment& get_attachment(const std::string& attachment_name) {
+    FrameBufferAttachment &get_attachment(const std::string &attachment_name) {
         return attachments[attachment_name];
     }
 

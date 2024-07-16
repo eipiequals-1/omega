@@ -5,11 +5,11 @@
 #include <string>
 #include <vector>
 
-#include "omega/gfx/sprite_batch.hpp"
 #include "omega/gfx/frame_buffer.hpp"
+#include "omega/gfx/sprite_batch.hpp"
 #include "omega/gfx/texture/texture.hpp"
-#include "omega/util/util.hpp"
 #include "omega/scene/tiled/map.hpp"
+#include "omega/util/util.hpp"
 
 namespace omega::scene::tiled {
 
@@ -30,9 +30,8 @@ class MapRenderer {
     virtual void render(gfx::SpriteBatch &batch);
 
   protected:
-
     Map *map = nullptr;
-    std::vector<gfx::FrameBuffer*> layers;
+    std::vector<gfx::FrameBuffer *> layers;
     std::vector<util::sptr<gfx::texture::Texture>> layer_textures;
 
     std::vector<util::sptr<gfx::texture::Texture>> tileset_textures;

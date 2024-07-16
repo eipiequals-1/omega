@@ -25,12 +25,18 @@ void VertexArray::add_buffer(const VertexBuffer &vb,
 
         // set pointer to data
         if (element.type == GL_INT || element.type == GL_UNSIGNED_INT) {
-            glVertexAttribIPointer(i, element.count, element.type,
-                layout.get_stride(), (const void *)offset);
+            glVertexAttribIPointer(i,
+                                   element.count,
+                                   element.type,
+                                   layout.get_stride(),
+                                   (const void *)offset);
         } else {
-            glVertexAttribPointer(
-                i, element.count, element.type, element.normalized,
-                layout.get_stride(), (const void *)offset);
+            glVertexAttribPointer(i,
+                                  element.count,
+                                  element.type,
+                                  element.normalized,
+                                  layout.get_stride(),
+                                  (const void *)offset);
         }
         // increase offset for pointer value
         offset +=
@@ -48,4 +54,4 @@ void VertexArray::unbind() {
     glBindVertexArray(0);
 }
 
-} // namespace omega
+} // namespace omega::gfx

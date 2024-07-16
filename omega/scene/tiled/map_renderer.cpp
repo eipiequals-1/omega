@@ -29,33 +29,26 @@ void MapRenderer::setup(gfx::SpriteBatch &sprite_batch) {
     u32 tile_height = map->tileHeight;
     u32 layer_width_pix = tile_width * map->width;
     u32 layer_height_pix = tile_height * map->height;
-    OrthographicCamera camera(0.0f, layer_width_pix,
-                              0.0f, layer_height_pix);
+    OrthographicCamera camera(0.0f, layer_width_pix, 0.0f, layer_height_pix);
 
     camera.recalculate_view_matrix();
     sprite_batch.set_view_projection_matrix(
         camera.get_view_projection_matrix());
-    
+
     for (u32 i = 0; i < map->layerCollection.size(); ++i) {
         layers.push_back(
-            new gfx::FrameBuffer(
-                layer_width_pix, layer_height_pix,
-                {
-                    {
-                        .width = layer_width_pix,
-                        .height = layer_height_pix,
-                        .name = "color_buffer", 
-                        .min_filter = gfx::TextureParam::NEAREST,
-                        .mag_filter = gfx::TextureParam::NEAREST}
-                }
-            )
-        );
+            new gfx::FrameBuffer(layer_width_pix,
+                                 layer_height_pix,
+                                 {{.width = layer_width_pix,
+                                   .height = layer_height_pix,
+                                   .name = "color_buffer",
+                                   .min_filter = gfx::TextureParam::NEAREST,
+                                   .mag_filter = gfx::TextureParam::NEAREST}}));
 
         layer_textures.push_back(gfx::texture::Texture::create_wrapper(
             layers.back()->get_attachment("color_buffer").id,
             layer_width_pix,
-            layer_height_pix
-        ));
+            layer_height_pix));
     }
 
     for (u32 z = 0; z < map->layerCollection.size(); ++z) {
@@ -68,22 +61,24 @@ void MapRenderer::setup(gfx::SpriteBatch &sprite_batch) {
         sprite_batch.begin_render();
         for (size_t tile_idx = 0; tile_idx < layer.tiles.size(); ++tile_idx) {
             const tmxparser::Tile &tile = layer.tiles[tile_idx];
-            const tmxparser::Tileset &tileset = map->tilesetCollection[tile.tilesetIndex];
+            const tmxparser::Tileset &tileset =
+                map->tilesetCollection[tile.tilesetIndex];
             // find location of first pixel of tile
             u32 row, col, start_x, start_y;
             col = tile_idx % layer.width; // col in tile units
             row = tile_idx / layer.width; // row in tile units
             start_x = col * tile_width;   // x offset in pixels
             start_y = row * tile_height;  // y offset in pixels
-            
-            if (tile.gid == 0) {continue;}
+
+            if (tile.gid == 0) {
+                continue;
+            }
             u32 gid = tile.tileFlatIndex;
             math::rectf src(
                 (gid % tileset.colCount) * tileset.tileWidth,
                 ((int)(gid / tileset.colCount) + 1) * tileset.tileHeight,
                 tileset.tileWidth,
-                -(float)(tileset.tileHeight)
-            );
+                -(float)(tileset.tileHeight));
             math::rectf dest(start_x, start_y, tile_width, tile_height);
             sprite_batch.render_texture(tileset_textures[0].get(), src, dest);
         }

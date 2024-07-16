@@ -2,12 +2,9 @@
 
 namespace omega::physics {
 
-World::World(const math::vec2& gravity) : world({gravity.x, gravity.y}) {
-}
+World::World(const math::vec2 &gravity) : world({gravity.x, gravity.y}) {}
 
-World::~World() {
-
-}
+World::~World() {}
 
 void World::step(f32 timestep,
                  u32 velocity_iteration,
@@ -20,7 +17,8 @@ uptr<BoxBody> World::add_box(const math::rectf &rect,
                              b2FixtureDef fixture_def,
                              f32 gravity_scale,
                              f32 angle) {
-    uptr<BoxBody> body = util::create_uptr<BoxBody>(rect, type, fixture_def, gravity_scale, angle, &world);
+    uptr<BoxBody> body = util::create_uptr<BoxBody>(
+        rect, type, fixture_def, gravity_scale, angle, &world);
     return std::move(body);
 }
 
@@ -29,7 +27,8 @@ uptr<CircleBody> World::add_circle(const math::vec2 &center,
                                    BodyType type,
                                    b2FixtureDef fixture_def,
                                    f32 gravity_scale) {
-    uptr<CircleBody> body = util::create_uptr<CircleBody>(center, radius, type, fixture_def, gravity_scale, &world);
+    uptr<CircleBody> body = util::create_uptr<CircleBody>(
+        center, radius, type, fixture_def, gravity_scale, &world);
     return std::move(body);
 }
-} // namespace omega
+} // namespace omega::physics

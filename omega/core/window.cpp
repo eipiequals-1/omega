@@ -20,7 +20,10 @@ Window::~Window() {
     util::info("Successfully quit application.");
 }
 
-bool Window::init(u32 width, u32 height, bool resizable, const std::string &title) {
+bool Window::init(u32 width,
+                  u32 height,
+                  bool resizable,
+                  const std::string &title) {
     this->width = width;
     this->height = height;
     if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_EVENTS) != 0) {
@@ -34,17 +37,17 @@ bool Window::init(u32 width, u32 height, bool resizable, const std::string &titl
     // specify version 3.0
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
- 
 
 #else
     // use the core OpenGL profile
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK,
+                        SDL_GL_CONTEXT_PROFILE_CORE);
     // specify version 4.5
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 5);
- 
+
 #endif
-   // request a color buffer with 8-bits per RGBA channel
+    // request a color buffer with 8-bits per RGBA channel
     SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 8);
     SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE, 8);
     SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE, 8);
@@ -54,8 +57,9 @@ bool Window::init(u32 width, u32 height, bool resizable, const std::string &titl
     // force hardware acceleration
     SDL_GL_SetAttribute(SDL_GL_ACCELERATED_VISUAL, 1);
 
-    auto window_flags = resizable ?
-        (WindowFlags::opengl | WindowFlags::resizable) : WindowFlags::opengl;
+    auto window_flags = resizable
+                            ? (WindowFlags::opengl | WindowFlags::resizable)
+                            : WindowFlags::opengl;
     window = SDL_CreateWindow(title.c_str(),
                               SDL_WINDOWPOS_CENTERED,
                               SDL_WINDOWPOS_CENTERED,
@@ -63,7 +67,7 @@ bool Window::init(u32 width, u32 height, bool resizable, const std::string &titl
                               height,
                               window_flags);
     if (window == nullptr) {
-        util::err("Failed to create window: '{}'", SDL_GetError()); 
+        util::err("Failed to create window: '{}'", SDL_GetError());
         return false;
     }
     util::info("Window created successfully.");

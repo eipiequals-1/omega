@@ -5,9 +5,9 @@
 #include <string>
 
 #include "omega/gfx/texture/texture.hpp"
+#include "omega/math/math.hpp"
 #include "omega/scene/orthographic_camera.hpp"
 #include "omega/scene/perspective_camera.hpp"
-#include "omega/math/math.hpp"
 #include "omega/util/std.hpp"
 
 namespace omega::scene {
@@ -41,18 +41,19 @@ struct SpriteComponent {
  * Represents a scene camera component
  */
 struct CameraComponent {
-    enum class ProjectionType {
-        perspective,
-        orthographic
-    };
-    CameraComponent(ProjectionType type) : ortho(0.0f, 1600.0f, 0.0f, 900.0f),
-                                           perspective(),
-                                           camera_type(type) {
-    }
+    enum class ProjectionType { perspective, orthographic };
+    CameraComponent(ProjectionType type)
+        : ortho(0.0f, 1600.0f, 0.0f, 900.0f),
+          perspective(),
+          camera_type(type) {}
     ~CameraComponent() = default;
 
-    void set_projection_type(ProjectionType type) { camera_type = type; };
-    ProjectionType get_projection_type() const { return camera_type; }
+    void set_projection_type(ProjectionType type) {
+        camera_type = type;
+    };
+    ProjectionType get_projection_type() const {
+        return camera_type;
+    }
 
     scene::OrthographicCamera ortho;
     scene::PerspectiveCamera perspective;
@@ -65,9 +66,7 @@ struct MoveComponent {
     math::vec3 acceleration{0.0f};
 };
 
-struct RigidBody2DComponent {
-
-};
+struct RigidBody2DComponent {};
 
 } // namespace omega::scene
 

@@ -3,17 +3,17 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
+
 #include <fstream>
 
+#include "json/json.hpp"
+#include "lib/imgui/imgui.h"
+#include "lib/imgui/imgui_impl_opengl3.h"
+#include "lib/imgui/imgui_impl_sdl.h"
+#include "lib/imgui/implot.h"
 #include "omega/math/math.hpp"
 #include "omega/util/log.hpp"
 #include "omega/util/time.hpp"
-#include "lib/imgui/imgui.h"
-#include "lib/imgui/implot.h"
-#include "lib/imgui/imgui_impl_sdl.h"
-#include "lib/imgui/imgui_impl_opengl3.h"
-
-#include "json/json.hpp"
 #include "tomlplusplus/toml.hpp"
 
 static void setup_imgui(omega::core::Window *window) {
@@ -21,7 +21,6 @@ static void setup_imgui(omega::core::Window *window) {
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
     ImPlot::CreateContext();
-
 
     ImGuiIO &io = ImGui::GetIO();
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
@@ -55,10 +54,8 @@ static void begin_imgui_frame() {
 
 static void end_imgui_frame(omega::core::Window *window) {
     ImGuiIO &io = ImGui::GetIO();
-    io.DisplaySize = ImVec2(
-        (f32)window->get_width(),
-        (f32)window->get_height()
-    );
+    io.DisplaySize =
+        ImVec2((f32)window->get_width(), (f32)window->get_height());
 
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
@@ -74,16 +71,31 @@ AppConfig AppConfig::from_config(const std::string &config_file) {
 
         AppConfig config;
 
-        config.width = data.contains("width") ? (u32) data["width"] : config.width;
-        config.height = data.contains("height") ? (u32) data["height"] : config.height;
-        config.title = data.contains("title") ? (std::string) data["title"] : config.title;
-        config.resizable = data.contains("resizable") ? (bool) data["resizable"] : config.resizable;
-        config.viewport_type = data.contains("viewport") ? data["viewport"] == "stretch" ? ViewportType::stretch : ViewportType::fit : ViewportType::fit;
-        config.viewport_width = data.contains("viewport_width") ? (u32) data["viewport_width"] : config.viewport_width;
-        config.viewport_height = data.contains("viewport_height") ? (u32) data["viewport_height"] : config.viewport_height;
-        config.fps = data.contains("fps") ? (u32) data["fps"] : config.fps;
-        config.imgui = data.contains("imgui") ? (bool) data["imgui"] : config.imgui;
-        config.mouse_sensitivity = data.contains("mouse_sensitivity") ? (f32) data["mouse_sensitivity"] : config.mouse_sensitivity;
+        config.width =
+            data.contains("width") ? (u32)data["width"] : config.width;
+        config.height =
+            data.contains("height") ? (u32)data["height"] : config.height;
+        config.title =
+            data.contains("title") ? (std::string)data["title"] : config.title;
+        config.resizable = data.contains("resizable") ? (bool)data["resizable"]
+                                                      : config.resizable;
+        config.viewport_type = data.contains("viewport")
+                                   ? data["viewport"] == "stretch"
+                                         ? ViewportType::stretch
+                                         : ViewportType::fit
+                                   : ViewportType::fit;
+        config.viewport_width = data.contains("viewport_width")
+                                    ? (u32)data["viewport_width"]
+                                    : config.viewport_width;
+        config.viewport_height = data.contains("viewport_height")
+                                     ? (u32)data["viewport_height"]
+                                     : config.viewport_height;
+        config.fps = data.contains("fps") ? (u32)data["fps"] : config.fps;
+        config.imgui =
+            data.contains("imgui") ? (bool)data["imgui"] : config.imgui;
+        config.mouse_sensitivity = data.contains("mouse_sensitivity")
+                                       ? (f32)data["mouse_sensitivity"]
+                                       : config.mouse_sensitivity;
         return config;
     }
     // toml config file
@@ -94,14 +106,19 @@ AppConfig AppConfig::from_config(const std::string &config_file) {
 
     config.resizable = data["user"]["resizable"].value_or(config.resizable);
     config.fps = data["user"]["fps"].value_or(config.fps);
-    config.mouse_sensitivity = data["user"]["sensitivity"].value_or(config.mouse_sensitivity);
+    config.mouse_sensitivity =
+        data["user"]["sensitivity"].value_or(config.mouse_sensitivity);
 
     config.imgui = data["gfx"]["imgui"].value_or(config.imgui);
     config.width = data["gfx"]["width"].value_or(config.width);
     config.height = data["gfx"]["height"].value_or(config.height);
-    config.viewport_type = data["gfx"]["viewport"].value_or("fit") ? ViewportType::fit : ViewportType::stretch;
-    config.viewport_width = data["gfx"]["viewport_width"].value_or(config.viewport_width);
-    config.viewport_height = data["gfx"]["viewport_height"].value_or(config.viewport_height);
+    config.viewport_type = data["gfx"]["viewport"].value_or("fit")
+                               ? ViewportType::fit
+                               : ViewportType::stretch;
+    config.viewport_width =
+        data["gfx"]["viewport_width"].value_or(config.viewport_width);
+    config.viewport_height =
+        data["gfx"]["viewport_height"].value_or(config.viewport_height);
 
     return config;
 }
@@ -112,11 +129,7 @@ App::App(const AppConfig &config) {
     current_instance = this;
     window = Window::instance();
     running = window->init(
-        config.width,
-        config.height,
-        config.resizable,
-        config.title
-    );
+        config.width, config.height, config.resizable, config.title);
 
     // init TTF_Font
     if (TTF_Init() != 0) {
@@ -126,11 +139,10 @@ App::App(const AppConfig &config) {
     util::time::init();
     last_time = util::time::get_time<f32>();
     fps = config.fps;
-    globals = util::create_uptr<Globals>(Viewport(
-        config.viewport_type,
-        config.viewport_width,
-        config.viewport_height
-    ), "Main Scene");
+    globals = util::create_uptr<Globals>(Viewport(config.viewport_type,
+                                                  config.viewport_width,
+                                                  config.viewport_height),
+                                         "Main Scene");
     globals->input.set_mouse_sensitivity(config.mouse_sensitivity);
 
     // init imgui
@@ -152,9 +164,8 @@ App::~App() {
 }
 
 f32 App::tick() {
-    f32 to_sleep = math::max(
-        1.0f / fps - (util::time::get_time<f32>() - last_time),
-        0.0f);
+    f32 to_sleep =
+        math::max(1.0f / fps - (util::time::get_time<f32>() - last_time), 0.0f);
     util::time::sleep(to_sleep);
     f32 current_time = util::time::get_time<f32>();
     f32 dt = (current_time - last_time); // get delta time
@@ -178,18 +189,18 @@ void App::frame() {
                 running = false;
                 break;
             case events::EventType::window_event:
-                if (event.window.event == 
+                if (event.window.event ==
                     (u32)events::WindowEvents::window_resized) {
                     // change window width, height data
                     Window::instance()->on_resize(event.window.data1,
                                                   event.window.data2);
-                    on_resize(event.window.data1, event.window.data2); 
+                    on_resize(event.window.data1, event.window.data2);
                     util::info("yoo");
                 }
                 break;
             case events::EventType::mouse_wheel:
-                input.scroll_wheel = math::vec2((f32)event.wheel.x,
-                                               (f32)event.wheel.y);
+                input.scroll_wheel =
+                    math::vec2((f32)event.wheel.x, (f32)event.wheel.y);
             default:
                 break;
         }
@@ -217,7 +228,9 @@ void App::run() {
 #ifdef EMSCRIPTEN
     emscripten_set_main_loop(update_loop, 0, 1);
 #else
-    while (running) { update_loop(); }
+    while (running) {
+        update_loop();
+    }
 #endif
 }
 

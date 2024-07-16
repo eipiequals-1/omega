@@ -9,7 +9,7 @@ namespace omega::util {
 AssetManager::AssetManager() {
     if (Mix_Init(MIX_INIT_MP3 | MIX_INIT_FLAC | MIX_INIT_OGG) == 0) {
         util::err("SDL_mixer error: Failed to initialize! '{}'",
-                    Mix_GetError());
+                  Mix_GetError());
     }
     // sound frequency,
     // sample format,
@@ -17,7 +17,7 @@ AssetManager::AssetManager() {
     // sample size (2048 bytes)
     if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) != 0) {
         util::err("SDL_mixer error: Failed to open mixer! '{}'",
-                    Mix_GetError());
+                  Mix_GetError());
     }
 }
 
@@ -28,7 +28,6 @@ AssetManager::~AssetManager() {
 
 sound::SoundEffectID AssetManager::load_sound_effect(
     const std::string &filepath) {
-
     util::uptr<sound::SoundEffect> effect =
         util::create_uptr<sound::SoundEffect>(filepath);
     sound_effects.push_back(std::move(effect));
@@ -41,8 +40,7 @@ sound::MusicID AssetManager::load_music(const std::string &filepath) {
     return music.size() - 1;
 }
 
-void AssetManager::play_sound_effect(sound::SoundEffectID sound,
-                                     f32 volume) {
+void AssetManager::play_sound_effect(sound::SoundEffectID sound, f32 volume) {
     sound_effects[sound]->play(volume);
 }
 

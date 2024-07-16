@@ -4,8 +4,8 @@
 #include <functional>
 
 #include "omega/core/globals.hpp"
-#include "omega/core/window.hpp"
 #include "omega/core/viewport.hpp"
+#include "omega/core/window.hpp"
 #include "omega/events/events.hpp"
 #include "omega/math/math.hpp"
 #include "omega/util/std.hpp"
@@ -28,7 +28,7 @@ struct AppConfig {
     u32 fps = 60;
     // imgui
     bool imgui = false;
-    
+
     f32 mouse_sensitivity = 0.1f;
 
     static AppConfig from_config(const std::string &config_file);
@@ -63,25 +63,35 @@ class App {
     ~App();
 
     /**
-     * Abstraction of the application loop. Calls the tick, update, input, and 
+     * Abstraction of the application loop. Calls the tick, update, input, and
      * render methods
      */
     void run();
 
-     /**
+    /**
      * @return the current application
      */
-    static App &instance() { return *current_instance; }
+    static App &instance() {
+        return *current_instance;
+    }
 
     /**
      * @return the window
      */
-    Window* get_window() { return window; }
+    Window *get_window() {
+        return window;
+    }
 
     virtual void setup() {};
-    virtual void update(f32 dt) {(void)dt;};
-    virtual void input(f32 dt) { (void)dt;}
-    virtual void render(f32 dt) { (void)dt; }
+    virtual void update(f32 dt) {
+        (void)dt;
+    };
+    virtual void input(f32 dt) {
+        (void)dt;
+    }
+    virtual void render(f32 dt) {
+        (void)dt;
+    }
     virtual void on_resize(u32 width, u32 height) {
         globals->scene.on_resize(width, height);
     }
@@ -89,7 +99,6 @@ class App {
     void frame();
 
   protected:
-
     /**
      * Clamps the application by sleeping the CPU to run at Application::fps
      * @return delta time in seconds from the last frame
@@ -98,7 +107,7 @@ class App {
 
     // application state
     bool running = true;
-    Window* window = nullptr;
+    Window *window = nullptr;
     util::uptr<Globals> globals = nullptr;
     bool imgui = false;
 

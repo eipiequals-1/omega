@@ -2,6 +2,7 @@
 #define OMEGA_UTIL_TIME_HPP
 
 #include <SDL2/SDL.h>
+
 #include <chrono>
 #include <thread>
 
@@ -15,14 +16,15 @@ std::chrono::time_point<std::chrono::high_resolution_clock> get_start();
 void init();
 
 /**
-     * @return the time since the initialization of the engine in milliseconds
-     */
+ * @return the time since the initialization of the engine in milliseconds
+ */
 template <typename T>
 T get_time_millis() {
     return static_cast<T>(
         std::chrono::duration_cast<std::chrono::nanoseconds>(
             std::chrono::high_resolution_clock::now() - get_start())
-        .count() * 0.001 * 0.001);
+            .count() *
+        0.001 * 0.001);
 }
 
 /**
@@ -59,7 +61,8 @@ void sleep(T time) {
 }
 
 /**
- * @return the current time formatted as such: Day-of-week Month Day hr:min:sec yr
+ * @return the current time formatted as such: Day-of-week Month Day hr:min:sec
+ * yr
  */
 std::string get_current_time();
 

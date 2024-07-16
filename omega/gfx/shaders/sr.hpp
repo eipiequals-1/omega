@@ -34,7 +34,6 @@ void main() {
 }
 )glsl");
 
-
 // ShapeRenderer wasm vertex shader
 const std::string sr_vert_wasm = std::string(R"glsl(
 attribute vec2 a_Coord;

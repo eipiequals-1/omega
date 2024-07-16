@@ -64,7 +64,6 @@ void main() {
 }
 )glsl");
 
-
 // SpriteBatch wasm vertex shader
 
 const std::string sb_vert_wasm = std::string(R"glsl(
@@ -131,7 +130,6 @@ void main() {
     gl_FragColor = color * v_Color;
 }
 )glsl");
-
 
 } // namespace omega::gfx::shaders
 

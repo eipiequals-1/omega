@@ -1,13 +1,15 @@
 #include "frame_buffer.hpp"
 
-#include "omega/gfx/gl.hpp"
 #include <array>
+
+#include "omega/gfx/gl.hpp"
 
 namespace omega::gfx {
 
-FrameBuffer::FrameBuffer(u32 width, u32 height,
+FrameBuffer::FrameBuffer(
+    u32 width,
+    u32 height,
     const std::vector<FrameBufferAttachment> &attachments) {
-
     std::vector<std::string> to_init;
     for (const auto &attachment : attachments) {
         this->attachments[attachment.name] = attachment;
@@ -22,7 +24,8 @@ FrameBuffer::~FrameBuffer() {
     glDeleteRenderbuffers(1, &rbo_depth_stencil);
 }
 
-void FrameBuffer::resize(u32 width, u32 height,
+void FrameBuffer::resize(u32 width,
+                         u32 height,
                          const std::vector<std::string> &attachments) {
     if (id != 0) {
         glDeleteFramebuffers(1, &id);
@@ -46,13 +49,20 @@ void FrameBuffer::resize(u32 width, u32 height,
         attach.init(attach.width, attach.height);
         // attach to framebuffer
         if (attach.draw_buffer) {
-            glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + i,
-                                   GL_TEXTURE_2D, attach.id, 0);
+            glFramebufferTexture2D(GL_FRAMEBUFFER,
+                                   GL_COLOR_ATTACHMENT0 + i,
+                                   GL_TEXTURE_2D,
+                                   attach.id,
+                                   0);
             ++i;
         } else {
-            // TODO: should be able to have both depth attachment and other buffers
-            glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT,
-                                   GL_TEXTURE_2D, attach.id, 0);
+            // TODO: should be able to have both depth attachment and other
+            // buffers
+            glFramebufferTexture2D(GL_FRAMEBUFFER,
+                                   GL_DEPTH_ATTACHMENT,
+                                   GL_TEXTURE_2D,
+                                   attach.id,
+                                   0);
 #ifndef EMSCRIPTEN
             glDrawBuffer(GL_NONE);
 #endif
@@ -78,13 +88,15 @@ void FrameBuffer::resize(u32 width, u32 height,
         glBindRenderbuffer(GL_RENDERBUFFER, rbo_depth_stencil);
 
 #ifdef EMSCRIPTEN
-        glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT16, width, height);
+        glRenderbufferStorage(
+            GL_RENDERBUFFER, GL_DEPTH_COMPONENT16, width, height);
         glFramebufferRenderbuffer(GL_FRAMEBUFFER,
                                   GL_DEPTH_ATTACHMENT,
                                   GL_RENDERBUFFER,
                                   rbo_depth_stencil);
 #else
-        glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, width, height);
+        glRenderbufferStorage(
+            GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, width, height);
         glFramebufferRenderbuffer(GL_FRAMEBUFFER,
                                   GL_DEPTH_STENCIL_ATTACHMENT,
                                   GL_RENDERBUFFER,
@@ -108,4 +120,4 @@ void FrameBuffer::bind() const {
     glViewport(0, 0, width, height);
 }
 
-} // namespace omega
+} // namespace omega::gfx

@@ -17,15 +17,13 @@ inline math::mat4 create_model_transform(TransformComponent tc) {
 }
 
 inline math::mat4 create_model_transform(const math::vec3 &pos,
-                                   const math::vec3 &rotation_axis,
-                                   f32 rot,
-                                   const math::vec3 &scale) {
-    TransformComponent tc{
-        .position = pos,
-        .rotation_axis = rotation_axis,
-        .rotation = rot,
-        .scale = scale
-    };
+                                         const math::vec3 &rotation_axis,
+                                         f32 rot,
+                                         const math::vec3 &scale) {
+    TransformComponent tc{.position = pos,
+                          .rotation_axis = rotation_axis,
+                          .rotation = rot,
+                          .scale = scale};
     return create_model_transform(tc);
 }
 

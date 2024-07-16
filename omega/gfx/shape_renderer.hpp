@@ -31,7 +31,7 @@ class ShapeRenderer {
   public:
     math::vec4 color{1.0f}; // tracks current color
     ShapeRenderer();
-   ~ShapeRenderer() = default;
+    ~ShapeRenderer() = default;
 
     /**
      * Begins the rendering process.
@@ -76,7 +76,9 @@ class ShapeRenderer {
      * @param p2 point 2
      * @param p3 point 3
      */
-    void triangle(const math::vec2 &p1, const math::vec2 &p2, const math::vec2 &p3);
+    void triangle(const math::vec2 &p1,
+                  const math::vec2 &p2,
+                  const math::vec2 &p3);
 
     /**
      * Renders a triangle with the given points

@@ -1,8 +1,8 @@
 #ifndef OMEGA_MATH_RECT_HPP
 #define OMEGA_MATH_RECT_HPP
 
-#include "omega/util/types.hpp"
 #include "omega/math/glm.hpp"
+#include "omega/util/types.hpp"
 
 namespace glm {
 
@@ -61,15 +61,9 @@ struct rect {
      * Returns the {string} rectangle data for debugging purposes
      */
     std::string to_string() const {
-        return std::string("rect(") +
-               std::to_string(x) +
-               ", " +
-               std::to_string(y) +
-               ", " +
-               std::to_string(w) +
-               ", " +
-               std::to_string(h) +
-               ")";
+        return std::string("rect(") + std::to_string(x) + ", " +
+               std::to_string(y) + ", " + std::to_string(w) + ", " +
+               std::to_string(h) + ")";
     }
 
     /**

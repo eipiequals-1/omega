@@ -3,8 +3,8 @@
 
 #include <box2d/box2d.h>
 
-#include "omega/physics/physics_defines.hpp"
 #include "omega/math/math.hpp"
+#include "omega/physics/physics_defines.hpp"
 #include "omega/util/types.hpp"
 
 namespace omega::physics {
@@ -22,20 +22,24 @@ class BoxBody {
             f32 gravity_scale,
             f32 angle,
             b2World *world);
-    
+
     virtual ~BoxBody() = default;
 
-    const math::vec2 &get_dimensions() const { return dimensions; }
+    const math::vec2 &get_dimensions() const {
+        return dimensions;
+    }
     /**
      * @returns the rectangle containing the box
      */
     math::rectf get_rect() const {
         return math::rectf(body->GetPosition().x - dimensions.x / 2.0f,
-                          body->GetPosition().y - dimensions.y / 2.0f,
-                          dimensions.x,
-                          dimensions.y);
+                           body->GetPosition().y - dimensions.y / 2.0f,
+                           dimensions.x,
+                           dimensions.y);
     }
-    Body *get_body() { return body; }
+    Body *get_body() {
+        return body;
+    }
 
   protected:
     Body *body = nullptr;
@@ -56,9 +60,15 @@ class CircleBody {
 
     virtual ~CircleBody() = default;
 
-    const math::vec2 &get_center() const { return center; }
-    f32 get_radius() const { return radius; }
-    Body *get_body() { return body; }
+    const math::vec2 &get_center() const {
+        return center;
+    }
+    f32 get_radius() const {
+        return radius;
+    }
+    Body *get_body() {
+        return body;
+    }
 
   protected:
     Body *body = nullptr;

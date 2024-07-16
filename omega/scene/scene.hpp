@@ -1,9 +1,8 @@
 #ifndef OMEGA_SCENE_SCENE_HPP
 #define OMEGA_SCENE_SCENE_HPP
 
-#include <string>
-
 #include <entt/entt.hpp>
+#include <string>
 
 #include "omega/core/viewport.hpp"
 #include "omega/gfx/sprite_batch.hpp"

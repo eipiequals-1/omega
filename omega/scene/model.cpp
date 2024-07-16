@@ -76,13 +76,13 @@ Model::Model(const std::string &file_path) {
         util::split(current_line[2], vertex2, "/");
         Line vertex3;
         util::split(current_line[3], vertex3, "/");
-        process_vertex(vertex1, indices, tex,
-                       normals, tex_array, normals_array);
-        process_vertex(vertex2, indices, tex,
-                       normals, tex_array, normals_array);
-        process_vertex(vertex3, indices, tex,
-                       normals, tex_array, normals_array);
-    
+        process_vertex(
+            vertex1, indices, tex, normals, tex_array, normals_array);
+        process_vertex(
+            vertex2, indices, tex, normals, tex_array, normals_array);
+        process_vertex(
+            vertex3, indices, tex, normals, tex_array, normals_array);
+
         end = !std::getline(f, line);
     }
 
@@ -97,9 +97,7 @@ Model::Model(const std::vector<math::vec3> &pos,
     create_mesh(pos, norms, tex, indices);
 }
 
-
-Model::~Model() {
-}
+Model::~Model() {}
 
 void Model::render() {
     vao->bind();
@@ -120,14 +118,12 @@ void Model::render() {
     gfx::VertexArray::unbind();
 }
 
-void Model::process_vertex(
-        std::vector<std::string> &vertex_data,
-        std::vector<u32> &indices,
-        std::vector<math::vec2> &textures,
-        std::vector<math::vec3> &normals,
-        std::vector<math::vec2> &texture_array,
-        std::vector<math::vec3> &normal_array
-) {
+void Model::process_vertex(std::vector<std::string> &vertex_data,
+                           std::vector<u32> &indices,
+                           std::vector<math::vec2> &textures,
+                           std::vector<math::vec3> &normals,
+                           std::vector<math::vec2> &texture_array,
+                           std::vector<math::vec3> &normal_array) {
     i32 idx = std::stoi(vertex_data[0]) - 1;
     indices.push_back(idx);
 
@@ -136,19 +132,16 @@ void Model::process_vertex(
     normal_array[idx] = normals[std::stoi(vertex_data[2]) - 1];
 }
 
-
-void Model::create_mesh(
-    const std::vector<math::vec3> &verts,
-    const std::vector<math::vec3> &norms,
-    const std::vector<math::vec2> &tex,
-    const std::vector<u32> &indices) {
-
+void Model::create_mesh(const std::vector<math::vec3> &verts,
+                        const std::vector<math::vec3> &norms,
+                        const std::vector<math::vec2> &tex,
+                        const std::vector<u32> &indices) {
     // create vao
     vao = util::create_uptr<gfx::VertexArray>();
     vao->bind();
 
     add_attribute_data(0, GL_FLOAT, 3, verts); // position
-    add_attribute_data(1, GL_FLOAT, 2, tex); // tex coords
+    add_attribute_data(1, GL_FLOAT, 2, tex);   // tex coords
     add_attribute_data(2, GL_FLOAT, 3, norms); // norms
 
     // create ibo

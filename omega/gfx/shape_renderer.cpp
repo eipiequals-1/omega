@@ -13,15 +13,15 @@ ShapeRenderer::ShapeRenderer() : view_proj_matrix_name("u_ViewProjMatrix") {
     color = math::vec4(1.0f);
     // create shaders
 #ifdef EMSCRIPTEN
-    triangle_shader = create_uptr<Shader>(shaders::sr_vert_wasm,
-                                          shaders::sr_frag_wasm);
+    triangle_shader =
+        create_uptr<Shader>(shaders::sr_vert_wasm, shaders::sr_frag_wasm);
 #else
     triangle_shader = create_uptr<Shader>(shaders::sr_vert, shaders::sr_frag);
 #endif
     // create vertex buffer
-    triangle_vbo = create_uptr<VertexBuffer>(
-        sizeof(f32) * num_triangles *
-        num_vertices_per_triangle * num_attributes);
+    triangle_vbo =
+        create_uptr<VertexBuffer>(sizeof(f32) * num_triangles *
+                                  num_vertices_per_triangle * num_attributes);
 
     // create vertex buffer layout
     VertexBufferLayout layout;
@@ -40,8 +40,8 @@ void ShapeRenderer::end() {
     triangle_vao->bind();
     triangle_vbo->bind();
     triangle_shader->bind();
-    draw_arrays(GL_TRIANGLES, 0,
-                 triangles_renderered * num_vertices_per_triangle);
+    draw_arrays(
+        GL_TRIANGLES, 0, triangles_renderered * num_vertices_per_triangle);
     // unbind all objects
     VertexArray::unbind();
     VertexBuffer::unbind();
@@ -49,15 +49,19 @@ void ShapeRenderer::end() {
 }
 
 void ShapeRenderer::rect(const math::rectf &rect) {
-    triangle(
-        rect.x, rect.y,                  // bottom left
-        rect.x + rect.w, rect.y,         // bottom right
-        rect.x + rect.w, rect.y + rect.h // top right
+    triangle(rect.x,
+             rect.y, // bottom left
+             rect.x + rect.w,
+             rect.y, // bottom right
+             rect.x + rect.w,
+             rect.y + rect.h // top right
     );
-    triangle(
-        rect.x, rect.y,                  // bottom left
-        rect.x, rect.y + rect.h,         // top left
-        rect.x + rect.w, rect.y + rect.h // top right
+    triangle(rect.x,
+             rect.y, // bottom left
+             rect.x,
+             rect.y + rect.h, // top left
+             rect.x + rect.w,
+             rect.y + rect.h // top right
     );
 }
 
@@ -85,9 +89,7 @@ void ShapeRenderer::rect(const math::rectf &rect, f32 rotation) {
     triangle(points[2], points[3], points[0]);
 }
 
-void ShapeRenderer::triangle(f32 x1, f32 y1,
-                             f32 x2, f32 y2,
-                             f32 x3, f32 y3) {
+void ShapeRenderer::triangle(f32 x1, f32 y1, f32 x2, f32 y2, f32 x3, f32 y3) {
     if (triangles_renderered == num_triangles) {
         end();
         begin();
@@ -97,13 +99,12 @@ void ShapeRenderer::triangle(f32 x1, f32 y1,
     v1 = {{x1, y1}, color};
     v2 = {{x2, y2}, color};
     v3 = {{x3, y3}, color};
-    
+
     ShapeTriangle triangle = {v1, v2, v3};
     triangle_vbo->bind();
-    triangle_vbo->sub_data(
-        triangles_renderered * sizeof(ShapeTriangle),
-        sizeof(ShapeTriangle),
-        triangle.data());
+    triangle_vbo->sub_data(triangles_renderered * sizeof(ShapeTriangle),
+                           sizeof(ShapeTriangle),
+                           triangle.data());
     triangles_renderered++;
 }
 
@@ -149,9 +150,7 @@ void ShapeRenderer::line(const math::vec2 &p1,
     triangle(r3, r4, r1);
 }
 
-void ShapeRenderer::line(f32 x1, f32 y1,
-                         f32 x2, f32 y2,
-                         f32 thickness) {
+void ShapeRenderer::line(f32 x1, f32 y1, f32 x2, f32 y2, f32 thickness) {
     line(math::vec2(x1, y1), math::vec2(x2, y2), thickness);
 }
 

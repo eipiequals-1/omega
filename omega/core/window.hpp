@@ -6,8 +6,8 @@
 #include <cstdint>
 #include <string>
 
-#include "omega/gfx/gl.hpp"
 #include "omega/core/viewport.hpp"
+#include "omega/gfx/gl.hpp"
 #include "omega/math/math.hpp"
 #include "omega/util/std.hpp"
 
@@ -26,7 +26,7 @@ class Window {
     /**
      * @return pointer to window instance
      */
-    static Window* instance() {
+    static Window *instance() {
         static util::uptr<Window> win = util::uptr<Window>(new Window());
         return win.get();
     }
@@ -38,8 +38,7 @@ class Window {
      * @param resizable if it can be resized
      * @param title the window title
      */
-    bool init(u32 width, u32 height, bool resizable,
-        const std::string &title);
+    bool init(u32 width, u32 height, bool resizable, const std::string &title);
 
     /**
      * Specify the framebuffer clear color and abstracts it
@@ -67,19 +66,27 @@ class Window {
     /**
      * @return width
      */
-    u32 get_width() const { return width; }
+    u32 get_width() const {
+        return width;
+    }
     /**
      * @return height
      */
-    u32 get_height() const { return height; }
+    u32 get_height() const {
+        return height;
+    }
     /**
      * @return native SDL_Window *
      */
-    SDL_Window *get_native_window() { return window; }
+    SDL_Window *get_native_window() {
+        return window;
+    }
     /**
      * @return SDL_GLContext
      */
-    SDL_GLContext get_gl_context() { return context; }
+    SDL_GLContext get_gl_context() {
+        return context;
+    }
 
   private:
     Window() = default;

@@ -6,9 +6,9 @@
 #include "omega/gfx/gl.hpp"
 #include "omega/gfx/index_buffer.hpp"
 #include "omega/gfx/shader.hpp"
+#include "omega/gfx/vertex_array.hpp"
 #include "omega/gfx/vertex_buffer.hpp"
 #include "omega/gfx/vertex_buffer_layout.hpp"
-#include "omega/gfx/vertex_array.hpp"
 #include "omega/util/std.hpp"
 #include "omega/util/types.hpp"
 
@@ -16,8 +16,7 @@ namespace omega::gfx {
 
 class Mesh {
   public:
-    explicit Mesh(size_t size,
-                  const VertexBufferLayout &layout);
+    explicit Mesh(size_t size, const VertexBufferLayout &layout);
     ~Mesh() = default;
 
     template <typename T>

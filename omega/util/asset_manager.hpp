@@ -4,10 +4,10 @@
 #include <string>
 #include <unordered_map>
 
-#include "omega/gfx/texture/texture.hpp"
 #include "omega/gfx/shader.hpp"
-#include "omega/sound/sound_effect.hpp"
+#include "omega/gfx/texture/texture.hpp"
 #include "omega/sound/music.hpp"
+#include "omega/sound/sound_effect.hpp"
 #include "omega/ui/font.hpp"
 #include "omega/util/std.hpp"
 
@@ -17,41 +17,36 @@ class AssetManager {
   public:
     AssetManager();
     ~AssetManager();
-   
+
     // textures
-    gfx::texture::Texture* load_texture(
+    gfx::texture::Texture *load_texture(
         const std::string &key,
         const std::string &filepath,
-        gfx::texture::TextureParam min_filter
-            = gfx::texture::TextureParam::NEAREST,
-        gfx::texture::TextureParam mag_filter
-            = gfx::texture::TextureParam::NEAREST)
-    {
-        textures[key] = gfx::texture::Texture::create_from_file(filepath,
-                                                                min_filter,
-                                                                mag_filter);
+        gfx::texture::TextureParam min_filter =
+            gfx::texture::TextureParam::NEAREST,
+        gfx::texture::TextureParam mag_filter =
+            gfx::texture::TextureParam::NEAREST) {
+        textures[key] = gfx::texture::Texture::create_from_file(
+            filepath, min_filter, mag_filter);
         return textures[key].get();
     }
 
-    gfx::texture::Texture* load_empty_texture(
+    gfx::texture::Texture *load_empty_texture(
         const std::string &key,
         u32 width,
         u32 height,
-        gfx::texture::TextureParam min_filter
-            = gfx::texture::TextureParam::NEAREST,
-        gfx::texture::TextureParam mag_filter
-            = gfx::texture::TextureParam::NEAREST)
-    {
-        textures[key] = gfx::texture::Texture::create_empty(width,
-                                                            height,
-                                                            min_filter,
-                                                            mag_filter);
+        gfx::texture::TextureParam min_filter =
+            gfx::texture::TextureParam::NEAREST,
+        gfx::texture::TextureParam mag_filter =
+            gfx::texture::TextureParam::NEAREST) {
+        textures[key] = gfx::texture::Texture::create_empty(
+            width, height, min_filter, mag_filter);
         return textures[key].get();
     }
-    gfx::texture::Texture* get_texture(const std::string &key) {
+    gfx::texture::Texture *get_texture(const std::string &key) {
         return textures[key].get();
     }
-    
+
     // sound effects
     sound::SoundEffectID load_sound_effect(const std::string &filepath);
     sound::MusicID load_music(const std::string &filepath);
@@ -75,22 +70,19 @@ class AssetManager {
         return shaders[key].get();
     }
 
-    gfx::Shader *get_shader(const std::string &key) { 
+    gfx::Shader *get_shader(const std::string &key) {
         return shaders[key].get();
     }
 
     // fonts
-    ui::Font *load_font(
-        const std::string &key,
-        const std::string &filepath,
-        const std::string &font_characters,
-        u32 glyph_height,
-        gfx::texture::TextureParam filter 
-            = gfx::texture::TextureParam::NEAREST) {
-        fonts[key] = util::create_uptr<ui::Font>(filepath,
-                                                 font_characters,
-                                                 glyph_height,
-                                                 filter);
+    ui::Font *load_font(const std::string &key,
+                        const std::string &filepath,
+                        const std::string &font_characters,
+                        u32 glyph_height,
+                        gfx::texture::TextureParam filter =
+                            gfx::texture::TextureParam::NEAREST) {
+        fonts[key] = util::create_uptr<ui::Font>(
+            filepath, font_characters, glyph_height, filter);
         return fonts[key].get();
     }
 

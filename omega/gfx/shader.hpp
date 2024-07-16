@@ -39,7 +39,10 @@ class Shader {
 
     // set uniforms
     void set_uniform_4f(const std::string &name,
-                        f32 v0, f32 v1, f32 v2, f32 v3);
+                        f32 v0,
+                        f32 v1,
+                        f32 v2,
+                        f32 v3);
     void set_uniform_4f(const std::string &name, const math::vec4 &v);
 
     void set_uniform_3f(const std::string &name, f32 v0, f32 v1, f32 v2);
@@ -54,7 +57,9 @@ class Shader {
     void set_uniform_1iv(const std::string &name, i32 *arr, u32 size);
 
     void set_uniform_bool(const std::string &name, bool v0);
-    u32 get_id() const { return id; }
+    u32 get_id() const {
+        return id;
+    }
 
   private:
     /**

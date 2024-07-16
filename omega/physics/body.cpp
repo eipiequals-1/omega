@@ -7,9 +7,8 @@ BoxBody::BoxBody(const math::rectf &rect,
                  b2FixtureDef &fixture_def,
                  f32 gravity_scale,
                  f32 angle,
-                 b2World *world) :
-    dimensions(rect.w, rect.h) {
-    
+                 b2World *world)
+    : dimensions(rect.w, rect.h) {
     b2BodyDef body_def;
     body_def.type = (b2BodyType)type;
     body_def.position.Set(rect.x + rect.w / 2.0f, rect.y + rect.h / 2.0f);
@@ -29,9 +28,8 @@ CircleBody::CircleBody(const math::vec2 &center,
                        BodyType type,
                        b2FixtureDef &fixture_def,
                        f32 gravity_scale,
-                       b2World *world) :
-    center(center), radius(radius) {
-    
+                       b2World *world)
+    : center(center), radius(radius) {
     b2BodyDef body_def;
     body_def.type = (b2BodyType)type;
     body_def.position.Set(center.x, center.y);
@@ -48,4 +46,4 @@ CircleBody::CircleBody(const math::vec2 &center,
     body->CreateFixture(&fixture_def);
 }
 
-} // namespace omega
+} // namespace omega::physics

@@ -51,7 +51,6 @@ void main() {
 }
 )glsl";
 
-
 } // namespace omega::gfx::shaders
 
 #endif // OMEGA_GFX_SHADERS_PARTICLEDEFAULT_HPP

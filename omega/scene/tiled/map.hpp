@@ -3,17 +3,15 @@
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
-
 #include <libtmx-parser/tmxparser.h>
 
 #include <string>
 #include <vector>
 
 #include "omega/gfx/sprite_batch.hpp"
+#include "omega/math/math.hpp"
 #include "omega/util/std.hpp"
 #include "omega/util/types.hpp"
-#include "omega/math/math.hpp"
-
 
 namespace omega::scene::tiled {
 
@@ -33,10 +31,9 @@ class Map : public tmxparser::TmxMap {
      * @param collided_tile_indices vector of ints containing the location
      * of the collided tiles in the layer vector
      */
-    void get_intersect_rects(
-        const math::rectf &rect,
-        std::vector<tmxparser::Tile *> &collided_tiles,
-        std::vector<u32> &collided_tile_indices);
+    void get_intersect_rects(const math::rectf &rect,
+                             std::vector<tmxparser::Tile *> &collided_tiles,
+                             std::vector<u32> &collided_tile_indices);
 
     /**
      * Returns if there is a collision between the surrounding rects
@@ -49,11 +46,10 @@ class Map : public tmxparser::TmxMap {
      * counted (i.e. return false if it should be passed through)
      */
 
-    void get_intersect_rects(
-        const math::rectf &rect,
-        std::vector<tmxparser::Tile *> &collided_tiles,
-        std::vector<u32> &collided_tile_indices,
-        std::function<bool(tmxparser::Tile *, u32)> func);
+    void get_intersect_rects(const math::rectf &rect,
+                             std::vector<tmxparser::Tile *> &collided_tiles,
+                             std::vector<u32> &collided_tile_indices,
+                             std::function<bool(tmxparser::Tile *, u32)> func);
 
     /**
      * Sets the tile rectangle based off of the tileIdx

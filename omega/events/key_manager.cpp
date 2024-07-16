@@ -46,4 +46,4 @@ bool KeyManager::key_pressed(Key keycode) const {
     return keys_current_frame[(i32)keycode];
 }
 
-} // namespace omega
+} // namespace omega::events

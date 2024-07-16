@@ -23,26 +23,43 @@ namespace omega::scene {
  */
 class OrthographicCamera : public Camera {
   public:
-    OrthographicCamera(f32 left, f32 right,
-                       f32 bottom, f32 top,
-                       f32 near = -1.0f, f32 far = 1.0f);
+    OrthographicCamera(f32 left,
+                       f32 right,
+                       f32 bottom,
+                       f32 top,
+                       f32 near = -1.0f,
+                       f32 far = 1.0f);
 
-    void set_projection(f32 left, f32 right,
-                        f32 bottom, f32 top,
-                        f32 near = -1.0f, f32 far = 1.0f);
+    void set_projection(f32 left,
+                        f32 right,
+                        f32 bottom,
+                        f32 top,
+                        f32 near = -1.0f,
+                        f32 far = 1.0f);
 
-    f32 get_rotation() const { return rotation; }
-    void set_rotation(f32 rotation) { this->rotation = rotation; }
+    f32 get_rotation() const {
+        return rotation;
+    }
+    void set_rotation(f32 rotation) {
+        this->rotation = rotation;
+    }
 
-    f32 get_width() const { return width; }
-    f32 get_height() const { return height; }
-    f32 get_depth() const { return depth; }
+    f32 get_width() const {
+        return width;
+    }
+    f32 get_height() const {
+        return height;
+    }
+    f32 get_depth() const {
+        return depth;
+    }
 
     /**
      * Converts the screen/pixel coordianates to world coordinates
      * @param vec the coordinates to convert
      */
-    math::vec2 project(const math::vec2 &vec, const math::vec2 &screen_res) const;
+    math::vec2 project(const math::vec2 &vec,
+                       const math::vec2 &screen_res) const;
     /**
      * Updates the view & projection matrix
      *

@@ -51,7 +51,9 @@ class VertexBufferLayout {
     /**
      * @returns the stride of each vertex
      */
-    u32 get_stride() const { return stride; }
+    u32 get_stride() const {
+        return stride;
+    }
 
   private:
     std::vector<VertexBufferAttrib> attributes;

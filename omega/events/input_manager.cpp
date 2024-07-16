@@ -4,8 +4,7 @@
 
 namespace omega::events {
 
-InputManager::InputManager() {
-}
+InputManager::InputManager() {}
 
 void InputManager::prepare_for_update() {
     key_manager.prepare_for_update();

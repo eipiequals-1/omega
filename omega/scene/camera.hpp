@@ -1,8 +1,8 @@
 #ifndef OMEGA_SCENE_CAMERA_HPP
 #define OMEGA_SCENE_CAMERA_HPP
 
-#include "omega/util/util.hpp"
 #include "omega/math/math.hpp"
+#include "omega/util/util.hpp"
 
 namespace omega::scene {
 
@@ -26,7 +26,9 @@ class Camera {
     /**
      * @return the view matrix
      */
-    const math::mat4 &get_view_matrix() const { return view_matrix; }
+    const math::mat4 &get_view_matrix() const {
+        return view_matrix;
+    }
 
     /**
      * @return the combined view projection matrix

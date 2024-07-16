@@ -32,7 +32,9 @@ class IndexBuffer {
      * which is passed as an argument to glDrawElements
      * @return the index count
      */
-    u32 get_count() const { return count; }
+    u32 get_count() const {
+        return count;
+    }
 
     /**
      * Changes the buffer's data.

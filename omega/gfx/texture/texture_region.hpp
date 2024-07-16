@@ -14,10 +14,14 @@ namespace omega::gfx::texture {
 class TextureRegion {
   public:
     TextureRegion(Texture *tex, u32 x, u32 y, u32 w, u32 h)
-    : texture(tex), rect(x, y, w, h) {}
+        : texture(tex), rect(x, y, w, h) {}
 
-    const math::rect<u32> &get_rect() const { return rect; }
-    Texture *get_texture() const { return texture; }
+    const math::rect<u32> &get_rect() const {
+        return rect;
+    }
+    Texture *get_texture() const {
+        return texture;
+    }
 
   private:
     Texture *texture = nullptr;

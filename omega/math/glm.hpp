@@ -9,8 +9,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtx/hash.hpp>
-#include <glm/gtx/string_cast.hpp>
 #include <glm/gtx/norm.hpp>
+#include <glm/gtx/string_cast.hpp>
 
 #else
 
@@ -18,13 +18,13 @@
 #include "lib/glm/gtc/matrix_transform.hpp"
 #include "lib/glm/gtc/type_ptr.hpp"
 #include "lib/glm/gtx/hash.hpp"
-#include "lib/glm/gtx/string_cast.hpp"
 #include "lib/glm/gtx/norm.hpp"
+#include "lib/glm/gtx/string_cast.hpp"
 
 #endif
 
-#include <optional>
 #include <functional>
+#include <optional>
 
 #include "omega/util/types.hpp"
 
@@ -32,14 +32,13 @@
 namespace glm {
 
 template <typename T>
-T factorial(const T& a) {
+T factorial(const T &a) {
     T result = 1.0;
     for (i32 i = 2; i <= a; ++i) {
         result *= i;
     }
     return result;
 }
-
 
 /**
  * Represents a min and max value range
@@ -56,8 +55,6 @@ inline vec3 get_normal(const vec3 &p0, const vec3 &p1, const vec3 &p2) {
     return normalize(cross(tan1, tan2));
 }
 
-
 } // namespace glm
-
 
 #endif // OMEGA_MATH_GLM_HPP

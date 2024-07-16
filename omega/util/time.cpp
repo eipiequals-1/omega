@@ -11,9 +11,7 @@ struct TimeEvent {
 std::vector<uptr<TimeEvent>> timers;
 std::chrono::time_point<std::chrono::high_resolution_clock> start;
 
-void init() {
-    start = std::chrono::high_resolution_clock::now();
-}
+void init() { start = std::chrono::high_resolution_clock::now(); }
 
 std::chrono::time_point<std::chrono::high_resolution_clock> get_start() {
     return start;
@@ -46,10 +44,9 @@ void tick(f32 dt) {
 }
 
 std::string get_current_time() {
-    std::time_t current_time = std::chrono::system_clock::to_time_t(
-        std::chrono::system_clock::now());
-    return std::string(
-        std::ctime(&current_time));
+    std::time_t current_time =
+        std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
+    return std::string(std::ctime(&current_time));
 }
 
 } // namespace omega::util::time

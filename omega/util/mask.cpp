@@ -2,7 +2,7 @@
 
 namespace omega::util {
 
-Mask::Mask(u32* data, u32 width, u32 height, i32 alpha_threshold) {
+Mask::Mask(u32 *data, u32 width, u32 height, i32 alpha_threshold) {
     this->width = width;
     this->height = height;
 
@@ -10,7 +10,7 @@ Mask::Mask(u32* data, u32 width, u32 height, i32 alpha_threshold) {
 
     for (u32 y = 0; y < height; ++y) {
         for (u32 x = 0; x < width; ++x) {
-            u8* pixel = (u8 *) &data[y * width + x];
+            u8 *pixel = (u8 *)&data[y * width + x];
             u8 a = pixel[3];
 
             if (a > alpha_threshold) {
@@ -27,10 +27,11 @@ Mask::~Mask() {
     mask_data = nullptr;
 }
 
-uptr<Mask> Mask::from_texture(gfx::texture::Texture *texture, i32 alpha_threshold) {
-    u32* pixels = texture->get_pixels().get();
-    return create_uptr<Mask>(pixels, texture->get_width(),
-                             texture->get_height(), alpha_threshold);
+uptr<Mask> Mask::from_texture(gfx::texture::Texture *texture,
+                              i32 alpha_threshold) {
+    u32 *pixels = texture->get_pixels().get();
+    return create_uptr<Mask>(
+        pixels, texture->get_width(), texture->get_height(), alpha_threshold);
 }
 
 bool Mask::collide_with(const math::rectf &rect, const math::vec2 &mask_pos) {
@@ -55,10 +56,10 @@ bool Mask::collide_with(const math::rectf &rect, const math::vec2 &mask_pos) {
     return false;
 }
 
-
-bool Mask::collide_with(const Mask& other, const math::vec2 &other_pos,
+bool Mask::collide_with(const Mask &other,
+                        const math::vec2 &other_pos,
                         const math::vec2 &mask_pos) {
-     // iterate through all pixels that intersect the rectangle
+    // iterate through all pixels that intersect the rectangle
     u32 start_x = 0, start_y = 0, end_x = 0, end_y = 0;
     start_x = math::max(other_pos.x, mask_pos.x);
     end_x = math::min(other_pos.x + other.width, mask_pos.x + width);
@@ -81,7 +82,6 @@ bool Mask::collide_with(const Mask& other, const math::vec2 &other_pos,
         }
     }
     return false;
-   
 }
 
 } // namespace omega::util

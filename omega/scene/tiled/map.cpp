@@ -14,14 +14,10 @@ Map::Map(const std::string &file_path, const std::string &tileset_path) {
 void Map::get_intersect_rects(const math::rectf &rect,
                               std::vector<tmxparser::Tile *> &collided_tiles,
                               std::vector<u32> &collided_tile_indices) {
-    get_intersect_rects(
-        rect,
-        collided_tiles,
-        collided_tile_indices,
-        [&](tmxparser::Tile *, u32) {
-            return false; 
-        }
-    );
+    get_intersect_rects(rect,
+                        collided_tiles,
+                        collided_tile_indices,
+                        [&](tmxparser::Tile *, u32) { return false; });
 }
 
 void Map::get_intersect_rects(
@@ -44,8 +40,7 @@ void Map::get_intersect_rects(
     bottom = math::max(math::floor(rect.y / tileHeight), 0.0f);
     top = math::min(math::floor((rect.y + rect.h) / tileHeight), height - 1.0f);
     for (auto &layer : layerCollection) {
-        if (!layer.visible)
-            continue;
+        if (!layer.visible) continue;
 
         for (u32 y = bottom; y <= top; y++) {
             for (u32 x = left; x <= right; x++) {
@@ -76,16 +71,15 @@ bool Map::contains_property(const tmxparser::Tile &tile,
                             const std::string &property,
                             std::string &out) {
     const tmxparser::Tileset &tileset = tilesetCollection[tile.tilesetIndex];
-    const tmxparser::TileDefinitionMap_t &tile_def_map
-        = tileset.tileDefinitions;
+    const tmxparser::TileDefinitionMap_t &tile_def_map =
+        tileset.tileDefinitions;
     // check if there is a definition for the tile in the tileset
     if (tile_def_map.count(tile.tileFlatIndex) == 0) {
         return false;
     }
     // check if one of the properties is the given property
     const tmxparser::TileDefinition &def = tile_def_map.at(tile.tileFlatIndex);
-    if (def.propertyMap.count(property) == 0)
-        return false;
+    if (def.propertyMap.count(property) == 0) return false;
     out = def.propertyMap.at(property);
     return true;
 }
@@ -103,8 +97,7 @@ void Map::get_tiles_with_property(
         // for the property
         for (size_t tile_gid = 0; tile_gid < tiles.size(); ++tile_gid) {
             auto &tile = tiles[tile_gid];
-            if (tile.gid == 0)
-                continue;
+            if (tile.gid == 0) continue;
             // check if the tile has the property
             std::string out;
             if (contains_property(tile, property, out)) {

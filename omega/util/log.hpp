@@ -39,13 +39,12 @@ static inline void format(std::stringstream &stream,
 }
 
 template <typename... Args>
-static inline void print_(
-        const std::string &color,
-        const std::string &level,
-        const char* file,
-        int line,
-        const std::string &str,
-        Args &&...args) {
+static inline void print_(const std::string &color,
+                          const std::string &level,
+                          const char *file,
+                          int line,
+                          const std::string &str,
+                          Args &&...args) {
     std::stringstream stream;
 #ifndef EMSCRIPTEN
     stream << color << "[" << level << "]" << "\033[0m";
@@ -60,10 +59,20 @@ static inline void print_(
     std::cout << stream.str() << '\n';
 }
 
-#define err(...) print_(omega::util::log_color::red, "ERROR", __FILE__, __LINE__,  __VA_ARGS__)
-#define warn(...) print_(omega::util::log_color::red, "WARN", __FILE__, __LINE__,  __VA_ARGS__)
-#define info(...) print_(omega::util::log_color::cyan, "INFO", __FILE__, __LINE__,  __VA_ARGS__)
-#define debug(...) print_(omega::util::log_color::yellow, "DEBUG", __FILE__, __LINE__, __VA_ARGS__)
+#define err(...) \
+    print_(      \
+        omega::util::log_color::red, "ERROR", __FILE__, __LINE__, __VA_ARGS__)
+#define warn(...) \
+    print_(omega::util::log_color::red, "WARN", __FILE__, __LINE__, __VA_ARGS__)
+#define info(...) \
+    print_(       \
+        omega::util::log_color::cyan, "INFO", __FILE__, __LINE__, __VA_ARGS__)
+#define debug(...)                         \
+    print_(omega::util::log_color::yellow, \
+           "DEBUG",                        \
+           __FILE__,                       \
+           __LINE__,                       \
+           __VA_ARGS__)
 
 } // namespace omega::util
 

@@ -18,7 +18,7 @@ using namespace omega::util;
  */
 class World {
   public:
-    World(const math::vec2& gravity);
+    World(const math::vec2 &gravity);
     virtual ~World();
 
     /**

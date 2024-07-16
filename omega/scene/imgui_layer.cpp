@@ -6,8 +6,8 @@
 
 namespace omega::scene {
 
-ImGuiLayer::ImGuiLayer(Window *window) : Layer("ImGuiLayer", true),
-                                         window(window) {
+ImGuiLayer::ImGuiLayer(Window *window)
+    : Layer("ImGuiLayer", true), window(window) {
     // setup imgui
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
@@ -74,11 +74,11 @@ void ImGuiLayer::begin() {
 
 void ImGuiLayer::end() {
     ImGuiIO &io = ImGui::GetIO();
-    io.DisplaySize = ImVec2((float)window->get_width(),
-                            (float)window->get_height());
+    io.DisplaySize =
+        ImVec2((float)window->get_width(), (float)window->get_height());
 
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
 
-} // namespace omega
+} // namespace omega::scene

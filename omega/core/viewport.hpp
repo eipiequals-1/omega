@@ -16,7 +16,7 @@ enum class ViewportType {
 };
 
 /**
- * Abstraction and management of glViewport handling resizing in different 
+ * Abstraction and management of glViewport handling resizing in different
  * ViewportType configurations
  */
 class Viewport {
@@ -27,10 +27,7 @@ class Viewport {
      * @param initial_width
      * @param initial_height
      */
-    Viewport(
-        ViewportType viewport_type,
-        u32 initial_width,
-        u32 initial_height);
+    Viewport(ViewportType viewport_type, u32 initial_width, u32 initial_height);
     ~Viewport() = default;
 
     /**
@@ -44,11 +41,15 @@ class Viewport {
     /**
      * @return the viewport width
      */
-    u32 get_width() const { return current_width; }
+    u32 get_width() const {
+        return current_width;
+    }
     /**
      * @return the viewport height
      */
-    u32 get_height() const { return current_height; }
+    u32 get_height() const {
+        return current_height;
+    }
 
   private:
     ViewportType viewport_type = ViewportType::stretch;

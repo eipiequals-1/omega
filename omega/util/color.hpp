@@ -12,10 +12,8 @@ namespace omega::util::color {
  */
 inline math::vec4 to_vec4(math::u32 a) {
     unsigned char *vals = (unsigned char *)&a;
-    return math::vec4(vals[0] / 0xff,
-                     vals[1] / 0xff,
-                     vals[2] / 0xff,
-                     vals[3] / 0xff);
+    return math::vec4(
+        vals[0] / 0xff, vals[1] / 0xff, vals[2] / 0xff, vals[3] / 0xff);
 }
 
 /**

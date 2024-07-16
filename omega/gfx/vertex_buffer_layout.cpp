@@ -18,4 +18,4 @@ u32 VertexBufferAttrib::get_size_of_type(u32 type) {
     return 0;
 }
 
-}
+} // namespace omega::gfx

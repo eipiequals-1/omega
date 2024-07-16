@@ -7,9 +7,11 @@ namespace omega::sound {
 Music::Music(const std::string &filepath) : music(nullptr) {
     music = Mix_LoadMUS(filepath.c_str());
     if (music == nullptr) {
-        util::warn("SDL mixer: Failed to load music from file '{}'\n SDL mixer Traceback '{}'",
-                    filepath,
-                    Mix_GetError());
+        util::warn(
+            "SDL mixer: Failed to load music from file '{}'\n SDL mixer "
+            "Traceback '{}'",
+            filepath,
+            Mix_GetError());
     }
 }
 

@@ -1,8 +1,8 @@
 #ifndef OMEGA_MATH_COLLISIONS_HPP
 #define OMEGA_MATH_COLLISIONS_HPP
 
-#include "omega/util/types.hpp"
 #include "omega/math/glm.hpp"
+#include "omega/util/types.hpp"
 
 namespace glm {
 /**
@@ -21,28 +21,24 @@ inline glm::vec3 new_intbound(glm::vec3 s, glm::vec3 ds) {
     glm::vec3 res;
     for (size_t i = 0; i < 3; i++) {
         res[i] =
-            (ds[i] > 0 ?
-             (glm::ceil(s[i]) - s[i])
-             : (s[i] - glm::floor(s[i])))
-            / glm::abs(ds[i]);
+            (ds[i] > 0 ? (glm::ceil(s[i]) - s[i]) : (s[i] - glm::floor(s[i]))) /
+            glm::abs(ds[i]);
     }
     return res;
 }
 
-// Direct copy of 
+// Direct copy of
 // https://github.com/jdah/minecraft-again/blob/master/src/util/ray.hpp
 struct Ray {
     glm::vec3 origin{0.0f};
     glm::vec3 direction{0.0f};
 
-    Ray(const glm::vec3& origin,
-        const glm::vec3 &direction) : origin(origin),
-                                      direction(direction) {}
+    Ray(const glm::vec3 &origin, const glm::vec3 &direction)
+        : origin(origin), direction(direction) {}
 
-    std::optional<std::tuple<glm::ivec3, glm::vec3>>
-        intersect_block(std::function<bool(glm::ivec3)> f,
-                        float max_distance) {
-
+    std::optional<std::tuple<glm::ivec3, glm::vec3>> intersect_block(
+        std::function<bool(glm::ivec3)> f,
+        float max_distance) {
         glm::ivec3 d{0};
         glm::ivec3 p, step;
         glm::vec3 t_max, t_delta;
@@ -110,8 +106,10 @@ struct Ray {
  * @param radius2 circle2 radius
  * @return if they intersect
  */
-bool circle_vs_circle(const glm::vec2 &center1, f32 radius1,
-                      const glm::vec2 &center2, f32 radius2);
+bool circle_vs_circle(const glm::vec2 &center1,
+                      f32 radius1,
+                      const glm::vec2 &center2,
+                      f32 radius2);
 
 /**
  * Returns the distance squared between two points to avoid sqrts
@@ -122,9 +120,6 @@ bool circle_vs_circle(const glm::vec2 &center1, f32 radius1,
 f32 distance_sq(const glm::vec2 &p1, const glm::vec2 &p2);
 
 f32 distance_sq(const glm::vec3 &p1, const glm::vec3 &p2);
-
-
-
 
 } // namespace glm
 

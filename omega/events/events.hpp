@@ -6,4 +6,3 @@
 #include "omega/events/key_manager.hpp"
 
 #endif // OMEGA_EVENTS_EVENTS_HPP
-

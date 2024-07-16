@@ -1,8 +1,8 @@
 #ifndef OMEGA_SCENE_PERSPECTIVECAMERA_HPP
 #define OMEGA_SCENE_PERSPECTIVECAMERA_HPP
 
-#include "omega/scene/camera.hpp"
 #include "omega/math/math.hpp"
+#include "omega/scene/camera.hpp"
 #include "omega/util/types.hpp"
 
 namespace omega::scene {
@@ -27,25 +27,40 @@ class PerspectiveCamera : public Camera {
      */
     void set_projection(f32 fov = 45.0f,
                         f32 aspect = 16.0f / 9.0f,
-                        f32 near = 0.1f, f32 far = 100.0f);
+                        f32 near = 0.1f,
+                        f32 far = 100.0f);
 
     /**
      * @return the camera front vector
      */
-    const math::vec3 &get_front() const { return front; }
+    const math::vec3 &get_front() const {
+        return front;
+    }
     /**
      * @return the camera right vector
      */
-    const math::vec3 &get_right() const { return right; }
+    const math::vec3 &get_right() const {
+        return right;
+    }
     /**
      * @return the camera up vector
      */
-    const math::vec3 &get_up() const { return up; }
+    const math::vec3 &get_up() const {
+        return up;
+    }
 
-    f32 get_pitch() const { return pitch; }
-    void set_pitch(f32 pitch) { this->pitch = pitch; }
-    f32 get_yaw() const { return yaw; }
-    void set_yaw(f32 yaw) { this->yaw = yaw; }
+    f32 get_pitch() const {
+        return pitch;
+    }
+    void set_pitch(f32 pitch) {
+        this->pitch = pitch;
+    }
+    f32 get_yaw() const {
+        return yaw;
+    }
+    void set_yaw(f32 yaw) {
+        this->yaw = yaw;
+    }
 
     /**
      * Updates the view projection matrix if position, fov, near,

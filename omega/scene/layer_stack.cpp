@@ -2,8 +2,7 @@
 
 namespace omega::scene {
 
-LayerStack::LayerStack() {
-}
+LayerStack::LayerStack() {}
 
 LayerStack::~LayerStack() {
     for (auto &layer : layers) {
@@ -40,4 +39,4 @@ void LayerStack::pop_layer() {
     layers.pop_back();
 }
 
-} // namespace omega
+} // namespace omega::scene

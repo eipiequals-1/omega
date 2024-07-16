@@ -1,10 +1,11 @@
 #include "sprite_batch.hpp"
-#include "omega/gfx/gl.hpp"
-#include "omega/gfx/shaders/sb.hpp"
 
 #include <algorithm>
 #include <iostream>
 #include <memory>
+
+#include "omega/gfx/gl.hpp"
+#include "omega/gfx/shaders/sb.hpp"
 
 namespace omega::gfx {
 
@@ -27,15 +28,15 @@ SpriteBatch::SpriteBatch() {
     ibo = create_uptr<IndexBuffer>(indices, index_buffer_capacity);
 
 #ifdef EMSCRIPTEN
-    sprite_shader = create_uptr<Shader>(shaders::sb_vert_wasm,
-                                        shaders::sb_frag_wasm);
+    sprite_shader =
+        create_uptr<Shader>(shaders::sb_vert_wasm, shaders::sb_frag_wasm);
 #else
     sprite_shader = create_uptr<Shader>(shaders::sb_vert, shaders::sb_frag);
-#endif 
+#endif
 
     vao = create_uptr<VertexArray>();
-    vbo = create_uptr<VertexBuffer>(
-        vertex_buffer_capacity * vertex_count * sizeof(f32));
+    vbo = create_uptr<VertexBuffer>(vertex_buffer_capacity * vertex_count *
+                                    sizeof(f32));
 
     VertexBufferLayout layout;
     layout.push(GL_FLOAT, 3); // world coords
@@ -51,9 +52,8 @@ SpriteBatch::SpriteBatch() {
         texture_binds[i] = i;
     }
     sprite_shader->bind();
-    sprite_shader->set_uniform_1iv("u_Textures",
-                                   (int *)texture_binds.data(),
-                                   max_textures);
+    sprite_shader->set_uniform_1iv(
+        "u_Textures", (int *)texture_binds.data(), max_textures);
     Shader::unbind();
 }
 
@@ -100,8 +100,13 @@ void SpriteBatch::render_texture(const Texture *texture,
                                  f32 rotation,
                                  const math::vec2 &center,
                                  const math::vec4 &color) {
-    render_texture(texture, src, dest, math::vec3(0.0f, 0.0f, -1.0f), rotation,
-                   math::vec3(center, 0.0f), color);
+    render_texture(texture,
+                   src,
+                   dest,
+                   math::vec3(0.0f, 0.0f, -1.0f),
+                   rotation,
+                   math::vec3(center, 0.0f),
+                   color);
 }
 
 void SpriteBatch::render_texture(const Texture *texture,
@@ -144,38 +149,34 @@ void SpriteBatch::render_texture(const Texture *texture,
     constexpr static f32 z = 0.0f;
 
     // inverse texture to y up
-    Vertex v0 = {
-        {dest.x, dest.y, z},
-        color,
-        {src.x, src.y + src.h},
-        tex_id,
-        rotation_axis,
-        rotation,
-        center_of_rotation};
-    Vertex v1 = {
-        {dest.x + dest.w, dest.y, z},
-        color,
-        {src.x + src.w, src.y + src.h},
-        tex_id,
-        rotation_axis,
-        rotation,
-        center_of_rotation};
-    Vertex v2 = {
-        {dest.x + dest.w, dest.y + dest.h, z},
-        color,
-        {src.x + src.w, src.y},
-        tex_id,
-        rotation_axis,
-        rotation,
-        center_of_rotation};
-    Vertex v3 = {
-        {dest.x, dest.y + dest.h, z},
-        color,
-        {src.x, src.y},
-        tex_id,
-        rotation_axis,
-        rotation,
-        center_of_rotation};
+    Vertex v0 = {{dest.x, dest.y, z},
+                 color,
+                 {src.x, src.y + src.h},
+                 tex_id,
+                 rotation_axis,
+                 rotation,
+                 center_of_rotation};
+    Vertex v1 = {{dest.x + dest.w, dest.y, z},
+                 color,
+                 {src.x + src.w, src.y + src.h},
+                 tex_id,
+                 rotation_axis,
+                 rotation,
+                 center_of_rotation};
+    Vertex v2 = {{dest.x + dest.w, dest.y + dest.h, z},
+                 color,
+                 {src.x + src.w, src.y},
+                 tex_id,
+                 rotation_axis,
+                 rotation,
+                 center_of_rotation};
+    Vertex v3 = {{dest.x, dest.y + dest.h, z},
+                 color,
+                 {src.x, src.y},
+                 tex_id,
+                 rotation_axis,
+                 rotation,
+                 center_of_rotation};
 
     Quad q = {v0, v1, v2, v3};
     auto quad = q.data();
@@ -200,7 +201,10 @@ void SpriteBatch::end_render() {
     vao->bind();
     vbo->bind();
     ibo->bind();
-    draw_elements(OMEGA_GL_TRIANGLES, quads_rendered * index_count, OMEGA_GL_UNSIGNED_INT, nullptr);
+    draw_elements(OMEGA_GL_TRIANGLES,
+                  quads_rendered * index_count,
+                  OMEGA_GL_UNSIGNED_INT,
+                  nullptr);
 
     VertexArray::unbind();
     VertexBuffer::unbind();

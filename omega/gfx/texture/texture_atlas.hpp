@@ -26,16 +26,18 @@ class TextureAtlas {
 
     /**
      * Returns the texture with the given look-up string
-     * @param texture_name name of the texture region as defined by the atlas 
+     * @param texture_name name of the texture region as defined by the atlas
      * file
      * @return reference to the TextureRegion
      */
-    TextureRegion& get(const std::string &texture_name);
+    TextureRegion &get(const std::string &texture_name);
 
     /**
      * @returns the texture that the atlas is a wrapper of
      */
-    Texture* get_texture() const { return tex.get(); };
+    Texture *get_texture() const {
+        return tex.get();
+    };
 
   private:
     std::unordered_map<std::string, util::uptr<TextureRegion>> tex_regions;

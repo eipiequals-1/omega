@@ -86,9 +86,7 @@ enum class Key {
 
 };
 
-enum class WindowEvents {
-    window_resized = SDL_WINDOWEVENT_RESIZED
-};
+enum class WindowEvents { window_resized = SDL_WINDOWEVENT_RESIZED };
 
 } // namespace omega::events
 

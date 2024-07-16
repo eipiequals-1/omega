@@ -39,9 +39,11 @@ Font::Font(const std::string &path,
 
 void Font::render(gfx::SpriteBatch &batch,
                   const std::string &text,
-                  f32 px, f32 py, f32 height,
-                  const math::vec4& color) {
-    f32 scale_factor = height / (f32) glyph_height;
+                  f32 px,
+                  f32 py,
+                  f32 height,
+                  const math::vec4 &color) {
+    f32 scale_factor = height / (f32)glyph_height;
 
     math::rectf src, dest;
     dest.x = px;
@@ -55,7 +57,7 @@ void Font::render(gfx::SpriteBatch &batch,
         src.h = char_loc.height;
 
         dest.y = py;
-        dest.w = ((f32) src.w) * scale_factor;
+        dest.w = ((f32)src.w) * scale_factor;
         dest.h = height;
 
         batch.render_texture(texture.get(), src, dest, color);
@@ -66,11 +68,12 @@ void Font::render(gfx::SpriteBatch &batch,
 }
 
 void Font::render_centered(gfx::SpriteBatch &batch,
-                  const std::string &text,
-                  f32 px, f32 py, f32 height,
-                  const math::vec4& color) {
-    f32 scale_factor = height / (f32) glyph_height;
-
+                           const std::string &text,
+                           f32 px,
+                           f32 py,
+                           f32 height,
+                           const math::vec4 &color) {
+    f32 scale_factor = height / (f32)glyph_height;
 
     f32 width = 0.0f;
     for (u32 i = 0; i < text.size(); ++i) {
@@ -90,7 +93,7 @@ void Font::render_centered(gfx::SpriteBatch &batch,
         src.h = char_loc.height;
 
         dest.y = py;
-        dest.w = ((f32) src.w) * scale_factor;
+        dest.w = ((f32)src.w) * scale_factor;
         dest.h = height;
 
         batch.render_texture(texture.get(), src, dest, color);

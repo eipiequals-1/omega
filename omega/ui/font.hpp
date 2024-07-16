@@ -18,27 +18,34 @@ struct Char {
 };
 
 /**
- * Represents a font with uniform width/height for each character because it's just much simpler.
+ * Represents a font with uniform width/height for each character because it's
+ * just much simpler.
  * */
 class Font {
   public:
     Font(const std::string &path,
          const std::string &font_characters,
          u32 glyph_height = 8,
-         gfx::texture::TextureParam filter
-            = gfx::texture::TextureParam::NEAREST);
+         gfx::texture::TextureParam filter =
+             gfx::texture::TextureParam::NEAREST);
     ~Font() = default;
 
     void render(gfx::SpriteBatch &batch,
                 const std::string &text,
-                f32 px, f32 py, f32 height,
-                const math::vec4& color = util::color::white);
+                f32 px,
+                f32 py,
+                f32 height,
+                const math::vec4 &color = util::color::white);
 
     void render_centered(gfx::SpriteBatch &batch,
-                const std::string &text,
-                f32 px, f32 py, f32 height,
-                const math::vec4& color = util::color::white);
-    u32 get_glyph_height() const { return glyph_height; }
+                         const std::string &text,
+                         f32 px,
+                         f32 py,
+                         f32 height,
+                         const math::vec4 &color = util::color::white);
+    u32 get_glyph_height() const {
+        return glyph_height;
+    }
 
   private:
     util::uptr<gfx::texture::Texture> texture = nullptr;

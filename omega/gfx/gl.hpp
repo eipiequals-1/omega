@@ -1,13 +1,12 @@
 #ifndef OMEGA_GFX_GL_HPP
 #define OMEGA_GFX_GL_HPP
 
-#include "omega/core/platform.hpp"
-
 #include <iostream>
 
+#include "omega/core/platform.hpp"
 #include "omega/math/math.hpp"
-#include "omega/util/types.hpp"
 #include "omega/util/log.hpp"
+#include "omega/util/types.hpp"
 
 // rename OpenGL macros
 // clear screen macros
@@ -21,7 +20,7 @@
 #define OMEGA_GL_ONE_MINUS_SRC_ALPHA GL_ONE_MINUS_SRC_ALPHA
 #define OMEGA_GL_ZERO GL_ZERO
 #define OMEGA_GL_ONE GL_ONE
-#define OMEGA_GL_SRC_COLOR GL_SRC_COLOR 
+#define OMEGA_GL_SRC_COLOR GL_SRC_COLOR
 
 // render modes
 #define OMEGA_GL_TRIANGLES GL_TRIANGLES
@@ -70,14 +69,22 @@ inline bool check_error() {
     while ((error = glGetError()) != GL_NO_ERROR) {
         std::string error_string;
         switch (error) {
-            case GL_INVALID_ENUM: error_string = "INVALID_ENUM"; break;
-            case GL_INVALID_VALUE: error_string = "INVALID_VALUE"; break;
+            case GL_INVALID_ENUM:
+                error_string = "INVALID_ENUM";
+                break;
+            case GL_INVALID_VALUE:
+                error_string = "INVALID_VALUE";
+                break;
             case GL_INVALID_OPERATION:
-                error_string = "INVALID_OPERATION"; break;
+                error_string = "INVALID_OPERATION";
+                break;
             case GL_INVALID_FRAMEBUFFER_OPERATION:
-                error_string = "INVALID_FRAMEBUFFER_OPERATION"; break;
+                error_string = "INVALID_FRAMEBUFFER_OPERATION";
+                break;
 #ifndef EMSCRIPTEN
-            case GL_INVALID_INDEX: error_string = "INVALID_INDEX"; break;
+            case GL_INVALID_INDEX:
+                error_string = "INVALID_INDEX";
+                break;
 #endif
         }
         util::warn("[OpenGL Error] ({}: {})", error, error_string);

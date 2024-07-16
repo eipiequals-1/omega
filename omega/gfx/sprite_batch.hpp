@@ -31,7 +31,7 @@ using namespace omega::gfx::texture;
 class SpriteBatch {
   public:
     SpriteBatch();
-   ~SpriteBatch() = default;
+    ~SpriteBatch() = default;
 
     /**
      * Sets the view and projection matrices typically from the camera object
@@ -65,11 +65,13 @@ class SpriteBatch {
      * @param color tint of the texture
      */
     void render_texture(const Texture *texture,
-                        const f32 x, const f32 y,
+                        const f32 x,
+                        const f32 y,
                         const math::vec4 &color = math::vec4(1.0f));
 
     /**
-     * draw the given texture at the x, y, w, h coords and may resize as necessary
+     * draw the given texture at the x, y, w, h coords and may resize as
+     * necessary
      * @param texture the texture to draw
      * @param x coord in world units
      * @param y coord in world units
@@ -78,8 +80,10 @@ class SpriteBatch {
      * @param color tint of the texture
      */
     void render_texture(const Texture *texture,
-                        const f32 x, const f32 y,
-                        const f32 w, const f32 h,
+                        const f32 x,
+                        const f32 y,
+                        const f32 w,
+                        const f32 h,
                         const math::vec4 &color = math::vec4(1.0f));
 
     /**
@@ -168,7 +172,6 @@ class SpriteBatch {
 
     // represents one texture / rectangle that is passed to the sprite shader
     using Quad = std::array<Vertex, 4>;
-
 };
 
 } // namespace omega::gfx
