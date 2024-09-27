@@ -6,60 +6,13 @@
 
 #include <fstream>
 
+#include "imgui/imgui_impl_sdl.h"
 #include "json/json.hpp"
-#include "lib/imgui/imgui.h"
-#include "lib/imgui/imgui_impl_opengl3.h"
-#include "lib/imgui/imgui_impl_sdl.h"
-#include "lib/imgui/implot.h"
+#include "omega/core/engine_core.hpp"
 #include "omega/math/math.hpp"
 #include "omega/util/log.hpp"
 #include "omega/util/time.hpp"
 #include "tomlplusplus/toml.hpp"
-
-static void setup_imgui(omega::core::Window *window) {
-    // setup imgui
-    IMGUI_CHECKVERSION();
-    ImGui::CreateContext();
-    ImPlot::CreateContext();
-
-    ImGuiIO &io = ImGui::GetIO();
-    io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
-    io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
-    // io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
-
-    /* ImGui::StyleColorsDark(); */
-
-    ImGui_ImplSDL2_InitForOpenGL(window->get_native_window(),
-                                 window->get_gl_context());
-#ifdef EMSCRIPTEN
-    const char version[] = "#version 100";
-#else
-    const char version[] = "#version 450";
-#endif
-    ImGui_ImplOpenGL3_Init(version);
-}
-
-static void quit_imgui() {
-    ImGui_ImplOpenGL3_Shutdown();
-    ImGui_ImplSDL2_Shutdown();
-    ImGui::DestroyContext();
-    ImPlot::DestroyContext();
-}
-
-static void begin_imgui_frame() {
-    ImGui_ImplOpenGL3_NewFrame();
-    ImGui_ImplSDL2_NewFrame();
-    ImGui::NewFrame();
-}
-
-static void end_imgui_frame(omega::core::Window *window) {
-    ImGuiIO &io = ImGui::GetIO();
-    io.DisplaySize =
-        ImVec2((f32)window->get_width(), (f32)window->get_height());
-
-    ImGui::Render();
-    ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-}
 
 namespace omega::core {
 
@@ -131,19 +84,14 @@ App::App(const AppConfig &config) {
     running = window->init(
         config.width, config.height, config.resizable, config.title);
 
-    // init TTF_Font
-    if (TTF_Init() != 0) {
-        util::err("Unable to initialize SDL_ttf: '{}'", SDL_GetError());
-        running = false;
-    }
-    util::time::init();
+    init();
     last_time = util::time::get_time<f32>();
     fps = config.fps;
     globals = util::create_uptr<Globals>(Viewport(config.viewport_type,
                                                   config.viewport_width,
                                                   config.viewport_height),
                                          "Main Scene");
-    globals->input.set_mouse_sensitivity(config.mouse_sensitivity);
+    globals->input.mouse.set_sensitivity(config.mouse_sensitivity);
 
     // init imgui
     imgui = config.imgui;
@@ -154,13 +102,7 @@ App::App(const AppConfig &config) {
 }
 
 App::~App() {
-    if (imgui) {
-        quit_imgui();
-        util::info("Successfully quit ImGui.");
-    }
-    SDL_Quit();
-    TTF_Quit();
-    util::info("Successfully closed libraries.");
+    quit(imgui);
 }
 
 f32 App::tick() {
@@ -195,11 +137,10 @@ void App::frame() {
                     Window::instance()->on_resize(event.window.data1,
                                                   event.window.data2);
                     on_resize(event.window.data1, event.window.data2);
-                    util::info("yoo");
                 }
                 break;
             case events::EventType::mouse_wheel:
-                input.scroll_wheel =
+                input.mouse.scroll_wheel =
                     math::vec2((f32)event.wheel.x, (f32)event.wheel.y);
             default:
                 break;

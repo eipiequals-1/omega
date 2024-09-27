@@ -15,11 +15,11 @@ class KeyManager {
   public:
     KeyManager();
     /**
-     * Must be called before InputProcessor::poll_events()
+     * Must be called before InputManager::poll_events()
      */
     void prepare_for_update();
     /**
-     * Must be called after InputProcessor::poll_events()
+     * Must be called after InputManager::poll_events()
      */
     void update();
 

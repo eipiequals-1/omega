@@ -1,7 +1,9 @@
 #ifndef OMEGA_UTIL_LOG_HPP
 #define OMEGA_UTIL_LOG_HPP
 
+#include <filesystem>
 #include <iostream>
+#include <regex>
 #include <sstream>
 
 namespace omega::util {
@@ -43,6 +45,7 @@ static inline void print_(const std::string &color,
                           const std::string &level,
                           const char *file,
                           int line,
+                          const char *caller,
                           const std::string &str,
                           Args &&...args) {
     std::stringstream stream;
@@ -52,21 +55,36 @@ static inline void print_(const std::string &color,
     (void)color;
     stream << "[" << level << "]";
 #endif
-    stream << "[" << file << ":" << line << "]: ";
+    std::string cwd = std::filesystem::current_path().string() + "/";
+    std::string f = std::regex_replace(file, std::regex(cwd), "");
+    stream << "[" << f << ":" << line << "][" << caller << "] ";
 
     format(stream, str, args...);
 
     std::cout << stream.str() << '\n';
 }
 
-#define err(...) \
-    print_(      \
-        omega::util::log_color::red, "ERROR", __FILE__, __LINE__, __VA_ARGS__)
-#define warn(...) \
-    print_(omega::util::log_color::red, "WARN", __FILE__, __LINE__, __VA_ARGS__)
-#define info(...) \
-    print_(       \
-        omega::util::log_color::cyan, "INFO", __FILE__, __LINE__, __VA_ARGS__)
+#define err(...)                        \
+    print_(omega::util::log_color::red, \
+           "ERROR",                     \
+           __FILE__,                    \
+           __LINE__,                    \
+           __FUNCTION__,                \
+           __VA_ARGS__)
+#define warn(...)                       \
+    print_(omega::util::log_color::red, \
+           "WARN",                      \
+           __FILE__,                    \
+           __LINE__,                    \
+           __FUNCTION__,                \
+           __VA_ARGS__)
+#define info(...)                        \
+    print_(omega::util::log_color::cyan, \
+           "INFO",                       \
+           __FILE__,                     \
+           __LINE__,                     \
+           __FUNCTION__,                 \
+           __VA_ARGS__)
 #define debug(...)                         \
     print_(omega::util::log_color::yellow, \
            "DEBUG",                        \

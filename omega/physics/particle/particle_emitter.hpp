@@ -1,6 +1,7 @@
 #ifndef OMEGA_PHYSICS_PARTICLE_PARTICLEEMITTER_HPP
 #define OMEGA_PHYSICS_PARTICLE_PARTICLEEMITTER_HPP
 
+#include <functional>
 #include <string>
 #include <vector>
 
@@ -76,7 +77,7 @@ class ParticleEmitter {
      * Updates every particle's size, color, etc
      * @param dt the timestep
      */
-    virtual void update(f32 dt);
+    virtual void update(f32 dt, std::function<void(f32, Particle&, ParticleEmitter&)> update_func = nullptr);
 
     /**
      * Renders the particle using a specially built shader
@@ -118,7 +119,7 @@ class ParticleEmitter {
     }
 
     /**
-     * Emit's a new particle.
+     * Emits a new particle.
      * Called by ParticleEmitter::update(f32 dt);
      */
     void emit();

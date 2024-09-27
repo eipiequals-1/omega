@@ -47,6 +47,20 @@ template <typename T>
 struct Range {
     T min;
     T max;
+
+    Range(const T &min, const T &max) : min(min), max(max) {}
+
+    bool contains(const T &x) const {
+        return min <= x && x <= max;
+    }
+
+    T range() const {
+        return max - min;
+    }
+
+    T average() const {
+        return (min + max) * 0.5f;
+    }
 };
 
 inline vec3 get_normal(const vec3 &p0, const vec3 &p1, const vec3 &p2) {

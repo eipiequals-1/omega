@@ -6,6 +6,7 @@
 
 #include "omega/gfx/shader.hpp"
 #include "omega/gfx/texture/texture.hpp"
+#include "omega/gfx/texture/texture_atlas.hpp"
 #include "omega/sound/music.hpp"
 #include "omega/sound/sound_effect.hpp"
 #include "omega/ui/font.hpp"
@@ -45,6 +46,22 @@ class AssetManager {
     }
     gfx::texture::Texture *get_texture(const std::string &key) {
         return textures[key].get();
+    }
+
+    gfx::texture::TextureAtlas *load_texture_atlas(
+        const std::string &key,
+        const std::string &filepath,
+        gfx::texture::TextureParam min_filter =
+            gfx::texture::TextureParam::NEAREST,
+        gfx::texture::TextureParam mag_filter =
+            gfx::texture::TextureParam::NEAREST) {
+        texture_atlases[key] = util::create_uptr<gfx::texture::TextureAtlas>(
+            filepath, min_filter, mag_filter);
+        return texture_atlases[key].get();
+    }
+
+    gfx::texture::TextureAtlas *get_texture_atlas(const std::string &key) {
+        return texture_atlases[key].get();
     }
 
     // sound effects
@@ -92,6 +109,8 @@ class AssetManager {
 
   private:
     std::unordered_map<std::string, util::uptr<gfx::texture::Texture>> textures;
+    std::unordered_map<std::string, util::uptr<gfx::texture::TextureAtlas>>
+        texture_atlases;
     std::unordered_map<std::string, util::uptr<gfx::Shader>> shaders;
     std::unordered_map<std::string, util::uptr<ui::Font>> fonts;
 

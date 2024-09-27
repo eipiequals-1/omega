@@ -118,7 +118,7 @@ void ParticleEmitter::emit() {
     num_particles++; // increment num particles
 }
 
-void ParticleEmitter::update(f32 dt) {
+void ParticleEmitter::update(f32 dt, std::function<void(f32, Particle&, ParticleEmitter&)> update_func) {
     timer += dt;
     emit_timer += dt;
     // add new particles if necessary
@@ -129,13 +129,17 @@ void ParticleEmitter::update(f32 dt) {
 
     for (size_t idx = 0; idx < num_particles; idx++) {
         Particle &p = particles[idx];
-        p.update(dt);
-        p.vel += data.accel * dt;
+        if (update_func != nullptr) {
+            update_func(dt, p, *this);
+        } else {
+            p.update(dt);
+            p.vel += data.accel * dt;
 
-        // color change / time = color change / particle_lifespan
-        glm::vec4 diff_color = 
-            (data.end_color - data.begin_color) / data.particle_lifespan;
-        p.color += diff_color * dt;
+            // color change / time = color change / particle_lifespan
+            glm::vec4 diff_color = 
+                (data.end_color - data.begin_color) / data.particle_lifespan;
+            p.color += diff_color * dt;
+        }
 
         if (p.is_dead()) {
             // bring last active particle to this spot

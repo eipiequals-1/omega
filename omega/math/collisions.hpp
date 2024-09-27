@@ -1,6 +1,8 @@
 #ifndef OMEGA_MATH_COLLISIONS_HPP
 #define OMEGA_MATH_COLLISIONS_HPP
 
+#include <functional>
+
 #include "omega/math/glm.hpp"
 #include "omega/util/types.hpp"
 
@@ -95,6 +97,24 @@ struct Ray {
         }
 
         return std::nullopt;
+    }
+
+    vec3 march(std::function<bool(const glm::vec3 &)> sdf,
+               f32 dt = 0.01f,
+               f32 epsilon = 0.01f,
+               i32 max_t = 10000.0f) {
+        vec3 p = origin;
+        vec3 dir = normalize(direction);
+        f32 t = 0.0f;
+
+        while (t < max_t) {
+            if (sdf(p) < epsilon) {
+                return p;
+            }
+            t += dt;
+            p = origin + t * dir;
+        }
+        return {};
     }
 };
 

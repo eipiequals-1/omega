@@ -4,12 +4,10 @@
 
 namespace omega::events {
 
-InputManager::InputManager() {}
-
 void InputManager::prepare_for_update() {
     key_manager.prepare_for_update();
     // reset scroll wheel status
-    scroll_wheel = math::vec2(0.0f);
+    mouse.scroll_wheel = math::vec2(0.0f);
 }
 
 bool InputManager::poll_events(Event &event) {
@@ -20,16 +18,16 @@ void InputManager::update() {
     key_manager.update();
     // get the mouse state and store the previous frame's state
     int x, y;
-    prev_buttons = buttons;
-    prev_mouse_pos = mouse_pos;
-    if (relative_mode) {
-        buttons = SDL_GetRelativeMouseState(&x, &y);
-        mouse_pos.x = (f32)x;
-        mouse_pos.y = -(f32)y;
+    mouse.prev_buttons = mouse.buttons;
+    mouse.last_pos = mouse.pos;
+    if (mouse.relative_mode) {
+        mouse.buttons = SDL_GetRelativeMouseState(&x, &y);
+        mouse.pos.x = (f32)x;
+        mouse.pos.y = -(f32)y;
     } else {
-        buttons = SDL_GetMouseState(&x, &y);
-        mouse_pos.x = (f32)x;
-        mouse_pos.y = (f32)(core::Window::instance()->get_height() - y);
+        mouse.buttons = SDL_GetMouseState(&x, &y);
+        mouse.pos.x = (f32)x;
+        mouse.pos.y = (f32)(core::Window::instance()->get_height() - y);
     }
 }
 

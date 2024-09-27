@@ -8,6 +8,7 @@
 
 #include "omega/events/event.hpp"
 #include "omega/events/key_manager.hpp"
+#include "omega/events/mouse.hpp"
 #include "omega/math/math.hpp"
 #include "omega/util/std.hpp"
 #include "omega/util/types.hpp"
@@ -24,7 +25,13 @@ namespace omega::events {
  */
 class InputManager {
   public:
-    InputManager();
+    // keys
+    KeyManager key_manager;
+
+    // mouse
+    Mouse mouse;
+
+    InputManager() = default;
 
     /**
      * Prepares data for updating.
@@ -46,96 +53,8 @@ class InputManager {
      */
     void update();
 
-    KeyManager &get_key_manager() {
-        return key_manager;
-    }
-    const math::vec2 &get_mouse_pos() const {
-        return mouse_pos;
-    }
-    math::vec2 get_mouse_move() const {
-        return relative_mode ? mouse_pos : mouse_pos - prev_mouse_pos;
-    }
-
-    /**
-     * Set mouse relative mode for first person feel (true),
-     * or third person feel (false)
-     * @param mode
-     */
-    void set_relative_mouse_mode(bool mode) {
-        SDL_SetRelativeMouseMode(mode ? SDL_TRUE : SDL_FALSE);
-        relative_mode = mode;
-    }
-    /**
-     * @return the current mode
-     */
-    bool get_relative_mouse_mode() const {
-        return relative_mode;
-    }
-
-    /**
-     * Returns if the given button is pressed
-     * @param button to test
-     * @return if the button passes the test
-     */
-    bool mouse_button_down(MouseButton button) const {
-        return (SDL_BUTTON((i32)button) & buttons) != 0;
-    }
-
-    /**
-     * Returns if the given button is not pressed
-     * @param button to test
-     * @return if the button passes the test
-     */
-    bool mouse_button_up(MouseButton button) const {
-        return (SDL_BUTTON((i32)button) & buttons) == 0;
-    }
-
-    /**
-     * Returns if the given button has just been pressed on this frame
-     * @param button to test
-     * @return if the button passes the test
-     */
-    bool mouse_button_just_pressed(MouseButton button) const {
-        return mouse_button_down(button) &&
-               ((SDL_BUTTON((i32)button) & prev_buttons) == 0);
-    }
-
-    /**
-     * Returns if the given button has just been released on this frame
-     * @param button to test
-     * @return if the button passes the test
-     */
-    bool mouse_button_just_released(MouseButton button) const {
-        return mouse_button_up(button) &&
-               ((SDL_BUTTON((i32)button) & prev_buttons) != 0);
-    }
-
-    const math::vec2 &get_scroll_wheel() const {
-        return scroll_wheel;
-    }
-
-    void set_mouse_sensitivity(f32 s) {
-        mouse_sensitivity = s;
-    }
-
-    f32 get_mouse_sensitivity() const {
-        return mouse_sensitivity;
-    }
-
   private:
     friend class omega::core::App;
-
-    // keys
-    KeyManager key_manager;
-    math::vec2 mouse_pos{0.0f}, prev_mouse_pos{0.0f};
-    math::vec2 scroll_wheel{0.0f}; // mouse_pos relative to bottom left
-
-    // mouse
-    u32 buttons = 0;
-    u32 prev_buttons = 0;
-    bool relative_mode = false;
-
-    f32 mouse_sensitivity = 0.1f;
 };
 
 } // namespace omega::events

@@ -44,10 +44,7 @@ struct Particle {
         color.a = src_color.a +
             util::random<f32>(-a_diff_factor / 2.0f, a_diff_factor / 2.0f);
 
-        glm::clamp(color.r, 0.0f, 1.0f);
-        glm::clamp(color.g, 0.0f, 1.0f);
-        glm::clamp(color.b, 0.0f, 1.0f);
-        glm::clamp(color.a, 0.0f, 1.0f);
+        glm::clamp(color, glm::vec4(0.0f), glm::vec4(1.0f));
         return color;
     }
 
