@@ -90,6 +90,7 @@ static inline void print_(const std::string &color,
            "DEBUG",                        \
            __FILE__,                       \
            __LINE__,                       \
+           __FUNCTION__,                   \
            __VA_ARGS__)
 
 } // namespace omega::util
