@@ -96,7 +96,8 @@ class App {
         globals->scene.on_resize(width, height);
     }
 
-    void frame();
+    // Called each frame in the loop and represents the update, input, render
+    virtual void frame();
 
   protected:
     /**
