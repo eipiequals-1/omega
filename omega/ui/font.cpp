@@ -43,12 +43,26 @@ void Font::render(gfx::SpriteBatch &batch,
                   f32 py,
                   f32 height,
                   const math::vec4 &color) {
+    render(batch, text.c_str(), text.length(), px, py, height, color);
+}
+
+void Font::render(gfx::SpriteBatch &batch,
+                  const char *text,
+                  u32 length,
+                  f32 px,
+                  f32 py,
+                  f32 height,
+                  const math::vec4 &color) {
     f32 scale_factor = height / (f32)glyph_height;
 
     math::rectf src, dest;
     dest.x = px;
-    for (u32 i = 0; i < text.size(); ++i) {
+    for (u32 i = 0; i < length; ++i) {
         const char &c = text[i];
+        if (c == '\n') {
+            py -= height;
+            dest.x = px;
+        }
         const Char &char_loc = char_to_pos[c];
 
         src.x = char_loc.x;

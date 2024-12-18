@@ -37,6 +37,14 @@ class Font {
                 f32 height,
                 const math::vec4 &color = util::color::white);
 
+    void render(gfx::SpriteBatch &batch,
+                const char *text,
+                u32 length,
+                f32 px,
+                f32 py,
+                f32 height,
+                const math::vec4 &color = util::color::white);
+
     void render_centered(gfx::SpriteBatch &batch,
                          const std::string &text,
                          f32 px,
