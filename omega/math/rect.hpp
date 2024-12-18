@@ -89,6 +89,10 @@ struct rect {
                        static_cast<C>(w),
                        static_cast<C>(h));
     }
+
+    rect<T> from_translation(const vec2 &a) const {
+        return {x + a.x, y + a.y, w, h};
+    }
 };
 
 using rectf = rect<f32>;
