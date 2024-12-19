@@ -25,7 +25,7 @@ Please install SDL2 before building. Refer to [SDL Docs](https://wiki.libsdl.org
 
 Clone the repository including all the submodules:
 
-`git clone https://www.github.com/eipiequals-1/omega --recursive`
+`git clone https://www.github.com/planeflight/omega --recursive`
 
 `cd omega/`
 

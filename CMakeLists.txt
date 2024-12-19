@@ -7,11 +7,9 @@ file(GLOB_RECURSE SRC
      "omega/*.cpp"
 )
 
-SET (CMAKE_CXX_FLAGS "-Wall -Wextra -Wcast-qual -Wconversion-null -Wformat-security \
--Wmissing-declarations -Woverlength-strings -Wpointer-arith -Wundef \
--Wunused-local-typedefs -Wunused-result -Wvarargs -Wvla \
--Wwrite-strings -DNOMINMAX -fno-omit-frame-pointer \
--std=c++20 -fPIC")
+add_library(${PROJECT_NAME} SHARED ${SRC})
+
+include(cmake/CompilerWarnings.cmake)
 
 SET (CMAKE_CXX_FLAGS_DEBUG          "-g")
 SET (CMAKE_CXX_FLAGS_MINSIZEREL     "-Os -DNDEBUG")
@@ -22,7 +20,6 @@ include_directories(".")
 
 set (CMAKE_CXX_STANDARD 20)
 
-add_library(${PROJECT_NAME} SHARED ${SRC})
 
 # dependencies
 find_package(SDL2 REQUIRED)
