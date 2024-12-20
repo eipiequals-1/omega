@@ -9,19 +9,18 @@ Desktop applications have full geometry shader support, and web support is to be
 
 ### Dependencies
 
-- [SDL2](https://www.libsdl.org/)
+- [SDL3](https://www.libsdl.org/)
 - [stb](https://github.com/nothings/stb)
 - [Dear Imgui](https://github.com/ocornut/imgui)
 - [glm](https://github.com/g-truc/glm)
 - [box2d](https://github.com/erincatto/box2d)
 - [nlohmann/json](https://github.com/nlohmann/json)
+- [tomlplusplus](https://github.com/marzer/tomlplusplus)
 - [entt](https://github.com/skypjack/entt)
 - [glad](https://github.com/Dav1dde/glad)
 - [libtmx-parser](https://github.com/halsafar/libtmx-parser)
 
 ### Building
-
-Please install SDL2 before building. Refer to [SDL Docs](https://wiki.libsdl.org/SDL2/Installation) for step by step installation instructions.
 
 Clone the repository including all the submodules:
 
