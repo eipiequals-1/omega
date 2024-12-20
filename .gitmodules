@@ -1,9 +1,23 @@
 [submodule "lib/box2d"]
 	path = lib/box2d
 	url = https://github.com/erincatto/box2d.git
-[submodule "lib/sol2"]
-	path = lib/sol2
-	url = https://github.com/ThePhD/sol2.git
 [submodule "lib/SDL"]
 	path = lib/SDL
 	url = https://github.com/libsdl-org/SDL
+[submodule "lib/SDL_image"]
+	path = lib/SDL_image
+	url = https://github.com/libsdl-org/SDL_image.git
+[submodule "lib/SDL_mixer"]
+	path = lib/SDL_mixer
+	url = https://github.com/libsdl-org/SDL_mixer.git
+[submodule "lib/implot"]
+	path = lib/implot
+	url = https://github.com/epezent/implot.git
+[submodule "lib/--force"]
+	path = lib/--force
+	url = https://github.com/ocornut/imgui.git
+	branch = docking
+[submodule "lib/imgui"]
+	path = lib/imgui
+	url = https://github.com/ocornut/imgui.git
+	branch = docking
