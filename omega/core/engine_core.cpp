@@ -6,7 +6,7 @@
 #include <imgui/imgui.h>
 #include <imgui/imgui_impl_opengl3.h>
 #include <imgui/imgui_impl_sdl3.h>
-#include <implot/implot.h>
+#include <imgui/implot.h>
 
 #include "SDL3/SDL_init.h"
 #include "omega/core/window.hpp"
@@ -70,11 +70,6 @@ void quit(bool imgui) {
         quit_imgui();
         util::info("Successfully quit ImGui.");
     }
-    SDL_QuitSubSystem(SDL_INIT_VIDEO);
-    SDL_QuitSubSystem(SDL_INIT_AUDIO);
-    SDL_QuitSubSystem(SDL_INIT_EVENTS);
-    SDL_Quit();
-    util::info("Successfully closed libraries.");
 }
 
 } // namespace omega::core

@@ -16,6 +16,12 @@ Window::~Window() {
         SDL_DestroyWindow(window);
     }
     window = nullptr;
+    SDL_QuitSubSystem(SDL_INIT_VIDEO);
+    SDL_QuitSubSystem(SDL_INIT_AUDIO);
+    SDL_QuitSubSystem(SDL_INIT_EVENTS);
+    SDL_Quit();
+    util::info("Successfully closed libraries.");
+
     util::info("Successfully quit application.");
 }
 

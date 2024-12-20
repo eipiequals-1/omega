@@ -10,3 +10,7 @@
 [submodule "lib/SDL_mixer"]
 	path = lib/SDL_mixer
 	url = https://github.com/libsdl-org/SDL_mixer.git
+[submodule "lib/imgui"]
+	path = lib/imgui
+	url = https://github.com/planeflight/imgui.git
+	branch = docking
