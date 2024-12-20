@@ -17,46 +17,22 @@ SET (CMAKE_CXX_FLAGS_RELEASE        "-O4 -DNDEBUG")
 SET (CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O2 -g")
 
 include_directories(".")
+include_directories("lib")
 
 set (CMAKE_CXX_STANDARD 20)
 
-
 # dependencies
-find_package(SDL2 REQUIRED)
-
-add_subdirectory(lib/box2d)
-add_subdirectory(lib/imgui)
-add_subdirectory(lib/glad)
-add_subdirectory(lib/stb)
-add_subdirectory(lib/libtmx-parser)
-add_subdirectory(lib/tomlplusplus)
+add_subdirectory(lib)
 
 target_include_directories(${PROJECT_NAME}
+    PUBLIC lib/SDL/include/
+    PUBLIC lib/SDL_image/include/
+    PUBLIC lib/SDL_mixer/include/
     PUBLIC lib/box2d/include/
     PUBLIC lib/glad/include/
-    PUBLIC lib/sol2/include/
-    PUBLIC lib/tomlplusplus/
-    PUBLIC lib/lua/src/
-    PUBLIC lib/
 )
 
-target_link_libraries(${PROJECT_NAME}
-    SDL2
-    SDL2_image
-    SDL2_ttf
-    SDL2_mixer
-    box2d
-    imgui
-    glad
-    stb
-    libtmx-parser
-    tomlplusplus
+target_link_libraries(${PROJECT_NAME} PUBLIC
+    lib
 )
-target_link_directories(${PROJECT_NAME}
-    PUBLIC lib/box2d/bin/
-    PUBLIC lib/imgui/
-    PUBLIC lib/glad/
-    PUBLIC lib/stb/
-    PUBLIC lib/libtmx-parser/
-    PUBLIC lib/tomlplusplus/
-)
+
