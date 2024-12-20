@@ -1,18 +1,18 @@
 #include "app.hpp"
 
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
-#include <SDL2/SDL_ttf.h>
+#include <SDL3/SDL.h>
+#include <SDL3_image/SDL_image.h>
+#include <imgui/imgui_impl_sdl3.h>
 
 #include <fstream>
+#include <json/json.hpp>
+#include <tomlplusplus/toml.hpp>
 
-#include "imgui/imgui_impl_sdl.h"
-#include "json/json.hpp"
 #include "omega/core/engine_core.hpp"
+#include "omega/events/event.hpp"
 #include "omega/math/math.hpp"
 #include "omega/util/log.hpp"
 #include "omega/util/time.hpp"
-#include "tomlplusplus/toml.hpp"
 
 namespace omega::core {
 
@@ -124,24 +124,21 @@ void App::frame() {
     events::Event event;
     while (input.poll_events(event)) {
         if (imgui) {
-            ImGui_ImplSDL2_ProcessEvent(&event);
+            ImGui_ImplSDL3_ProcessEvent(&event);
         }
         switch ((events::EventType)event.type) {
             case events::EventType::quit:
                 running = false;
                 break;
-            case events::EventType::window_event:
-                if (event.window.event ==
-                    (u32)events::WindowEvents::window_resized) {
-                    // change window width, height data
-                    Window::instance()->on_resize(event.window.data1,
-                                                  event.window.data2);
-                    on_resize(event.window.data1, event.window.data2);
-                }
-                break;
             case events::EventType::mouse_wheel:
                 input.mouse.scroll_wheel =
                     math::vec2((f32)event.wheel.x, (f32)event.wheel.y);
+            case events::EventType::window_resized:
+                // change window width, height data
+                Window::instance()->on_resize(event.window.data1,
+                                              event.window.data2);
+                on_resize(event.window.data1, event.window.data2);
+
             default:
                 break;
         }

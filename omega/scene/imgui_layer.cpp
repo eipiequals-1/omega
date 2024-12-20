@@ -1,8 +1,8 @@
 #include "imgui_layer.hpp"
 
-#include "lib/imgui/imgui.h"
-#include "lib/imgui/imgui_impl_opengl3.h"
-#include "lib/imgui/imgui_impl_sdl.h"
+#include <imgui/imgui.h>
+#include <imgui/imgui_impl_opengl3.h>
+#include <imgui/imgui_impl_sdl3.h>
 
 namespace omega::scene {
 
@@ -18,7 +18,7 @@ ImGuiLayer::ImGuiLayer(Window *window)
 
     ImGui::StyleColorsDark();
 
-    ImGui_ImplSDL2_InitForOpenGL(window->get_native_window(),
+    ImGui_ImplSDL3_InitForOpenGL(window->get_native_window(),
                                  window->get_gl_context());
     const char version[] = "#version 450";
     ImGui_ImplOpenGL3_Init(version);
@@ -26,7 +26,7 @@ ImGuiLayer::ImGuiLayer(Window *window)
 
 ImGuiLayer::~ImGuiLayer() {
     ImGui_ImplOpenGL3_Shutdown();
-    ImGui_ImplSDL2_Shutdown();
+    ImGui_ImplSDL3_Shutdown();
     ImGui::DestroyContext();
 }
 
@@ -63,12 +63,12 @@ void ImGuiLayer::set_dark_theme() {
 }
 
 void ImGuiLayer::input(Event &event) {
-    ImGui_ImplSDL2_ProcessEvent(&event);
+    ImGui_ImplSDL3_ProcessEvent(&event);
 }
 
 void ImGuiLayer::begin() {
     ImGui_ImplOpenGL3_NewFrame();
-    ImGui_ImplSDL2_NewFrame();
+    ImGui_ImplSDL3_NewFrame();
     ImGui::NewFrame();
 }
 

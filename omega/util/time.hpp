@@ -1,8 +1,6 @@
 #ifndef OMEGA_UTIL_TIME_HPP
 #define OMEGA_UTIL_TIME_HPP
 
-#include <SDL2/SDL.h>
-
 #include <chrono>
 #include <thread>
 

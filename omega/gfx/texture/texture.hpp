@@ -1,7 +1,7 @@
 #ifndef OMEGA_GFX_TEXTURE_TEXTURE_HPP
 #define OMEGA_GFX_TEXTURE_TEXTURE_HPP
 
-#include <SDL2/SDL_image.h>
+#include <SDL3_image/SDL_image.h>
 #include <stb/stb_image.h>
 
 #include <cstring>
@@ -204,11 +204,16 @@ class Texture {
             bmask = 0x00ff0000;
             amask = 0xff000000;
         }
-        SDL_Surface *surf = SDL_CreateRGBSurfaceFrom(
-            pixels, width, height, 32, 4 * width, rmask, gmask, bmask, amask);
+        SDL_Surface *surf = SDL_CreateSurfaceFrom(
+            width,
+            height,
+            SDL_GetPixelFormatForMasks(32, rmask, gmask, bmask, amask),
+            pixels,
+            4 * width);
+
         // save in current working directory
         SDL_SaveBMP(surf, file_name.c_str());
-        SDL_FreeSurface(surf);
+        SDL_DestroySurface(surf);
     }
 
     /**

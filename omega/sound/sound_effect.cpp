@@ -11,7 +11,7 @@ SoundEffect::SoundEffect(const std::string &filepath) : chunk(nullptr) {
             "SDL mixer: Failed to load sound from file '{}'\n SDL mixer "
             "Traceback '{}'",
             filepath,
-            Mix_GetError());
+            SDL_GetError());
     }
 }
 

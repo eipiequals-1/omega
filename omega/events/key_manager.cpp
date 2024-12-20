@@ -1,6 +1,6 @@
 #include "key_manager.hpp"
 
-#include <SDL2/SDL.h>
+#include <SDL3/SDL.h>
 
 #include <iostream>
 
@@ -9,12 +9,12 @@ namespace omega::events {
 KeyManager::KeyManager() : keys_current_frame(nullptr) {
     keys_current_frame = SDL_GetKeyboardState(nullptr);
     // clear previous state memory
-    memset(keys_last_frame, 0, SDL_NUM_SCANCODES); // 0 is temp memory address
+    memset(keys_last_frame, 0, SDL_SCANCODE_COUNT); // 0 is temp memory address
 }
 
 void KeyManager::prepare_for_update() {
     // copy current frame to last frame
-    memcpy(keys_last_frame, keys_current_frame, SDL_NUM_SCANCODES);
+    memcpy(keys_last_frame, keys_current_frame, SDL_SCANCODE_COUNT);
 }
 
 void KeyManager::update() {

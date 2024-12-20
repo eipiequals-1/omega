@@ -1,7 +1,7 @@
 #ifndef OMEGA_EVENT_KEYMANAGER_HPP
 #define OMEGA_EVENT_KEYMANAGER_HPP
 
-#include <SDL2/SDL.h>
+#include <SDL3/SDL.h>
 
 #include "omega/events/event.hpp"
 #include "omega/util/types.hpp"
@@ -64,9 +64,9 @@ class KeyManager {
 
   private:
     // copy of the key state for the last frame
-    u8 keys_last_frame[SDL_NUM_SCANCODES];
+    bool keys_last_frame[SDL_SCANCODE_COUNT];
     // where SDL stores the keys
-    const u8 *keys_current_frame;
+    const bool *keys_current_frame;
 };
 
 } // namespace omega::events

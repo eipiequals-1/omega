@@ -1,7 +1,7 @@
 #ifndef OMEGA_SOUND_SOUNDEFFECT_HPP
 #define OMEGA_SOUND_SOUNDEFFECT_HPP
 
-#include <SDL2/SDL_mixer.h>
+#include <SDL3_mixer/SDL_mixer.h>
 
 #include <string>
 

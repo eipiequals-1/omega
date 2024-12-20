@@ -11,7 +11,7 @@ Music::Music(const std::string &filepath) : music(nullptr) {
             "SDL mixer: Failed to load music from file '{}'\n SDL mixer "
             "Traceback '{}'",
             filepath,
-            Mix_GetError());
+            SDL_GetError());
     }
 }
 

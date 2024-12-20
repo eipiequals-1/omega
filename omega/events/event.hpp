@@ -1,8 +1,8 @@
 #ifndef OMEGA_EVENTS_EVENT_HPP
 #define OMEGA_EVENTS_EVENT_HPP
 
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_events.h>
+#include <SDL3/SDL.h>
+#include <SDL3/SDL_events.h>
 
 namespace omega::events {
 
@@ -12,15 +12,17 @@ using Event = SDL_Event;
  * Describes possible events
  */
 enum class EventType {
-    quit = SDL_QUIT,
-    window_event = SDL_WINDOWEVENT,
-    key_down = SDL_KEYDOWN,
-    key_up = SDL_KEYUP,
-    mouse_button_down = SDL_MOUSEBUTTONDOWN,
-    mouse_button_up = SDL_MOUSEBUTTONUP,
-    mouse_wheel = SDL_MOUSEWHEEL,
-    text_input = SDL_TEXTINPUT,
-    text_editing = SDL_TEXTEDITING
+    quit = SDL_EVENT_QUIT,
+    display_first = SDL_EVENT_DISPLAY_FIRST,
+    window_resized = SDL_EVENT_WINDOW_RESIZED,
+    display_last = SDL_EVENT_DISPLAY_LAST,
+    key_down = SDL_EVENT_KEY_DOWN,
+    key_up = SDL_EVENT_KEY_UP,
+    mouse_button_down = SDL_EVENT_MOUSE_BUTTON_DOWN,
+    mouse_button_up = SDL_EVENT_MOUSE_BUTTON_UP,
+    mouse_wheel = SDL_EVENT_MOUSE_WHEEL,
+    text_input = SDL_EVENT_TEXT_INPUT,
+    text_editing = SDL_EVENT_TEXT_EDITING
 };
 
 /**
@@ -87,8 +89,6 @@ enum class Key {
     k_l_ctrl = SDL_SCANCODE_LCTRL,
 
 };
-
-enum class WindowEvents { window_resized = SDL_WINDOWEVENT_RESIZED };
 
 } // namespace omega::events
 

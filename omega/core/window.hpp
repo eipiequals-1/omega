@@ -1,7 +1,7 @@
 #ifndef OMEGA_CORE_WINDOW_HPP
 #define OMEGA_CORE_WINDOW_HPP
 
-#include <SDL2/SDL.h>
+#include <SDL3/SDL.h>
 
 #include <cstdint>
 #include <string>

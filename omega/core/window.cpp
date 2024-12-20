@@ -9,14 +9,13 @@ namespace omega::core {
 
 Window::~Window() {
     if (context != nullptr) {
-        SDL_GL_DeleteContext(context);
+        SDL_GL_DestroyContext(context);
     }
     context = nullptr;
     if (window != nullptr) {
         SDL_DestroyWindow(window);
     }
     window = nullptr;
-    SDL_Quit();
     util::info("Successfully quit application.");
 }
 
@@ -26,7 +25,7 @@ bool Window::init(u32 width,
                   const std::string &title) {
     this->width = width;
     this->height = height;
-    if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_EVENTS) != 0) {
+    if (!SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_EVENTS)) {
         util::err("Failed to initialize SDL: '{}'", SDL_GetError());
         return false;
     }
@@ -60,12 +59,8 @@ bool Window::init(u32 width,
     auto window_flags = resizable
                             ? (WindowFlags::opengl | WindowFlags::resizable)
                             : WindowFlags::opengl;
-    window = SDL_CreateWindow(title.c_str(),
-                              SDL_WINDOWPOS_CENTERED,
-                              SDL_WINDOWPOS_CENTERED,
-                              width,
-                              height,
-                              window_flags);
+    // INFO: or can use SDL_CreateWindowWithProperties to specify pos
+    window = SDL_CreateWindow(title.c_str(), width, height, window_flags);
     if (window == nullptr) {
         util::err("Failed to create window: '{}'", SDL_GetError());
         return false;
@@ -78,7 +73,7 @@ bool Window::init(u32 width,
         return false;
     }
     util::info("OpenGL Context successfully created.");
-    if (SDL_GL_SetSwapInterval(0) == -1) {
+    if (!SDL_GL_SetSwapInterval(0)) {
         util::err("Failed to disable Vsync: '{}'", SDL_GetError());
         return false;
     }
@@ -86,7 +81,7 @@ bool Window::init(u32 width,
 
 #ifndef EMSCRIPTEN
     // initialize glad
-    if (gladLoadGLLoader(SDL_GL_GetProcAddress) == 0) {
+    if (gladLoadGLLoader((GLADloadproc)SDL_GL_GetProcAddress) == 0) {
         util::err("Failed to initialize Glad");
         return false;
     }

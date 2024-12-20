@@ -1,8 +1,8 @@
 #ifndef OMEGA_EVENTS_INPUTMANAGER_HPP
 #define OMEGA_EVENTS_INPUTMANAGER_HPP
 
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_events.h>
+#include <SDL3/SDL.h>
+#include <SDL3/SDL_events.h>
 
 #include <cstdint>
 

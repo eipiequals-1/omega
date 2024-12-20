@@ -1,8 +1,6 @@
 #ifndef OMEGA_SCENE_TILED_MAP_HPP
 #define OMEGA_SCENE_TILED_MAP_HPP
 
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
 #include <libtmx-parser/tmxparser.h>
 
 #include <string>

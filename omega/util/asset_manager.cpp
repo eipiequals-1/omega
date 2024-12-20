@@ -1,6 +1,6 @@
 #include "asset_manager.hpp"
 
-#include <SDL2/SDL_mixer.h>
+#include <SDL3_mixer/SDL_mixer.h>
 
 #include "omega/util/log.hpp"
 
@@ -9,15 +9,22 @@ namespace omega::util {
 AssetManager::AssetManager() {
     if (Mix_Init(MIX_INIT_MP3 | MIX_INIT_FLAC | MIX_INIT_OGG) == 0) {
         util::err("SDL_mixer error: Failed to initialize! '{}'",
-                  Mix_GetError());
+                  SDL_GetError());
     }
     // sound frequency,
     // sample format,
     // # hardware channels,
     // sample size (2048 bytes)
-    if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) != 0) {
+    SDL_AudioDeviceID id;
+    SDL_AudioSpec spec;
+    spec.freq = 44100;
+    spec.format = MIX_DEFAULT_FORMAT;
+    spec.channels = 2;
+    if (!Mix_OpenAudio(0, &spec)) {
         util::err("SDL_mixer error: Failed to open mixer! '{}'",
-                  Mix_GetError());
+                  SDL_GetError());
+    } else {
+        Mix_QuerySpec(&spec.freq, &spec.format, &spec.channels);
     }
 }
 

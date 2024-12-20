@@ -1,9 +1,10 @@
 #ifndef OMEGA_EVENTS_MOUSE_HPP
 #define OMEGA_EVENTS_MOUSE_HPP
 
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_stdinc.h>
+#include <SDL3/SDL.h>
+#include <SDL3/SDL_mouse.h>
 
+#include "omega/core/window.hpp"
 #include "omega/events/event.hpp"
 #include "omega/math/math.hpp"
 #include "omega/util/types.hpp"
@@ -17,7 +18,8 @@ struct Mouse {
      * @param mode
      */
     void set_relative_mode(bool mode) {
-        SDL_SetRelativeMouseMode(mode ? SDL_TRUE : SDL_FALSE);
+        SDL_SetWindowRelativeMouseMode(
+            core::Window::instance()->get_native_window(), mode);
         relative_mode = mode;
     }
 
@@ -39,7 +41,7 @@ struct Mouse {
      * @return if the button passes the test
      */
     bool button_down(MouseButton button) const {
-        return (SDL_BUTTON((i32)button) & buttons) != 0;
+        return (SDL_BUTTON_MASK((i32)button) & buttons) != 0;
     }
 
     /**
@@ -48,7 +50,7 @@ struct Mouse {
      * @return if the button passes the test
      */
     bool button_up(MouseButton button) const {
-        return (SDL_BUTTON((i32)button) & buttons) == 0;
+        return (SDL_BUTTON_MASK((i32)button) & buttons) == 0;
     }
 
     /**
@@ -58,7 +60,7 @@ struct Mouse {
      */
     bool button_just_pressed(MouseButton button) const {
         return button_down(button) &&
-               ((SDL_BUTTON((i32)button) & prev_buttons) == 0);
+               ((SDL_BUTTON_MASK((i32)button) & prev_buttons) == 0);
     }
 
     /**
@@ -68,7 +70,7 @@ struct Mouse {
      */
     bool button_just_released(MouseButton button) const {
         return button_up(button) &&
-               ((SDL_BUTTON((i32)button) & prev_buttons) != 0);
+               ((SDL_BUTTON_MASK((i32)button) & prev_buttons) != 0);
     }
 
     const math::vec2 &get_scroll_wheel() const {
