@@ -42,11 +42,14 @@ enum class Key {
     k_enter = SDL_SCANCODE_RETURN,
     k_space = SDL_SCANCODE_SPACE,
     k_backspace = SDL_SCANCODE_BACKSPACE,
+    k_delete = SDL_SCANCODE_DELETE,
     k_tab = SDL_SCANCODE_TAB,
     k_left = SDL_SCANCODE_LEFT,
     k_right = SDL_SCANCODE_RIGHT,
     k_up = SDL_SCANCODE_UP,
     k_down = SDL_SCANCODE_DOWN,
+
+    k_l_shift = SDL_SCANCODE_LSHIFT,
 
     k_0 = SDL_SCANCODE_0,
     k_1 = SDL_SCANCODE_1,
