@@ -10,7 +10,7 @@ namespace omega::core {
 
 inline void assert_(bool c, const std::string &msg = "", bool critical = true) {
     if (!c) {
-        util::err("ASSERTION FAILED: {}", msg);
+        OMEGA_ERROR("ASSERTION FAILED: {}", msg);
         if (critical) {
             std::exit(EXIT_FAILURE);
         }

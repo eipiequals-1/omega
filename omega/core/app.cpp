@@ -97,7 +97,7 @@ App::App(const AppConfig &config) {
     imgui = config.imgui;
     setup_imgui(window);
     if (imgui) {
-        util::info("Dear Imgui successfully initialized.");
+        OMEGA_INFO("Dear Imgui successfully initialized.");
     }
 }
 

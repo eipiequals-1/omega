@@ -20,9 +20,9 @@ Window::~Window() {
     SDL_QuitSubSystem(SDL_INIT_AUDIO);
     SDL_QuitSubSystem(SDL_INIT_EVENTS);
     SDL_Quit();
-    util::info("Successfully closed libraries.");
+    OMEGA_INFO("Successfully closed libraries.");
 
-    util::info("Successfully quit application.");
+    OMEGA_INFO("Successfully quit application.");
 }
 
 bool Window::init(u32 width,
@@ -32,7 +32,7 @@ bool Window::init(u32 width,
     this->width = width;
     this->height = height;
     if (!SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_EVENTS)) {
-        util::err("Failed to initialize SDL: '{}'", SDL_GetError());
+        OMEGA_ERROR("Failed to initialize SDL: '{}'", SDL_GetError());
         return false;
     }
 
@@ -68,31 +68,31 @@ bool Window::init(u32 width,
     // INFO: or can use SDL_CreateWindowWithProperties to specify pos
     window = SDL_CreateWindow(title.c_str(), width, height, window_flags);
     if (window == nullptr) {
-        util::err("Failed to create window: '{}'", SDL_GetError());
+        OMEGA_ERROR("Failed to create window: '{}'", SDL_GetError());
         return false;
     }
-    util::info("Window created successfully.");
+    OMEGA_INFO("Window created successfully.");
 
     context = SDL_GL_CreateContext(window);
     if (context == nullptr) {
-        util::err("Failed to create GL Context: '{}'", SDL_GetError());
+        OMEGA_ERROR("Failed to create GL Context: '{}'", SDL_GetError());
         return false;
     }
-    util::info("OpenGL Context successfully created.");
+    OMEGA_INFO("OpenGL Context successfully created.");
     if (!SDL_GL_SetSwapInterval(0)) {
-        util::err("Failed to disable Vsync: '{}'", SDL_GetError());
+        OMEGA_ERROR("Failed to disable Vsync: '{}'", SDL_GetError());
         return false;
     }
-    util::info("Disabled Vsync.");
+    OMEGA_INFO("Disabled Vsync.");
 
 #ifndef EMSCRIPTEN
     // initialize glad
     if (gladLoadGLLoader((GLADloadproc)SDL_GL_GetProcAddress) == 0) {
-        util::err("Failed to initialize Glad");
+        OMEGA_ERROR("Failed to initialize Glad");
         return false;
     }
 #endif
-    util::info("OpenGL API successfully loaded.");
+    OMEGA_INFO("OpenGL API successfully loaded.");
     return true;
 }
 

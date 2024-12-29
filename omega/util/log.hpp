@@ -64,35 +64,35 @@ static inline void print_(const std::string &color,
     std::cout << stream.str() << '\n';
 }
 
-#define err(...)                        \
-    print_(omega::util::log_color::red, \
-           "ERROR",                     \
-           __FILE__,                    \
-           __LINE__,                    \
-           __FUNCTION__,                \
-           __VA_ARGS__)
-#define warn(...)                       \
-    print_(omega::util::log_color::red, \
-           "WARN",                      \
-           __FILE__,                    \
-           __LINE__,                    \
-           __FUNCTION__,                \
-           __VA_ARGS__)
-#define info(...)                        \
-    print_(omega::util::log_color::cyan, \
-           "INFO",                       \
-           __FILE__,                     \
-           __LINE__,                     \
-           __FUNCTION__,                 \
-           __VA_ARGS__)
-#define debug(...)                         \
-    print_(omega::util::log_color::yellow, \
-           "DEBUG",                        \
-           __FILE__,                       \
-           __LINE__,                       \
-           __FUNCTION__,                   \
-           __VA_ARGS__)
-
 } // namespace omega::util
+
+#define OMEGA_ERROR(...)                             \
+    omega::util::print_(omega::util::log_color::red, \
+                        "ERROR",                     \
+                        __FILE__,                    \
+                        __LINE__,                    \
+                        __FUNCTION__,                \
+                        __VA_ARGS__)
+#define OMEGA_WARN(...)                              \
+    omega::util::print_(omega::util::log_color::red, \
+                        "WARN",                      \
+                        __FILE__,                    \
+                        __LINE__,                    \
+                        __FUNCTION__,                \
+                        __VA_ARGS__)
+#define OMEGA_INFO(...)                               \
+    omega::util::print_(omega::util::log_color::cyan, \
+                        "INFO",                       \
+                        __FILE__,                     \
+                        __LINE__,                     \
+                        __FUNCTION__,                 \
+                        __VA_ARGS__)
+#define OMEGA_DEBUG(...)                                \
+    omega::util::print_(omega::util::log_color::yellow, \
+                        "DEBUG",                        \
+                        __FILE__,                       \
+                        __LINE__,                       \
+                        __FUNCTION__,                   \
+                        __VA_ARGS__)
 
 #endif // OMEGA_UTIL_LOG_HPP

@@ -53,7 +53,7 @@ util::uptr<u32[]> Texture::get_pixels() {
 #ifdef EMSCRIPTEN
     // TODO: implement this functionality by storing pixels within the Texture
     // class
-    omega::util::err("Functionality not available for GLES2!");
+    omega::OMEGA_ERROR("Functionality not available for GLES2!");
 #else
     glGetTexImage(GL_TEXTURE_2D, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels.get());
 #endif

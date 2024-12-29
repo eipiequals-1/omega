@@ -105,7 +105,7 @@ void FrameBuffer::resize(u32 width,
     }
     // check if it was successful
     if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
-        util::warn("Frame Buffer Error: Frame Buffer is not complete!");
+        OMEGA_WARN("Frame Buffer Error: Frame Buffer is not complete!");
     }
 
     // unbind everything

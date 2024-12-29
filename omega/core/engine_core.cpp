@@ -68,7 +68,7 @@ bool init() {
 void quit(bool imgui) {
     if (imgui) {
         quit_imgui();
-        util::info("Successfully quit ImGui.");
+        OMEGA_INFO("Successfully quit ImGui.");
     }
 }
 

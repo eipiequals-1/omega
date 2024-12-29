@@ -87,7 +87,7 @@ inline bool check_error() {
                 break;
 #endif
         }
-        util::warn("[OpenGL Error] ({}: {})", error, error_string);
+        OMEGA_WARN("[OpenGL Error] ({}: {})", error, error_string);
         count++;
     }
     return count > 0;
