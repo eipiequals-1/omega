@@ -17,8 +17,6 @@ inline void assert_(bool c, const std::string &msg = "", bool critical = true) {
     }
 }
 
-#define assert(c, ...) assert_(c, __VA_ARGS__)
-
 struct Error {
     enum Type {
         OUT_OF_MEMORY,
@@ -28,6 +26,7 @@ struct Error {
 
     enum Level { WARN = 0, ERROR, FATAL };
 };
+#define OMEGA_ASSERT(c, ...) omega::core::assert_(c, __VA_ARGS__)
 
 } // namespace omega::core
 

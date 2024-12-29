@@ -37,8 +37,8 @@ class BumpAllocator {
             used += aligned_size;
             return mem + used;
         }
-        omega::core::assert(
-            false, "Bump Allocator of size {} bytes ran out of memory");
+        OMEGA_ASSERT(false,
+                     "Bump Allocator of size {} bytes ran out of memory");
         return nullptr;
     }
 
