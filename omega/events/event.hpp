@@ -48,6 +48,8 @@ enum class Key {
     k_right = SDL_SCANCODE_RIGHT,
     k_up = SDL_SCANCODE_UP,
     k_down = SDL_SCANCODE_DOWN,
+    k_minus = SDL_SCANCODE_MINUS,
+    k_plus = SDL_SCANCODE_EQUALS,
 
     k_l_shift = SDL_SCANCODE_LSHIFT,
 
