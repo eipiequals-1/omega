@@ -30,6 +30,7 @@ target_include_directories(${PROJECT_NAME}
     PUBLIC lib/SDL_mixer/include/
     PUBLIC lib/box2d/include/
     PUBLIC lib/glad/include/
+    PUBLIC lib/freetype/include/
 )
 
 target_link_libraries(${PROJECT_NAME} PUBLIC

@@ -9,6 +9,7 @@ add_subdirectory(json)
 add_subdirectory(libtmx-parser)
 add_subdirectory(stb)
 add_subdirectory(tomlplusplus)
+add_subdirectory(freetype)
 
 add_library(lib INTERFACE)
 target_link_libraries(lib INTERFACE SDL3::SDL3)
@@ -22,4 +23,5 @@ target_link_libraries(lib INTERFACE json)
 target_link_libraries(lib INTERFACE libtmx-parser)
 target_link_libraries(lib INTERFACE stb)
 target_link_libraries(lib INTERFACE tomlplusplus)
+target_link_libraries(lib INTERFACE freetype)
 
