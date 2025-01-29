@@ -28,6 +28,10 @@ struct Error {
 };
 #define OMEGA_ASSERT(c, ...) omega::core::assert_(c, __VA_ARGS__)
 
+#define OMEGA_UNIMPLEMENTED()                       \
+    OMEGA_ERROR("UNIMPLEMENTED: {}", __FUNCTION__); \
+    std::exit(EXIT_FAILURE)
+
 } // namespace omega::core
 
 #endif // OMEGA_CORE_ERROR_HPP
